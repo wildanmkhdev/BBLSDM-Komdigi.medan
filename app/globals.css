@@ -1,0 +1,181 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+@import "tailwindcss";
+
+/* ============================================
+   Design Tokens — STYLES.md §1
+   ============================================ */
+:root {
+  /* Navbar */
+  --color-navbar-bg: #ffffff;
+  --color-navbar-border: #1a3a5c;
+
+  /* Navigation text */
+  --color-nav-text-default: #4a5568;
+  --color-nav-text-hover: #38bdf8;
+
+  /* Backgrounds */
+  --color-bg-body: #ffffff;
+  --color-bg-section-alt: #f8fafc;
+
+  /* Card */
+  --color-card-bg: #ffffff;
+  --color-card-header: #1a3a5c;
+  --color-card-icon: #38bdf8;
+  --color-card-accent: #38bdf8;
+
+  /* CTA */
+  --color-cta-primary: #0ea5e9;
+  --color-cta-primary-hover: #0284c7;
+  --color-cta-secondary: #991b1b;
+  --color-cta-secondary-hover: #7f1d1d;
+
+  /* Badge */
+  --color-badge-highlight: #f59e0b;
+  --color-badge-highlight-text: #374151;
+
+  /* Status */
+  --color-status-warning: #f59e0b;
+  --color-status-error: #991b1b;
+  --color-status-info: #38bdf8;
+  --color-status-success: #1a3a5c;
+
+  /* Footer */
+  --color-footer-bg: #1a3a5c;
+  --color-footer-text: #ffffff;
+  --color-footer-accent: #f59e0b;
+
+  /* Typography */
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.08),
+    0 1px 2px -1px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 4px 12px 0 rgba(0, 0, 0, 0.12),
+    0 2px 4px -2px rgba(0, 0, 0, 0.08);
+
+  /* Radius */
+  --radius-card: 0.75rem;
+  --radius-btn: 0.5rem;
+}
+
+/* ============================================
+   Tailwind v4 theme extension
+   ============================================ */
+@theme {
+  --color-navy: #1a3a5c;
+  --color-navy-light: #234b73;
+  --color-sky-accent: #38bdf8;
+  --color-sky-primary: #0ea5e9;
+  --color-sky-dark: #0284c7;
+  --color-marun: #991b1b;
+  --color-gold: #f59e0b;
+  --color-offwhite: #f8fafc;
+  --color-body: #ffffff;
+  --color-text-dark: #1e293b;
+  --color-text-muted: #64748b;
+  --color-text-light: #94a3b8;
+  --font-family-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text-dark);
+  background-color: var(--color-bg-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   Section alternating backgrounds (§4.4)
+   ============================================ */
+.section-alt {
+  background-color: var(--color-bg-section-alt);
+}
+
+/* ============================================
+   Scrollbar styling
+   ============================================ */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ============================================
+   Card accent line animation
+   ============================================ */
+@keyframes accentGrow {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100%;
+  }
+}
+
+/* ============================================
+   FAQ Accordion animation
+   ============================================ */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    max-height: 500px;
+  }
+  to {
+    opacity: 0;
+    max-height: 0;
+  }
+}
+
+/* ============================================
+   Star rating styles
+   ============================================ */
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+.star-rating label {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #d1d5db;
+  transition: color 0.15s ease;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input[type="radio"]:checked ~ label {
+  color: var(--color-badge-highlight);
+}

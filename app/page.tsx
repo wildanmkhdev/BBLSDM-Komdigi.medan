@@ -1,9 +1,10 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <h2>halo woi ridho</h2>
+    <div className="flex flex-col flex-1 items-center justify-center bg-offwhite font-sans">
+      <h2 className="text-2xl font-bold text-navy">
+        BBLSDM Komdigi Medan
+      </h2>
+      <p className="text-text-muted mt-2">Halaman Beranda — milik branch wildan</p>
     </div>
   );
 }
