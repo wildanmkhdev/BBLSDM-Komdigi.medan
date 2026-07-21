@@ -24,19 +24,19 @@ Kamu sedang kerja di branch **`wildan`**. Kerjakan **HANYA** task di file ini.
 
 ### Fondasi (kerjakan lebih dulu — ini dipakai semua branch lain)
 
-- [ ] Setup token warna & tipografi jadi CSS variables/theme config sesuai `styles.md §1-2`
-- [ ] Perbaiki inkonsistensi warna wrapper vs navbar
-- [ ] Bangun komponen Navbar dengan dropdown untuk menu berjenjang (Profil, Informasi, Layanan, Publikasi, Statistik)
-- [ ] Hover state menu navbar → warna sesuai `--color-nav-text-hover`
-- [ ] Bangun komponen Footer sesuai `styles.md §3.10`
-- [ ] Bangun komponen Hero Banner, perbesar dimensi agar proporsional & menonjol
-- [ ] Assemble halaman Beranda (pasang Navbar, Hero, Footer, layout dasar)
+- [x] Setup token warna & tipografi jadi CSS variables/theme config sesuai `styles.md §1-2`
+- [x] Perbaiki inkonsistensi warna wrapper vs navbar
+- [x] Bangun komponen Navbar dengan dropdown untuk menu berjenjang (Profil, Informasi, Layanan, Publikasi, Statistik)
+- [x] Hover state menu navbar → warna sesuai `--color-nav-text-hover`
+- [x] Bangun komponen Footer sesuai `styles.md §3.10`
+- [x] Bangun komponen Hero Banner, perbesar dimensi agar proporsional & menonjol
+- [x] Assemble halaman Beranda (pasang Navbar, Hero, Footer, layout dasar)
 
 ### Halaman Profil (bagian kamu)
 
-- [ ] Halaman Sejarah: galeri gambar historis + tipografi body yang nyaman dibaca
-- [ ] Halaman Visi & Misi (halaman baru)
-- [ ] Halaman Struktur Organisasi: bagan kepengurusan + deskripsi tugas & fungsi tiap jabatan
+- [x] Halaman Sejarah: galeri gambar historis + tipografi body yang nyaman dibaca
+- [x] Halaman Visi & Misi (halaman baru)
+- [x] Halaman Struktur Organisasi: bagan kepengurusan + deskripsi tugas & fungsi tiap jabatan
 
 ## Definition of Done
 
