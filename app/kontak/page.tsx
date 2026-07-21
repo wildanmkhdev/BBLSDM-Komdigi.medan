@@ -25,9 +25,9 @@ export default function KontakPage() {
   };
 
   return (
-    <main className="flex-1 bg-[#f8f9fa] dark:bg-zinc-950 min-h-screen">
+    <main className="flex-1 bg-bg-section-alt dark:bg-zinc-950 min-h-screen">
       {/* Header section */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-[#0a2540] via-[#0f345c] to-[#0a2540] py-16 px-6 text-white shadow-md">
+      <section className="relative overflow-hidden bg-gradient-to-r from-card-header via-card-header/90 to-card-header py-16 px-6 text-white shadow-md">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(0,212,255,0.15),transparent)] pointer-events-none" />
         <div className="max-w-6xl mx-auto space-y-4">
           <div className="flex items-center gap-2 text-xs font-semibold text-sky-400">
@@ -49,7 +49,7 @@ export default function KontakPage() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-stretch">
           
           {/* Info Card - Left (takes 2 cols on lg) */}
-          <div className="lg:col-span-2 relative overflow-hidden rounded-2xl bg-[#0a2540] text-white p-8 shadow-xl flex flex-col justify-between space-y-8">
+          <div className="lg:col-span-2 relative overflow-hidden rounded-2xl bg-card-header text-white p-8 shadow-xl flex flex-col justify-between space-y-8">
             <div className="absolute top-0 right-0 h-32 w-32 bg-[radial-gradient(circle_at_top_right,rgba(0,212,255,0.25),transparent)] pointer-events-none" />
             
             <div className="space-y-6">
@@ -59,7 +59,7 @@ export default function KontakPage() {
               
               {/* Address */}
               <div className="flex gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/10 text-[#00d4ff]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/10 text-card-icon">
                   <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -75,7 +75,7 @@ export default function KontakPage() {
 
               {/* Call/Fax */}
               <div className="flex gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/10 text-[#00d4ff]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/10 text-card-icon">
                   <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
@@ -91,7 +91,7 @@ export default function KontakPage() {
 
               {/* Work Hours */}
               <div className="flex gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/10 text-[#00d4ff]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/10 text-card-icon">
                   <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -110,10 +110,10 @@ export default function KontakPage() {
             <div className="rounded-xl overflow-hidden bg-white/5 border border-white/10 p-2 flex flex-col space-y-2">
               <div className="flex justify-between items-center px-1 text-[10px] text-gray-400">
                 <span className="font-bold">Peta Lokasi Kantor</span>
-                <span className="text-[#00d4ff]">Buka di Maps ↗</span>
+                <span className="text-nav-text-hover">Buka di Maps ↗</span>
               </div>
               {/* Custom graphic layout instead of heavy iframe */}
-              <div className="h-28 rounded-lg bg-[#0f345c] relative overflow-hidden flex items-center justify-center">
+              <div className="h-28 rounded-lg bg-card-header/90 relative overflow-hidden flex items-center justify-center">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,212,255,0.1),transparent)]" />
                 {/* SVG mock map lanes */}
                 <svg className="absolute inset-0 h-full w-full opacity-20" fill="none">
@@ -128,7 +128,7 @@ export default function KontakPage() {
                   </div>
                   <div className="h-2 w-0.5 bg-red-500" />
                 </div>
-                <div className="absolute bottom-2 left-2 z-10 bg-black/60 px-2 py-0.5 rounded text-[8px] font-bold">
+                <div className="absolute bottom-2 left-2 z-10 bg-black/60 px-2 py-0.5 rounded text-[8px] font-bold text-white">
                   BBLSDM Komdigi Medan
                 </div>
               </div>
@@ -138,7 +138,7 @@ export default function KontakPage() {
           {/* Form Card - Right (takes 3 cols on lg) */}
           <div className="lg:col-span-3 relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-8 shadow-md dark:border-zinc-800 dark:bg-zinc-900">
             {/* Left accent vertical line */}
-            <div className="absolute top-0 left-0 h-full w-[4px] bg-[#00d4ff]" />
+            <div className="absolute top-0 left-0 h-full w-[4px] bg-card-accent" />
 
             {isSubmitted ? (
               <div className="h-full flex flex-col items-center justify-center text-center py-16 space-y-4 animate-scale-up">
@@ -147,13 +147,13 @@ export default function KontakPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h2 className="text-xl font-bold text-[#0a2540] dark:text-white">Pesan Terkirim!</h2>
+                <h2 className="text-xl font-bold text-card-header dark:text-white">Pesan Terkirim!</h2>
                 <p className="text-xs text-gray-500 max-w-sm leading-relaxed dark:text-zinc-400">
                   Terima kasih atas pesan Anda. Tim Humas BBLSDM Komdigi Medan akan segera meninjau dan merespons pesan Anda dalam kurun waktu 1-2 hari kerja.
                 </p>
                 <button
                   onClick={() => setIsSubmitted(false)}
-                  className="mt-6 inline-flex items-center gap-1 text-xs font-bold text-[#00d4ff] hover:text-[#00b8e6] focus:outline-none"
+                  className="mt-6 inline-flex items-center gap-1 text-xs font-bold text-nav-text-hover hover:text-nav-text-hover/90 focus:outline-none"
                 >
                   Kirim Pesan Lainnya
                   <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
@@ -164,7 +164,7 @@ export default function KontakPage() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <h2 className="text-lg font-bold text-[#0a2540] dark:text-white mb-1">
+                  <h2 className="text-lg font-bold text-card-header dark:text-white mb-1">
                     Kirim Pesan Langsung
                   </h2>
                   <p className="text-xs text-gray-500 dark:text-zinc-400">
@@ -184,7 +184,7 @@ export default function KontakPage() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Masukkan nama Anda"
-                      className="w-full px-3 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00d4ff] focus:border-transparent dark:bg-zinc-800 dark:border-zinc-700 dark:text-white"
+                      className="w-full px-3 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-cta-primary focus:border-transparent dark:bg-zinc-800 dark:border-zinc-700 dark:text-white"
                     />
                   </div>
 
@@ -199,7 +199,7 @@ export default function KontakPage() {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="nama@domain.com"
-                      className="w-full px-3 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00d4ff] focus:border-transparent dark:bg-zinc-800 dark:border-zinc-700 dark:text-white"
+                      className="w-full px-3 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-cta-primary focus:border-transparent dark:bg-zinc-800 dark:border-zinc-700 dark:text-white"
                     />
                   </div>
                 </div>
@@ -212,7 +212,7 @@ export default function KontakPage() {
                   <select
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    className="w-full px-3 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00d4ff] dark:bg-zinc-800 dark:border-zinc-700 dark:text-white"
+                    className="w-full px-3 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-cta-primary dark:bg-zinc-800 dark:border-zinc-700 dark:text-white"
                   >
                     <option value="Umum">Pertanyaan Umum (Informasi / Galeri)</option>
                     <option value="Pelatihan">Program Pelatihan & Sertifikasi</option>
@@ -232,7 +232,7 @@ export default function KontakPage() {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Tuliskan pesan Anda secara mendetail di sini..."
-                    className="w-full px-3 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00d4ff] focus:border-transparent dark:bg-zinc-800 dark:border-zinc-700 dark:text-white resize-none"
+                    className="w-full px-3 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-cta-primary focus:border-transparent dark:bg-zinc-800 dark:border-zinc-700 dark:text-white resize-none"
                   />
                 </div>
 
@@ -240,7 +240,7 @@ export default function KontakPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-[#00d4ff] py-3 text-xs font-bold text-[#0a2540] shadow-sm transition-all duration-300 hover:bg-[#00b8e6] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#00d4ff] focus:ring-offset-2 active:scale-95 disabled:opacity-50"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-cta-primary py-3 text-xs font-bold text-white shadow-sm transition-all duration-300 hover:bg-cta-primary/90 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-cta-primary focus:ring-offset-2 active:scale-95 disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <>

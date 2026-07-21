@@ -25,8 +25,8 @@ const dataByYear: Record<string, PesertaData> = {
       { name: "Office Productivity", count: 600 }
     ],
     occupations: [
-      { name: "Mahasiswa / Pelajar", percentage: 40, color: "#00d4ff" },
-      { name: "Pekerja Swasta", percentage: 30, color: "#0a2540" },
+      { name: "Mahasiswa / Pelajar", percentage: 40, color: "var(--color-cta-primary)" },
+      { name: "Pekerja Swasta", percentage: 30, color: "var(--color-card-header)" },
       { name: "Wirausaha / UMKM", percentage: 18, color: "#8b5cf6" },
       { name: "PNS / ASN", percentage: 12, color: "#f59e0b" }
     ]
@@ -139,7 +139,7 @@ export default function StatistikPesertaPage() {
                   onClick={() => setSelectedYear(y)}
                   className={`px-4 py-1.5 text-xs font-bold rounded-md transition-all duration-300 ${
                     selectedYear === y
-                      ? "bg-[#0a2540] text-white shadow-sm dark:bg-[#00d4ff] dark:text-[#0a2540]"
+                      ? "bg-card-header text-white shadow-sm dark:bg-cta-primary dark:text-card-header"
                       : "text-gray-600 hover:text-gray-900 dark:text-zinc-400 dark:hover:text-white"
                   }`}
                 >
@@ -157,10 +157,10 @@ export default function StatistikPesertaPage() {
         {/* Dashboard KPI cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {/* Card 1 */}
-          <div className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-gray-100 dark:border-zinc-800 shadow-sm relative overflow-hidden group hover:border-[#00d4ff] transition-all duration-300">
-            <div className="absolute top-0 left-0 h-1 w-full bg-[#00d4ff]" />
+          <div className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-gray-100 dark:border-zinc-800 shadow-sm relative overflow-hidden group hover:border-card-accent transition-all duration-300">
+            <div className="absolute top-0 left-0 h-1 w-full bg-cta-primary" />
             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Total Terlatih</span>
-            <p className="text-2xl font-black text-[#0a2540] dark:text-white mt-1">
+            <p className="text-2xl font-black text-card-header dark:text-white mt-1">
               {currentYearData.totalTrained.toLocaleString("id-ID")}{" "}
               <span className="text-xs font-semibold text-gray-500">Orang</span>
             </p>
@@ -169,10 +169,10 @@ export default function StatistikPesertaPage() {
             </span>
           </div>
           {/* Card 2 */}
-          <div className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-gray-100 dark:border-zinc-800 shadow-sm relative overflow-hidden group hover:border-[#00d4ff] transition-all duration-300">
-            <div className="absolute top-0 left-0 h-1 w-full bg-[#0a2540] dark:bg-zinc-200" />
+          <div className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-gray-100 dark:border-zinc-800 shadow-sm relative overflow-hidden group hover:border-card-accent transition-all duration-300">
+            <div className="absolute top-0 left-0 h-1 w-full bg-card-header dark:bg-zinc-200" />
             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Tingkat Kelulusan</span>
-            <p className="text-2xl font-black text-[#0a2540] dark:text-white mt-1">
+            <p className="text-2xl font-black text-card-header dark:text-white mt-1">
               {currentYearData.passingRate}%
             </p>
             <span className="text-[10px] font-semibold text-emerald-500 mt-2 block">
@@ -180,10 +180,10 @@ export default function StatistikPesertaPage() {
             </span>
           </div>
           {/* Card 3 */}
-          <div className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-gray-100 dark:border-zinc-800 shadow-sm relative overflow-hidden group hover:border-[#00d4ff] transition-all duration-300">
+          <div className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-gray-100 dark:border-zinc-800 shadow-sm relative overflow-hidden group hover:border-card-accent transition-all duration-300">
             <div className="absolute top-0 left-0 h-1 w-full bg-purple-500" />
             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Tingkat Sertifikasi</span>
-            <p className="text-2xl font-black text-[#0a2540] dark:text-white mt-1">
+            <p className="text-2xl font-black text-card-header dark:text-white mt-1">
               {currentYearData.certRate}%
             </p>
             <span className="text-[10px] font-semibold text-emerald-500 mt-2 block">
@@ -191,10 +191,10 @@ export default function StatistikPesertaPage() {
             </span>
           </div>
           {/* Card 4 */}
-          <div className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-gray-100 dark:border-zinc-800 shadow-sm relative overflow-hidden group hover:border-[#00d4ff] transition-all duration-300">
+          <div className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-gray-100 dark:border-zinc-800 shadow-sm relative overflow-hidden group hover:border-card-accent transition-all duration-300">
             <div className="absolute top-0 left-0 h-1 w-full bg-amber-500" />
             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Indeks Kepuasan</span>
-            <p className="text-2xl font-black text-[#0a2540] dark:text-white mt-1">
+            <p className="text-2xl font-black text-card-header dark:text-white mt-1">
               {currentYearData.satisfaction}%
             </p>
             <span className="text-[10px] font-semibold text-emerald-500 mt-2 block">
@@ -207,7 +207,7 @@ export default function StatistikPesertaPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Horizontal Bar Chart: Training Themes */}
           <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl border border-gray-100 dark:border-zinc-800 shadow-sm">
-            <h2 className="text-sm font-extrabold text-[#0a2540] dark:text-white mb-1">
+            <h2 className="text-sm font-extrabold text-card-header dark:text-white mb-1">
               Distribusi Bidang Pelatihan Terpopuler
             </h2>
             <p className="text-xs text-gray-500 dark:text-zinc-400 mb-6">
@@ -234,7 +234,7 @@ export default function StatistikPesertaPage() {
                     <div className="w-full bg-gray-100 dark:bg-zinc-800 rounded-full h-3 overflow-hidden">
                       <div
                         className={`h-full rounded-full transition-all duration-500 ${
-                          isHovered ? "bg-sky-500" : "bg-[#00d4ff]"
+                          isHovered ? "bg-sky-500" : "bg-cta-primary"
                         }`}
                         style={{ width: `${percentage}%` }}
                       />
@@ -248,7 +248,7 @@ export default function StatistikPesertaPage() {
           {/* Donut Chart: Occupations */}
           <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl border border-gray-100 dark:border-zinc-800 shadow-sm flex flex-col justify-between">
             <div>
-              <h2 className="text-sm font-extrabold text-[#0a2540] dark:text-white mb-1">
+              <h2 className="text-sm font-extrabold text-card-header dark:text-white mb-1">
                 Latar Belakang Profil Pekerjaan Peserta
               </h2>
               <p className="text-xs text-gray-500 dark:text-zinc-400 mb-4">
@@ -295,14 +295,14 @@ export default function StatistikPesertaPage() {
                       <span className="text-[10px] font-bold text-gray-400 uppercase">
                         {currentYearData.occupations[hoveredOccIdx].name.split(" ")[0]}
                       </span>
-                      <span className="text-lg font-black text-[#0a2540] dark:text-white">
+                      <span className="text-lg font-black text-card-header dark:text-white">
                         {currentYearData.occupations[hoveredOccIdx].percentage}%
                       </span>
                     </>
                   ) : (
                     <>
                       <span className="text-[9px] font-bold text-gray-400 uppercase">Demografi</span>
-                      <span className="text-xs font-black text-[#0a2540] dark:text-white">Peserta</span>
+                      <span className="text-xs font-black text-card-header dark:text-white">Peserta</span>
                     </>
                   )}
                 </div>
@@ -339,7 +339,7 @@ export default function StatistikPesertaPage() {
         {/* Growth Trend (Line Chart) */}
         <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl border border-gray-100 dark:border-zinc-800 shadow-sm">
           <div>
-            <h2 className="text-sm font-extrabold text-[#0a2540] dark:text-white mb-1">
+            <h2 className="text-sm font-extrabold text-card-header dark:text-white mb-1">
               Tren Pertumbuhan Jumlah Alumni Pelatihan (2021 - 2025)
             </h2>
             <p className="text-xs text-gray-500 dark:text-zinc-400 mb-6">
@@ -383,7 +383,7 @@ export default function StatistikPesertaPage() {
               <path
                 d={linePath}
                 fill="none"
-                stroke="#00d4ff"
+                stroke="var(--color-cta-primary)"
                 strokeWidth="3.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -399,8 +399,8 @@ export default function StatistikPesertaPage() {
               {/* SVG Definitions */}
               <defs>
                 <linearGradient id="area-gradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#00d4ff" />
-                  <stop offset="100%" stopColor="#00d4ff" stopOpacity="0" />
+                  <stop offset="0%" stopColor="var(--color-cta-primary)" />
+                  <stop offset="100%" stopColor="var(--color-cta-primary)" stopOpacity="0" />
                 </linearGradient>
               </defs>
 
@@ -426,7 +426,7 @@ export default function StatistikPesertaPage() {
                       cy={p.y}
                       r={isHovered ? "7" : "4.5"}
                       fill="#ffffff"
-                      stroke="#00d4ff"
+                      stroke="var(--color-cta-primary)"
                       strokeWidth="2.5"
                       className="transition-all duration-300 pointer-events-none"
                     />
@@ -449,7 +449,7 @@ export default function StatistikPesertaPage() {
                           y={p.y - 36}
                           width="90"
                           height="26"
-                          fill="#0a2540"
+                          fill="var(--color-card-header)"
                           rx="4"
                         />
                         <text

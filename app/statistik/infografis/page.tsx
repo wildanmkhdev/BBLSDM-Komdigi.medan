@@ -132,8 +132,8 @@ export default function InfografisPage() {
                     alt={item.title}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-[#0a2540]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <span className="rounded-lg bg-[#00d4ff] px-4 py-2 text-xs font-bold text-[#0a2540] shadow-md transform scale-90 group-hover:scale-100 transition-transform duration-300">
+                  <div className="absolute inset-0 bg-card-header/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <span className="rounded-lg bg-cta-primary px-4 py-2 text-xs font-bold text-white shadow-md transform scale-90 group-hover:scale-100 transition-transform duration-300">
                       Perbesar & Detail
                     </span>
                   </div>
@@ -146,7 +146,7 @@ export default function InfografisPage() {
                     <span>{item.date}</span>
                   </div>
 
-                  <h3 className="text-base font-bold text-[#0a2540] dark:text-white line-clamp-1 group-hover:text-sky-600 transition-colors duration-300">
+                  <h3 className="text-base font-bold text-card-header dark:text-white line-clamp-1 group-hover:text-sky-600 transition-colors duration-300">
                     {item.title}
                   </h3>
 
@@ -219,11 +219,11 @@ export default function InfografisPage() {
             {/* Details Right */}
             <div className="md:w-1/2 p-8 flex flex-col justify-between space-y-6">
               <div className="space-y-4">
-                <span className="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-semibold text-[#0a2540] dark:bg-zinc-800 dark:text-zinc-200">
+                <span className="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-semibold text-card-header dark:bg-zinc-800 dark:text-zinc-200">
                   {activeModalItem.category}
                 </span>
 
-                <h2 className="text-xl font-bold text-[#0a2540] dark:text-white leading-tight">
+                <h2 className="text-xl font-bold text-card-header dark:text-white leading-tight">
                   {activeModalItem.title}
                 </h2>
 
@@ -241,7 +241,7 @@ export default function InfografisPage() {
                 <a
                   href={activeModalItem.src}
                   download
-                  className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-[#00d4ff] px-4 py-2.5 text-xs font-bold text-[#0a2540] transition-colors hover:bg-[#00b8e6] focus:outline-none focus:ring-2 focus:ring-[#00d4ff] focus:ring-offset-2"
+                  className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-cta-primary px-4 py-2.5 text-xs font-bold text-white transition-colors hover:bg-cta-primary/90 focus:outline-none focus:ring-2 focus:ring-cta-primary focus:ring-offset-2"
                 >
                   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />

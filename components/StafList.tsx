@@ -133,7 +133,7 @@ export default function StafList() {
             className="group relative overflow-hidden rounded-xl border border-gray-100 bg-white p-5 shadow-sm transition-all duration-300 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900"
           >
             {/* Left accent color indicator based on hierarchy level */}
-            <div className={`absolute top-0 left-0 h-full w-[4px] bg-[#00d4ff]`} />
+            <div className={`absolute top-0 left-0 h-full w-[4px] bg-card-accent`} />
 
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pl-2">
               <div className="flex flex-col sm:flex-row sm:items-center gap-4">
@@ -151,7 +151,7 @@ export default function StafList() {
 
                 <div className="space-y-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="text-base font-bold text-[#0a2540] dark:text-white">
+                    <h3 className="text-base font-bold text-card-header dark:text-white">
                       {staf.name}
                     </h3>
                     <span
@@ -180,7 +180,7 @@ export default function StafList() {
               <div className="flex flex-col justify-center gap-2 border-t border-dashed border-gray-100 pt-4 md:border-t-0 md:pt-0 text-xs text-gray-600 dark:border-zinc-800 dark:text-zinc-300">
                 <div className="flex items-center gap-2">
                   <svg
-                    className="h-4 w-4 text-[#00d4ff]"
+                    className="h-4 w-4 text-card-icon"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -196,7 +196,7 @@ export default function StafList() {
                 </div>
                 <div className="flex items-center gap-2">
                   <svg
-                    className="h-4 w-4 text-[#00d4ff]"
+                    className="h-4 w-4 text-card-icon"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -217,7 +217,7 @@ export default function StafList() {
             <div className="mt-4 flex justify-end pl-2">
               <button
                 onClick={() => toggleExpand(staf.id)}
-                className="inline-flex items-center gap-1 text-xs font-bold text-[#0a2540] hover:text-sky-600 focus:outline-none dark:text-zinc-200 dark:hover:text-sky-400"
+                className="inline-flex items-center gap-1 text-xs font-bold text-card-header hover:text-sky-600 focus:outline-none dark:text-zinc-200 dark:hover:text-sky-400"
               >
                 <span>{isExpanded ? "Sembunyikan Tugas & Fungsi" : "Lihat Tugas & Fungsi"}</span>
                 <svg

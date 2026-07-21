@@ -83,7 +83,7 @@ export default function StatistikKinerjaPage() {
                   onClick={() => setYear(y)}
                   className={`px-4 py-1.5 text-xs font-bold rounded-md transition-all duration-300 ${
                     year === y
-                      ? "bg-[#0a2540] text-white shadow-sm dark:bg-[#00d4ff] dark:text-[#0a2540]"
+                      ? "bg-card-header text-white shadow-sm dark:bg-cta-primary dark:text-card-header"
                       : "text-gray-600 hover:text-gray-900 dark:text-zinc-400 dark:hover:text-white"
                   }`}
                 >
@@ -99,7 +99,7 @@ export default function StatistikKinerjaPage() {
               <span>Target</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="h-3 w-3 rounded-sm bg-[#00d4ff]" />
+              <span className="h-3 w-3 rounded-sm bg-cta-primary" />
               <span>Realisasi</span>
             </div>
           </div>
@@ -110,7 +110,7 @@ export default function StatistikKinerjaPage() {
           {/* Main Chart Card (takes 2 cols on lg) */}
           <div className="lg:col-span-2 bg-white dark:bg-zinc-900 p-6 rounded-xl border border-gray-100 dark:border-zinc-800 shadow-sm flex flex-col justify-between">
             <div>
-              <h2 className="text-base font-bold text-[#0a2540] dark:text-white mb-1">
+              <h2 className="text-base font-bold text-card-header dark:text-white mb-1">
                 Grafik Perbandingan Target vs Realisasi
               </h2>
               <p className="text-xs text-gray-500 dark:text-zinc-400 mb-6">
@@ -198,7 +198,7 @@ export default function StatistikKinerjaPage() {
                         y={realY}
                         width={barWidth}
                         height={realHeight}
-                        fill={isHovered ? "#00b8e6" : "#00d4ff"}
+                        fill={isHovered ? "var(--color-nav-text-hover)" : "var(--color-cta-primary)"}
                         rx="4"
                         className="transition-all duration-300"
                       />
@@ -221,7 +221,7 @@ export default function StatistikKinerjaPage() {
                             y={Math.min(targetY, realY) - 50}
                             width={barWidth * 2 + 64}
                             height={42}
-                            fill="#0a2540"
+                            fill="var(--color-card-header)"
                             rx="6"
                             className="shadow-lg filter drop-shadow-md"
                           />
@@ -238,7 +238,7 @@ export default function StatistikKinerjaPage() {
                             x={xBase + barWidth + 2}
                             y={Math.min(targetY, realY) - 20}
                             textAnchor="middle"
-                            fill="#00d4ff"
+                            fill="var(--color-card-accent)"
                             className="text-[9px] font-bold"
                           >
                             Realisasi: {d.realization} {d.unit}
@@ -246,7 +246,7 @@ export default function StatistikKinerjaPage() {
                           {/* Indicator pointer triangle */}
                           <polygon
                             points={`${xBase + barWidth + 2},${Math.min(targetY, realY) - 8} ${xBase + barWidth - 3},${Math.min(targetY, realY) - 13} ${xBase + barWidth + 7},${Math.min(targetY, realY) - 13}`}
-                            fill="#0a2540"
+                            fill="var(--color-card-header)"
                           />
                         </g>
                       )}
@@ -260,7 +260,7 @@ export default function StatistikKinerjaPage() {
             <div className="mt-4 pt-4 border-t border-gray-100 dark:border-zinc-800 grid grid-cols-2 md:grid-cols-5 gap-2">
               {currentData.map((d, idx) => (
                 <div key={idx} className="text-center">
-                  <span className="text-[10px] font-extrabold text-[#0a2540] bg-blue-50 px-2 py-0.5 rounded dark:bg-zinc-800 dark:text-zinc-300">
+                  <span className="text-[10px] font-extrabold text-card-header bg-blue-50 px-2 py-0.5 rounded dark:bg-zinc-800 dark:text-zinc-300">
                     Indikator {idx + 1}
                   </span>
                   <p className="text-[9px] text-gray-500 mt-1 truncate dark:text-zinc-400" title={d.name}>
@@ -283,17 +283,17 @@ export default function StatistikKinerjaPage() {
                   onMouseLeave={() => setHoveredIdx(null)}
                   className={`group relative overflow-hidden rounded-xl border p-4 bg-white dark:bg-zinc-900 shadow-sm transition-all duration-300 ${
                     hoveredIdx === idx
-                      ? "border-[#00d4ff] -translate-y-1 shadow-md"
+                      ? "border-card-accent -translate-y-1 shadow-md"
                       : "border-gray-100 dark:border-zinc-800"
                   }`}
                 >
-                  <div className="absolute top-0 left-0 h-full w-[4px] bg-[#00d4ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute top-0 left-0 h-full w-[4px] bg-card-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
                         Indikator {idx + 1}
                       </span>
-                      <h3 className="text-xs font-bold text-[#0a2540] dark:text-white leading-snug mt-0.5">
+                      <h3 className="text-xs font-bold text-card-header dark:text-white leading-snug mt-0.5">
                         {d.name}
                       </h3>
                     </div>
@@ -311,7 +311,7 @@ export default function StatistikKinerjaPage() {
                   <div className="mt-4 flex items-end justify-between">
                     <div>
                       <p className="text-[10px] text-gray-500 dark:text-zinc-400">Realisasi</p>
-                      <p className="text-lg font-black text-[#0a2540] dark:text-white">
+                      <p className="text-lg font-black text-card-header dark:text-white">
                         {d.realization} <span className="text-xs font-semibold text-gray-500">{d.unit}</span>
                       </p>
                     </div>
@@ -326,7 +326,7 @@ export default function StatistikKinerjaPage() {
                   {/* Micro Progress Bar */}
                   <div className="mt-3 w-full bg-gray-100 rounded-full h-1.5 dark:bg-zinc-800">
                     <div
-                      className="bg-gradient-to-r from-sky-400 to-[#00d4ff] h-1.5 rounded-full transition-all duration-1000"
+                      className="bg-gradient-to-r from-sky-400 to-cta-primary h-1.5 rounded-full transition-all duration-1000"
                       style={{ width: `${achievement}%` }}
                     />
                   </div>
