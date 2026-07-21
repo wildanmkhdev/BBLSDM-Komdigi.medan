@@ -64,11 +64,15 @@ export default function Home() {
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+<<<<<<< HEAD
 
       <h2>halo wildan</h2>
 
       <h2>halo</h2>
 
+=======
+      <h2>woiiiiiii</h2>
+>>>>>>> f6f198114c53f29c632f1d548c23dae24c065f16
     </div>
   );
 }
