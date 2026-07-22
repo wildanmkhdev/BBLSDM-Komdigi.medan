@@ -1,8 +1,6 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
 import HeroBanner from "@/components/HeroBanner";
-import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export default function Home() {
@@ -68,9 +66,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-
+    <>
       <main className="flex-grow">
         {/* Hero Section */}
         <HeroBanner />
@@ -233,8 +229,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-
-      <Footer />
-    </div>
+    </>
   );
 }
