@@ -1,279 +1,216 @@
 "use client";
 
-import { useState } from "react";
-import PageHeader from "@/app/components/PageHeader";
+import React, { useState, useMemo } from "react";
 
-/* ──────────────────────────────────────────
-   Dummy galeri data
-   ────────────────────────────────────────── */
-const galeriCategories = [
-  "Semua",
-  "Pelatihan",
-  "Sertifikasi",
-  "Kunjungan",
-  "Seminar",
-  "Kegiatan Internal",
-];
+interface GaleriItem {
+  id: string;
+  title: string;
+  category: string;
+  date: string;
+  desc: string;
+}
 
-const galeriList = [
+const galeriData: GaleriItem[] = [
   {
-    id: 1,
-    title: "Pelatihan Digital Marketing UMKM — Juli 2026",
+    id: "1",
+    title: "Pelaksanaan Diklat Vokasi Digital Marketing untuk UMKM",
     category: "Pelatihan",
     date: "18 Juli 2026",
+    desc: "Dokumentasi pelatihan tatap muka serta praktik pembuatan konten promosi digital bagi pelaku usaha mikro dan kecil.",
   },
   {
-    id: 2,
-    title: "Penandatanganan MoU dengan USU",
-    category: "Kunjungan",
+    id: "2",
+    title: "Penandatanganan Nota Kesepahaman (MoU) Riset TIK dengan USU",
+    category: "Kunjungan & MoU",
     date: "15 Juli 2026",
+    desc: "Seremonial kerja sama riset kebijakan dan pengembangan talenta digital antara BBLSDM Komdigi Medan dan Universitas Sumatera Utara.",
   },
   {
-    id: 3,
-    title: "Workshop Keamanan Siber ASN Sumatera",
-    category: "Seminar",
+    id: "3",
+    title: "Workshop Keamanan Siber & Tata Kelola SPBE bagi ASN",
+    category: "Seminar & Workshop",
     date: "12 Juli 2026",
+    desc: "Suasana diskusi panel peserta workshop keamanan siber dari perwakilan dinas komunikasi dan informatika se-Sumatera.",
   },
   {
-    id: 4,
-    title: "Ujian Sertifikasi Kompetensi Digital Batch 4",
+    id: "4",
+    title: "Ujian Sertifikasi Kompetensi Profesi Komputer & Jaringan (BNSP)",
     category: "Sertifikasi",
     date: "10 Juli 2026",
+    desc: "Proses pengujian langsung oleh asesor lisensi BNSP di laboratorium jaringan BBLSDM Komdigi Medan.",
   },
-  {
-    id: 5,
-    title: "Upacara Hari Bhakti Postel Ke-81",
-    category: "Kegiatan Internal",
-    date: "8 Juli 2026",
-  },
-  {
-    id: 6,
-    title: "Pelatihan Cloud Computing Angkatan I",
-    category: "Pelatihan",
-    date: "5 Juli 2026",
-  },
-  {
-    id: 7,
-    title: "Kunjungan Kerja Komisi I DPR RI",
-    category: "Kunjungan",
-    date: "1 Juli 2026",
-  },
-  {
-    id: 8,
-    title: "Seminar Nasional Regulasi Telekomunikasi",
-    category: "Seminar",
-    date: "28 Juni 2026",
-  },
-  {
-    id: 9,
-    title: "Pelatihan Data Science untuk ASN",
-    category: "Pelatihan",
-    date: "25 Juni 2026",
-  },
-  {
-    id: 10,
-    title: "Sertifikasi IoT (Internet of Things) Batch 2",
-    category: "Sertifikasi",
-    date: "22 Juni 2026",
-  },
-  {
-    id: 11,
-    title: "Olahraga Bersama & Team Building",
-    category: "Kegiatan Internal",
-    date: "20 Juni 2026",
-  },
-  {
-    id: 12,
-    title: "Pelatihan UI/UX Design Fundamental",
-    category: "Pelatihan",
-    date: "18 Juni 2026",
-  },
-];
-
-// Gradient combos for placeholder images
-const gradients = [
-  "from-navy/20 to-sky-accent/20",
-  "from-sky-accent/20 to-gold/20",
-  "from-navy/15 to-navy/30",
-  "from-gold/20 to-marun/10",
-  "from-sky-accent/15 to-navy/20",
-  "from-navy/25 to-sky-accent/10",
 ];
 
 export default function GaleriPage() {
-  const [activeCategory, setActiveCategory] = useState("Semua");
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("Semua");
+  const [activeModalItem, setActiveModalItem] = useState<GaleriItem | null>(null);
 
-  const filtered =
-    activeCategory === "Semua"
-      ? galeriList
-      : galeriList.filter((g) => g.category === activeCategory);
+  const filteredGaleri = useMemo(() => {
+    return galeriData.filter((item) => {
+      const matchesSearch =
+        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.desc.toLowerCase().includes(searchQuery.toLowerCase());
+
+      const matchesCategory = selectedCategory === "Semua" || item.category === selectedCategory;
+
+      return matchesSearch && matchesCategory;
+    });
+  }, [searchQuery, selectedCategory]);
 
   return (
-    <>
-      <PageHeader
-        title="Galeri Dokumentasi"
-        subtitle="Dokumentasi kegiatan operasional dan acara di BBLSDM Komdigi Medan"
-        breadcrumbs={[
-          { label: "Beranda", href: "/" },
-          { label: "Informasi", href: "#" },
-          { label: "Galeri" },
-        ]}
-      />
-
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        {/* Category filter */}
-        <div className="flex flex-wrap gap-2 mb-10">
-          {galeriCategories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                activeCategory === cat
-                  ? "bg-sky-primary text-white shadow-md"
-                  : "bg-offwhite text-text-muted hover:bg-sky-accent/10 hover:text-sky-primary border border-gray-200"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Grid */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filtered.map((item, i) => (
-            <button
-              key={item.id}
-              onClick={() => setLightboxIndex(i)}
-              className="group relative rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-lg border border-gray-100 transition-all duration-300 hover:-translate-y-0.5 text-left"
-            >
-              {/* Image placeholder */}
-              <div
-                className={`aspect-square bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center`}
-              >
-                <div className="text-center p-4">
-                  <svg
-                    className="w-10 h-10 text-navy/30 mx-auto mb-2 group-hover:scale-110 transition-transform duration-300"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={1}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a2.25 2.25 0 002.25-2.25V5.25a2.25 2.25 0 00-2.25-2.25H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"
-                    />
-                  </svg>
-                </div>
-
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-navy/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
-                  </svg>
-                </div>
-              </div>
-
-              {/* Info */}
-              <div className="p-3.5">
-                <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-sky-accent/10 text-sky-700 mb-1.5">
-                  {item.category}
-                </span>
-                <h3 className="text-sm font-semibold text-navy line-clamp-2 leading-snug">
-                  {item.title}
-                </h3>
-                <p className="text-xs text-text-muted mt-1">{item.date}</p>
-              </div>
-            </button>
-          ))}
-        </div>
-
-        {/* Empty state */}
-        {filtered.length === 0 && (
-          <div className="text-center py-16">
-            <svg className="w-16 h-16 text-text-light mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a2.25 2.25 0 002.25-2.25V5.25a2.25 2.25 0 00-2.25-2.25H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
-            </svg>
-            <p className="text-text-muted">Belum ada foto untuk kategori ini.</p>
+    <div className="bg-white">
+      {/* Banner Header (Pola Standard app/profil) */}
+      <section className="bg-slate-50 border-b border-slate-100 py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center space-y-4">
+          <div className="inline-flex px-3 py-1 rounded-full text-[10px] font-bold tracking-widest bg-[#0284c7]/10 text-[#0284c7] uppercase">
+            Dokumentasi Visual
           </div>
-        )}
+          <h1 className="text-3xl font-extrabold text-[#0b1b3d] sm:text-4xl">
+            Galeri Kegiatan Instansi
+          </h1>
+          <p className="text-sm text-slate-500 max-w-2xl mx-auto leading-relaxed">
+            Kumpulan dokumentasi foto dan liputan visual ragam aktivitas diklat, ujian sertifikasi, seminar nasional, serta kemitraan BBLSDM Komdigi Medan.
+          </p>
+          <div className="w-12 h-1 bg-[#0284c7] mx-auto rounded-full mt-4"></div>
+        </div>
       </section>
 
-      {/* Lightbox modal */}
-      {lightboxIndex !== null && (
-        <div
-          className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4"
-          onClick={() => setLightboxIndex(null)}
-        >
+      {/* Content Section */}
+      <section className="py-12 bg-slate-50/50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          
+          {/* Search & Filter Bar */}
+          <div className="mb-8 flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+            <div className="relative w-full md:w-96">
+              <input
+                type="text"
+                placeholder="Cari dokumentasi..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0284c7] focus:border-transparent bg-slate-50 text-slate-800"
+              />
+              <svg
+                className="absolute left-3.5 top-3 h-4 w-4 text-slate-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="2.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
+
+            <div className="flex items-center gap-2 w-full md:w-auto shrink-0 justify-end">
+              <span className="text-xs font-bold text-slate-500 uppercase">Kategori:</span>
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#0284c7]"
+              >
+                <option value="Semua">Semua Kategori</option>
+                <option value="Pelatihan">Pelatihan</option>
+                <option value="Kunjungan &amp; MoU">Kunjungan &amp; MoU</option>
+                <option value="Seminar &amp; Workshop">Seminar &amp; Workshop</option>
+                <option value="Sertifikasi">Sertifikasi</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Gallery Grid */}
+          {filteredGaleri.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {filteredGaleri.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() => setActiveModalItem(item)}
+                  className="group cursor-pointer bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+                >
+                  <div className="h-44 bg-[#0b1b3d] relative flex items-center justify-center p-4 text-center text-white">
+                    <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] bg-[size:10px_10px]"></div>
+                    <span className="text-xs font-bold uppercase tracking-wider relative z-10">
+                      📷 {item.category}
+                    </span>
+                  </div>
+
+                  <div className="p-4 space-y-1.5 flex-grow">
+                    <div className="flex items-center justify-between text-[10px] text-slate-400">
+                      <span className="font-bold text-[#0284c7]">{item.category}</span>
+                      <span>{item.date}</span>
+                    </div>
+
+                    <h3 className="text-xs font-bold text-[#0b1b3d] line-clamp-2 leading-snug group-hover:text-[#0284c7] transition-colors">
+                      {item.title}
+                    </h3>
+                  </div>
+
+                  <div className="px-4 pb-4 pt-2 border-t border-slate-100 text-[10px] font-bold text-[#0284c7] flex items-center justify-between">
+                    <span>Lihat Foto Detail</span>
+                    <span>→</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16 bg-white rounded-xl border border-slate-200 shadow-sm">
+              <h3 className="text-sm font-bold text-slate-800">Dokumentasi Tidak Ditemukan</h3>
+              <p className="text-xs text-slate-500 mt-1">Coba gunakan kueri atau filter lain.</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Modal Detail View */}
+      {activeModalItem && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
           <div
-            className="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full overflow-hidden"
+            className="bg-white rounded-2xl max-w-xl w-full p-6 space-y-6 relative overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close button */}
-            <button
-              onClick={() => setLightboxIndex(null)}
-              className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-white/90 shadow flex items-center justify-center hover:bg-white transition-colors"
-            >
-              <svg className="w-4 h-4 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+            <div className="flex items-start justify-between gap-4">
+              <div className="space-y-1">
+                <span className="inline-flex items-center rounded-full bg-sky-50 px-2.5 py-0.5 text-xs font-bold text-[#0284c7] uppercase">
+                  {activeModalItem.category}
+                </span>
+                <h2 className="text-lg font-extrabold text-[#0b1b3d]">
+                  {activeModalItem.title}
+                </h2>
+                <p className="text-xs text-slate-400 font-semibold">
+                  Tanggal Kegiatan: {activeModalItem.date}
+                </p>
+              </div>
 
-            {/* Image */}
-            <div
-              className={`aspect-video bg-gradient-to-br ${gradients[lightboxIndex % gradients.length]} flex items-center justify-center`}
-            >
-              <svg className="w-20 h-20 text-navy/20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a2.25 2.25 0 002.25-2.25V5.25a2.25 2.25 0 00-2.25-2.25H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
-              </svg>
+              <button
+                onClick={() => setActiveModalItem(null)}
+                className="w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 flex items-center justify-center font-bold text-sm"
+              >
+                ✕
+              </button>
             </div>
 
-            {/* Info */}
-            <div className="p-6">
-              <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-accent/10 text-sky-700 mb-2">
-                {filtered[lightboxIndex]?.category}
-              </span>
-              <h3 className="text-lg font-bold text-navy">
-                {filtered[lightboxIndex]?.title}
-              </h3>
-              <p className="text-sm text-text-muted mt-1">
-                {filtered[lightboxIndex]?.date}
-              </p>
+            <div className="h-56 bg-[#0b1b3d] rounded-xl flex items-center justify-center text-white text-sm font-bold">
+              📷 Preview Dokumentasi {activeModalItem.title}
             </div>
 
-            {/* Nav arrows */}
-            <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between px-3 pointer-events-none">
-              {lightboxIndex > 0 && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setLightboxIndex(lightboxIndex - 1);
-                  }}
-                  className="pointer-events-auto w-10 h-10 rounded-full bg-white/90 shadow flex items-center justify-center hover:bg-white transition-colors"
-                >
-                  <svg className="w-5 h-5 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                  </svg>
-                </button>
-              )}
-              {lightboxIndex < filtered.length - 1 && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setLightboxIndex(lightboxIndex + 1);
-                  }}
-                  className="pointer-events-auto w-10 h-10 rounded-full bg-white/90 shadow flex items-center justify-center hover:bg-white ml-auto transition-colors"
-                >
-                  <svg className="w-5 h-5 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                  </svg>
-                </button>
-              )}
+            <p className="text-xs text-slate-600 leading-relaxed">
+              {activeModalItem.desc}
+            </p>
+
+            <div className="pt-4 border-t border-slate-100 text-right">
+              <button
+                onClick={() => setActiveModalItem(null)}
+                className="px-4 py-2 text-xs font-bold text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50"
+              >
+                Tutup
+              </button>
             </div>
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

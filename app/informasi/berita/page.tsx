@@ -1,168 +1,223 @@
-import type { Metadata } from "next";
-import PageHeader from "@/app/components/PageHeader";
-import Card from "@/app/components/Card";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Berita",
-  description:
-    "Berita terbaru dari BBLSDM Kementerian Komunikasi dan Digital Wilayah Medan.",
-};
+import React, { useState, useMemo } from "react";
 
-/* ──────────────────────────────────────────
-   Dummy berita data
-   ────────────────────────────────────────── */
-const beritaList = [
+interface BeritaItem {
+  id: string;
+  title: string;
+  category: string;
+  date: string;
+  image: string;
+  snippet: string;
+  content: string;
+  author: string;
+}
+
+const beritaData: BeritaItem[] = [
   {
-    id: 1,
-    title: "BBLSDM Komdigi Medan Gelar Pelatihan Digital Marketing untuk UMKM",
-    description:
-      "Sebanyak 150 pelaku UMKM di Sumatera Utara mengikuti pelatihan digital marketing yang diselenggarakan BBLSDM Komdigi Medan selama 3 hari penuh.",
+    id: "1",
+    title: "BBLSDM Komdigi Medan Gelar Pelatihan Digital Marketing & E-Commerce untuk UMKM",
+    category: "Pelatihan & UMKM",
     date: "18 Juli 2026",
-    badge: "Baru",
     image: "/images/berita/berita-1.jpg",
+    author: "Tim Humas BBLSDM",
+    snippet: "Sebanyak 150 pelaku UMKM di Sumatera Utara mengikuti pelatihan digital marketing intensif yang diselenggarakan BBLSDM Komdigi Medan.",
+    content: "Balai Besar Pengembangan SDM dan Penelitian Komunikasi dan Informatika (BBLSDM Komdigi) Medan menggelar pelatihan Digital Marketing dan E-Commerce bagi para pelaku Usaha Mikro, Kecil, dan Menengah (UMKM) se-Sumatera Utara. Kegiatan ini bertujuan mempercepat transformasi digital sektor riil dan meningkatkan daya saing produk lokal di ranah pasar nasional maupun global.",
   },
   {
-    id: 2,
-    title: "Kerja Sama dengan Universitas Sumatera Utara dalam Pengembangan AI",
-    description:
-      "BBLSDM Komdigi Medan menandatangani MoU dengan USU untuk pengembangan riset kecerdasan buatan dan machine learning di sektor publik.",
+    id: "2",
+    title: "Kerja Sama Strategis dengan Perguruan Tinggi dalam Pengembangan Riset AI & Keamanan Siber",
+    category: "Kerja Sama & Riset",
     date: "15 Juli 2026",
-    badge: "Baru",
     image: "/images/berita/berita-2.jpg",
+    author: "Tim Peneliti",
+    snippet: "BBLSDM Komdigi Medan menandatangani Nota Kesepahaman (MoU) dengan konsorsium perguruan tinggi negeri di Sumatera.",
+    content: "Guna memperkuat ekosistem kecerdasan buatan (Artificial Intelligence) dan keamanan siber di sektor publik, BBLSDM Komdigi Medan resmi menandatangani Nota Kesepahaman (MoU) dengan konsorsium universitas nasional. Kerjasama mencakup riset kebijakan publik, pertukaran tenaga ahli, dan pengembangan kurikulum vokasi digital.",
   },
   {
-    id: 3,
-    title: "Workshop Keamanan Siber untuk ASN Wilayah Sumatera",
-    description:
-      "Diikuti 200 ASN dari 10 provinsi, workshop ini membahas best practice keamanan siber dan perlindungan data pribadi di instansi pemerintah.",
+    id: "3",
+    title: "Workshop Keamanan Siber & Perlindungan Data Pribadi bagi ASN Regional Sumatera",
+    category: "Keamanan Siber",
     date: "12 Juli 2026",
     image: "/images/berita/berita-3.jpg",
-  },
-  {
-    id: 4,
-    title: "Sertifikasi Kompetensi Digital Batch Ke-5 Tahun 2026",
-    description:
-      "Pendaftaran sertifikasi kompetensi digital batch ke-5 telah dibuka. Program ini menargetkan 500 peserta dari kalangan profesional TIK.",
-    date: "10 Juli 2026",
-    image: "/images/berita/berita-4.jpg",
-  },
-  {
-    id: 5,
-    title: "BBLSDM Raih Penghargaan Instansi Terbaik dalam Transformasi Digital",
-    description:
-      "Penghargaan diberikan oleh Kementerian PAN-RB atas keberhasilan BBLSDM Komdigi Medan dalam menerapkan transformasi digital di sektor pemerintahan.",
-    date: "8 Juli 2026",
-    image: "/images/berita/berita-5.jpg",
-  },
-  {
-    id: 6,
-    title: "Program Literasi Digital Menjangkau 50 Desa di Sumatera Utara",
-    description:
-      "Melalui program Literasi Digital Nasional, BBLSDM telah memberikan pelatihan dasar digital kepada warga di 50 desa terpencil.",
-    date: "5 Juli 2026",
-    image: "/images/berita/berita-6.jpg",
-  },
-  {
-    id: 7,
-    title: "Seminar Nasional Regulasi Telekomunikasi dan Frekuensi Radio",
-    description:
-      "Seminar menghadirkan pakar dari ITU dan Kominfo untuk membahas arah kebijakan spektrum frekuensi dan teknologi 5G di Indonesia.",
-    date: "1 Juli 2026",
-    image: "/images/berita/berita-7.jpg",
-  },
-  {
-    id: 8,
-    title: "Pendaftaran Magang Semester Gasal 2026/2027 Telah Dibuka",
-    description:
-      "BBLSDM Komdigi Medan membuka kesempatan magang bagi mahasiswa semester 5 ke atas dari seluruh perguruan tinggi di Indonesia.",
-    date: "28 Juni 2026",
-    image: "/images/berita/berita-8.jpg",
-  },
-  {
-    id: 9,
-    title: "Kunjungan Kerja Komisi I DPR RI ke BBLSDM Medan",
-    description:
-      "Anggota Komisi I DPR RI melakukan kunjungan kerja untuk meninjau program pengembangan SDM digital di wilayah Sumatera.",
-    date: "25 Juni 2026",
-    image: "/images/berita/berita-9.jpg",
+    author: "Siber BBLSDM",
+    snippet: "Diikuti 200 ASN dari berbagai instansi daerah, workshop membahas arsitektur manajemen insiden dan kepatuhan UU PDP.",
+    content: "Dalam upaya memperkuat pertahanan infrastruktur informasi pemerintah daerah, BBLSDM Komdigi Medan mengadakan Workshop Keamanan Siber bagi Aparatur Sipil Negara (ASN). Materi mencakup pencegahan kebocoran data, pemetikan ancaman malware, dan implementasi Sistem Manajemen Keamanan Informasi.",
   },
 ];
 
 export default function BeritaPage() {
-  return (
-    <>
-      <PageHeader
-        title="Berita"
-        subtitle="Informasi terkini mengenai kegiatan dan program BBLSDM Komdigi Medan"
-        breadcrumbs={[
-          { label: "Beranda", href: "/" },
-          { label: "Informasi", href: "#" },
-          { label: "Berita" },
-        ]}
-      />
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("Semua");
+  const [activeModalItem, setActiveModalItem] = useState<BeritaItem | null>(null);
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        {/* Featured article (first berita) */}
-        <div className="mb-12">
-          <div className="group relative bg-white rounded-2xl shadow-sm hover:shadow-lg border border-gray-100 overflow-hidden transition-all duration-300 grid md:grid-cols-2">
-            {/* Image */}
-            <div className="aspect-video md:aspect-auto bg-gradient-to-br from-navy/10 via-sky-accent/10 to-navy/5 flex items-center justify-center">
-              <div className="text-center p-8">
-                <div className="w-16 h-16 rounded-2xl bg-sky-accent/20 flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-8 h-8 text-sky-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
-                  </svg>
-                </div>
-                <p className="text-sm text-text-muted">Berita Utama</p>
-              </div>
+  const filteredBerita = useMemo(() => {
+    return beritaData.filter((item) => {
+      const matchesSearch =
+        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.snippet.toLowerCase().includes(searchQuery.toLowerCase());
+
+      const matchesCategory = selectedCategory === "Semua" || item.category === selectedCategory;
+
+      return matchesSearch && matchesCategory;
+    });
+  }, [searchQuery, selectedCategory]);
+
+  return (
+    <div className="bg-white">
+      {/* Header Banner (Pola Standard app/profil) */}
+      <section className="bg-slate-50 border-b border-slate-100 py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center space-y-4">
+          <div className="inline-flex px-3 py-1 rounded-full text-[10px] font-bold tracking-widest bg-[#0284c7]/10 text-[#0284c7] uppercase">
+            Kabar Instansi
+          </div>
+          <h1 className="text-3xl font-extrabold text-[#0b1b3d] sm:text-4xl">
+            Berita &amp; Artikel Terkini
+          </h1>
+          <p className="text-sm text-slate-500 max-w-2xl mx-auto leading-relaxed">
+            Informasi liputan kegiatan resmi, kemitraan strategis, dan perkembangan program akselerasi SDM digital oleh BBLSDM Komdigi Medan.
+          </p>
+          <div className="w-12 h-1 bg-[#0284c7] mx-auto rounded-full mt-4"></div>
+        </div>
+      </section>
+
+      {/* Content Section */}
+      <section className="py-12 bg-slate-50/50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          
+          {/* Search & Filter Bar */}
+          <div className="mb-8 flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+            <div className="relative w-full md:w-96">
+              <input
+                type="text"
+                placeholder="Cari berita..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0284c7] focus:border-transparent bg-slate-50 text-slate-800"
+              />
+              <svg
+                className="absolute left-3.5 top-3 h-4 w-4 text-slate-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="2.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
             </div>
 
-            {/* Content */}
-            <div className="p-6 md:p-8 flex flex-col justify-center">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gold/15 text-amber-700">
-                  {beritaList[0].badge}
+            <div className="flex items-center gap-2 w-full md:w-auto shrink-0 justify-end">
+              <span className="text-xs font-bold text-slate-500 uppercase">Kategori:</span>
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#0284c7]"
+              >
+                <option value="Semua">Semua Kategori</option>
+                <option value="Pelatihan &amp; UMKM">Pelatihan &amp; UMKM</option>
+                <option value="Kerja Sama &amp; Riset">Kerja Sama &amp; Riset</option>
+                <option value="Keamanan Siber">Keamanan Siber</option>
+              </select>
+            </div>
+          </div>
+
+          {/* News Grid */}
+          {filteredBerita.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {filteredBerita.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() => setActiveModalItem(item)}
+                  className="group cursor-pointer bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+                >
+                  <div className="relative h-48 bg-slate-100 flex items-center justify-center overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0b1b3d]/60 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    {/* Visual Card Cover */}
+                    <div className="w-full h-full bg-[#0b1b3d] flex items-center justify-center p-6 text-center text-white font-bold text-sm">
+                      📰 {item.category}
+                    </div>
+                  </div>
+
+                  <div className="p-5 space-y-2 flex-grow">
+                    <div className="flex items-center justify-between text-[11px] text-slate-400">
+                      <span className="font-bold text-[#0284c7]">{item.category}</span>
+                      <span>{item.date}</span>
+                    </div>
+
+                    <h3 className="text-sm font-bold text-[#0b1b3d] line-clamp-2 leading-snug group-hover:text-[#0284c7] transition-colors">
+                      {item.title}
+                    </h3>
+
+                    <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed">
+                      {item.snippet}
+                    </p>
+                  </div>
+
+                  <div className="px-5 pb-5 pt-2 border-t border-slate-100 text-[11px] font-bold text-[#0284c7] flex items-center justify-between">
+                    <span>Baca Selengkapnya</span>
+                    <span>→</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16 bg-white rounded-xl border border-slate-200 shadow-sm">
+              <h3 className="text-sm font-bold text-slate-800">Berita Tidak Ditemukan</h3>
+              <p className="text-xs text-slate-500 mt-1">Coba gunakan kueri atau filter lain.</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Modal Detail View */}
+      {activeModalItem && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+          <div
+            className="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 space-y-6 relative overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div className="space-y-1">
+                <span className="inline-flex items-center rounded-full bg-sky-50 px-2.5 py-0.5 text-xs font-bold text-[#0284c7] uppercase">
+                  {activeModalItem.category}
                 </span>
-                <span className="text-xs text-text-muted">{beritaList[0].date}</span>
+                <h2 className="text-xl font-extrabold text-[#0b1b3d]">
+                  {activeModalItem.title}
+                </h2>
+                <p className="text-xs text-slate-400 font-semibold">
+                  Oleh: {activeModalItem.author} | {activeModalItem.date}
+                </p>
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold text-navy leading-snug mb-3 group-hover:text-sky-primary transition-colors">
-                {beritaList[0].title}
-              </h2>
-              <p className="text-text-muted leading-relaxed mb-4">
-                {beritaList[0].description}
-              </p>
-              <span className="inline-flex items-center gap-1.5 text-sm font-medium text-sky-primary group-hover:gap-2.5 transition-all duration-200">
-                Baca selengkapnya
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </span>
+
+              <button
+                onClick={() => setActiveModalItem(null)}
+                className="w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 flex items-center justify-center font-bold text-sm"
+              >
+                ✕
+              </button>
+            </div>
+
+            <hr className="border-slate-100" />
+
+            <div className="text-xs sm:text-sm text-slate-700 leading-relaxed space-y-4">
+              <p>{activeModalItem.content}</p>
+            </div>
+
+            <div className="pt-4 border-t border-slate-100 text-right">
+              <button
+                onClick={() => setActiveModalItem(null)}
+                className="px-4 py-2 text-xs font-bold text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50"
+              >
+                Tutup Artikels
+              </button>
             </div>
           </div>
         </div>
-
-        {/* Grid */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {beritaList.slice(1).map((berita) => (
-            <Card
-              key={berita.id}
-              title={berita.title}
-              description={berita.description}
-              date={berita.date}
-              badge={berita.badge}
-              badgeColor="gold"
-              image={berita.image}
-            >
-              <span className="inline-flex items-center gap-1.5 text-sm font-medium text-sky-primary hover:gap-2.5 transition-all duration-200">
-                Baca selengkapnya
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </span>
-            </Card>
-          ))}
-        </div>
-      </section>
-    </>
+      )}
+    </div>
   );
 }
