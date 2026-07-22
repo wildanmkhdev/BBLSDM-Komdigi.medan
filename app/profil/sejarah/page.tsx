@@ -1,7 +1,6 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+
 
 export default function Sejarah() {
   const timelineMilestones = [
@@ -56,7 +55,7 @@ export default function Sejarah() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
+
 
       <main className="flex-grow bg-white">
         {/* Banner Header */}
@@ -170,7 +169,7 @@ export default function Sejarah() {
         </section>
       </main>
 
-      <Footer />
+
     </div>
   );
 }
