@@ -129,19 +129,18 @@ export default function StrukturOrganisasi() {
         <section className="py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-              
+
               {/* Bagan Tree Hierarki (Left - 7 cols) */}
               <div className="lg:col-span-7 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 flex flex-col items-center space-y-8 relative">
-                
+
                 {/* Level 1: Kepala Balai */}
                 <div className="w-full flex justify-center">
                   <button
                     onClick={() => setSelectedRoleId("kepala")}
-                    className={`w-64 p-4 rounded-xl border-2 text-center transition-all duration-300 shadow-sm hover:shadow-md ${
-                      selectedRoleId === "kepala"
+                    className={`w-64 p-4 rounded-xl border-2 text-center transition-all duration-300 shadow-sm hover:shadow-md ${selectedRoleId === "kepala"
                         ? "bg-[#0b1b3d] text-white border-[#0284c7] scale-105"
                         : "bg-white text-slate-800 border-slate-200 hover:border-slate-300"
-                    }`}
+                      }`}
                   >
                     <span className="block text-[10px] font-bold tracking-widest uppercase opacity-75 mb-1">
                       Kepala Balai Besar
@@ -157,16 +156,15 @@ export default function StrukturOrganisasi() {
 
                 {/* Level 2: Subbagian Umum & Kelompok Fungsional (Grid) */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-xl relative">
-                  
+
                   {/* Left: Subbagian Umum */}
                   <div className="flex flex-col items-center">
                     <button
                       onClick={() => setSelectedRoleId("umum")}
-                      className={`w-full p-4 rounded-xl border-2 text-center transition-all duration-300 shadow-sm hover:shadow-md ${
-                        selectedRoleId === "umum"
+                      className={`w-full p-4 rounded-xl border-2 text-center transition-all duration-300 shadow-sm hover:shadow-md ${selectedRoleId === "umum"
                           ? "bg-[#0b1b3d] text-white border-[#0284c7] scale-105"
                           : "bg-white text-slate-800 border-slate-200 hover:border-slate-300"
-                      }`}
+                        }`}
                     >
                       <span className="block text-[10px] font-bold tracking-widest uppercase opacity-75 mb-1">
                         Subbagian Umum
@@ -181,11 +179,10 @@ export default function StrukturOrganisasi() {
                   <div className="flex flex-col items-center">
                     <button
                       onClick={() => setSelectedRoleId("fungsional")}
-                      className={`w-full p-4 rounded-xl border-2 text-center transition-all duration-300 shadow-sm hover:shadow-md ${
-                        selectedRoleId === "fungsional"
+                      className={`w-full p-4 rounded-xl border-2 text-center transition-all duration-300 shadow-sm hover:shadow-md ${selectedRoleId === "fungsional"
                           ? "bg-[#0b1b3d] text-white border-[#0284c7] scale-105"
                           : "bg-white text-slate-800 border-slate-200 hover:border-slate-300"
-                      }`}
+                        }`}
                     >
                       <span className="block text-[10px] font-bold tracking-widest uppercase opacity-75 mb-1">
                         Kelompok Fungsional
@@ -202,16 +199,15 @@ export default function StrukturOrganisasi() {
 
                 {/* Level 3: Tim Kerja (Grid) */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-xl relative">
-                  
+
                   {/* Left: Tim Kerja Pelatihan & Sertifikasi */}
                   <div className="flex flex-col items-center">
                     <button
                       onClick={() => setSelectedRoleId("pelatihan")}
-                      className={`w-full p-4 rounded-xl border-2 text-center transition-all duration-300 shadow-sm hover:shadow-md ${
-                        selectedRoleId === "pelatihan"
+                      className={`w-full p-4 rounded-xl border-2 text-center transition-all duration-300 shadow-sm hover:shadow-md ${selectedRoleId === "pelatihan"
                           ? "bg-[#0b1b3d] text-white border-[#0284c7] scale-105"
                           : "bg-white text-slate-800 border-slate-200 hover:border-slate-300"
-                      }`}
+                        }`}
                     >
                       <span className="block text-[10px] font-bold tracking-widest uppercase opacity-75 mb-1">
                         Tim Kerja Pelatihan
@@ -226,11 +222,10 @@ export default function StrukturOrganisasi() {
                   <div className="flex flex-col items-center">
                     <button
                       onClick={() => setSelectedRoleId("penelitian")}
-                      className={`w-full p-4 rounded-xl border-2 text-center transition-all duration-300 shadow-sm hover:shadow-md ${
-                        selectedRoleId === "penelitian"
+                      className={`w-full p-4 rounded-xl border-2 text-center transition-all duration-300 shadow-sm hover:shadow-md ${selectedRoleId === "penelitian"
                           ? "bg-[#0b1b3d] text-white border-[#0284c7] scale-105"
                           : "bg-white text-slate-800 border-slate-200 hover:border-slate-300"
-                      }`}
+                        }`}
                     >
                       <span className="block text-[10px] font-bold tracking-widest uppercase opacity-75 mb-1">
                         Tim Kerja Riset & Litbang
@@ -255,7 +250,7 @@ export default function StrukturOrganisasi() {
               <div className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl shadow-sm p-6 sm:p-8 space-y-6 relative overflow-hidden">
                 {/* Decorative border accent left */}
                 <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#0284c7]"></div>
-                
+
                 {/* Header detail */}
                 <div className="space-y-2">
                   <span className="inline-flex px-2 py-0.5 rounded text-[9px] font-extrabold bg-sky-50 text-[#0284c7] uppercase border border-sky-100 tracking-wider">
