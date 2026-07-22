@@ -1,7 +1,6 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+
 import { useState } from "react";
 
 interface RoleNode {
@@ -106,7 +105,7 @@ export default function StrukturOrganisasi() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
+
 
       <main className="flex-grow bg-white">
         {/* Header Section */}
@@ -303,7 +302,7 @@ export default function StrukturOrganisasi() {
         </section>
       </main>
 
-      <Footer />
+
     </div>
   );
 }

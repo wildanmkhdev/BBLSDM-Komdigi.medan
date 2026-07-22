@@ -1,7 +1,6 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+
 
 export default function VisiMisi() {
   const misiItems = [
@@ -49,7 +48,7 @@ export default function VisiMisi() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
+
 
       <main className="flex-grow bg-white">
         {/* Page Header Banner */}
@@ -147,7 +146,7 @@ export default function VisiMisi() {
         </section>
       </main>
 
-      <Footer />
+
     </div>
   );
 }

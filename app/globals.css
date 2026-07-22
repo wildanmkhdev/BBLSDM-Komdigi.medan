@@ -1,19 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 @import "tailwindcss";
 
 @theme {
+  /* Dari Main (Wildan) */
   --color-navbar-bg: #ffffff;
   --color-navbar-border: #e2e8f0;
   --color-nav-text-default: #374151;
-  --color-nav-text-hover: #0284c7; /* Light Blue */
+  --color-nav-text-hover: #0284c7;
   --color-bg-body: #ffffff;
-  --color-bg-section-alt: #f8fafc; /* Off-White */
+  --color-bg-section-alt: #f8fafc;
   --color-card-bg: #ffffff;
-  --color-card-header: #0b1b3d; /* Biru Tua */
-  --color-card-icon: #0284c7; /* Biru Muda */
-  --color-card-accent: #38bdf8; /* Biru Muda line */
+  --color-card-header: #0b1b3d;
+  --color-card-icon: #0284c7;
+  --color-card-accent: #38bdf8;
   --color-cta-primary: #0284c7;
-  --color-cta-secondary: #991b1b; /* Maroon */
-  --color-badge-highlight: #fbbf24; /* Kuning / Emas */
+  --color-cta-secondary: #991b1b;
+  --color-badge-highlight: #fbbf24;
   --color-status-warning: #fbbf24;
   --color-status-error: #991b1b;
   --color-status-info: #38bdf8;
@@ -21,14 +23,123 @@
   --color-footer-bg: #0b1b3d;
   --color-footer-text: #ffffff;
   --color-footer-accent: #fbbf24;
+
+  /* Dari Ridho (agar fitur ridho tetap jalan) */
+  --color-navy: #1a3a5c;
+  --color-navy-light: #234b73;
+  --color-sky-accent: #38bdf8;
+  --color-sky-primary: #0ea5e9;
+  --color-sky-dark: #0284c7;
+  --color-marun: #991b1b;
+  --color-gold: #f59e0b;
+  --color-offwhite: #f8fafc;
+  --color-body: #ffffff;
+  --color-text-dark: #1e293b;
+  --color-text-muted: #64748b;
+  --color-text-light: #94a3b8;
+  --font-family-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
   --font-sans: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--color-bg-body);
   color: var(--color-nav-text-default);
   font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   Section alternating backgrounds (§4.4)
+   ============================================ */
+.section-alt {
+  background-color: var(--color-bg-section-alt);
+}
+
+/* ============================================
+   Scrollbar styling
+   ============================================ */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ============================================
+   Card accent line animation
+   ============================================ */
+@keyframes accentGrow {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100%;
+  }
+}
+
+/* ============================================
+   FAQ Accordion animation
+   ============================================ */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    max-height: 500px;
+  }
+  to {
+    opacity: 0;
+    max-height: 0;
+  }
+}
+
+/* ============================================
+   Star rating styles
+   ============================================ */
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+.star-rating label {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #d1d5db;
+  transition: color 0.15s ease;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input[type="radio"]:checked ~ label {
+  color: var(--color-badge-highlight);
 }
