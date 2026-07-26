@@ -20,10 +20,7 @@ export default function DocumentCard({
   description,
 }: DocumentCardProps) {
   return (
-    <div className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-      {/* Left accent vertical line */}
-      <div className="absolute top-0 left-0 h-full w-[4px] bg-[#38bdf8] transition-all duration-300 group-hover:w-[6px]" />
-
+    <div className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
       <div>
         <div className="flex items-center justify-between gap-4 mb-3">
           <span className="inline-flex items-center rounded-full bg-sky-50 px-2.5 py-0.5 text-xs font-semibold text-[#0284c7]">

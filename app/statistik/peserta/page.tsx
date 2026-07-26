@@ -89,7 +89,7 @@ export default function StatistikPesertaPage() {
       <section className="py-12 bg-white border-b border-slate-100">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div className="bg-[#0b1b3d] text-white rounded-2xl p-6 shadow-md relative overflow-hidden flex flex-col justify-between">
+            <div className="bg-[#0b1b3d] text-white rounded-2xl p-6 shadow-md relative overflow-hidden flex flex-col justify-between transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
               <div className="absolute right-3 top-3 w-16 h-16 bg-[#0284c7]/20 rounded-full blur-xl"></div>
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-widest text-[#38bdf8]">Total Alumni Diklat</span>
@@ -99,8 +99,7 @@ export default function StatistikPesertaPage() {
               <div className="mt-4 pt-3 border-t border-white/10 text-[11px] text-slate-300">Tahun Anggaran 2024</div>
             </div>
 
-            <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm relative overflow-hidden flex flex-col justify-between">
-              <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#0284c7]"></div>
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm relative overflow-hidden flex flex-col justify-between transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Peserta Lulus Sertifikasi</span>
                 <div className="text-3xl font-black text-[#0b1b3d] mt-2">{totalAllCertified.toLocaleString()}</div>
@@ -111,8 +110,7 @@ export default function StatistikPesertaPage() {
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm relative overflow-hidden flex flex-col justify-between">
-              <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#fbbf24]"></div>
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm relative overflow-hidden flex flex-col justify-between transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Cakupan Wilayah kerja</span>
                 <div className="text-3xl font-black text-[#0b1b3d] mt-2">5 Provinsi</div>
@@ -139,13 +137,12 @@ export default function StatistikPesertaPage() {
                     <div
                       key={ac.code}
                       onClick={() => setActiveAcademyCode(ac.code)}
-                      className={`cursor-pointer p-4 rounded-xl border transition-all relative overflow-hidden ${
+                      className={`cursor-pointer p-4 rounded-xl border transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl relative overflow-hidden ${
                         isSelected
                           ? "bg-white border-[#0284c7] shadow-md ring-2 ring-[#0284c7]/20"
                           : "bg-white border-slate-200 hover:border-slate-300 shadow-sm"
                       }`}
                     >
-                      <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${isSelected ? "bg-[#0284c7]" : "bg-[#38bdf8]"}`}></div>
                       <div className="flex items-center justify-between">
                         <span className="text-xs font-bold text-[#0b1b3d]">{ac.name}</span>
                         <span className="text-[10px] font-extrabold px-2 py-0.5 rounded bg-sky-50 text-[#0284c7] uppercase">{ac.code}</span>
@@ -158,8 +155,7 @@ export default function StatistikPesertaPage() {
             </div>
 
             {/* Right Column: Detail Chart */}
-            <div className="lg:col-span-7 bg-white border border-slate-200 rounded-2xl shadow-sm p-6 sm:p-8 space-y-6 relative overflow-hidden">
-              <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#0284c7]"></div>
+            <div className="lg:col-span-7 bg-white border border-slate-200 rounded-2xl shadow-sm p-6 sm:p-8 space-y-6 relative overflow-hidden transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">

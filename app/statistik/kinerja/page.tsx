@@ -103,13 +103,12 @@ export default function StatistikKinerjaPage() {
                 <div
                   key={m.id}
                   onClick={() => setSelectedMetricId(m.id)}
-                  className={`cursor-pointer bg-white rounded-xl border p-5 shadow-sm transition-all relative overflow-hidden flex flex-col justify-between ${
+                  className={`cursor-pointer bg-white rounded-xl border p-5 shadow-sm transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl relative overflow-hidden flex flex-col justify-between ${
                     isSelected
-                      ? "border-[#0284c7] ring-2 ring-[#0284c7]/20 scale-[1.02]"
+                      ? "border-[#0284c7] ring-2 ring-[#0284c7]/20"
                       : "border-slate-200 hover:border-slate-300"
                   }`}
                 >
-                  <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${isSelected ? "bg-[#0284c7]" : "bg-[#38bdf8]"}`}></div>
                   <div className="space-y-3">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">IKU Balai</span>
                     <h3 className="text-xs font-bold text-[#0b1b3d] leading-snug line-clamp-2">{m.name}</h3>
@@ -140,8 +139,7 @@ export default function StatistikKinerjaPage() {
       {/* Interactive Deep-Dive Visualizer Chart Section */}
       <section className="py-16 bg-slate-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-10 space-y-8 relative overflow-hidden">
-            <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#0284c7]"></div>
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-10 space-y-8 relative overflow-hidden transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
 
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>

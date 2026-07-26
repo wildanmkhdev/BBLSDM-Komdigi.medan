@@ -52,8 +52,7 @@ export default function KontakPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
 
             {/* Left Column: Form Card */}
-            <div className="lg:col-span-7 bg-white border border-slate-200 rounded-2xl shadow-sm p-6 sm:p-10 relative overflow-hidden space-y-6">
-              <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#38bdf8]"></div>
+            <div className="lg:col-span-7 bg-white border border-slate-200 rounded-2xl shadow-sm p-6 sm:p-10 relative overflow-hidden space-y-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
 
               <div className="space-y-2">
                 <span className="text-[10px] font-bold uppercase tracking-widest text-[#0284c7]">
@@ -176,7 +175,7 @@ export default function KontakPage() {
             <div className="lg:col-span-5 space-y-6">
 
               {/* Office Address Card */}
-              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm">
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-sky-100 text-[#0284c7] flex items-center justify-center shrink-0">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -194,7 +193,7 @@ export default function KontakPage() {
               </div>
 
               {/* Telephone Card */}
-              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm">
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-sky-100 text-[#0284c7] flex items-center justify-center shrink-0">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -210,7 +209,7 @@ export default function KontakPage() {
               </div>
 
               {/* Email Card */}
-              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm">
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-sky-100 text-[#0284c7] flex items-center justify-center shrink-0">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -225,7 +224,7 @@ export default function KontakPage() {
               </div>
 
               {/* Satellite Map — Google Maps embed dengan layer satelit */}
-              <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+              <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
                 <div className="px-4 pt-4 pb-2 flex items-center justify-between">
                   <span className="text-xs font-bold text-[#0b1b3d] flex items-center gap-1.5">
                     <span className="inline-block w-2 h-2 rounded-full bg-[#0284c7]"></span>
@@ -241,7 +240,7 @@ export default function KontakPage() {
                   </a>
                 </div>
                 {/* Google Maps iframe dengan parameter layer satelit (t=k) */}
-                <div className="relative h-52 w-full">
+                <div className="relative h-52 w-full overflow-hidden">
                   <iframe
                     title="Peta Satelit BBLSDM Komdigi Medan"
                     src="https://maps.google.com/maps?q=Jl.+Tombak+No.31+Medan+Barat+Sumatera+Utara&t=k&z=17&ie=UTF8&iwloc=&output=embed"
@@ -250,9 +249,26 @@ export default function KontakPage() {
                     allowFullScreen
                     referrerPolicy="no-referrer-when-downgrade"
                   />
+
+                  {/* Animated Electric Blue Location Marker Pin (Bounce Animation) */}
+                  <div className="absolute inset-0 pointer-events-none flex items-center justify-center pb-8">
+                    <div className="flex flex-col items-center animate-bounce">
+                      <div className="relative filter drop-shadow-[0_4px_8px_rgba(2,132,199,0.6)]">
+                        <svg className="w-9 h-9 text-[#0284c7] fill-current stroke-white stroke-[0.8]" viewBox="0 0 24 24">
+                          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                      </div>
+                      <div className="w-3.5 h-1 bg-black/60 rounded-full blur-[1px] -mt-1"></div>
+                    </div>
+                  </div>
+
                   {/* Overlay label */}
-                  <div className="absolute bottom-2 left-2 bg-[#0b1b3d]/80 text-white text-[10px] font-bold px-2 py-1 rounded backdrop-blur-sm flex items-center gap-1">
-                    📍 BBLSDM Komdigi Medan
+                  <div className="absolute bottom-2 left-2 bg-[#0b1b3d]/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-md backdrop-blur-sm flex items-center gap-1.5 border border-sky-500/30 shadow-sm">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0284c7]"></span>
+                    </span>
+                    <span>BBLSDM Komdigi Medan</span>
                   </div>
                 </div>
               </div>
