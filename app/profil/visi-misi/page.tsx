@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import PageHeader from "@/app/components/PageHeader";
 import {
   GraduationCap,
   FileSearch,
@@ -51,21 +52,16 @@ export default function VisiMisi() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <main className="flex-grow">
-        {/* Page Header Banner */}
-        <section className="bg-slate-50 border-b border-slate-100 py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center space-y-4">
-            <div className="inline-flex px-3 py-1 rounded-full text-[10px] font-bold tracking-widest bg-[#0284c7]/10 text-[#0284c7] uppercase">
-              Visi &amp; Misi Resmi
-            </div>
-            <h1 className="text-3xl font-extrabold text-[#0b1b3d] sm:text-4xl">
-              Komitmen Layanan Publik
-            </h1>
-            <p className="text-sm text-slate-500 max-w-2xl mx-auto">
-              Landasan filosofis dan pedoman aksi strategis BBLSDM Komdigi Medan dalam mempercepat agenda transformasi masyarakat digital.
-            </p>
-            <div className="w-12 h-1 bg-[#0284c7] mx-auto rounded-full mt-4"></div>
-          </div>
-        </section>
+        <PageHeader
+          title="Visi dan Misi"
+          subtitle="Landasan filosofis dan pedoman aksi strategis BBLSDM Komdigi Medan dalam mempercepat agenda transformasi masyarakat digital"
+          breadcrumbs={[
+            { label: "Beranda", href: "/" },
+            { label: "Profil", href: "#" },
+            { label: "Visi dan Misi" },
+          ]}
+          className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
+        />
 
         {/* Vision Statement (Highlight container — UNSTOUCHED) */}
         <section className="py-20">

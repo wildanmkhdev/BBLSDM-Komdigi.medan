@@ -160,7 +160,7 @@ export default function WilayahKerjaPage() {
           { label: "Profil", href: "#" },
           { label: "Wilayah Kerja" },
         ]}
-        className="pt-28 pb-12 sm:pt-32 sm:pb-16"
+        className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
       />
 
       <section className="bg-white py-8">
