@@ -2,27 +2,100 @@
 
 import Image from "next/image";
 
-interface StaffMember {
+interface Member {
   name: string;
   role: string;
   avatar: string;
 }
 
-export default function StrukturOrganisasi() {
-  const pimpinan: StaffMember[] = [
-    {
-      name: "Dr. Christiany Juditha S.Sos., M.A.",
-      role: "Kepala BBPSDMP KOMINFO MEDAN",
-      avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop",
-    },
-    {
-      name: "Yusrizal, S.Kom., M.Eng",
-      role: "Kepala Bagian Umum",
-      avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop",
-    },
-  ];
+type NodeSize = "xl" | "lg" | "md" | "sm";
 
-  const staffRow1: StaffMember[] = [
+// ─────────────────────────────────────────────
+// Reusable Org Node (circle photo + name + role)
+// ─────────────────────────────────────────────
+function OrgNode({ member, size = "md" }: { member: Member; size?: NodeSize }) {
+  const cfg: Record<NodeSize, { circle: string; name: string; role: string; wrap: string }> = {
+    xl:  { circle: "w-24 h-24 border-[3px]", name: "text-sm font-extrabold",   role: "text-[10px]", wrap: "w-36"  },
+    lg:  { circle: "w-20 h-20 border-2",     name: "text-xs font-bold",        role: "text-[10px]", wrap: "w-32"  },
+    md:  { circle: "w-16 h-16 border-2",     name: "text-[11px] font-bold",    role: "text-[9.5px]", wrap: "w-28" },
+    sm:  { circle: "w-12 h-12 border",       name: "text-[9.5px] font-bold",   role: "text-[8px]",  wrap: "w-24" },
+  };
+  const c = cfg[size];
+  return (
+    <div className={`flex flex-col items-center text-center ${c.wrap}`}>
+      <div className={`relative ${c.circle} rounded-full overflow-hidden border-[#0284c7]/40 shadow-md bg-slate-100 flex-shrink-0`}>
+        <Image
+          src={member.avatar}
+          alt={member.name}
+          fill
+          sizes="96px"
+          className="object-cover hover:scale-105 transition-transform duration-300"
+        />
+      </div>
+      <div className="mt-2 px-1 space-y-0.5">
+        <p className={`${c.name} text-[#0b1b3d] leading-snug`}>{member.name}</p>
+        <p className={`${c.role} text-[#0284c7] leading-tight font-semibold`}>{member.role}</p>
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// A horizontal row of nodes connected by branch lines to a single parent above.
+// Uses the "half-border" trick: each item draws left-half + right-half lines
+// at top-0, which combine with adjacent items to form a continuous H-line.
+// ─────────────────────────────────────────────────────────────────────────────
+function BranchRow({
+  members,
+  size = "md",
+  px = "px-5",
+}: {
+  members: Member[];
+  size?: NodeSize;
+  px?: string;
+}) {
+  return (
+    <div className="flex justify-center items-start">
+      {members.map((member, i) => (
+        <div key={i} className={`relative flex flex-col items-center ${px}`}>
+          {/* Left half of horizontal connector (skip for first item) */}
+          {i > 0 && (
+            <div className="absolute top-0 left-0 w-1/2 h-px bg-slate-300" />
+          )}
+          {/* Right half of horizontal connector (skip for last item) */}
+          {i < members.length - 1 && (
+            <div className="absolute top-0 right-0 w-1/2 h-px bg-slate-300" />
+          )}
+          {/* Vertical drop line */}
+          <div className="w-px h-8 bg-slate-300" />
+          <OrgNode member={member} size={size} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// Vertical connector between levels
+// ─────────────────────────────────────────────
+function VLine({ h = 10 }: { h?: number }) {
+  return <div className={`w-px bg-slate-300 mx-auto`} style={{ height: `${h * 4}px` }} />;
+}
+
+export default function StrukturOrganisasi() {
+  const kepala: Member = {
+    name: "Dr. Christiany Juditha S.Sos., M.A.",
+    role: "Kepala BBLSDM Komdigi Medan",
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop",
+  };
+
+  const kabag: Member = {
+    name: "Yusrizal, S.Kom., M.Eng",
+    role: "Kepala Bagian Umum",
+    avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop",
+  };
+
+  const staffRow1: Member[] = [
     {
       name: "Ahirinna, S.I.Kom.",
       role: "Fasilitator Kemitraan",
@@ -55,7 +128,7 @@ export default function StrukturOrganisasi() {
     },
   ];
 
-  const staffRow2: StaffMember[] = [
+  const staffRow2: Member[] = [
     {
       name: "Jesty Meliana Sibarani, S.Akun.",
       role: "Penata Laporan Keuangan",
@@ -88,7 +161,7 @@ export default function StrukturOrganisasi() {
     },
   ];
 
-  const staffRow3: StaffMember[] = [
+  const staffRow3: Member[] = [
     {
       name: "Prini Zunita, S.Sos., M.S.P.",
       role: "Analis SDM Aparatur",
@@ -96,7 +169,7 @@ export default function StrukturOrganisasi() {
     },
     {
       name: "Achmad Ofanny S. Torong, S.E.",
-      role: "Penyusun Rencana Kebutuhan Rumah Tangga & Perlengkapan",
+      role: "Penyusun Rencana Kebutuhan RT & Perlengkapan",
       avatar: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=200&auto=format&fit=crop",
     },
     {
@@ -131,7 +204,7 @@ export default function StrukturOrganisasi() {
     },
   ];
 
-  const staffRow4: StaffMember[] = [
+  const staffRow4: Member[] = [
     {
       name: "Fachri Auliansyah, S.Kom.",
       role: "Standarisasi Informatika",
@@ -140,7 +213,7 @@ export default function StrukturOrganisasi() {
     {
       name: "Eki Yoan Meydora, S.I.Kom.",
       role: "Penyusun Bahan Informasi & Publikasi",
-      avatar: "https://images.unsplash.com/photo-1594744803329-e58b31de215f?q=80&w=200&auto=format&fit=crop",
+      avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop",
     },
     {
       name: "Idawati Pandia, S.Sos.",
@@ -164,209 +237,107 @@ export default function StrukturOrganisasi() {
     },
   ];
 
+  // Gabungkan semua staf untuk tampilan mobile grid
+  const allStaff: Member[] = [...staffRow1, ...staffRow2, ...staffRow3, ...staffRow4];
+
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50/50">
+    <div className="flex flex-col min-h-screen bg-white">
       <main className="flex-grow">
-        {/* Header Section */}
-        <section className="bg-white border-b border-slate-200/60 py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center space-y-4">
-            <div className="inline-flex px-3 py-1 rounded-full text-[10px] font-bold tracking-widest bg-[#0284c7]/10 text-[#0284c7] uppercase">
-              Bagan Organisasi Resmi
-            </div>
-            <h1 className="text-3xl font-extrabold text-[#0b1b3d] sm:text-4xl">
-              Struktur Organisasi BBLSDM Komdigi Medan
+        {/* ─── Page Title Banner ─── */}
+        <section className="bg-slate-50 border-b border-slate-100 py-14">
+          <div className="mx-auto max-w-4xl px-4 text-center space-y-3">
+            <h1 className="text-3xl sm:text-4xl xl:text-5xl font-black text-[#0b1b3d] tracking-tight">
+              Struktur Organisasi
             </h1>
-            <p className="text-xs sm:text-sm text-slate-500 max-w-2xl mx-auto">
-              Susunan lengkap pimpinan, pejabat administrasi, serta kelompok fungsional pelaksana di lingkungan balai.
+            <p className="text-sm text-slate-500">
+              Balai Besar Layanan Sumber Daya Manusia Komdigi Medan
             </p>
-            <div className="w-12 h-1 bg-[#0284c7] mx-auto rounded-full mt-4"></div>
+            <div className="flex items-center justify-center gap-2 mt-1">
+              <span className="h-px w-12 bg-[#0284c7]" />
+              <span className="text-[10px] font-bold tracking-[0.2em] text-[#0284c7] uppercase">Bagan Hierarki Resmi</span>
+              <span className="h-px w-12 bg-[#0284c7]" />
+            </div>
           </div>
         </section>
 
-        {/* ============================================================
-           BAGAN STRUKTUR DINDING (ORGANIZATIONAL BOARD LAYOUT)
-           ============================================================ */}
-        <section className="py-20 bg-gradient-to-br from-slate-50 via-slate-100 to-blue-50/60 border-t border-slate-200/40 relative overflow-hidden">
-          {/* Abstract Grid Overlay representing office board */}
-          <div className="absolute inset-0 opacity-15 bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+        {/* ══════════════════════════════════════════════════════
+            MOBILE / TABLET LAYOUT  (< xl / < 1280px)
+            Foto lingkaran dalam grid rapi, tanpa garis branch.
+            ══════════════════════════════════════════════════════ */}
+        <section className="xl:hidden py-12 bg-white">
+          <div className="mx-auto max-w-2xl px-4 flex flex-col items-center space-y-10">
 
-          <div className="mx-auto max-w-[95rem] px-4 sm:px-6 lg:px-8 space-y-16 relative z-10">
-            
-            {/* Top Board Commitments Slogan (as shown in printed photo) */}
-            <div className="w-full flex justify-between items-start mb-6">
-              <div className="border-l-4 border-[#0284c7] pl-4 max-w-sm">
-                <span className="block text-[10px] font-bold text-[#0284c7] uppercase tracking-widest mb-1">
-                  Zona Integritas
-                </span>
-                <p className="text-xs font-extrabold text-[#0b1b3d] leading-relaxed">
-                  1. Wilayah Bebas Korupsi (WBK)<br />
-                  2. Birokrasi Bersih dan Melayani (WBBM)
-                </p>
-              </div>
-              <div className="text-right hidden sm:block">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                  BBLSDM Komdigi Medan
-                </span>
-              </div>
+            {/* Pimpinan: vertical stack */}
+            <div className="flex flex-col items-center space-y-2">
+              <OrgNode member={kepala} size="lg" />
+              <div className="w-px h-8 bg-slate-300" />
+              <OrgNode member={kabag} size="md" />
             </div>
 
-            {/* 1. Baris Pimpinan (Dr. Christiany & Yusrizal) */}
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-16 mb-16 relative">
-              {/* Kepala */}
-              <div className="flex flex-col items-center group">
-                <div className="relative w-44 h-56 rounded-t-2xl overflow-hidden bg-white border-t border-x border-slate-250 shadow-sm">
-                  <Image
-                    src={pimpinan[0].avatar}
-                    alt={pimpinan[0].name}
-                    fill
-                    sizes="200px"
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="w-48 bg-[#0b1b3d] text-white py-3 px-2 rounded-xl border border-slate-700 shadow-md text-center min-h-[4.5rem] flex flex-col justify-center -mt-2.5 z-10">
-                  <h4 className="text-[11px] font-extrabold leading-snug mb-1 text-white">
-                    {pimpinan[0].name}
-                  </h4>
-                  <p className="text-[9px] text-yellow-400 font-bold uppercase tracking-wider leading-tight">
-                    {pimpinan[0].role}
-                  </p>
-                </div>
-              </div>
-
-              {/* Kabag */}
-              <div className="flex flex-col items-center group">
-                <div className="relative w-44 h-56 rounded-t-2xl overflow-hidden bg-white border-t border-x border-slate-250 shadow-sm">
-                  <Image
-                    src={pimpinan[1].avatar}
-                    alt={pimpinan[1].name}
-                    fill
-                    sizes="200px"
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="w-48 bg-[#0b1b3d] text-white py-3 px-2 rounded-xl border border-slate-700 shadow-md text-center min-h-[4.5rem] flex flex-col justify-center -mt-2.5 z-10">
-                  <h4 className="text-[11px] font-extrabold leading-snug mb-1 text-white">
-                    {pimpinan[1].name}
-                  </h4>
-                  <p className="text-[9px] text-yellow-400 font-bold uppercase tracking-wider leading-tight">
-                    {pimpinan[1].role}
-                  </p>
-                </div>
-              </div>
+            {/* Banner */}
+            <div className="border-2 border-[#0b1b3d] text-[#0b1b3d] px-6 sm:px-10 py-2.5 font-black tracking-[0.2em] text-[11px] sm:text-xs uppercase text-center">
+              KELOMPOK JABATAN FUNGSIONAL
             </div>
 
-            {/* Separator / Staff Heading */}
-            <div className="w-full text-center relative mb-8">
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="w-full border-t border-slate-200/60 max-w-4xl"></div>
-              </div>
-              <span className="relative inline-block bg-slate-50/10 px-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                Kelompok Jabatan Fungsional
-              </span>
-            </div>
-
-            {/* 2. Staff Row 1 (6-across) */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-y-12 gap-x-4 max-w-6xl mx-auto justify-items-center">
-              {staffRow1.map((staf, idx) => (
-                <div key={idx} className="flex flex-col items-center group">
-                  <div className="relative w-36 h-44 rounded-t-xl overflow-hidden bg-white border-t border-x border-slate-200/80 shadow-sm">
-                    <Image
-                      src={staf.avatar}
-                      alt={staf.name}
-                      fill
-                      sizes="150px"
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="w-40 bg-[#0b1b3d] text-white py-2.5 px-2 rounded-lg border border-slate-700 shadow-md text-center min-h-[4rem] flex flex-col justify-center -mt-2 z-10">
-                    <h4 className="text-[10px] font-bold leading-tight mb-1 text-white line-clamp-2">
-                      {staf.name}
-                    </h4>
-                    <p className="text-[8px] text-yellow-400 font-bold uppercase tracking-wider leading-tight min-h-[1.5rem] flex items-center justify-center">
-                      {staf.role}
-                    </p>
-                  </div>
-                </div>
+            {/* All staff in responsive grid */}
+            <div className="w-full grid grid-cols-3 gap-x-3 gap-y-8 justify-items-center">
+              {allStaff.map((staf, i) => (
+                <OrgNode key={i} member={staf} size="sm" />
               ))}
             </div>
 
-            {/* 3. Staff Row 2 (6-across) */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-y-12 gap-x-4 max-w-6xl mx-auto justify-items-center">
-              {staffRow2.map((staf, idx) => (
-                <div key={idx} className="flex flex-col items-center group">
-                  <div className="relative w-36 h-44 rounded-t-xl overflow-hidden bg-white border-t border-x border-slate-200/80 shadow-sm">
-                    <Image
-                      src={staf.avatar}
-                      alt={staf.name}
-                      fill
-                      sizes="150px"
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="w-40 bg-[#0b1b3d] text-white py-2.5 px-2 rounded-lg border border-slate-700 shadow-md text-center min-h-[4rem] flex flex-col justify-center -mt-2 z-10">
-                    <h4 className="text-[10px] font-bold leading-tight mb-1 text-white line-clamp-2">
-                      {staf.name}
-                    </h4>
-                    <p className="text-[8px] text-yellow-400 font-bold uppercase tracking-wider leading-tight min-h-[1.5rem] flex items-center justify-center">
-                      {staf.role}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* 4. Staff Row 3 (8-across - slightly smaller cards to fit 8 items beautifully) */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-y-12 gap-x-3 max-w-7xl mx-auto justify-items-center">
-              {staffRow3.map((staf, idx) => (
-                <div key={idx} className="flex flex-col items-center group">
-                  <div className="relative w-32 h-40 rounded-t-lg overflow-hidden bg-white border-t border-x border-slate-200/80 shadow-sm">
-                    <Image
-                      src={staf.avatar}
-                      alt={staf.name}
-                      fill
-                      sizes="130px"
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="w-36 bg-[#0b1b3d] text-white py-2 px-1.5 rounded-md border border-slate-700 shadow-md text-center min-h-[3.75rem] flex flex-col justify-center -mt-2 z-10">
-                    <h4 className="text-[9px] font-bold leading-tight mb-0.5 text-white line-clamp-2">
-                      {staf.name}
-                    </h4>
-                    <p className="text-[7.5px] text-yellow-400 font-bold uppercase tracking-wider leading-tight min-h-[1.5rem] flex items-center justify-center">
-                      {staf.role}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* 5. Staff Row 4 (6-across) */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-y-12 gap-x-4 max-w-6xl mx-auto justify-items-center">
-              {staffRow4.map((staf, idx) => (
-                <div key={idx} className="flex flex-col items-center group">
-                  <div className="relative w-36 h-44 rounded-t-xl overflow-hidden bg-white border-t border-x border-slate-200/80 shadow-sm">
-                    <Image
-                      src={staf.avatar}
-                      alt={staf.name}
-                      fill
-                      sizes="150px"
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="w-40 bg-[#0b1b3d] text-white py-2.5 px-2 rounded-lg border border-slate-700 shadow-md text-center min-h-[4rem] flex flex-col justify-center -mt-2 z-10">
-                    <h4 className="text-[10px] font-bold leading-tight mb-1 text-white line-clamp-2">
-                      {staf.name}
-                    </h4>
-                    <p className="text-[8px] text-yellow-400 font-bold uppercase tracking-wider leading-tight min-h-[1.5rem] flex items-center justify-center">
-                      {staf.role}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
+            {/* Bottom note */}
+            <p className="text-[10px] text-slate-400 text-center pt-4 border-t border-slate-100 w-full">
+              Data bersumber dari Struktur Pengurus BBLSDM Komdigi Medan · Foto menggunakan dummy sementara
+            </p>
           </div>
         </section>
+
+        {/* ══════════════════════════════════════════════════════
+            DESKTOP TREE LAYOUT  (≥ xl / ≥ 1280px)
+            Bagan pohon hierarki penuh dengan garis branch.
+            ══════════════════════════════════════════════════════ */}
+        <section className="hidden xl:block py-16 bg-white overflow-x-auto">
+          <div className="min-w-[1100px] px-8 flex flex-col items-center">
+
+            {/* LEVEL 1: Kepala */}
+            <OrgNode member={kepala} size="xl" />
+            <VLine h={10} />
+
+            {/* LEVEL 2: Kabag */}
+            <OrgNode member={kabag} size="lg" />
+            <VLine h={10} />
+
+            {/* Banner */}
+            <div className="border-2 border-[#0b1b3d] text-[#0b1b3d] px-20 py-3 font-black tracking-[0.3em] text-sm uppercase">
+              KELOMPOK JABATAN FUNGSIONAL
+            </div>
+            <VLine h={10} />
+
+            {/* Staff Row 1 – 6 orang */}
+            <BranchRow members={staffRow1} size="sm" px="px-5" />
+            <div className="my-10" />
+
+            {/* Staff Row 2 – 6 orang */}
+            <BranchRow members={staffRow2} size="sm" px="px-5" />
+            <div className="my-10" />
+
+            {/* Staff Row 3 – 8 orang */}
+            <BranchRow members={staffRow3} size="sm" px="px-3" />
+            <div className="my-10" />
+
+            {/* Staff Row 4 – 6 orang */}
+            <BranchRow members={staffRow4} size="sm" px="px-5" />
+
+            {/* Bottom note */}
+            <div className="mt-16 pt-6 border-t border-slate-100 text-center">
+              <p className="text-[10px] text-slate-400">
+                Data bersumber dari Struktur Pengurus BBLSDM Komdigi Medan · Foto menggunakan dummy sementara
+              </p>
+            </div>
+          </div>
+        </section>
+
       </main>
     </div>
   );

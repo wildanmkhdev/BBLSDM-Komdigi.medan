@@ -1,6 +1,8 @@
 "use client";
 
 import HeroBanner from "@/components/HeroBanner";
+import FeaturedEventHero from "@/components/FeaturedEventHero";
+import KomdigiStorySection from "@/components/KomdigiStorySection";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -186,8 +188,11 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Quick Stats Section */}
-       
+        {/* Featured Event / Activity Hero Section (NASA Style Banner) */}
+        <FeaturedEventHero />
+
+        {/* Story / Image Of The Day Section (NASA Style Image Feature) */}
+        <KomdigiStorySection />
       </main>
     </>
   );
