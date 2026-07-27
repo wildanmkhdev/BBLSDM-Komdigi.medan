@@ -92,7 +92,7 @@ const wilayahList: WilayahData[] = [
     provinsi: "Bangka Belitung",
     kota: "Pangkal Pinang",
     alamat: "Jl. Merdeka No. 5, Pangkal Pinang 33149",
-    telepon: "(0717) 422-000",
+    telepon: "(0717) 423-000",
     website: "https://diskominfo.babelprov.go.id",
     lat: -2.1337,
     lng: 106.1167,
