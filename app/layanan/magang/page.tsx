@@ -68,6 +68,7 @@ export default function MagangPage() {
           { label: "Layanan", href: "#" },
           { label: "Pengajuan Magang" },
         ]}
+        className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
       />
 
       {/* Alur Pendaftaran */}

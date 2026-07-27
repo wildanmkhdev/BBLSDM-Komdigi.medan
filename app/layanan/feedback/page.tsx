@@ -142,6 +142,7 @@ export default function FeedbackPage() {
           { label: "Layanan", href: "#" },
           { label: "Feedback" },
         ]}
+        className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
       />
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">

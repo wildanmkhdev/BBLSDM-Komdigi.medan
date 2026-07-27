@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import PageHeader from "@/app/components/PageHeader";
 
 interface PengumumanItem {
   id: string;
@@ -91,21 +92,16 @@ export default function PengumumanPage() {
 
   return (
     <div className="bg-white">
-      {/* Header Banner (Pola Standard app/profil) */}
-      <section className="bg-slate-50 border-b border-slate-100 py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center space-y-4">
-          <div className="inline-flex px-3 py-1 rounded-full text-[10px] font-bold tracking-widest bg-[#0284c7]/10 text-[#0284c7] uppercase">
-            Informasi Resmi
-          </div>
-          <h1 className="text-3xl font-extrabold text-[#0b1b3d] sm:text-4xl">
-            Pengumuman Instansi
-          </h1>
-          <p className="text-sm text-slate-500 max-w-2xl mx-auto leading-relaxed">
-            Dapatkan informasi terkini seputar jadwal ujian sertifikasi, pengumuman hasil kelulusan, penyesuaian jam layanan, dan agenda resmi BBLSDM Komdigi Medan.
-          </p>
-          <div className="w-12 h-1 bg-[#0284c7] mx-auto rounded-full mt-4"></div>
-        </div>
-      </section>
+      <PageHeader
+        title="Pengumuman Instansi"
+        subtitle="Dapatkan informasi terkini seputar jadwal ujian sertifikasi, pengumuman hasil kelulusan, penyesuaian jam layanan, dan agenda resmi BBLSDM Komdigi Medan."
+        breadcrumbs={[
+          { label: "Beranda", href: "/" },
+          { label: "Informasi", href: "#" },
+          { label: "Pengumuman" },
+        ]}
+        className="pt-28 pb-12 sm:pt-32 sm:pb-16"
+      />
 
       {/* Content Section */}
       <section className="py-12 bg-slate-50/50">

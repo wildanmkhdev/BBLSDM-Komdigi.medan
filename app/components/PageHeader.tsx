@@ -14,12 +14,14 @@ interface PageHeaderProps {
   title: string;
   subtitle?: string;
   breadcrumbs: Breadcrumb[];
+  className?: string;
 }
 
 export default function PageHeader({
   title,
   subtitle,
   breadcrumbs,
+  className = "py-12 sm:py-16",
 }: PageHeaderProps) {
   return (
     <section className="relative bg-gradient-to-br from-navy via-navy-light to-navy overflow-hidden">
@@ -29,7 +31,7 @@ export default function PageHeader({
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-sky-accent/5 rounded-full translate-y-1/2 -translate-x-1/4" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div className={`relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${className}`}>
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm mb-4">
           {breadcrumbs.map((crumb, i) => (

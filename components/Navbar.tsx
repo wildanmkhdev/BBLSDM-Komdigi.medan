@@ -66,33 +66,40 @@ export default function Navbar() {
   ];
 
   const [scrolled, setScrolled] = useState(false);
-  const isHome = pathname === "/";
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  const isTransparentPage = 
+    pathname === "/" || 
+    pathname === "/profil/tugas-fungsi" || 
+    pathname === "/profil/wilayah-kerja" ||
+    pathname === "/informasi/berita" ||
+    pathname === "/informasi/pengumuman" ||
+    pathname === "/informasi/galeri" ||
+    pathname === "/layanan/pelatihan" ||
+    pathname === "/layanan/magang" ||
+    pathname === "/layanan/faq" ||
+    pathname === "/layanan/feedback";
 
-  // Listen to scroll events on Home page to transition the navbar background softly
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 30) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    if (isHome) {
-      window.addEventListener("scroll", handleScroll);
-      handleScroll(); // initial call
-    } else {
-      setScrolled(true);
-    }
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isHome]);
-
-  // Close menus on path change
-  useEffect(() => {
+  // Close menus and reset scroll state on path change during render (React 19 recommended pattern over useEffect)
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
     setMobileMenuOpen(false);
     setActiveDropdown(null);
-  }, [pathname]);
+    setScrolled(false);
+  }
+
+  // Listen to scroll events on transparent pages to transition the navbar background softly
+  useEffect(() => {
+    if (!isTransparentPage) return;
+
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 30);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // initial call
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isTransparentPage]);
 
   const handleDropdownToggle = (menuName: string) => {
     if (activeDropdown === menuName) {
@@ -113,17 +120,18 @@ export default function Navbar() {
   };
 
   // Determine dynamic classes and positioning for a soft blend
-  const headerClass = isHome
+  const headerClass = isTransparentPage
     ? (scrolled 
         ? "fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-[0_1px_3px_0_rgba(0,0,0,0.02)] text-slate-600"
         : "fixed top-0 left-0 right-0 z-50 bg-transparent border-transparent shadow-none text-slate-200")
     : "sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-[0_1px_3px_0_rgba(0,0,0,0.02)] text-slate-600";
 
-  const brandTitleClass = scrolled ? "text-[#0b1b3d]" : "text-white";
-  const brandSubClass = scrolled ? "text-slate-400" : "text-slate-400";
+  const isSolidNavbar = !isTransparentPage || scrolled;
+  const brandTitleClass = isSolidNavbar ? "text-[#0b1b3d]" : "text-white";
+  const brandSubClass = "text-slate-400";
   const navLinkClass = (active: boolean) => {
     if (active) return "text-[#0284c7]";
-    return scrolled 
+    return isSolidNavbar 
       ? "text-slate-600 hover:text-[#0284c7]" 
       : "text-slate-200 hover:text-white";
   };

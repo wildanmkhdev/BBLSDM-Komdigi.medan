@@ -63,76 +63,66 @@ function IconShield() {
 /* ──────────────────────────────────────────
    Data jabatan — komprehensif
    ────────────────────────────────────────── */
-const jabatanList = [
+const fungsiList = [
   {
-    title: "Kepala Balai Besar",
-    icon: <IconBuilding />,
-    fungsi: [
-      "Memimpin dan mengoordinasikan seluruh kegiatan operasional BBLSDM Komdigi Medan",
-      "Menetapkan kebijakan teknis dan administratif balai besar sesuai peraturan perundang-undangan",
-      "Menjalin kerja sama dengan instansi pemerintah, dunia usaha, dan masyarakat di bidang komunikasi dan digital",
-      "Melakukan pembinaan dan pengawasan terhadap pelaksanaan tugas seluruh unit kerja",
-      "Bertanggung jawab atas pencapaian target kinerja dan indikator strategis balai besar",
-    ],
-  },
-  {
-    title: "Kepala Bagian Tata Usaha",
+    code: "a",
+    title: "Penyusunan Rencana, Program, dan Anggaran",
     icon: <IconClipboard />,
-    fungsi: [
-      "Mengoordinasikan penyusunan rencana kerja, anggaran, dan laporan kegiatan balai besar",
-      "Melaksanakan urusan kepegawaian, keuangan, perlengkapan, dan rumah tangga",
-      "Mengelola administrasi surat-menyurat, kearsipan, dan dokumentasi kelembagaan",
-      "Menyusun Laporan Kinerja Instansi Pemerintah (LAKIP) dan Laporan Tahunan (LAPTAH)",
-      "Melaksanakan pengelolaan barang milik negara dan pengadaan barang/jasa",
+    items: [
+      "Perumusan rencana strategis jangka menengah dan rencana kerja tahunan di bidang pelatihan SDM komunikasi dan digital wilayah kerja.",
+      "Penyusunan target kinerja operasional dan indikator keberhasilan program pelatihan literasi maupun kecakapan digital.",
+      "Perencanaan dan sinkronisasi alokasi anggaran operasional dan kegiatan balai secara akuntabel, transparan, dan efisien.",
+      "Pelaksanaan koordinasi program kerja dengan instansi pembina di lingkungan Kementerian Komunikasi dan Digital serta pemerintah daerah.",
     ],
+    spanFull: false,
   },
   {
-    title: "Kepala Bidang Pelatihan",
+    code: "b",
+    title: "Pelatihan dan Pemberdayaan Talenta Digital",
     icon: <IconAcademic />,
-    fungsi: [
-      "Menyusun program dan kurikulum pelatihan di bidang komunikasi dan teknologi digital",
-      "Mengoordinasikan pelaksanaan pelatihan teknis, manajerial, dan fungsional",
-      "Melakukan evaluasi efektivitas pelatihan dan pengembangan modul pembelajaran",
-      "Menjalin kerja sama dengan lembaga pelatihan dalam dan luar negeri",
-      "Mengelola database peserta pelatihan dan sertifikasi kompetensi",
-      "Mengembangkan metode pembelajaran berbasis teknologi (e-learning, blended learning)",
+    items: [
+      "Penyelenggaraan pelatihan teknis dan vokasi bidang teknologi informasi, komunikasi, dan digital bagi angkatan kerja, profesional, serta masyarakat umum.",
+      "Pelaksanaan pelatihan literasi digital dan pengembangan kompetensi kepemimpinan digital bagi Aparatur Sipil Negara (ASN) di wilayah kerja.",
+      "Pemberdayaan talenta digital daerah dan fasilitasi integrasi lulusan pelatihan dengan ekosistem industri kreatif dan dunia usaha.",
+      "Pengembangan metode instruksional adaptif berbasis tatap muka (offline), daring (online), dan pembelajaran hibrida (blended learning).",
     ],
+    spanFull: false,
   },
   {
-    title: "Kepala Bidang Sertifikasi dan Standardisasi",
+    code: "c",
+    title: "Penjaminan Mutu Penyelenggaraan Pelatihan",
     icon: <IconShield />,
-    fungsi: [
-      "Menyusun standar kompetensi di bidang komunikasi dan informatika",
-      "Menyelenggarakan uji kompetensi dan sertifikasi profesional",
-      "Mengelola Lembaga Sertifikasi Profesi (LSP) di lingkungan balai besar",
-      "Melakukan asesmen kompetensi terhadap tenaga kerja di bidang TIK",
-      "Mengembangkan dan memelihara Skema Sertifikasi Kompetensi Nasional",
-      "Memantau mutu dan relevansi standar kompetensi dengan kebutuhan industri",
+    items: [
+      "Penerapan standar penjaminan mutu (Quality Assurance) dalam seluruh tahapan penyelenggaraan pelatihan dari perencanaan hingga evaluasi.",
+      "Pelaksanaan monitoring dan pemantauan secara berkala terhadap kompetensi tenaga pengajar (instruktur dan widyaiswara) serta kesiapan sarana laboratorium.",
+      "Pengembangan dan pengkajian kurikulum maupun modul pelatihan agar senantiasa selaras dengan dinamika teknologi terkini (seperti AI, Keamanan Siber, dan Cloud).",
+      "Penyelenggaraan survei kepuasan peserta dan evaluasi dampak pasca-pelatihan (tracer study) guna perbaikan kualitas layanan secara berkelanjutan.",
     ],
+    spanFull: false,
   },
   {
-    title: "Kepala Bidang Pengembangan SDM",
+    code: "d",
+    title: "Fasilitasi Sertifikasi Kompetensi Talenta Digital",
     icon: <IconUsers />,
-    fungsi: [
-      "Menyusun strategi pengembangan sumber daya manusia di bidang komunikasi dan digital",
-      "Mengoordinasikan program magang, beasiswa, dan pertukaran tenaga ahli",
-      "Melakukan analisis kebutuhan kompetensi SDM sektor komunikasi dan digital",
-      "Mengembangkan program talent management dan career development",
-      "Memfasilitasi kegiatan knowledge sharing dan community of practice",
-      "Mengelola program pembinaan ASN di bidang literasi digital",
+    items: [
+      "Penyelenggaraan fasilitas uji kompetensi keahlian bidang teknologi informasi dan komunikasi bekerja sama dengan Lembaga Sertifikasi Profesi (LSP).",
+      "Fasilitasi perolehan sertifikasi kompetensi berstandar nasional (BNSP) maupun sertifikasi industri global bagi talenta digital daerah.",
+      "Pelaksanaan asesmen dan verifikasi kesiapan kompetensi kerja sumber daya manusia di subsektor komunikasi dan teknologi digital.",
+      "Penyediaan pusat pengujian (assessment center) berstandar industri untuk mendukung validasi keahlian tenaga kerja digital di wilayah Sumatera.",
     ],
+    spanFull: false,
   },
   {
-    title: "Kepala Bidang Penelitian dan Pengembangan",
-    icon: <IconCog />,
-    fungsi: [
-      "Merencanakan dan melaksanakan kegiatan penelitian di bidang komunikasi dan informatika",
-      "Menyusun kajian kebijakan, studi kelayakan, dan analisis dampak teknologi digital",
-      "Mengelola publikasi ilmiah, jurnal, dan buku putih",
-      "Membangun kerja sama riset dengan perguruan tinggi dan lembaga penelitian",
-      "Mengembangkan inovasi teknologi dan model implementasi digitalisasi daerah",
-      "Memantau tren teknologi komunikasi global dan merumuskan rekomendasi kebijakan",
+    code: "e",
+    title: "Administrasi, Keuangan, Tata Usaha, dan Pelaporan",
+    icon: <IconBuilding />,
+    items: [
+      "Pelaksanaan urusan keuangan, perpajakan, penerimaan negara bukan pajak (PNBP), serta pengelolaan dan pemeliharaan Barang Milik Negara (BMN).",
+      "Pengelolaan manajemen sumber daya manusia internal, pembinaan kepegawaian, tata laksana organisasi, persuratan, dan kearsipan digital balai.",
+      "Penyelenggaraan urusan rumah tangga, perlengkapan kantor, layanan kehumasan publik, protokoler, dan fasilitasi kerja sama antar-lembaga.",
+      "Pengelolaan sistem data dan informasi internal, penerapan manajemen risiko korporat, kepatuhan internal, serta penyusunan evaluasi dan pelaporan kinerja (LAKIP/LAPTAH).",
     ],
+    spanFull: true,
   },
 ];
 
@@ -141,47 +131,69 @@ export default function TugasFungsiPage() {
     <>
       <PageHeader
         title="Tugas dan Fungsi"
-        subtitle="Deskripsi lengkap tugas pokok dan fungsi setiap jabatan di BBLSDM Komdigi Medan"
+        subtitle="Deskripsi lengkap tugas pokok dan fungsi operasional di BBLSDM Komdigi Medan"
         breadcrumbs={[
           { label: "Beranda", href: "/" },
           { label: "Profil", href: "#" },
           { label: "Tugas dan Fungsi" },
         ]}
+        className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
       />
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        {/* Intro */}
-        <div className="max-w-3xl mb-12">
-          <p className="text-text-muted leading-relaxed">
-            Balai Besar Litbang Sumber Daya Manusia (BBLSDM) Kementerian
-            Komunikasi dan Digital Wilayah Medan memiliki tugas melaksanakan
-            pengembangan sumber daya manusia di bidang komunikasi dan informatika
-            melalui pelatihan, sertifikasi, penelitian, dan pengembangan
-            kompetensi. Berikut adalah uraian tugas dan fungsi masing-masing
-            jabatan struktural.
-          </p>
+        {/* Dasar Hukum & Tugas Pokok Banner Box */}
+        <div className="mb-12 bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm">
+          <div className="grid gap-8 lg:grid-cols-12 items-start">
+            <div className="lg:col-span-5 space-y-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy/10 text-navy text-xs font-bold uppercase tracking-wider">
+                <span>Dasar Hukum</span>
+              </div>
+              <h2 className="text-lg sm:text-xl font-bold text-navy leading-snug">
+                Peraturan Menteri Komunikasi dan Digital RI No. 3 Tahun 2026
+              </h2>
+              <p className="text-xs sm:text-sm text-text-muted leading-relaxed">
+                Tentang Organisasi dan Tata Kerja Unit Pelaksana Teknis Bidang Pengembangan Sumber Daya Manusia Komunikasi dan Digital.
+              </p>
+            </div>
+
+            <div className="lg:col-span-7 lg:border-l lg:border-slate-200 lg:pl-8 space-y-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-accent/10 text-sky-primary text-xs font-bold uppercase tracking-wider">
+                <span>Tugas Pokok Balai Besar</span>
+              </div>
+              <p className="text-base sm:text-lg font-semibold text-navy leading-relaxed">
+                &ldquo;Balai Besar Pelatihan Sumber Daya Manusia Komunikasi dan Digital mempunyai tugas melaksanakan pelatihan di bidang komunikasi, informasi, dan digital.&rdquo;
+              </p>
+              <p className="text-xs sm:text-sm text-text-muted leading-relaxed">
+                Dalam melaksanakan tugas pokok tersebut, Balai Besar Pelatihan Sumber Daya Manusia Komunikasi dan Digital (BBLSDM Komdigi) Medan menyelenggarakan 5 (lima) fungsi operasional utama sebagai berikut:
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Cards grid */}
         <div className="grid gap-6 md:grid-cols-2">
-          {jabatanList.map((jabatan) => (
-            <Card
-              key={jabatan.title}
-              title={jabatan.title}
-              icon={jabatan.icon}
-            >
-              <ul className="space-y-2">
-                {jabatan.fungsi.map((item, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-2.5 text-sm text-text-muted leading-relaxed"
-                  >
-                    <span className="shrink-0 w-1.5 h-1.5 mt-2 rounded-full bg-sky-accent" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </Card>
+          {fungsiList.map((item) => (
+            <div key={item.code} className={item.spanFull ? "md:col-span-2" : ""}>
+              <Card
+                title={item.title}
+                icon={item.icon}
+                badge={`Fungsi (${item.code})`}
+                badgeColor="sky"
+                className="h-full"
+              >
+                <ul className="space-y-2.5">
+                  {item.items.map((desc, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-2.5 text-sm text-text-muted leading-relaxed"
+                    >
+                      <span className="shrink-0 w-1.5 h-1.5 mt-2 rounded-full bg-sky-accent" />
+                      <span>{desc}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            </div>
           ))}
         </div>
       </section>
