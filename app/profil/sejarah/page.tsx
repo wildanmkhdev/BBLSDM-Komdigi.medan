@@ -1,6 +1,6 @@
 "use client";
 
-
+import PageHeader from "@/app/components/PageHeader";
 
 export default function Sejarah() {
   const timelineMilestones = [
@@ -54,30 +54,22 @@ export default function Sejarah() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen">
-
-
-      <main className="flex-grow bg-white">
+    <div className="flex flex-col min-h-screen bg-white">
+      <main className="flex-grow">
         {/* Banner Header */}
-        <section className="bg-slate-50 border-b border-slate-100 py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center space-y-4">
-            <div className="inline-flex px-3 py-1 rounded-full text-[10px] font-bold tracking-widest bg-sky-500/10 text-[#0284c7] uppercase">
-              Profil Instansi
-            </div>
-            <h1 className="text-3xl font-extrabold text-[#0b1b3d] sm:text-4xl">
-              Sejarah BBLSDM Komdigi Medan
-            </h1>
-            <p className="text-sm text-slate-500 max-w-2xl mx-auto">
-              Perjalanan dedikasi dalam melatih keahlian digital bangsa dan menyediakan data riset TIK berkualitas tinggi di Pulau Sumatera.
-            </p>
-            <div className="w-12 h-1 bg-[#0284c7] mx-auto rounded-full mt-4"></div>
-          </div>
-        </section>
+        <PageHeader
+          title="Sejarah"
+          subtitle="Perjalanan dedikasi dalam melatih keahlian digital bangsa dan menyediakan data riset TIK berkualitas tinggi di Pulau Sumatera"
+          breadcrumbs={[
+            { label: "Beranda", href: "/" },
+            { label: "Profil", href: "#" },
+            { label: "Sejarah" },
+          ]}
+        />
 
         {/* Narrative & Timeline Section */}
         <section className="py-20">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            {/* Optimized Typography for comfortable reading */}
             <article className="prose prose-slate max-w-none text-slate-700 leading-relaxed font-sans text-sm sm:text-base space-y-6">
               <p className="font-medium text-lg text-[#0b1b3d] leading-relaxed">
                 Berdiri di jantung kota Medan, Balai Besar Pengembangan Sumber Daya Manusia dan Penelitian Komunikasi dan Informatika (BBLSDM Komdigi) Medan telah melewati berbagai fase transformasi struktural penting untuk merespons laju teknologi informasi global.
@@ -94,11 +86,8 @@ export default function Sejarah() {
             <div className="mt-20 space-y-12 relative before:absolute before:inset-0 before:left-4 sm:before:left-1/2 before:w-0.5 before:bg-slate-200">
               {timelineMilestones.map((milestone, idx) => (
                 <div key={idx} className="relative flex flex-col sm:flex-row items-start sm:justify-between group">
-                  
-                  {/* Timeline dot */}
                   <div className="absolute left-4 sm:left-1/2 w-4 h-4 bg-[#0284c7] rounded-full border-4 border-white shadow -translate-x-1.5 mt-1 z-10 group-hover:scale-125 transition-transform"></div>
 
-                  {/* Year box */}
                   <div className={`pl-10 sm:pl-0 w-full sm:w-[45%] ${idx % 2 === 0 ? "sm:order-1 sm:text-right" : "sm:order-3 sm:text-left"}`}>
                     <span className="inline-block px-3 py-1 rounded-md text-xs font-extrabold bg-[#0b1b3d] text-white tracking-wider mb-2">
                       {milestone.year}
@@ -106,10 +95,8 @@ export default function Sejarah() {
                     <h3 className="text-base font-bold text-[#0b1b3d]">{milestone.title}</h3>
                   </div>
 
-                  {/* Spacing card */}
                   <div className="hidden sm:block w-[8%] sm:order-2"></div>
 
-                  {/* Desc box */}
                   <div className={`pl-10 sm:pl-0 w-full sm:w-[45%] ${idx % 2 === 0 ? "sm:order-3 sm:text-left" : "sm:order-1 sm:text-right"}`}>
                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mt-2 sm:mt-0">
                       {milestone.desc}
@@ -121,7 +108,7 @@ export default function Sejarah() {
           </div>
         </section>
 
-        {/* Historical Photo Gallery Grid (Fix from problem statement: tata letak kartu gambar belum rapi) */}
+        {/* Historical Photo Gallery Grid */}
         <section className="py-20 bg-slate-50 border-t border-slate-100">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-16 space-y-2">
@@ -130,21 +117,17 @@ export default function Sejarah() {
               <div className="w-12 h-0.5 bg-[#0284c7] mx-auto rounded-full mt-3"></div>
             </div>
 
-            {/* Grid Presisi & Rapi */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {historicalPhotos.map((photo, i) => (
                 <div
                   key={i}
                   className="group bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow"
                 >
-                  {/* Decorative visual placeholder representing historical image */}
                   <div className={`h-40 bg-gradient-to-br ${photo.color} relative flex items-center justify-center p-6 text-center text-white/95 overflow-hidden`}>
-                    {/* Grid abstract design overlay */}
                     <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,#fff_1px,transparent_1px)] bg-[size:12px_12px]" />
                     <div className="absolute top-3 right-3 text-[10px] font-bold bg-black/40 px-2 py-0.5 rounded backdrop-blur-sm border border-white/10 uppercase tracking-wider">
                       {photo.year}
                     </div>
-                    {/* Standard Icon */}
                     <svg className="absolute bottom-3 left-3 w-5 h-5 text-sky-400 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
@@ -153,7 +136,6 @@ export default function Sejarah() {
                     </span>
                   </div>
                   
-                  {/* Description Box */}
                   <div className="p-5 flex-grow flex flex-col justify-between space-y-3">
                     <p className="text-xs text-slate-500 leading-relaxed">
                       {photo.description}
@@ -168,8 +150,6 @@ export default function Sejarah() {
           </div>
         </section>
       </main>
-
-
     </div>
   );
 }

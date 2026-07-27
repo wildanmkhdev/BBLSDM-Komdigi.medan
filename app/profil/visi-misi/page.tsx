@@ -9,6 +9,7 @@ import {
   ShieldCheck,
   ArrowUpRight,
 } from "lucide-react";
+import PageHeader from "@/app/components/PageHeader";
 
 export default function VisiMisi() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -52,20 +53,15 @@ export default function VisiMisi() {
     <div className="flex flex-col min-h-screen bg-white">
       <main className="flex-grow">
         {/* Page Header Banner */}
-        <section className="bg-slate-50 border-b border-slate-100 py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center space-y-4">
-            <div className="inline-flex px-3 py-1 rounded-full text-[10px] font-bold tracking-widest bg-[#0284c7]/10 text-[#0284c7] uppercase">
-              Visi &amp; Misi Resmi
-            </div>
-            <h1 className="text-3xl font-extrabold text-[#0b1b3d] sm:text-4xl">
-              Komitmen Layanan Publik
-            </h1>
-            <p className="text-sm text-slate-500 max-w-2xl mx-auto">
-              Landasan filosofis dan pedoman aksi strategis BBLSDM Komdigi Medan dalam mempercepat agenda transformasi masyarakat digital.
-            </p>
-            <div className="w-12 h-1 bg-[#0284c7] mx-auto rounded-full mt-4"></div>
-          </div>
-        </section>
+        <PageHeader
+          title="Visi dan Misi"
+          subtitle="Landasan filosofis dan pedoman aksi strategis BBLSDM Komdigi Medan dalam mempercepat agenda transformasi masyarakat digital"
+          breadcrumbs={[
+            { label: "Beranda", href: "/" },
+            { label: "Profil", href: "#" },
+            { label: "Visi dan Misi" },
+          ]}
+        />
 
         {/* Vision Statement (Highlight container — UNSTOUCHED) */}
         <section className="py-20">
@@ -126,7 +122,6 @@ export default function VisiMisi() {
                     onMouseEnter={() => setHoveredIndex(idx)}
                     onMouseLeave={() => setHoveredIndex(null)}
                   >
-                    {/* Animated Aceternity Hover Backdrop Pill */}
                     <AnimatePresence>
                       {hoveredIndex === idx && (
                         <motion.span
@@ -145,9 +140,7 @@ export default function VisiMisi() {
                       )}
                     </AnimatePresence>
 
-                    {/* Card Body */}
                     <div className="rounded-2xl h-full w-full p-8 overflow-hidden bg-white border border-slate-200/80 shadow-xs group-hover:border-[#0284c7]/40 group-hover:shadow-lg transition-all duration-300 relative z-20 flex flex-col justify-between">
-                      {/* Top Row: Icon + Number badge */}
                       <div>
                         <div className="flex items-center justify-between mb-6">
                           <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-100 group-hover:bg-[#0284c7]/10 group-hover:border-[#0284c7]/20 flex items-center justify-center transition-colors duration-300">
@@ -164,18 +157,15 @@ export default function VisiMisi() {
                           </div>
                         </div>
 
-                        {/* Title */}
                         <h3 className="text-xl font-bold text-[#0b1b3d] group-hover:text-[#0284c7] transition-colors duration-300 leading-snug tracking-tight mb-3">
                           {misi.title}
                         </h3>
 
-                        {/* Description */}
                         <p className="text-sm text-slate-500 leading-relaxed font-normal">
                           {misi.desc}
                         </p>
                       </div>
 
-                      {/* Bottom Footer Accent */}
                       <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-medium text-slate-400 group-hover:text-[#0284c7] transition-colors duration-300">
                         <span>Pilar Misi #{misi.num}</span>
                         <ArrowUpRight className="w-4 h-4 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
@@ -186,7 +176,6 @@ export default function VisiMisi() {
               })}
             </div>
 
-            {/* Bottom note */}
             <div className="mt-14 pt-8 border-t border-slate-100 flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-[#0284c7] flex-shrink-0" />
               <p className="text-xs text-slate-400 leading-relaxed">

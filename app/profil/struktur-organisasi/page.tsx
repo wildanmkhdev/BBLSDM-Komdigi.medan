@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import PageHeader from "@/app/components/PageHeader";
 
 interface Member {
   name: string;
@@ -244,21 +245,15 @@ export default function StrukturOrganisasi() {
     <div className="flex flex-col min-h-screen bg-white">
       <main className="flex-grow">
         {/* ─── Page Title Banner ─── */}
-        <section className="bg-slate-50 border-b border-slate-100 py-14">
-          <div className="mx-auto max-w-4xl px-4 text-center space-y-3">
-            <h1 className="text-3xl sm:text-4xl xl:text-5xl font-black text-[#0b1b3d] tracking-tight">
-              Struktur Organisasi
-            </h1>
-            <p className="text-sm text-slate-500">
-              Balai Besar Layanan Sumber Daya Manusia Komdigi Medan
-            </p>
-            <div className="flex items-center justify-center gap-2 mt-1">
-              <span className="h-px w-12 bg-[#0284c7]" />
-              <span className="text-[10px] font-bold tracking-[0.2em] text-[#0284c7] uppercase">Bagan Hierarki Resmi</span>
-              <span className="h-px w-12 bg-[#0284c7]" />
-            </div>
-          </div>
-        </section>
+        <PageHeader
+          title="Struktur Organisasi"
+          subtitle="Bagan hierarki resmi pimpinan dan kelompok jabatan fungsional BBLSDM Komdigi Medan"
+          breadcrumbs={[
+            { label: "Beranda", href: "/" },
+            { label: "Profil", href: "#" },
+            { label: "Struktur Organisasi" },
+          ]}
+        />
 
         {/* ══════════════════════════════════════════════════════
             MOBILE / TABLET LAYOUT  (< xl / < 1280px)
