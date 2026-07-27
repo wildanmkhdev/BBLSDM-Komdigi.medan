@@ -54,16 +54,9 @@ export default function Sejarah() {
   ];
 
   return (
-
     <div className="flex flex-col min-h-screen bg-white">
       <main className="flex-grow">
         {/* Banner Header */}
-
-    <div className="flex flex-col min-h-screen">
-
-
-      <main className="flex-grow bg-white">
-
         <PageHeader
           title="Sejarah"
           subtitle="Perjalanan dedikasi dalam melatih keahlian digital bangsa dan menyediakan data riset TIK berkualitas tinggi di Pulau Sumatera"
@@ -72,10 +65,6 @@ export default function Sejarah() {
             { label: "Profil", href: "#" },
             { label: "Sejarah" },
           ]}
-
-
-          className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
-
         />
 
         {/* Narrative & Timeline Section */}

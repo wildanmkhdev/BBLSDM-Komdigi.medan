@@ -10,7 +10,6 @@ import {
   ShieldCheck,
   ArrowUpRight,
 } from "lucide-react";
-import PageHeader from "@/app/components/PageHeader";
 
 export default function VisiMisi() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -55,8 +54,6 @@ export default function VisiMisi() {
       <main className="flex-grow">
 
         {/* Page Header Banner */}
-
-
         <PageHeader
           title="Visi dan Misi"
           subtitle="Landasan filosofis dan pedoman aksi strategis BBLSDM Komdigi Medan dalam mempercepat agenda transformasi masyarakat digital"
@@ -65,10 +62,6 @@ export default function VisiMisi() {
             { label: "Profil", href: "#" },
             { label: "Visi dan Misi" },
           ]}
-
-
-          className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
-
         />
 
         {/* Vision Statement (Highlight container — UNSTOUCHED) */}
