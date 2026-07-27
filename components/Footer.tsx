@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -12,10 +13,12 @@ export default function Footer() {
           {/* Left Column: Branding / Logo */}
           <div className="lg:col-span-4 flex flex-col items-start space-y-4">
             <div className="flex items-center gap-3">
-              <img
+              <Image
                 src="/logo%20komdigi.png"
                 alt="Logo Komdigi"
-                className="w-12 h-12 object-contain shrink-0 brightness-0 invert"
+                width={48}
+                height={48}
+                className="object-contain shrink-0 brightness-0 invert"
               />
               <div>
                 <h3 className="text-base font-extrabold tracking-wider uppercase leading-tight">KOMDIGI</h3>

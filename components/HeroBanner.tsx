@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 
 export default function HeroBanner() {
@@ -84,11 +85,19 @@ export default function HeroBanner() {
         {slides.map((slide, idx) => (
           <div
             key={idx}
-            className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out ${
+            className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
               idx === currentSlide ? "opacity-50 scale-100" : "opacity-0"
             }`}
-            style={{ backgroundImage: `url('${slide.image}')` }}
-          />
+          >
+            <Image
+              src={slide.image}
+              alt={slide.title}
+              fill
+              priority={idx === 0}
+              sizes="100vw"
+              className="object-cover"
+            />
+          </div>
         ))}
       </div>
 
