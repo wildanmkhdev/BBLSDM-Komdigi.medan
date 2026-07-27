@@ -11,7 +11,10 @@ const wilayahList: WilayahData[] = [
     provinsi: "Sumatera Utara",
     kota: "Medan",
     alamat: "Jl. Letjend. Djamin Ginting No. 1, Medan 20155",
+
     telepon: "(061) 821-0900",
+    telepon: "(061) 8221-0000",
+
     website: "https://sumut.kominfo.go.id",
     lat: 3.5896,
     lng: 98.6739,
@@ -92,7 +95,7 @@ const wilayahList: WilayahData[] = [
     provinsi: "Bangka Belitung",
     kota: "Pangkal Pinang",
     alamat: "Jl. Merdeka No. 5, Pangkal Pinang 33149",
-    telepon: "(0717) 422-000",
+    telepon: "(0717) 423-000",
     website: "https://diskominfo.babelprov.go.id",
     lat: -2.1337,
     lng: 106.1167,
