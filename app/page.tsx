@@ -2,6 +2,7 @@
 
 import HeroBanner from "@/components/HeroBanner";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   // Service list for the card section
@@ -101,10 +102,12 @@ export default function Home() {
               <div className="lg:col-span-7 flex flex-col space-y-4">
                 <Link href={newsList[0].href} className="group block overflow-hidden rounded-xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
                   <div className="aspect-[16/9] w-full overflow-hidden bg-slate-100 relative">
-                    <img
+                    <Image
                       src={newsList[0].image}
                       alt={newsList[0].title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 58vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
                   <div className="p-6 space-y-3">
@@ -141,11 +144,13 @@ export default function Home() {
                     className="flex flex-col sm:flex-row gap-4 border-b border-slate-200/60 pb-6 last:border-0 last:pb-0"
                   >
                     {/* Small Image */}
-                    <Link href={item.href} className="group block shrink-0 w-full sm:w-28 aspect-[4/3] rounded-lg overflow-hidden bg-slate-100">
-                      <img
+                    <Link href={item.href} className="group block shrink-0 w-full sm:w-28 aspect-[4/3] rounded-lg overflow-hidden bg-slate-100 relative">
+                      <Image
                         src={item.image}
                         alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        fill
+                        sizes="(max-width: 640px) 100vw, 112px"
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     </Link>
                     

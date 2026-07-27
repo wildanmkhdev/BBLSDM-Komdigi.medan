@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
@@ -134,10 +135,12 @@ export default function Navbar() {
       <div className="flex items-center justify-between px-4 py-3.5 mx-auto max-w-7xl sm:px-6 lg:px-8">
         {/* Logo and Brand Title */}
         <Link href="/" className="flex items-center gap-3 group">
-          <img
+          <Image
             src="/logo%20komdigi.png"
             alt="Logo Komdigi"
-            className="w-10 h-10 object-contain shrink-0"
+            width={40}
+            height={40}
+            className="object-contain shrink-0"
           />
           <div>
             <div className={`text-xs font-extrabold leading-tight tracking-wider uppercase transition-colors duration-300 ${brandTitleClass}`}>
