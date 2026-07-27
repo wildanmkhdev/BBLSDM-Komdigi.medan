@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import PageHeader from "@/app/components/PageHeader";
 import {
   GraduationCap,
   FileSearch,
@@ -52,7 +53,10 @@ export default function VisiMisi() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <main className="flex-grow">
+
         {/* Page Header Banner */}
+
+
         <PageHeader
           title="Visi dan Misi"
           subtitle="Landasan filosofis dan pedoman aksi strategis BBLSDM Komdigi Medan dalam mempercepat agenda transformasi masyarakat digital"
@@ -61,6 +65,10 @@ export default function VisiMisi() {
             { label: "Profil", href: "#" },
             { label: "Visi dan Misi" },
           ]}
+
+
+          className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
+
         />
 
         {/* Vision Statement (Highlight container — UNSTOUCHED) */}

@@ -244,15 +244,25 @@ export default function StrukturOrganisasi() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <main className="flex-grow">
+
         {/* ─── Page Title Banner ─── */}
         <PageHeader
           title="Struktur Organisasi"
           subtitle="Bagan hierarki resmi pimpinan dan kelompok jabatan fungsional BBLSDM Komdigi Medan"
+
+        <PageHeader
+          title="Struktur Organisasi"
+          subtitle="Bagan hierarki resmi Balai Besar Layanan Sumber Daya Manusia Komdigi Medan"
+
           breadcrumbs={[
             { label: "Beranda", href: "/" },
             { label: "Profil", href: "#" },
             { label: "Struktur Organisasi" },
           ]}
+
+
+          className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
+
         />
 
         {/* ══════════════════════════════════════════════════════
