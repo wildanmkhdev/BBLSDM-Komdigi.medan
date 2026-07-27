@@ -4,6 +4,7 @@ import React, { useState } from "react";
 
 interface MetricCategory {
   id: string;
+  code: string;
   name: string;
   target: number;
   realization: number;
@@ -15,9 +16,10 @@ export default function StatistikKinerjaPage() {
   const metrics: MetricCategory[] = [
     {
       id: "iku-1",
+      code: "IKU 1",
       name: "Jumlah Peserta Pelatihan Vokasi Digital Tersertifikasi",
-      target: 4500,
-      realization: 4820,
+      target: 2000,
+      realization: 2450,
       unit: "Peserta",
       yearData: [
         { year: "2021", value: 3100 },
@@ -28,6 +30,7 @@ export default function StatistikKinerjaPage() {
     },
     {
       id: "iku-2",
+      code: "IKU 2",
       name: "Tingkat Kepuasan Layanan Diklat & Riset (IKM)",
       target: 88,
       realization: 93.4,
@@ -41,6 +44,7 @@ export default function StatistikKinerjaPage() {
     },
     {
       id: "iku-3",
+      code: "IKU 3",
       name: "Jumlah Naskah Kebijakan & Jurnal Riset Terpublikasi",
       target: 12,
       realization: 15,
@@ -54,6 +58,7 @@ export default function StatistikKinerjaPage() {
     },
     {
       id: "iku-4",
+      code: "IKU 4",
       name: "Persentase Serapan Anggaran DIPA Balai",
       target: 95,
       realization: 97.8,
@@ -67,8 +72,8 @@ export default function StatistikKinerjaPage() {
     },
   ];
 
-  const [selectedMetricId, setSelectedMetricId] = useState<string>("iku-1");
-  const activeMetric = metrics.find((m) => m.id === selectedMetricId) || metrics[0];
+  const [selectedMetricId, setSelectedMetricId] = useState<string>("iku-3");
+  const activeMetric = metrics.find((m) => m.id === selectedMetricId) || metrics[2];
 
   const achievementPercentage = Math.round(
     (activeMetric.realization / activeMetric.target) * 100
@@ -103,25 +108,36 @@ export default function StatistikKinerjaPage() {
                 <div
                   key={m.id}
                   onClick={() => setSelectedMetricId(m.id)}
-                  className={`cursor-pointer bg-white rounded-xl border p-5 shadow-sm transition-all relative overflow-hidden flex flex-col justify-between ${
-                    isSelected
-                      ? "border-[#0284c7] ring-2 ring-[#0284c7]/20 scale-[1.02]"
-                      : "border-slate-200 hover:border-slate-300"
-                  }`}
+                  className={`cursor-pointer bg-white rounded-xl border p-5 shadow-sm transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl relative overflow-hidden flex flex-col justify-between ${isSelected
+                    ? "border-[#0284c7] ring-2 ring-[#0284c7]/20 shadow-md"
+                    : "border-slate-200 hover:border-slate-300"
+                    }`}
                 >
-                  <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${isSelected ? "bg-[#0284c7]" : "bg-[#38bdf8]"}`}></div>
                   <div className="space-y-3">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">IKU Balai</span>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#0284c7] bg-sky-50 px-2 py-0.5 rounded">
+                        {m.code}
+                      </span>
+                      <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">
+                        {pct}% Tercapai
+                      </span>
+                    </div>
                     <h3 className="text-xs font-bold text-[#0b1b3d] leading-snug line-clamp-2">{m.name}</h3>
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-2xl font-black text-[#0b1b3d]">{m.realization}</span>
+                    <div className="flex items-baseline gap-1.5">
+                      <span className="text-2xl font-black text-[#0b1b3d]">
+                        {typeof m.realization === "number" && m.realization % 1 !== 0
+                          ? m.realization.toString().replace(".", ",")
+                          : m.realization.toLocaleString("id-ID")}
+                      </span>
                       <span className="text-xs text-slate-500 font-semibold">{m.unit}</span>
                     </div>
                   </div>
                   <div className="mt-4 pt-3 border-t border-slate-100 space-y-1.5">
                     <div className="flex justify-between text-[10px] font-bold">
-                      <span className="text-slate-400">Target: {m.target}</span>
-                      <span className="text-[#0284c7]">{pct}% Tercapai</span>
+                      <span className="text-slate-400">
+                        Target: {typeof m.target === "number" ? m.target.toLocaleString("id-ID") : m.target} {m.unit}
+                      </span>
+                      <span className="text-[#0284c7]">{pct}%</span>
                     </div>
                     <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
                       <div
@@ -140,8 +156,7 @@ export default function StatistikKinerjaPage() {
       {/* Interactive Deep-Dive Visualizer Chart Section */}
       <section className="py-16 bg-slate-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-10 space-y-8 relative overflow-hidden">
-            <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#0284c7]"></div>
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-10 space-y-8 relative overflow-hidden transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
 
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
@@ -150,7 +165,7 @@ export default function StatistikKinerjaPage() {
                 </span>
                 <h2 className="text-xl font-extrabold text-[#0b1b3d] mt-1">{activeMetric.name}</h2>
               </div>
-              <div className="flex items-center gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200">
+              <div className="flex items-center gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200 shrink-0">
                 <div className="text-right">
                   <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Capaian Target Total</span>
                   <span className="text-lg font-black text-[#0284c7]">{achievementPercentage}%</span>
@@ -176,12 +191,14 @@ export default function StatistikKinerjaPage() {
                 </div>
 
                 {activeMetric.yearData.map((d) => {
-                  const maxVal = Math.max(...activeMetric.yearData.map((y) => y.value)) * 1.1;
+                  const maxVal = Math.max(...activeMetric.yearData.map((y) => y.value)) * 1.15;
                   const barHeightPct = Math.round((d.value / maxVal) * 100);
                   return (
                     <div key={d.year} className="flex-1 flex flex-col items-center gap-3 h-full justify-end group z-10">
-                      <div className="opacity-90 group-hover:opacity-100 bg-[#0b1b3d] text-white text-[11px] font-bold px-2 py-1 rounded shadow transition-opacity">
-                        {d.value} {activeMetric.unit}
+                      <div className="opacity-90 group-hover:opacity-100 bg-[#0b1b3d] text-white text-[11px] font-bold px-2.5 py-1 rounded shadow transition-opacity">
+                        {typeof d.value === "number" && d.value % 1 !== 0
+                          ? d.value.toString().replace(".", ",")
+                          : d.value.toLocaleString("id-ID")} {activeMetric.unit}
                       </div>
                       <div className="w-full max-w-[64px] bg-slate-200 rounded-t-lg overflow-hidden flex items-end h-full">
                         <div
@@ -200,7 +217,7 @@ export default function StatistikKinerjaPage() {
               <div className="w-5 h-5 rounded-full bg-[#0284c7] text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">i</div>
               <div className="text-xs text-slate-600 leading-relaxed">
                 <span className="font-bold text-[#0b1b3d]">Catatan Analisis: </span>
-                Kinerja BBLSDM Komdigi Medan menunjukkan tren kenaikan konsisten sebesar 12-15% per tahun. Seluruh target IKU telah melampaui ambang batas 100% dari penetapan kinerja awal.
+                Kinerja BPSDMP Komdigi Medan menunjukkan tren kenaikan konsisten sebesar 12-15% per tahun pada output naskah kebijakan dan riset. Seluruh target IKU telah melampaui ambang batas 100% dari penetapan kinerja awal tahun anggaran.
               </div>
             </div>
           </div>
@@ -209,3 +226,4 @@ export default function StatistikKinerjaPage() {
     </div>
   );
 }
+

@@ -99,7 +99,7 @@ export default function Sejarah() {
                   <div className="absolute left-4 sm:left-1/2 w-4 h-4 bg-[#0284c7] rounded-full border-4 border-white shadow -translate-x-1.5 mt-1 z-10 group-hover:scale-125 transition-transform"></div>
 
                   {/* Year box */}
-                  <div className={`pl-10 sm:pl-0 w-full sm:w-[45%] ${idx % 2 === 0 ? "sm:text-right" : "sm:order-2 sm:text-left"}`}>
+                  <div className={`pl-10 sm:pl-0 w-full sm:w-[45%] ${idx % 2 === 0 ? "sm:order-1 sm:text-right" : "sm:order-3 sm:text-left"}`}>
                     <span className="inline-block px-3 py-1 rounded-md text-xs font-extrabold bg-[#0b1b3d] text-white tracking-wider mb-2">
                       {milestone.year}
                     </span>
@@ -107,10 +107,10 @@ export default function Sejarah() {
                   </div>
 
                   {/* Spacing card */}
-                  <div className="hidden sm:block w-[8%]"></div>
+                  <div className="hidden sm:block w-[8%] sm:order-2"></div>
 
                   {/* Desc box */}
-                  <div className={`pl-10 sm:pl-0 w-full sm:w-[45%] ${idx % 2 === 0 ? "sm:order-2" : "sm:text-right"}`}>
+                  <div className={`pl-10 sm:pl-0 w-full sm:w-[45%] ${idx % 2 === 0 ? "sm:order-3 sm:text-left" : "sm:order-1 sm:text-right"}`}>
                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mt-2 sm:mt-0">
                       {milestone.desc}
                     </p>

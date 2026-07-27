@@ -120,7 +120,7 @@ export default function InfografisPage() {
                 <div
                   key={item.id}
                   onClick={() => setActiveModalItem(item)}
-                  className="group cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                  className="group cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
                 >
                   {/* Visual Cover */}
                   <div className="relative h-64 w-full overflow-hidden bg-slate-100 flex items-center justify-center">
