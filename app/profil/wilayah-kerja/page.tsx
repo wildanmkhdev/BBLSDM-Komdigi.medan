@@ -177,7 +177,7 @@ export default function WilayahKerjaPage() {
               {/* Map overlay badge */}
               <div className="absolute top-3 left-3 z-[1000] bg-white/90 backdrop-blur-sm border border-slate-200 rounded-lg px-3 py-2 shadow-sm">
                 <p className="text-[10px] font-bold text-[#0284c7] uppercase tracking-widest">Peta Interaktif</p>
-                <p className="text-xs text-slate-500">Klik marker untuk detail</p>
+                <p className="text-xs text-slate-500">Klik markeeer untuk detail</p>
               </div>
             </div>
 
