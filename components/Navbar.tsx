@@ -70,6 +70,9 @@ export default function Navbar() {
   const [prevPathname, setPrevPathname] = useState(pathname);
   const isTransparentPage = 
     pathname === "/" || 
+    pathname === "/profil/sejarah" || 
+    pathname === "/profil/visi-misi" || 
+    pathname === "/profil/struktur-organisasi" || 
     pathname === "/profil/tugas-fungsi" || 
     pathname === "/profil/wilayah-kerja" ||
     pathname === "/informasi/berita" ||
