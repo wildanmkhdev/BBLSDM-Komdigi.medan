@@ -11,7 +11,7 @@ const wilayahList: WilayahData[] = [
     provinsi: "Sumatera Utara",
     kota: "Medan",
     alamat: "Jl. Letjend. Djamin Ginting No. 1, Medan 20155",
-    telepon: "(061) 821-0000",
+    telepon: "(061) 8221-0000",
     website: "https://sumut.kominfo.go.id",
     lat: 3.5896,
     lng: 98.6739,
