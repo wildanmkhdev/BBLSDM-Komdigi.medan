@@ -60,7 +60,6 @@ export default function Navbar() {
       submenu: [
         { name: "Kinerja", href: "/statistik/kinerja" },
         { name: "Peserta Pelatihan", href: "/statistik/peserta" },
-        { name: "Infografis", href: "/statistik/infografis" },
       ],
     },
     { name: "Kontak", href: "/kontak" },
