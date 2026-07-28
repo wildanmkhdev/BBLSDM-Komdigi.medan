@@ -9,29 +9,29 @@ export default function HeroBanner() {
 
   const slides = [
     {
-      title: "Aksi Nyata Pemberantasan Judi Online di Indonesia",
-      subtitle: "Kementerian Komunikasi dan Digital RI secara konsisten memutus akses situs judi online demi menjaga keamanan ruang digital.",
-      desc: "Upaya kolaboratif lintas sektor untuk menciptakan ekosistem internet yang bersih, produktif, dan aman bagi seluruh lapisan masyarakat.",
-      image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1600&auto=format&fit=crop",
-      ctaText: "Aduan Konten",
-      ctaLink: "/kontak",
-      accentBadge: "SIARAN PERS"
+      title: "Kunjungan Kerja Wamenkomdigi Nezar Patria ke BBLSDM Medan",
+      subtitle: "Wakil Menteri Komunikasi dan Digital dorong percepatan talenta digital nasional di BBLSDM Komdigi Medan, Sumatera Utara.",
+      desc: "Menekankan penguatan SDM unggul agar Indonesia tidak hanya menjadi konsumen, melainkan pengembang dan inovator teknologi digital.",
+      image: "/kunker-nezar/kunker-nezar-1.jpeg",
+      ctaText: "Baca Selengkapnya",
+      ctaLink: "/informasi/berita",
+      accentBadge: "KUNJUNGAN KERJA"
     },
     {
-      title: "Penyusunan Pedoman Etika Kecerdasan Artifisial (AI)",
-      subtitle: "Kementerian Komdigi merumuskan regulasi pemanfaatan teknologi AI untuk mendorong inovasi nasional yang bertanggung jawab.",
-      desc: "Menyelaraskan perkembangan teknologi dengan perlindungan data pribadi dan keandalan sistem kecerdasan buatan.",
-      image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1600&auto=format&fit=crop",
-      ctaText: "Lihat Regulasi",
-      ctaLink: "/publikasi/penelitian",
-      accentBadge: "KEBIJAKAN PUBLIK"
+      title: "Dialog Interaktif Wamenkomdigi bersama Jajaran Pegawai BBLSDM",
+      subtitle: "Penguatan peran strategis Balai Besar Pelatihan SDM Komunikasi dan Digital Medan di 8 Provinsi Wilayah Kerja.",
+      desc: "Sinergi dan kolaborasi erat jajaran BBLSDM Komdigi Medan demi mewujudkan ruang digital Indonesia yang aman, inklusif, dan produktif.",
+      image: "/kunker-nezar/kunker-nezar-2.jpeg",
+      ctaText: "Lihat Galeri Foto",
+      ctaLink: "/informasi/galeri",
+      accentBadge: "KEGIATAN INSTANSI"
     },
     {
-      title: "Pendaftaran Digital Talent Scholarship Kembali Dibuka",
-      subtitle: "BBLSDM Komdigi Medan menyelenggarakan program pelatihan IT intensif bersertifikasi standar nasional untuk masyarakat.",
-      desc: "Membekali talenta muda Indonesia dengan keahlian digital masa depan di bidang Data Science, Cyber Security, dan AI.",
-      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop",
-      ctaText: "Daftar Sekarang",
+      title: "Penyambutan Kunjungan Kerja & Penandatanganan Prasasti Komitmen",
+      subtitle: "Plt. Kepala BBLSDM Komdigi Medan Dr. Christiany Juditha menyambut hangat kunjungan kerja Wamenkomdigi Nezar Patria.",
+      desc: "Penyusunan langkah taktis perluasan program pelatihan Digital Talent Scholarship (DTS) dan sertifikasi kompetensi.",
+      image: "/kunker-nezar/kunker-nezar-3.jpeg",
+      ctaText: "Lihat Program Pelatihan",
       ctaLink: "/layanan/pelatihan",
       accentBadge: "PROGRAM UTAMA"
     }
@@ -56,14 +56,14 @@ export default function HeroBanner() {
   // 4 popular news items for the overlay
   const popularNews = [
     {
+      badge: "Kunker",
+      title: "Wamen Nezar Patria Tinjau BBLSDM Komdigi Medan",
+      href: "/informasi/berita",
+    },
+    {
       badge: "Pendaftaran",
       title: "Digital Talent Scholarship 2026 Dibuka",
       href: "/layanan/pelatihan",
-    },
-    {
-      badge: "Kegiatan",
-      title: "Hasil Pelatihan TIK Aparatur Desa Tahap I",
-      href: "/informasi/berita",
     },
     {
       badge: "Magang",
@@ -72,8 +72,8 @@ export default function HeroBanner() {
     },
     {
       badge: "Riset",
-      title: "Rilis Buku Putih Indikator TIK Sumatra Utara",
-      href: "/publikasi/buku-putih",
+      title: "Rilis Indeks Masyarakat Digital Sumatera Utara",
+      href: "/publikasi/penelitian",
     },
   ];
 

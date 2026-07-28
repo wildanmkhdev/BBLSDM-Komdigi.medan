@@ -12,7 +12,6 @@ const wilayahList: WilayahData[] = [
     kota: "Medan",
     alamat: "Jl. Letjend. Djamin Ginting No. 1, Medan 20155",
 
-    telepon: "(061) 821-0900",
     telepon: "(061) 8221-0000",
 
     website: "https://sumut.kominfo.go.id",

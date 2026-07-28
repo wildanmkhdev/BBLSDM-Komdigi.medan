@@ -7,8 +7,8 @@ export default function FeaturedEventHero() {
       {/* Background Image with dark gradient overlay matching NASA reference style */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1600&auto=format&fit=crop"
-          alt="Kunjungan Kerja dan Pembukaan Pelatihan BBLSDM Komdigi Medan"
+          src="/kunker-nezar/kunker-nezar-3.jpeg"
+          alt="Rapat Koordinasi Strategis Wamenkomdigi Nezar Patria di BBLSDM Komdigi Medan"
           fill
           priority
           sizes="100vw"
@@ -26,11 +26,11 @@ export default function FeaturedEventHero() {
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white leading-tight">
-            Percepat Talenta Digital, Wamenkomdigi Tinjau Pelatihan BBLSDM Medan
+            Percepat Talenta Digital, Wamenkomdigi Pimpin Rapat Koordinasi BBLSDM Medan
           </h2>
 
           <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-normal">
-            Wakil Menteri Komunikasi dan Digital (Wamenkomdigi) Nezar Patria meninjau langsung pelaksanaan program pelatihan Digital Talent Academy (DTA) dan Government Transformation Academy (GTA) di Balai Besar LSDM Komdigi Medan guna memastikan kesiapan SDM di wilayah Sumatera dalam menghadapi era ekonomi digital.
+            Wakil Menteri Komunikasi dan Digital (Wamenkomdigi) Nezar Patria menegaskan bahwa pengembangan talenta digital merupakan pilar utama Renstra Kementerian Komdigi 2025–2029 bertajuk &quot;Terhubung, Tumbuh, dan Terjaga&quot; guna mencetak pengembang dan inovator teknologi mandiri di Indonesia.
           </p>
 
           <div className="pt-4">
