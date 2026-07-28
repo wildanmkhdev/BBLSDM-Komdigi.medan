@@ -12,7 +12,13 @@ const wilayahList: WilayahData[] = [
     kota: "Medan",
     alamat: "Jl. Letjend. Djamin Ginting No. 1, Medan 20155",
 
+
+
     telepon: "(061) 821-0900 / 8221-0000",
+
+
+    telepon: "(061) 821-0900 / 8221-0000",
+
     telepon: "(061) 8221-0000",
 
     website: "https://sumut.kominfo.go.id",
@@ -246,8 +252,13 @@ export default function WilayahKerjaPage() {
                       key={w.provinsi}
                       onClick={() => setSelected(w)}
                       className={`w-full flex items-center gap-3 px-4 py-3.5 text-left transition-colors duration-150 ${isActive
+
+                          ? "bg-[#0284c7]/8 border-l-2 border-[#0284c7]"
+                          : "hover:bg-slate-50 border-l-2 border-transparent"
+
                         ? "bg-[#0284c7]/8 border-l-2 border-[#0284c7]"
                         : "hover:bg-slate-50 border-l-2 border-transparent"
+
                         }`}
                     >
                       {/* Dot */}
