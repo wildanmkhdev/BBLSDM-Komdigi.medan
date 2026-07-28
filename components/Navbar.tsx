@@ -70,18 +70,14 @@ export default function Navbar() {
   const [prevPathname, setPrevPathname] = useState(pathname);
   const isTransparentPage = 
     pathname === "/" || 
-    pathname === "/profil/sejarah" || 
-    pathname === "/profil/visi-misi" || 
-    pathname === "/profil/struktur-organisasi" || 
-    pathname === "/profil/tugas-fungsi" || 
-    pathname === "/profil/wilayah-kerja" ||
-    pathname === "/informasi/berita" ||
-    pathname === "/informasi/pengumuman" ||
-    pathname === "/informasi/galeri" ||
-    pathname === "/layanan/pelatihan" ||
-    pathname === "/layanan/magang" ||
-    pathname === "/layanan/faq" ||
-    pathname === "/layanan/feedback";
+    pathname.startsWith("/profil") || 
+    pathname.startsWith("/informasi") || 
+    pathname.startsWith("/layanan") || 
+    pathname.startsWith("/publikasi") || 
+    pathname.startsWith("/statistik") || 
+    pathname.startsWith("/kontak") || 
+    pathname.startsWith("/staf") || 
+    pathname.startsWith("/fitur");
 
   // Close menus and reset scroll state on path change during render (React 19 recommended pattern over useEffect)
   if (pathname !== prevPathname) {

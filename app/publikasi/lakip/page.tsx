@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import DocumentCard from "@/components/DocumentCard";
+import PageHeader from "@/app/components/PageHeader";
 
 const initialDocuments = [
   {
@@ -69,21 +70,16 @@ export default function LakipPage() {
 
   return (
     <div className="bg-white">
-      {/* Banner Header (Pola app/profil) */}
-      <section className="bg-slate-50 border-b border-slate-100 py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center space-y-4">
-          <div className="inline-flex px-3 py-1 rounded-full text-[10px] font-bold tracking-widest bg-sky-500/10 text-[#0284c7] uppercase">
-            Publikasi Akuntabilitas
-          </div>
-          <h1 className="text-3xl font-extrabold text-[#0b1b3d] sm:text-4xl">
-            LAKIP BBLSDM Komdigi Medan
-          </h1>
-          <p className="text-sm text-slate-500 max-w-2xl mx-auto">
-            Laporan Akuntabilitas Kinerja Instansi Pemerintah (LAKIP) merupakan wujud pertanggungjawaban tertulis BBLSDM Komdigi Medan dalam mencapai target strategis nasional.
-          </p>
-          <div className="w-12 h-1 bg-[#0284c7] mx-auto rounded-full mt-4"></div>
-        </div>
-      </section>
+      {/* Banner Header */}
+      <PageHeader
+        title="LAKIP BBLSDM Komdigi Medan"
+        subtitle="Laporan Akuntabilitas Kinerja Instansi Pemerintah (LAKIP) merupakan wujud pertanggungjawaban tertulis BBLSDM Komdigi Medan dalam mencapai target strategis nasional."
+        breadcrumbs={[
+          { label: "Beranda", href: "/" },
+          { label: "Publikasi", href: "#" },
+          { label: "LAKIP" },
+        ]}
+      />
 
       {/* Main Content Area */}
       <section className="py-12 bg-slate-50/50">

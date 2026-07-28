@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import PageHeader from "@/app/components/PageHeader";
 
 export default function KontakPage() {
   const [formData, setFormData] = useState({
@@ -31,20 +32,14 @@ export default function KontakPage() {
   return (
     <div className="bg-white">
       {/* Banner Header */}
-      <section className="bg-slate-50 border-b border-slate-100 py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center space-y-4">
-          <div className="inline-flex px-3 py-1 rounded-full text-[10px] font-bold tracking-widest bg-[#0284c7]/10 text-[#0284c7] uppercase">
-            Hubungi Kami
-          </div>
-          <h1 className="text-3xl font-extrabold text-[#0b1b3d] sm:text-4xl">
-            Kontak BBLSDM Komdigi Medan
-          </h1>
-          <p className="text-sm text-slate-500 max-w-2xl mx-auto leading-relaxed">
-            Layanan informasi resmi, konsultasi diklat vokasi digital, pengajuan riset, dan kanal komunikasi publik.
-          </p>
-          <div className="w-12 h-1 bg-[#0284c7] mx-auto rounded-full mt-4"></div>
-        </div>
-      </section>
+      <PageHeader
+        title="Kontak BBLSDM Komdigi Medan"
+        subtitle="Layanan informasi resmi, konsultasi diklat vokasi digital, pengajuan riset, dan kanal komunikasi publik."
+        breadcrumbs={[
+          { label: "Beranda", href: "/" },
+          { label: "Kontak" },
+        ]}
+      />
 
       {/* Contact Content Section */}
       <section className="py-20">
