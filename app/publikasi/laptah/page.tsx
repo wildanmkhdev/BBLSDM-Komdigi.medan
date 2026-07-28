@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import DocumentCard from "@/components/DocumentCard";
+import PageHeader from "@/app/components/PageHeader";
 
 const initialDocuments = [
   {
@@ -69,21 +70,16 @@ export default function LaptahPage() {
 
   return (
     <div className="bg-white">
-      {/* Header section (Pola app/profil) */}
-      <section className="bg-slate-50 border-b border-slate-100 py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center space-y-4">
-          <div className="inline-flex px-3 py-1 rounded-full text-[10px] font-bold tracking-widest bg-sky-500/10 text-[#0284c7] uppercase">
-            Publikasi Tahunan
-          </div>
-          <h1 className="text-3xl font-extrabold text-[#0b1b3d] sm:text-4xl">
-            Laporan Tahunan (LAPTAH)
-          </h1>
-          <p className="text-sm text-slate-500 max-w-2xl mx-auto">
-            Akses dokumentasi resmi tahunan BBLSDM Komdigi Medan yang memuat ikhtisar pencapaian, tata kelola keuangan, dan perluasan manfaat program pengembangan SDM nasional.
-          </p>
-          <div className="w-12 h-1 bg-[#0284c7] mx-auto rounded-full mt-4"></div>
-        </div>
-      </section>
+      {/* Banner Header */}
+      <PageHeader
+        title="Laporan Tahunan (LAPTAH)"
+        subtitle="Akses dokumentasi resmi tahunan BBLSDM Komdigi Medan yang memuat ikhtisar pencapaian, tata kelola keuangan, dan perluasan manfaat program pengembangan SDM nasional."
+        breadcrumbs={[
+          { label: "Beranda", href: "/" },
+          { label: "Publikasi", href: "#" },
+          { label: "Laporan Tahunan" },
+        ]}
+      />
 
       {/* Main Content Area */}
       <section className="py-12 bg-slate-50/50">

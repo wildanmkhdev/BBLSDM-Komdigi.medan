@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import PageHeader from "@/app/components/PageHeader";
 
 interface InfografisItem {
   id: string;
@@ -55,21 +56,16 @@ export default function InfografisPage() {
 
   return (
     <div className="bg-white">
-      {/* Header section (Pola app/profil) */}
-      <section className="bg-slate-50 border-b border-slate-100 py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center space-y-4">
-          <div className="inline-flex px-3 py-1 rounded-full text-[10px] font-bold tracking-widest bg-sky-500/10 text-[#0284c7] uppercase">
-            Galeri Data Visual
-          </div>
-          <h1 className="text-3xl font-extrabold text-[#0b1b3d] sm:text-4xl">
-            Galeri Infografis Data
-          </h1>
-          <p className="text-sm text-slate-500 max-w-2xl mx-auto">
-            Koleksi media visual infografis yang menyajikan data statistik, ringkasan hasil kajian, serta laporan kinerja BBLSDM Komdigi Medan dalam format ringkas dan informatif.
-          </p>
-          <div className="w-12 h-1 bg-[#0284c7] mx-auto rounded-full mt-4"></div>
-        </div>
-      </section>
+      {/* Banner Header */}
+      <PageHeader
+        title="Galeri Infografis Data"
+        subtitle="Koleksi media visual infografis yang menyajikan data statistik, ringkasan hasil kajian, serta laporan kinerja BBLSDM Komdigi Medan dalam format ringkas dan informatif."
+        breadcrumbs={[
+          { label: "Beranda", href: "/" },
+          { label: "Statistik", href: "#" },
+          { label: "Infografis" },
+        ]}
+      />
 
       {/* Main Content Area */}
       <section className="py-12 bg-slate-50/50">

@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import DocumentCard from "@/components/DocumentCard";
+import PageHeader from "@/app/components/PageHeader";
 
 const initialDocuments = [
   {
@@ -69,21 +70,16 @@ export default function PenelitianPage() {
 
   return (
     <div className="bg-white">
-      {/* Header section (Pola app/profil) */}
-      <section className="bg-slate-50 border-b border-slate-100 py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center space-y-4">
-          <div className="inline-flex px-3 py-1 rounded-full text-[10px] font-bold tracking-widest bg-sky-500/10 text-[#0284c7] uppercase">
-            Jurnal &amp; Riset Publik
-          </div>
-          <h1 className="text-3xl font-extrabold text-[#0b1b3d] sm:text-4xl">
-            Publikasi Riset &amp; Penelitian
-          </h1>
-          <p className="text-sm text-slate-500 max-w-2xl mx-auto">
-            Kumpulan publikasi ilmiah, riset kebijakan digital, kajian sosial kemasyarakatan, serta studi evaluatif pelaksanaan pengembangan SDM oleh tim peneliti BBLSDM Komdigi Medan.
-          </p>
-          <div className="w-12 h-1 bg-[#0284c7] mx-auto rounded-full mt-4"></div>
-        </div>
-      </section>
+      {/* Banner Header */}
+      <PageHeader
+        title="Publikasi Riset & Penelitian"
+        subtitle="Kumpulan publikasi ilmiah, riset kebijakan digital, kajian sosial kemasyarakatan, serta studi evaluatif pelaksanaan pengembangan SDM oleh tim peneliti BBLSDM Komdigi Medan."
+        breadcrumbs={[
+          { label: "Beranda", href: "/" },
+          { label: "Publikasi", href: "#" },
+          { label: "Riset & Penelitian" },
+        ]}
+      />
 
       {/* Main Content Area */}
       <section className="py-12 bg-slate-50/50">

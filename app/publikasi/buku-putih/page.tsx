@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import DocumentCard from "@/components/DocumentCard";
+import PageHeader from "@/app/components/PageHeader";
 
 const initialDocuments = [
   {
@@ -60,21 +61,16 @@ export default function BukuPutihPage() {
 
   return (
     <div className="bg-white">
-      {/* Header section (Pola app/profil) */}
-      <section className="bg-slate-50 border-b border-slate-100 py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center space-y-4">
-          <div className="inline-flex px-3 py-1 rounded-full text-[10px] font-bold tracking-widest bg-sky-500/10 text-[#0284c7] uppercase">
-            Rekomendasi Strategis
-          </div>
-          <h1 className="text-3xl font-extrabold text-[#0b1b3d] sm:text-4xl">
-            Buku Putih (White Paper)
-          </h1>
-          <p className="text-sm text-slate-500 max-w-2xl mx-auto">
-            Akses rekomendasi strategis, rancangan kebijakan transformasi teknologi, dan kajian visioner pengembangan SDM digital yang diterbitkan resmi oleh BBLSDM Komdigi Medan.
-          </p>
-          <div className="w-12 h-1 bg-[#0284c7] mx-auto rounded-full mt-4"></div>
-        </div>
-      </section>
+      {/* Banner Header */}
+      <PageHeader
+        title="Buku Putih (White Paper)"
+        subtitle="Akses rekomendasi strategis, rancangan kebijakan transformasi teknologi, dan kajian visioner pengembangan SDM digital yang diterbitkan resmi oleh BBLSDM Komdigi Medan."
+        breadcrumbs={[
+          { label: "Beranda", href: "/" },
+          { label: "Publikasi", href: "#" },
+          { label: "Buku Putih" },
+        ]}
+      />
 
       {/* Main Content Area */}
       <section className="py-12 bg-slate-50/50">
