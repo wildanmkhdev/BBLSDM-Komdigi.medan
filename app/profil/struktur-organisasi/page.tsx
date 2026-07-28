@@ -91,7 +91,7 @@ export default function StrukturOrganisasi() {
   };
 
   const kabag: Member = {
-    name: "Yusrizal, S.Kom., M.Eng",
+    name: "Yusrizal, S.Kom., M.Kom",
     role: "Kepala Bagian Umum",
     avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop",
   };

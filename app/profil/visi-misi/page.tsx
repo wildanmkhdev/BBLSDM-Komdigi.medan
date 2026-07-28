@@ -77,7 +77,7 @@ export default function VisiMisi() {
                 </span>
                 
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight text-white tracking-tight">
-                  “Mewujudkan Sumber Daya Manusia Bidang Komunikasi dan Informatika yang Unggul, Inovatif, dan Berkarakter di Wilayah Kerja Sumatera Utara dan Sekitarnya.”
+                  “Mewujudkan Sumber Daya Maanusia Bidang Komunikasi dan Informatika yang Unggul, Inovatif, dan Berkarakter di Wilayah Kerja Sumatera Utara dan Sekitarnya.”
                 </h2>
                 
                 <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">

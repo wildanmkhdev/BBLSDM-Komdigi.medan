@@ -453,7 +453,7 @@ export default function PelatihanPage() {
               return (
                 <div
                   key={p.id}
-                  className="bg-white rounded-2xl border border-slate-200/90 shadow-sm flex flex-col overflow-hidden"
+                  className="bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md hover:border-slate-300 hover:-translate-y-1 transition-all duration-200 flex flex-col overflow-hidden"
                 >
                   <div className="p-6 flex-1 flex flex-col justify-between">
                     <div>

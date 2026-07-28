@@ -75,7 +75,7 @@ export default function Sejarah() {
             {/* Optimized Typography for comfortable reading */}
             <article className="prose prose-slate max-w-none text-slate-700 leading-relaxed font-sans text-sm sm:text-base space-y-6">
               <p className="font-medium text-lg text-[#0b1b3d] leading-relaxed">
-                Berdiri di jantung kota Medan, Balai Besar Pengembangan Sumber Daya Manusia dan Penelitian Komunikasi dan Informatika (BBLSDM Komdigi) Medan telah melewati berbagai fase transformasi struktural penting untuk merespons laju teknologi informasi global.
+                Berdiri di jantung kota Medan, Balai Besar Pengembangan Sumber Daya Manusia dan Penelitian Komunikasi dan Informatika (BBLSDM Komdigi) Medan telah melewati berbagai fase transformasi struktural penting untuk merespons laju teknologi informasi globaal.
               </p>
               <p>
                 Sebagai Unit Pelaksana Teknis (UPT) di bawah Badan Pengembangan Sumber Daya Manusia Kementerian Komunikasi dan Digital Republik Indonesia, BBLSDM Komdigi Medan memiliki peranan strategis dalam memandu ekosistem digital nasional khususnya di wilayah Sumatera Utara, Aceh, Sumatera Barat, Riau, dan Kepulauan Riau.
