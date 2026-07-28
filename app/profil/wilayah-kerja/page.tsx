@@ -11,9 +11,7 @@ const wilayahList: WilayahData[] = [
     provinsi: "Sumatera Utara",
     kota: "Medan",
     alamat: "Jl. Letjend. Djamin Ginting No. 1, Medan 20155",
-
     telepon: "(061) 821-0900 / 8221-0000",
-
     website: "https://sumut.kominfo.go.id",
     lat: 3.5896,
     lng: 98.6739,
@@ -30,7 +28,7 @@ const wilayahList: WilayahData[] = [
   {
     provinsi: "Sumatera Barat",
     kota: "Padang",
-    alamat: "Jl. Jend. Sudirman No. 51, Padang 25171",
+    alamat: "Jl. Jendral. Sudirman No. 51, Padang 25171",
     telepon: "(0751) 700-000",
     website: "https://kominfo.sumbarprov.go.id",
     lat: -0.9492,
@@ -252,9 +250,8 @@ export default function WilayahKerjaPage() {
                     >
                       {/* Dot */}
                       <span
-                        className={`w-2 h-2 rounded-full flex-shrink-0 transition-colors duration-150 ${
-                          isActive ? "bg-[#0284c7]" : "bg-slate-200"
-                        }`}
+                        className={`w-2 h-2 rounded-full flex-shrink-0 transition-colors duration-150 ${isActive ? "bg-[#0284c7]" : "bg-slate-200"
+                          }`}
                       />
                       <div className="flex-1 min-w-0">
                         <p className={`text-sm font-bold leading-tight truncate ${isActive ? "text-[#0284c7]" : "text-[#0b1b3d]"}`}>

@@ -69,7 +69,7 @@ export default function Home() {
   return (
     <>
       <main className="flex-grow">
-        {/* Hero Section */}
+        {/* Hero Sections */}
         <HeroBanner />
 
         {/* Hoax Clarification / Isu Hangat Section (Clean Official Komdigi Style) */}
