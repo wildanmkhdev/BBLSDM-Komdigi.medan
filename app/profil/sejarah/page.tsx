@@ -65,6 +65,7 @@ export default function Sejarah() {
             { label: "Profil", href: "#" },
             { label: "Sejarah" },
           ]}
+          className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
         />
 
         {/* Narrative & Timeline Section */}

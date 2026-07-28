@@ -69,7 +69,6 @@ export default function GaleriPage() {
           { label: "Informasi", href: "#" },
           { label: "Galeri" },
         ]}
-        className="pt-28 pb-12 sm:pt-32 sm:pb-16"
       />
 
       {/* Content Section */}

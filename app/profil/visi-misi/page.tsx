@@ -62,6 +62,7 @@ export default function VisiMisi() {
             { label: "Profil", href: "#" },
             { label: "Visi dan Misi" },
           ]}
+          className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
         />
 
         {/* Vision Statement (Highlight container — UNSTOUCHED) */}

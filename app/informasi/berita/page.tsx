@@ -74,7 +74,6 @@ export default function BeritaPage() {
           { label: "Informasi", href: "#" },
           { label: "Berita" },
         ]}
-        className="pt-28 pb-12 sm:pt-32 sm:pb-16"
       />
 
       {/* Content Section */}
