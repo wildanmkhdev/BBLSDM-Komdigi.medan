@@ -12,11 +12,10 @@ const wilayahList: WilayahData[] = [
     kota: "Medan",
     alamat: "Jl. Letjend. Djamin Ginting No. 1, Medan 20155",
 
-<<<<<<< HEAD
+
     telepon: "(061) 821-0900 / 8221-0000",
-=======
+
     telepon: "(061) 8221-0000",
->>>>>>> 154dca82d30b32c34924d62ed219d4641f5caf4f
 
     website: "https://sumut.kominfo.go.id",
     lat: 3.5896,
@@ -248,17 +247,15 @@ export default function WilayahKerjaPage() {
                     <button
                       key={w.provinsi}
                       onClick={() => setSelected(w)}
-                      className={`w-full flex items-center gap-3 px-4 py-3.5 text-left transition-colors duration-150 ${
-                        isActive
+                      className={`w-full flex items-center gap-3 px-4 py-3.5 text-left transition-colors duration-150 ${isActive
                           ? "bg-[#0284c7]/8 border-l-2 border-[#0284c7]"
                           : "hover:bg-slate-50 border-l-2 border-transparent"
-                      }`}
+                        }`}
                     >
                       {/* Dot */}
                       <span
-                        className={`w-2 h-2 rounded-full flex-shrink-0 transition-colors duration-150 ${
-                          isActive ? "bg-[#0284c7]" : "bg-slate-200"
-                        }`}
+                        className={`w-2 h-2 rounded-full flex-shrink-0 transition-colors duration-150 ${isActive ? "bg-[#0284c7]" : "bg-slate-200"
+                          }`}
                       />
                       <div className="flex-1 min-w-0">
                         <p className={`text-sm font-bold leading-tight truncate ${isActive ? "text-[#0284c7]" : "text-[#0b1b3d]"}`}>
