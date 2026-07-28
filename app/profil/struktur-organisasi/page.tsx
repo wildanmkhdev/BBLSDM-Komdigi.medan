@@ -254,6 +254,7 @@ export default function StrukturOrganisasi() {
             { label: "Profil", href: "#" },
             { label: "Struktur Organisasi" },
           ]}
+          className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
         />
 
         {/* ══════════════════════════════════════════════════════

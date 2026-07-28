@@ -77,7 +77,10 @@ export default function LaptahPage() {
         breadcrumbs={[
           { label: "Beranda", href: "/" },
           { label: "Publikasi", href: "#" },
+
           { label: "Laporan Tahunan" },
+          { label: "LAPTAH" },
+
         ]}
       />
 

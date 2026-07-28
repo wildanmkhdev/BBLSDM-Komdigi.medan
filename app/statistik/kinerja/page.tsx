@@ -90,6 +90,7 @@ export default function StatistikKinerjaPage() {
           { label: "Beranda", href: "/" },
           { label: "Statistik", href: "#" },
           { label: "Kinerja Instansi" },
+          { label: "Kinerja" },
         ]}
       />
 
