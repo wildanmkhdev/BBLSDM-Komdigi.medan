@@ -32,7 +32,7 @@ const wilayahList: WilayahData[] = [
   {
     provinsi: "Sumatera Barat",
     kota: "Padang",
-    alamat: "Jl. Jend. Sudirman No. 51, Padang 25171",
+    alamat: "Jl. Jendral. Sudirman No. 51, Padang 25171",
     telepon: "(0751) 700-000",
     website: "https://kominfo.sumbarprov.go.id",
     lat: -0.9492,
