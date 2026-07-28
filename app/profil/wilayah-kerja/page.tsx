@@ -49,7 +49,7 @@ const wilayahList: WilayahData[] = [
   {
     provinsi: "Kepulauan Riau",
     kota: "Tanjung Pinang",
-    alamat: "Jl. D.I. Panjaitan No. 12, Tanjung Pinang 29124",
+    alamat: "Jl. D.I. Panjaitan No. 13, Tanjung Pinang 29124",
     telepon: "(0771) 318-000",
     website: "https://diskominfo.kepriprov.go.id",
     lat: 0.9190,

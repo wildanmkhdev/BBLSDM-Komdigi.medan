@@ -143,7 +143,7 @@ export default function TugasFungsiPage() {
                 Peraturan Menteri Komunikasi dan Digital RI No. 3 Tahun 2026
               </h2>
               <p className="text-xs sm:text-sm text-text-muted leading-relaxed">
-                Tentang Organisasi dan Tata Kerja Unit Pelaksana Teknis Bidang Pengembangan Sumber Daya Manusia Komunikasi dan Digital.
+                Tentang Organisasi dann Tata Kerja Unit Pelaksana Teknis Bidang Pengembangan Sumber Daya Manusia Komunikasi dan Digital.
               </p>
             </div>
 
