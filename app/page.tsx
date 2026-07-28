@@ -30,36 +30,39 @@ export default function Home() {
     },
   ];
 
-  // News list with UPT Medan contents and real-looking images (official Komdigi style)
+  // News list featuring official Kunker Wamenkomdigi Nezar Patria & UPT Medan activities
   const newsList = [
     {
-      title: "BBLSDM Komdigi Medan Tingkatkan Kompetensi Digital Aparatur Sipil Negara (ASN) Provinsi Sumatra Utara",
-      date: "20 Juli 2026",
-      category: "Berita Utama",
-      desc: "Balai Besar Pengembangan Sumber Daya Manusia dan Penelitian Komunikasi dan Informatika (BBLSDM Komdigi) Medan menyelenggarakan bimbingan teknis peningkatan kompetensi literasi digital bagi ratusan ASN di Sumatera Utara guna mendukung perluasan Sistem Pemerintahan Berbasis Elektronik (SPBE).",
-      image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1200&auto=format&fit=crop",
+      title: "Wamenkomdigi Nezar Patria Dorong BBLSDM Komdigi Medan Cetak Developer & Talenta Digital Unggul",
+      date: "04 Juli 2026",
+      category: "Kunjungan Kerja",
+      desc: "Wakil Menteri Komunikasi dan Digital RI Nezar Patria melakukan kunjungan kerja ke BBLSDM Komdigi Medan. Beliau menegaskan pengembangan talenta digital merupakan pilar utama Renstra Kementerian Komdigi 2025-2029 'Terhubung, Tumbuh, dan Terjaga' agar Indonesia tidak hanya menjadi pasar melainkan pencipta teknologi.",
+      image: "/kunker-nezar/kunker-nezar-1.jpeg",
       href: "/informasi/berita",
     },
     {
-      title: "Pelatihan Digital Entrepreneurship Academy (DEA) Sukses Digelar di Kabupaten Karo",
-      date: "18 Juli 2026",
+      title: "Penandatanganan Komitmen Strategis Penguatan SDM Digital Wilayah Sumatera",
+      date: "04 Juli 2026",
       category: "Kegiatan UPT",
-      image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop",
+      desc: "Wamenkomdigi Nezar Patria didampingi Plt. Kepala BBLSDM Komdigi Medan Dr. Christiany Juditha merumuskan langkah taktis penguatan kapasitas digital di 8 provinsi wilayah kerja BBLSDM Medan.",
+      image: "/kunker-nezar/kunker-nezar-2.jpeg",
       href: "/informasi/berita",
     },
     {
-      title: "Rilis Hasil Riset Indeks Masyarakat Digital Indonesia (IMDI) Wilayah Sumatera Utara 2026",
-      date: "15 Juli 2026",
-      category: "Rilis Riset",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
-      href: "/publikasi/penelitian",
+      title: "Rapat Koordinasi Strategis BBLSDM Komdigi Medan bersama Wamenkomdigi RI",
+      date: "04 Juli 2026",
+      category: "Rapat Koordinasi",
+      desc: "Pembahasan capaian program Digital Talent Scholarship (DTS) dan perluasan kerja sama dengan pemerintah daerah serta perguruan tinggi di Sumatera.",
+      image: "/kunker-nezar/kunker-nezar-3.jpeg",
+      href: "/informasi/berita",
     },
     {
-      title: "Penerimaan Mahasiswa Magang Industri Gelombang Ke-II BBLSDM Komdigi Medan",
-      date: "10 Juli 2026",
+      title: "Evaluasi Kinerja & Sinergi Program Pelatihan SDM Komdigi Medan 2026",
+      date: "04 Juli 2026",
       category: "Pengumuman",
-      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop",
-      href: "/layanan/magang",
+      desc: "Jajaran pejabat dan pegawai BBLSDM Komdigi Medan berdiskusi langsung mengenai optimalisasi DIPA dan peningkatan kualitas layanan pelatihan kecerdasan artifisial dan digital marketing.",
+      image: "/kunker-nezar/kunker-nezar-4.jpeg",
+      href: "/layanan/pelatihan",
     },
   ];
 

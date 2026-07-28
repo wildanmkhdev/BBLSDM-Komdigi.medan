@@ -1,55 +1,56 @@
 "use client";
 
+import Image from "next/image";
 import PageHeader from "@/app/components/PageHeader";
 
 export default function Sejarah() {
   const timelineMilestones = [
     {
-      year: "2002",
-      title: "Cikal Bakal Pendirian Balai",
-      desc: "Berdasarkan penataan kelembagaan Departemen Perhubungan, dibentuk balai pelatihan pos dan telekomunikasi regional di beberapa kota besar, termasuk Medan, untuk membina kecakapan teknis awal aparatur negara.",
+      year: "1945 - 1999",
+      title: "Departemen Penerangan RI",
+      desc: "Awal mula institusi komunikasi negara berakar dari Departemen Penerangan yang didirikan pada 19 Agustus 1945 sebagai wadah penyebaran informasi nasional dan penyiaran publik.",
     },
     {
-      year: "2011",
-      title: "Transformasi Menjadi BPPKI",
-      desc: "Seiring terbentuknya Kementerian Komunikasi dan Informatika, unit ini berganti nama menjadi Balai Pengkajian dan Pengembangan Komunikasi dan Informatika (BPPKI) Medan dengan fokus riset kebijakan komunikasi publik.",
+      year: "2001 - 2009",
+      title: "Kementerian Komunikasi dan Informasi (Depkominfo)",
+      desc: "Pembentukan Kementerian Negara Komunikasi dan Informasi yang menggabungkan Lembaga Informasi Nasional (LIN) dan Dirjen Pos dan Telekomunikasi menjadi Departemen Komunikasi dan Informatika (Depkominfo).",
     },
     {
-      year: "2018",
-      title: "Pembentukan BBLSDM Kominfo",
-      desc: "Peningkatan status kelembagaan menjadi Balai Besar Pengembangan Sumber Daya Manusia dan Penelitian (BBPSDMP) Kominfo Medan. Mulai meluncurkan program pelatihan sertifikasi berskala besar bagi masyarakat umum.",
+      year: "2017",
+      title: "Transformasi BBPSDMP Kominfo Medan",
+      desc: "Berdasarkan Permenkominfo No. 19/2017, balai regional bertransformasi menjadi Balai Besar Pengembangan Sumber Daya Manusia dan Penelitian (BBPSDMP) Kominfo Medan yang menaungi 8 provinsi wilayah kerja di Sumatera.",
     },
     {
-      year: "2024",
-      title: "Rebranding Menjadi BBLSDM Komdigi",
-      desc: "Menyesuaikan dengan nomenklatur baru kementerian menjadi Kementerian Komunikasi dan Digital RI, BBLSDM Komdigi Medan berfokus penuh pada pemerataan literasi digital nasional, kecerdasan buatan (AI), keamanan siber, dan riset TIK.",
+      year: "2024 - 2026",
+      title: "Era Kementerian Komunikasi dan Digital (Komdigi)",
+      desc: "Nomenklatur kementerian resmi berubah menjadi Kementerian Komunikasi dan Digital RI (Komdigi) untuk mempercepat transformasi digital, AI, siber, dan literasi digital, serta perubahan unit menjadi BBLSDM Komdigi Medan.",
     },
   ];
 
   const historicalPhotos = [
     {
-      title: "Gedung Kantor Awal Era 2000-an",
-      year: "Tahun 2002",
-      color: "from-blue-900 to-indigo-950",
-      description: "Dokumentasi peresmian gedung administrasi awal di Jl. Tombak, Medan, yang melayani diklat aparatur pos dan telekomunikasi regional.",
+      title: "Kunjungan Kerja Wamenkomdigi Nezar Patria",
+      year: "2026",
+      image: "/kunker-nezar/kunker-nezar-5.jpeg",
+      description: "Tinjauan kerja dan pengarahan pimpinan kementerian di Balai Besar Pelatihan Sumber Daya Manusia Komunikasi dan Digital (BBLSDM Komdigi) Medan.",
     },
     {
-      title: "Riset Lapangan Komunikasi Publik",
-      year: "Tahun 2012",
-      color: "from-sky-900 to-blue-950",
-      description: "Tim peneliti BPPKI Medan saat mengumpulkan data penetrasi siaran radio komunitas di wilayah perbatasan Sumatera Utara.",
+      title: "Paparan Program Vokasi Digital Talent 2026",
+      year: "2026",
+      image: "/kunker-nezar/kunker-nezar-6.jpeg",
+      description: "Evaluasi capaian program Digital Talent Scholarship (DTS) dan penyusunan modul pelatihan kecerdasan buatan bagi talenta muda Sumatera.",
     },
     {
-      title: "Pelatihan Digital Talent Gelombang Pertama",
-      year: "Tahun 2019",
-      color: "from-cyan-900 to-slate-900",
-      description: "Peluncuran program DTS (Digital Talent Scholarship) pertama di Medan, menargetkan 500 lulusan muda siap kerja di bidang IT.",
+      title: "Penguatan Sertifikasi Profesi Digital",
+      year: "2026",
+      image: "/kunker-nezar/kunker-nezar-7.jpeg",
+      description: "Kordinasi pembinaan karir dan kesiapan asesor lisensi BNSP dalam mendukung pengujian sertifikasi bidang IT & komunikasi.",
     },
     {
-      title: "Transformasi Lab Riset Komunikasi & TIK",
-      year: "Tahun 2025",
-      color: "from-blue-950 to-emerald-950",
-      description: "Pembukaan fasilitas laboratorium multimedia terpadu yang memfasilitasi sertifikasi profesi keahlian digital masa kini.",
+      title: "Diskusi Pengembangan Kurikulum TIK",
+      year: "2026",
+      image: "/kunker-nezar/kunker-nezar-8.jpeg",
+      description: "Sesi dialog mengenai integrasi materi AI, Cloud Computing, dan Cyber Security untuk aparatur daerah dan masyarakat umum.",
     },
   ];
 
@@ -124,25 +125,30 @@ export default function Sejarah() {
                   key={i}
                   className="group bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow"
                 >
-                  <div className={`h-40 bg-gradient-to-br ${photo.color} relative flex items-center justify-center p-6 text-center text-white/95 overflow-hidden`}>
-                    <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,#fff_1px,transparent_1px)] bg-[size:12px_12px]" />
-                    <div className="absolute top-3 right-3 text-[10px] font-bold bg-black/40 px-2 py-0.5 rounded backdrop-blur-sm border border-white/10 uppercase tracking-wider">
+                  <div className="h-44 relative bg-slate-900 overflow-hidden">
+                    <Image
+                      src={photo.image}
+                      alt={photo.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 25vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute top-3 right-3 text-[10px] font-bold bg-black/60 text-white px-2 py-0.5 rounded backdrop-blur-sm border border-white/10 uppercase tracking-wider z-10">
                       {photo.year}
                     </div>
-                    <svg className="absolute bottom-3 left-3 w-5 h-5 text-sky-400 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    <span className="text-xs font-bold uppercase tracking-wider leading-relaxed px-4">
-                      {photo.title}
-                    </span>
                   </div>
                   
                   <div className="p-5 flex-grow flex flex-col justify-between space-y-3">
-                    <p className="text-xs text-slate-500 leading-relaxed">
-                      {photo.description}
-                    </p>
+                    <div className="space-y-1">
+                      <h3 className="text-xs font-bold text-[#0b1b3d] leading-snug group-hover:text-[#0284c7] transition-colors">
+                        {photo.title}
+                      </h3>
+                      <p className="text-xs text-slate-500 leading-relaxed">
+                        {photo.description}
+                      </p>
+                    </div>
                     <div className="border-t border-slate-100 pt-3 text-[10px] font-bold text-[#0284c7] uppercase tracking-wide">
-                      BBLSDM Arsip Negara
+                      Dokumentasi Komdigi Medan
                     </div>
                   </div>
                 </div>
