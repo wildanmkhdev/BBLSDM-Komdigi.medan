@@ -331,6 +331,7 @@ export default function DaftarStafPage() {
 
             </div>
           </div>
+        </section>
       </main>
     </div>
   );
