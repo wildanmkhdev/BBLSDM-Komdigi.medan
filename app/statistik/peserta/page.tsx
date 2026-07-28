@@ -74,7 +74,11 @@ export default function StatistikPesertaPage() {
     <div className="bg-white">
       {/* Banner Header */}
       <PageHeader
+
+        title="Statistik Peserta Pelatihan & Sertifikasi"
+
         title="Statistik Peserta Pelatihan & Sertifikasi - Sumatera Utara"
+ 
         subtitle="Data distribusi peserta program Digital Talent Scholarship (DTS), akademi diklat vokasi, serta tingkat kelulusan sertifikasi profesi BNSP khusus wilayah Provinsi Sumatera Utara."
         breadcrumbs={[
           { label: "Beranda", href: "/" },
