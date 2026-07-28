@@ -35,6 +35,7 @@ const infografisData: InfografisItem[] = [
     desc: "Infografis hasil survei kepuasan masyarakat terhadap kemudahan pendaftaran, kualitas pengajar/fasilitator, kenyamanan fasilitas lab komputer, serta keandalan sistem sertifikasi BBLSDM Komdigi Medan.",
     tags: ["IKM", "Pelayanan Publik", "Medan", "Survei"],
   },
+ 
 ];
 
 export default function InfografisPage() {
