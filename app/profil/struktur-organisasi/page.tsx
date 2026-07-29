@@ -96,7 +96,7 @@ export default function StrukturOrganisasi() {
     avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop",
   };
 
-  const staffRow1: Member[] = [
+  const staff: Member[] = [
     {
       name: "Ahirinna, S.I.Kom.",
       role: "Fasilitator Kemitraan",
@@ -117,129 +117,10 @@ export default function StrukturOrganisasi() {
       role: "Pranata Humas Ahli Muda",
       avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop",
     },
-    {
-      name: "Darliandra, S.Stat.",
-      role: "Penyusun Bahan Informasi dan Publikasi",
-      avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      name: "Widia Apri Putri, S.Tr.Kom",
-      role: "Petugas Standarisasi dan Sertifikasi",
-      avatar: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=200&auto=format&fit=crop",
-    },
   ];
 
-  const staffRow2: Member[] = [
-    {
-      name: "Jesty Meliana Sibarani, S.Akun.",
-      role: "Penata Laporan Keuangan",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      name: "M. Fikri Ihsan, SE.",
-      role: "Administrasi Keuangan",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      name: "Michael Hariara Simanjuntak, S.Akun.",
-      role: "Penata Laporan Keuangan",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      name: "Safrayuda Andrean, SE.",
-      role: "Analis Penjamin Mutu",
-      avatar: "https://images.unsplash.com/photo-1489980508314-941910ded1f4?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      name: "Ahmad Rozy, S.Kom., M.Kom.",
-      role: "Analis Perencanaan dan Evaluasi Pelaporan",
-      avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      name: "Gusmila Zulidar, SE.",
-      role: "Petugas Standarisasi dan Sertifikasi",
-      avatar: "https://images.unsplash.com/photo-1594744803329-e58b31de215f?q=80&w=200&auto=format&fit=crop",
-    },
-  ];
-
-  const staffRow3: Member[] = [
-    {
-      name: "Prini Zunita, S.Sos., M.S.P.",
-      role: "Analis SDM Aparatur",
-      avatar: "https://images.unsplash.com/photo-1548142813-c348350df52b?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      name: "Achmad Ofanny S. Torong, S.E.",
-      role: "Penyusun Rencana Kebutuhan RT & Perlengkapan",
-      avatar: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      name: "Erwin Antonius Manurung, S.T.",
-      role: "Analis Data Ilmiah",
-      avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      name: "Budiman, S.Sos.",
-      role: "Analis Data Ilmiah Ahli Madya",
-      avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      name: "Meilinia Diakonia Ginting, S.Kom.",
-      role: "Analis Data Ilmiah",
-      avatar: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      name: "Ade Gita Ellena Br. Tarigan, S.I.Kom.",
-      role: "Penyusun Bahan Informasi & Publikasi",
-      avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      name: "Ronald Rato Mangapu Limbong, SE.",
-      role: "Analis Penjamin Mutu",
-      avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      name: "Delvi Windrayani, S.I.Kom.",
-      role: "Penyusun Bahan Informasi & Publikasi",
-      avatar: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=200&auto=format&fit=crop",
-    },
-  ];
-
-  const staffRow4: Member[] = [
-    {
-      name: "Fachri Auliansyah, S.Kom.",
-      role: "Standarisasi Informatika",
-      avatar: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      name: "Eki Yoan Meydora, S.I.Kom.",
-      role: "Penyusun Bahan Informasi & Publikasi",
-      avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      name: "Idawati Pandia, S.Sos.",
-      role: "Fasilitator Kemitraan",
-      avatar: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      name: "Arif Rahman, S.Kom.",
-      role: "Fasilitator Kemitraan",
-      avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      name: "M. Prakoso Prabhaswara, S.Tr.Kom.",
-      role: "Ahli Pertama - Instruktur",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      name: "Alex Siregar, S.Kom",
-      role: "Ahli Pertama - Pranata Komputer",
-      avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop",
-    },
-  ];
-
-  // Gabungkan semua staf untuk tampilan mobile grid
-  const allStaff: Member[] = [...staffRow1, ...staffRow2, ...staffRow3, ...staffRow4];
+  // Gabungkan staf untuk tampilan mobile grid
+  const allStaff: Member[] = staff;
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -271,13 +152,10 @@ export default function StrukturOrganisasi() {
               <OrgNode member={kabag} size="md" />
             </div>
 
-            {/* Banner */}
-            <div className="border-2 border-[#0b1b3d] text-[#0b1b3d] px-6 sm:px-10 py-2.5 font-black tracking-[0.2em] text-[11px] sm:text-xs uppercase text-center">
-              KELOMPOK JABATAN FUNGSIONAL
-            </div>
+            <div className="w-px h-8 bg-slate-300" />
 
             {/* All staff in responsive grid */}
-            <div className="w-full grid grid-cols-3 gap-x-3 gap-y-8 justify-items-center">
+            <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-8 justify-items-center">
               {allStaff.map((staf, i) => (
                 <OrgNode key={i} member={staf} size="sm" />
               ))}
@@ -305,26 +183,8 @@ export default function StrukturOrganisasi() {
             <OrgNode member={kabag} size="lg" />
             <VLine h={10} />
 
-            {/* Banner */}
-            <div className="border-2 border-[#0b1b3d] text-[#0b1b3d] px-20 py-3 font-black tracking-[0.3em] text-sm uppercase">
-              KELOMPOK JABATAN FUNGSIONAL
-            </div>
-            <VLine h={10} />
-
-            {/* Staff Row 1 – 6 orang */}
-            <BranchRow members={staffRow1} size="sm" px="px-5" />
-            <div className="my-10" />
-
-            {/* Staff Row 2 – 6 orang */}
-            <BranchRow members={staffRow2} size="sm" px="px-5" />
-            <div className="my-10" />
-
-            {/* Staff Row 3 – 8 orang */}
-            <BranchRow members={staffRow3} size="sm" px="px-3" />
-            <div className="my-10" />
-
-            {/* Staff Row 4 – 6 orang */}
-            <BranchRow members={staffRow4} size="sm" px="px-5" />
+            {/* Staff Row – 4 orang */}
+            <BranchRow members={staff} size="md" px="px-8" />
 
             {/* Bottom note */}
             <div className="mt-16 pt-6 border-t border-slate-100 text-center">

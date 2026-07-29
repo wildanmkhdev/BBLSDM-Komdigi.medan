@@ -23,10 +23,10 @@ export default function StatistikKinerjaPage() {
       realization: 2450,
       unit: "Peserta",
       yearData: [
-        { year: "2021", value: 3100 },
-        { year: "2022", value: 3800 },
-        { year: "2023", value: 4250 },
-        { year: "2024", value: 4820 },
+        { year: "2021", value: 1000 },
+        { year: "2022", value: 1200 },
+        { year: "2023", value: 2000 },
+        { year: "2024", value: 2450 },
       ],
     },
     {
@@ -89,6 +89,7 @@ export default function StatistikKinerjaPage() {
         breadcrumbs={[
           { label: "Beranda", href: "/" },
           { label: "Statistik", href: "#" },
+          { label: "Kinerja Instansi" },
           { label: "Kinerja" },
         ]}
       />

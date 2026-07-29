@@ -13,6 +13,7 @@ const initialDocuments = [
     fileFormat: "PDF",
     downloadUrl: "#",
     description: "Laporan pertanggungjawaban atas pencapaian kinerja sasaran strategis BBLSDM Komdigi Medan sepanjang tahun anggaran 2025, termasuk realisasi kinerja dan kendala yang dihadapi.",
+    coverUrl: "/lakip2025.png"
   },
   {
     title: "Laporan Akuntabilitas Kinerja Instansi Pemerintah (LAKIP) BBLSDM Komdigi Medan Tahun 2024",
@@ -22,6 +23,7 @@ const initialDocuments = [
     fileFormat: "PDF",
     downloadUrl: "#",
     description: "Evaluasi kinerja berkala tahun anggaran 2024 yang merinci indikator kinerja utama (IKU), indeks kepuasan masyarakat, serta akuntabilitas pengelolaan anggaran belanja negara.",
+    coverUrl: "/lakip2024.png"
   },
   {
     title: "Laporan Akuntabilitas Kinerja Instansi Pemerintah (LAKIP) BBLSDM Komdigi Medan Tahun 2023",
@@ -31,6 +33,7 @@ const initialDocuments = [
     fileFormat: "PDF",
     downloadUrl: "#",
     description: "Dokumen akuntabilitas kinerja instansi tahun 2023 yang memuat pengukuran indikator kinerja kegiatan pelatihan digital masyarakat dan aparatur pemerintah daerah.",
+    coverUrl: "/lakip2023.png"
   },
   {
     title: "Laporan Akuntabilitas Kinerja Instansi Pemerintah (LAKIP) BBLSDM Komdigi Medan Tahun 2022",
@@ -40,6 +43,7 @@ const initialDocuments = [
     fileFormat: "PDF",
     downloadUrl: "#",
     description: "Laporan kinerja tahun 2022 yang merangkum program pengembangan SDM industri kreatif digital dan kolaborasi sertifikasi bidang teknologi informasi.",
+    coverUrl: "/lakip2022.png"
   },
   {
     title: "Laporan Akuntabilitas Kinerja Instansi Pemerintah (LAKIP) BBLSDM Komdigi Medan Tahun 2021",
@@ -49,6 +53,8 @@ const initialDocuments = [
     fileFormat: "PDF",
     downloadUrl: "#",
     description: "Laporan akuntabilitas tahunan untuk mengukur efektivitas dan efisiensi program kerja akselerasi transformasi digital di wilayah kerja Sumatera Utara.",
+    coverUrl: "/lakip2021.png"
+   
   },
 ];
 

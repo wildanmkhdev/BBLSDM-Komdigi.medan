@@ -57,7 +57,7 @@ export default function DocumentCard({
                 <div className="flex items-center gap-1.5 border-b border-white/20 pb-1.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#38bdf8] shrink-0"></div>
                   <span className="text-[7.5px] font-black uppercase tracking-wider text-slate-200 leading-none">
-                    BPSDMP Komdigi Medan
+                    BPLSDMP Komdigi Medan
                   </span>
                 </div>
                 <div className="text-[7px] text-slate-300 font-medium tracking-wide">
