@@ -19,7 +19,7 @@ export default function PageHeader({
   className = "pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]",
 }: PageHeaderProps) {
   return (
-    <section className="relative bg-gradient-to-br from-navy via-navy-light to-navy overflow-hidden">
+    <section className="relative bg-navy overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute inset-0">
         <div className="absolute top-0 right-0 w-96 h-96 bg-sky-accent/5 rounded-full -translate-y-1/2 translate-x-1/3" />
