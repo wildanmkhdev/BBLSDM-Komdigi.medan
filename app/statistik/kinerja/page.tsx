@@ -89,6 +89,7 @@ export default function StatistikKinerjaPage() {
         breadcrumbs={[
           { label: "Beranda", href: "/" },
           { label: "Statistik", href: "#" },
+          { label: "Kinerja Instansi" },
           { label: "Kinerja" },
         ]}
       />
