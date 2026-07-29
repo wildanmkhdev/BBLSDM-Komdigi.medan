@@ -310,7 +310,7 @@ export default function GaleriPage() {
                     />
                     <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1.5">
                       <span className="text-[10px] font-bold bg-black/60 text-white px-2 py-0.5 rounded backdrop-blur-sm border border-white/20">
-                        📸 {item.images.length} Foto
+                        {item.images.length} Foto
                       </span>
                     </div>
                   </div>
@@ -360,7 +360,7 @@ export default function GaleriPage() {
                     {activeModalItem.category}
                   </span>
                   <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#0b1b3d] bg-sky-50 border border-sky-100 px-2.5 py-0.5 rounded-full">
-                    📅 {activeModalItem.date}
+                    {activeModalItem.date}
                   </span>
                 </div>
                 <h2 className="text-lg sm:text-xl font-extrabold text-[#0b1b3d] leading-tight pt-0.5">
@@ -379,7 +379,7 @@ export default function GaleriPage() {
             {/* Gallery Multi-Photo Viewer */}
             <div className="space-y-3">
               <div className="flex items-center justify-between text-xs text-slate-500 font-medium px-1">
-                <span>📷 Dokumentasi Kegiatan ({selectedImgIndex + 1} dari {activeModalItem.images.length} Foto):</span>
+                <span>Dokumentasi Kegiatan ({selectedImgIndex + 1} dari {activeModalItem.images.length} Foto):</span>
                 <span className="text-slate-400">Klik panah atau thumbnail untuk melihat foto lain</span>
               </div>
 
@@ -461,7 +461,7 @@ export default function GaleriPage() {
             <div className="bg-slate-50 p-5 rounded-xl border border-slate-200/80 space-y-3">
               <div className="flex items-center justify-between border-b border-slate-200/60 pb-2.5">
                 <span className="text-xs font-bold text-[#0b1b3d] uppercase tracking-wider flex items-center gap-1.5">
-                  <span>📋 Deskripsi Kegiatan</span>
+                  <span>Deskripsi Kegiatan</span>
                 </span>
                 <span className="text-xs font-bold text-slate-600">
                   Tanggal: {activeModalItem.date}
