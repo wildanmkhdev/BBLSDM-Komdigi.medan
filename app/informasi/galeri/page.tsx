@@ -10,6 +10,7 @@ interface GaleriItem {
   category: string;
   date: string;
   image: string;
+  images: string[];
   desc: string;
 }
 
@@ -20,7 +21,13 @@ const galeriData: GaleriItem[] = [
     category: "Kunjungan Kerja",
     date: "04 Juli 2026",
     image: "/kunker-nezar/kunker-nezar-1.jpeg",
-    desc: "Kunjungan Wamenkomdigi Nezar Patria di Balai Besar Pelatihan Sumber Daya Manusia Komunikasi dan Digital (BBLSDM Komdigi) Medan, Sabtu (04/07/2026). Foto: Pey HS/Komdigi",
+    images: [
+      "/kunker-nezar/kunker-nezar-1.jpeg",
+      "/kunker-nezar/kunker-nezar-13.jpeg",
+      "/kunker-nezar/kunker-nezar-14.jpeg",
+      "/kunker-nezar/kunker-nezar-3.jpeg",
+    ],
+    desc: "Kunjungan kerja resmi Wakil Menteri Komunikasi dan Digital RI Nezar Patria di Balai Besar Pelatihan Sumber Daya Manusia Komunikasi dan Digital (BBLSDM Komdigi) Medan. Beliau disambut hangat oleh Kepala Balai beserta jajaran untuk meninjau fasilitas pelatihan dan pengembangan talenta digital di Sumatera Utara. Foto: Pey HS/Komdigi",
   },
   {
     id: "2",
@@ -28,7 +35,13 @@ const galeriData: GaleriItem[] = [
     category: "Kunjungan Kerja",
     date: "04 Juli 2026",
     image: "/kunker-nezar/kunker-nezar-2.jpeg",
-    desc: "Sesi arahan dan dialog Wamenkomdigi Nezar Patria mengenai transformasi digital vokasi dan penguatan kapasitas pegawai di BBLSDM Komdigi Medan. Foto: Pey HS/Komdigi",
+    images: [
+      "/kunker-nezar/kunker-nezar-2.jpeg",
+      "/kunker-nezar/kunker-nezar-4.jpeg",
+      "/kunker-nezar/kunker-nezar-5.jpeg",
+      "/kunker-nezar/kunker-nezar-11.jpeg",
+    ],
+    desc: "Sesi arahan dan dialog interaktif Wamenkomdigi Nezar Patria bersama jajaran ASN dan pegawai BBLSDM Komdigi Medan. Pembahasan difokuskan pada penguatan transformasi digital vokasi serta peningkatan kapasitas kompetensi instruktur teknologi informasi. Foto: Pey HS/Komdigi",
   },
   {
     id: "3",
@@ -36,7 +49,13 @@ const galeriData: GaleriItem[] = [
     category: "Kunjungan Kerja",
     date: "04 Juli 2026",
     image: "/kunker-nezar/kunker-nezar-3.jpeg",
-    desc: "Wamenkomdigi Nezar Patria meninjau infrastruktur laboratorium komputer dan ruang pelatihan siber di BBLSDM Komdigi Medan. Foto: Pey HS/Komdigi",
+    images: [
+      "/kunker-nezar/kunker-nezar-3.jpeg",
+      "/kunker-nezar/kunker-nezar-10.jpeg",
+      "/kunker-nezar/kunker-nezar-8.jpeg",
+      "/kunker-nezar/kunker-nezar-6.jpeg",
+    ],
+    desc: "Wamenkomdigi Nezar Patria meninjau langsung kesiapan infrastruktur laboratorium komputer dan ruang pelatihan siber di BBLSDM Komdigi Medan. Fasilitas ini digunakan untuk pelaksanaan berbagai kelas vokasi intensif Digital Talent Scholarship (DTS). Foto: Pey HS/Komdigi",
   },
   {
     id: "4",
@@ -44,7 +63,13 @@ const galeriData: GaleriItem[] = [
     category: "Kunjungan Kerja",
     date: "04 Juli 2026",
     image: "/kunker-nezar/kunker-nezar-4.jpeg",
-    desc: "Wamenkomdigi Nezar Patria saat berdialog dengan para pegawai Kantor Balai Besar Pelatihan Sumber Daya Manusia Komunikasi dan Digital (BBLSDM Komdigi) Medan di Tembung, Kota Medan, Sumatera Utara. Foto: Pey HS/Komdigi",
+    images: [
+      "/kunker-nezar/kunker-nezar-4.jpeg",
+      "/kunker-nezar/kunker-nezar-5.jpeg",
+      "/kunker-nezar/kunker-nezar-9.jpeg",
+      "/kunker-nezar/kunker-nezar-1.jpeg",
+    ],
+    desc: "Wamenkomdigi Nezar Patria memberikan pengarahan taktis mengenai strategi akselerasi dan pemerataan SDM digital di 8 provinsi wilayah kerja BBLSDM Medan yang mencakup kawasan Sumatera dari Aceh hingga Lampung. Foto: Pey HS/Komdigi",
   },
   {
     id: "5",
@@ -52,7 +77,13 @@ const galeriData: GaleriItem[] = [
     category: "Kegiatan Instansi",
     date: "04 Juli 2026",
     image: "/kunker-nezar/kunker-nezar-5.jpeg",
-    desc: "Suasana keakraban dan diskusi jajaran ASN BBLSDM Komdigi Medan bersama Wakil Menteri Komunikasi dan Digital. Foto: Pey HS/Komdigi",
+    images: [
+      "/kunker-nezar/kunker-nezar-5.jpeg",
+      "/kunker-nezar/kunker-nezar-11.jpeg",
+      "/kunker-nezar/kunker-nezar-14.jpeg",
+      "/kunker-nezar/kunker-nezar-2.jpeg",
+    ],
+    desc: "Suasana keakraban, kolaborasi, dan diskusi jajaran Aparatur Sipil Negara (ASN) BBLSDM Komdigi Medan bersama Wakil Menteri Komunikasi dan Digital RI demi menyatukan visi transformasi layanan publik digital. Foto: Pey HS/Komdigi",
   },
   {
     id: "6",
@@ -60,7 +91,13 @@ const galeriData: GaleriItem[] = [
     category: "Pelatihan",
     date: "04 Juli 2026",
     image: "/kunker-nezar/kunker-nezar-6.jpeg",
-    desc: "Diskusi pelaksanaan program DTS dan Digital Leadership Academy (DLA) untuk wilayah kerja 8 provinsi Sumatera. Foto: Pey HS/Komdigi",
+    images: [
+      "/kunker-nezar/kunker-nezar-6.jpeg",
+      "/kunker-nezar/kunker-nezar-8.jpeg",
+      "/kunker-nezar/kunker-nezar-3.jpeg",
+      "/gambar6.jpeg",
+    ],
+    desc: "Paparan dan evaluasi pelaksanaan program Digital Talent Scholarship (DTS) dan Digital Leadership Academy (DLA) tahun 2026 yang ditujukan untuk meningkatkan daya saing talenta digital muda dan pelaku UMKM di Sumatera. Foto: Pey HS/Komdigi",
   },
   {
     id: "7",
@@ -68,7 +105,13 @@ const galeriData: GaleriItem[] = [
     category: "Kegiatan Instansi",
     date: "04 Juli 2026",
     image: "/kunker-nezar/kunker-nezar-7.jpeg",
-    desc: "Wamenkomdigi Nezar Patria menekankan standar kualitas instruktur dan asesor lisensi BNSP di BBLSDM Medan. Foto: Pey HS/Komdigi",
+    images: [
+      "/kunker-nezar/kunker-nezar-7.jpeg",
+      "/kunker-nezar/kunker-nezar-11.jpeg",
+      "/kunker-nezar/kunker-nezar-12.jpeg",
+      "/gambar2.jpeg",
+    ],
+    desc: "Wamenkomdigi Nezar Patria menekankan pentingnya standarisasi kualitas instruktur dan asesor lisensi BNSP di lingkungan BBLSDM Medan guna menjamin lulusan pelatihan memiliki sertifikasi yang diakui industri. Foto: Pey HS/Komdigi",
   },
   {
     id: "8",
@@ -76,7 +119,13 @@ const galeriData: GaleriItem[] = [
     category: "Pelatihan",
     date: "04 Juli 2026",
     image: "/kunker-nezar/kunker-nezar-8.jpeg",
-    desc: "Pembahasan integrasi materi AI, Cloud Computing, dan Data Science dalam modul pelatihan masyarakat. Foto: Pey HS/Komdigi",
+    images: [
+      "/kunker-nezar/kunker-nezar-8.jpeg",
+      "/kunker-nezar/kunker-nezar-6.jpeg",
+      "/kunker-nezar/kunker-nezar-3.jpeg",
+      "/gambar4.jpeg",
+    ],
+    desc: "Pembahasan mendalam mengenai integrasi materi Kecerdasan Artifisial (AI), Keamanan Siber, dan Cloud Computing ke dalam modul kurikulum pelatihan masyarakat tahun 2026 di BBLSDM Komdigi Medan. Foto: Pey HS/Komdigi",
   },
   {
     id: "9",
@@ -84,7 +133,13 @@ const galeriData: GaleriItem[] = [
     category: "Kegiatan Instansi",
     date: "04 Juli 2026",
     image: "/kunker-nezar/kunker-nezar-9.jpeg",
-    desc: "Pesan penting pimpinan kementerian agar BBLSDM Medan senantiasa berinovasi dalam melayani kebutuhan talenta digital daerah. Foto: Pey HS/Komdigi",
+    images: [
+      "/kunker-nezar/kunker-nezar-9.jpeg",
+      "/kunker-nezar/kunker-nezar-1.jpeg",
+      "/kunker-nezar/kunker-nezar-13.jpeg",
+      "/gambar5.jpeg",
+    ],
+    desc: "Pesan penting dari pimpinan kementerian agar seluruh aparatur BBLSDM Medan senantiasa menjaga integritas dan berinovasi secara adaptif dalam menjawab tantangan kebutuhan teknologi digital daerah. Foto: Pey HS/Komdigi",
   },
   {
     id: "10",
@@ -92,7 +147,13 @@ const galeriData: GaleriItem[] = [
     category: "Kunjungan Kerja",
     date: "04 Juli 2026",
     image: "/kunker-nezar/kunker-nezar-10.jpeg",
-    desc: "Pemeriksaan fasilitas pendaftaran layanan publik dan helpdesk pelatihan BBLSDM Komdigi Medan. Foto: Pey HS/Komdigi",
+    images: [
+      "/kunker-nezar/kunker-nezar-10.jpeg",
+      "/kunker-nezar/kunker-nezar-3.jpeg",
+      "/kunker-nezar/kunker-nezar-12.jpeg",
+      "/gambar1.jpeg",
+    ],
+    desc: "Pemeriksaan fasilitas ruang registrasi layanan publik, pusat bantuan (helpdesk) pelatihan, dan sarana prasarana pendukung di kompleks BBLSDM Komdigi Medan. Foto: Pey HS/Komdigi",
   },
   {
     id: "11",
@@ -100,7 +161,13 @@ const galeriData: GaleriItem[] = [
     category: "Kegiatan Instansi",
     date: "04 Juli 2026",
     image: "/kunker-nezar/kunker-nezar-11.jpeg",
-    desc: "Sesi foto bersama dan apresiasi untuk para pengajar dan tim teknis balai. Foto: Pey HS/Komdigi",
+    images: [
+      "/kunker-nezar/kunker-nezar-11.jpeg",
+      "/kunker-nezar/kunker-nezar-5.jpeg",
+      "/kunker-nezar/kunker-nezar-14.jpeg",
+      "/gambar3.jpeg",
+    ],
+    desc: "Sesi tatap muka dan apresiasi khusus kepada para pengajar, instruktur vokasi, dan tim teknis BBLSDM Komdigi Medan yang telah menjadi garda terdepan pendidikan SDM digital. Foto: Pey HS/Komdigi",
   },
   {
     id: "12",
@@ -108,7 +175,13 @@ const galeriData: GaleriItem[] = [
     category: "Kegiatan Instansi",
     date: "04 Juli 2026",
     image: "/kunker-nezar/kunker-nezar-12.jpeg",
-    desc: "Wamenkomdigi mendorong penyediaan sarana ramah disabilitas dan akses inklusif di lingkungan BBLSDM Medan. Foto: Pey HS/Komdigi",
+    images: [
+      "/kunker-nezar/kunker-nezar-12.jpeg",
+      "/kunker-nezar/kunker-nezar-10.jpeg",
+      "/kunker-nezar/kunker-nezar-7.jpeg",
+      "/gambar2.jpeg",
+    ],
+    desc: "Wamenkomdigi mendorong penyediaan fasilitas yang ramah disabilitas serta perluasan akses pelatihan inklusif bagi seluruh lapisan masyarakat di lingkungan BBLSDM Medan. Foto: Pey HS/Komdigi",
   },
   {
     id: "13",
@@ -116,7 +189,13 @@ const galeriData: GaleriItem[] = [
     category: "Penyambutan & Sinergi",
     date: "04 Juli 2026",
     image: "/kunker-nezar/kunker-nezar-13.jpeg",
-    desc: "Wamenkomdigi Nezar Patria disambut oleh Kepala Balai Besar Pengembangan Sumber Daya Manusia dan Penelitian Komunikasi dan Informatika (BBPSDMP / BBLSDM Komdigi) Medan, Dr. Christiany Juditha.",
+    images: [
+      "/kunker-nezar/kunker-nezar-13.jpeg",
+      "/kunker-nezar/kunker-nezar-1.jpeg",
+      "/kunker-nezar/kunker-nezar-14.jpeg",
+      "/gambar1.jpeg",
+    ],
+    desc: "Wamenkomdigi Nezar Patria disambut secara resmi oleh Kepala Balai Besar Pengembangan Sumber Daya Manusia dan Penelitian Komunikasi dan Informatika (BBPSDMP / BBLSDM Komdigi) Medan, Dr. Christiany Juditha beserta jajaran struktural. Foto: Pey HS/Komdigi",
   },
   {
     id: "14",
@@ -124,7 +203,13 @@ const galeriData: GaleriItem[] = [
     category: "Kunjungan Kerja",
     date: "04 Juli 2026",
     image: "/kunker-nezar/kunker-nezar-14.jpeg",
-    desc: "Dokumentasi foto bersama Wamenkomdigi Nezar Patria dan seluruh jajaran keluarga besar BBLSDM Komdigi Medan di Tembung, Kota Medan. Foto: Pey HS/Komdigi",
+    images: [
+      "/kunker-nezar/kunker-nezar-14.jpeg",
+      "/kunker-nezar/kunker-nezar-13.jpeg",
+      "/kunker-nezar/kunker-nezar-1.jpeg",
+      "/kunker-nezar/kunker-nezar-5.jpeg",
+    ],
+    desc: "Dokumentasi foto bersama Wamenkomdigi Nezar Patria dengan seluruh jajaran keluarga besar BBLSDM Komdigi Medan di Tembung, Kota Medan sebagai penutup rangkaian kunjungan kerja yang sukses. Foto: Pey HS/Komdigi",
   },
 ];
 
@@ -132,6 +217,7 @@ export default function GaleriPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Semua");
   const [activeModalItem, setActiveModalItem] = useState<GaleriItem | null>(null);
+  const [selectedImgIndex, setSelectedImgIndex] = useState(0);
 
   const filteredGaleri = useMemo(() => {
     return galeriData.filter((item) => {
@@ -208,7 +294,10 @@ export default function GaleriPage() {
               {filteredGaleri.map((item) => (
                 <div
                   key={item.id}
-                  onClick={() => setActiveModalItem(item)}
+                  onClick={() => {
+                    setActiveModalItem(item);
+                    setSelectedImgIndex(0);
+                  }}
                   className="group cursor-pointer bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
                 >
                   <div className="h-48 relative overflow-hidden bg-slate-900">
@@ -219,9 +308,9 @@ export default function GaleriPage() {
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    <div className="absolute top-2.5 right-2.5 z-10">
-                      <span className="text-[10px] font-bold bg-slate-900/80 text-white px-2 py-0.5 rounded backdrop-blur-sm border border-white/10 uppercase">
-                        {item.category}
+                    <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1.5">
+                      <span className="text-[10px] font-bold bg-black/60 text-white px-2 py-0.5 rounded backdrop-blur-sm border border-white/20">
+                        {item.images.length} Foto
                       </span>
                     </div>
                   </div>
@@ -237,8 +326,8 @@ export default function GaleriPage() {
                     </h3>
                   </div>
 
-                  <div className="px-4 pb-4 pt-2 border-t border-slate-100 text-[10px] font-bold text-[#0284c7] flex items-center justify-between">
-                    <span>Lihat Foto Detail</span>
+                  <div className="px-4 pb-4 pt-2 border-t border-slate-100 text-[10px] font-bold text-[#0284c7] flex items-center justify-between group-hover:text-[#0b1b3d] transition-colors">
+                    <span>Lihat Dokumentasi Kegiatan</span>
                     <span>→</span>
                   </div>
                 </div>
@@ -253,27 +342,30 @@ export default function GaleriPage() {
         </div>
       </section>
 
-      {/* Modal Detail View */}
+      {/* Modal Detail View with Multi-Photo Gallery */}
       {activeModalItem && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm"
           onClick={() => setActiveModalItem(null)}
         >
           <div
-            className="bg-white rounded-2xl max-w-2xl w-full p-6 space-y-5 relative overflow-hidden shadow-2xl"
+            className="bg-white rounded-2xl max-w-3xl w-full p-6 sm:p-8 space-y-6 relative overflow-hidden shadow-2xl max-h-[92vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-start justify-between gap-4">
-              <div className="space-y-1">
-                <span className="inline-flex items-center rounded-full bg-sky-50 px-2.5 py-0.5 text-xs font-bold text-[#0284c7] uppercase">
-                  {activeModalItem.category}
-                </span>
-                <h2 className="text-base sm:text-lg font-extrabold text-[#0b1b3d]">
+            {/* Header Modal */}
+            <div className="flex items-start justify-between gap-4 border-b border-slate-100 pb-4">
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-700 uppercase">
+                    {activeModalItem.category}
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#0b1b3d] bg-sky-50 border border-sky-100 px-2.5 py-0.5 rounded-full">
+                    {activeModalItem.date}
+                  </span>
+                </div>
+                <h2 className="text-lg sm:text-xl font-extrabold text-[#0b1b3d] leading-tight pt-0.5">
                   {activeModalItem.title}
                 </h2>
-                <p className="text-xs text-slate-400 font-semibold">
-                  Tanggal Kegiatan: {activeModalItem.date}
-                </p>
               </div>
 
               <button
@@ -284,37 +376,109 @@ export default function GaleriPage() {
               </button>
             </div>
 
-            <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden bg-slate-900 shadow-sm">
-              <Image
-                src={activeModalItem.image}
-                alt={activeModalItem.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 700px"
-                className="object-cover"
-              />
+            {/* Gallery Multi-Photo Viewer */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-xs text-slate-500 font-medium px-1">
+                <span>Dokumentasi Kegiatan ({selectedImgIndex + 1} dari {activeModalItem.images.length} Foto):</span>
+                <span className="text-slate-400">Klik panah atau thumbnail untuk melihat foto lain</span>
+              </div>
+
+              {/* Main Photo Display */}
+              <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full rounded-xl overflow-hidden bg-slate-900 shadow-md group">
+                <Image
+                  src={activeModalItem.images[selectedImgIndex] || activeModalItem.image}
+                  alt={`${activeModalItem.title} - Foto ${selectedImgIndex + 1}`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 800px"
+                  className="object-cover transition-all duration-300"
+                />
+
+                {/* Left/Right Navigation Arrows */}
+                {activeModalItem.images.length > 1 && (
+                  <>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedImgIndex((prev) => 
+                          prev === 0 ? activeModalItem.images.length - 1 : prev - 1
+                        );
+                      }}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center font-bold text-lg backdrop-blur-xs opacity-80 group-hover:opacity-100 transition-opacity"
+                      title="Foto Sebelumnya"
+                    >
+                      ‹
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedImgIndex((prev) => 
+                          prev === activeModalItem.images.length - 1 ? 0 : prev + 1
+                        );
+                      }}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center font-bold text-lg backdrop-blur-xs opacity-80 group-hover:opacity-100 transition-opacity"
+                      title="Foto Berikutnya"
+                    >
+                      ›
+                    </button>
+                  </>
+                )}
+
+                {/* Counter Badge */}
+                <div className="absolute bottom-3 right-3 z-10">
+                  <span className="px-2.5 py-1 rounded-md text-[11px] font-bold bg-black/60 text-white backdrop-blur-sm border border-white/20 shadow-xs">
+                    Foto {selectedImgIndex + 1} / {activeModalItem.images.length}
+                  </span>
+                </div>
+              </div>
+
+              {/* Thumbnails Selector Strip */}
+              {activeModalItem.images.length > 1 && (
+                <div className="grid grid-cols-4 gap-2.5 pt-1">
+                  {activeModalItem.images.map((imgUrl, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setSelectedImgIndex(idx)}
+                      className={`relative aspect-[16/10] rounded-lg overflow-hidden bg-slate-100 transition-all ${
+                        selectedImgIndex === idx
+                          ? "ring-2 ring-[#0b1b3d] ring-offset-2 scale-[0.98] opacity-100 shadow-sm"
+                          : "opacity-60 hover:opacity-90 border border-slate-200"
+                      }`}
+                    >
+                      <Image
+                        src={imgUrl}
+                        alt={`Thumbnail ${idx + 1}`}
+                        fill
+                        sizes="150px"
+                        className="object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed bg-slate-50 p-3 rounded-lg border border-slate-100">
-              {activeModalItem.desc}
-            </p>
+            {/* Deskripsi Kegiatan beserta Tanggalnya */}
+            <div className="bg-slate-50 p-5 rounded-xl border border-slate-200/80 space-y-3">
+              <div className="flex items-center justify-between border-b border-slate-200/60 pb-2.5">
+                <span className="text-xs font-bold text-[#0b1b3d] uppercase tracking-wider flex items-center gap-1.5">
+                  <span>Deskripsi Kegiatan</span>
+                </span>
+                <span className="text-xs font-bold text-slate-600">
+                  Tanggal: {activeModalItem.date}
+                </span>
+              </div>
+              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                {activeModalItem.desc}
+              </p>
+            </div>
 
-            <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
-              <a
-                href={activeModalItem.image}
-                download={activeModalItem.image.split("/").pop()}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-[#0284c7] hover:bg-sky-600 rounded-md transition-colors"
-              >
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                </svg>
-                Unduh Gambar Resolusi Tinggi
-              </a>
-
+            {/* Footer Modal */}
+            <div className="pt-2 border-t border-slate-100 flex items-center justify-end">
               <button
                 onClick={() => setActiveModalItem(null)}
-                className="px-4 py-1.5 text-xs font-bold text-slate-600 border border-slate-200 rounded-md hover:bg-slate-50"
+                className="w-full sm:w-auto px-6 py-2 text-xs font-semibold text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"
               >
-                Tutup
+                Tutup Galeri
               </button>
             </div>
           </div>
