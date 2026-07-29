@@ -77,7 +77,11 @@ export default function PenelitianPage() {
         breadcrumbs={[
           { label: "Beranda", href: "/" },
           { label: "Publikasi", href: "#" },
+
+          { label: "Riset & Penelitian" },
+
           { label: "Penelitian" },
+
         ]}
       />
 
