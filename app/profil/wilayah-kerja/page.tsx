@@ -4,21 +4,9 @@ import dynamic from "next/dynamic";
 import { useState, useMemo } from "react";
 import PageHeader from "@/app/components/PageHeader";
 import type { WilayahData } from "@/app/components/WilayahMap";
-import {
-  Search,
-  X,
-  Filter,
-  Globe2,
-  Map as MapIcon,
-  Sparkles,
-} from "lucide-react";
 
-/* ─── Data provinsi lengkap + koordinat & zone ─── */
-interface WilayahDataWithZone extends WilayahData {
-  zone: "Sumut" | "Sumsel" | "Kepulauan";
-}
-
-const wilayahList: WilayahDataWithZone[] = [
+/* ─── Data provinsi lengkap + koordinat ─── */
+const wilayahList: WilayahData[] = [
   {
     provinsi: "Sumatera Utara",
     kota: "Medan",
@@ -27,7 +15,6 @@ const wilayahList: WilayahDataWithZone[] = [
     website: "https://bpsdm.sumutprov.go.id/",
     lat: 3.6009495823832425,
     lng: 98.68844747553271,
-    zone: "Sumut",
   },
   {
     provinsi: "Aceh",
@@ -37,17 +24,15 @@ const wilayahList: WilayahDataWithZone[] = [
     website: "https://bpsdm.acehprov.go.id/",
     lat: 5.565880257598649,
     lng: 95.34320790954617,
-    zone: "Sumut",
   },
   {
     provinsi: "Sumatera Barat",
     kota: "Padang",
     alamat: "Jl. Raya Indarung Km.12, Padang Besi, Kota Padang",
-    telepon: "(0751) 700-000",
+    telepon: "-------",
     website: "https://bpsdm.sumbarprov.go.id/",
     lat: -0.9523763757062634,
     lng: 100.4746055607255,
-    zone: "Sumut",
   },
   {
     provinsi: "Riau",
@@ -57,57 +42,24 @@ const wilayahList: WilayahDataWithZone[] = [
     website: "https://bpsdm.riau.go.id/bpsdm/",
     lat: 0.5132641380276376,
     lng: 101.4548773206545,
-    zone: "Sumut",
   },
   {
     provinsi: "Kepulauan Riau",
     kota: "Tanjung Pinang",
     alamat: "Pusat Pemerintahan Provinsi Kepulauan Riau, Gedung Sultan Mahmud Riayat Syah (Gedung D Lantai 1) Dompak, Bukit Bestari, Kota Tanjung Pinang, Provinsi Kepulauan Riau",
-    telepon: "(0771) 318-000",
+    telepon: "-------",
     website: "https://bpsdm.kepriprov.go.id/",
     lat: 0.8779441030781603,
     lng: 104.445111,
-    zone: "Kepulauan",
   },
   {
     provinsi: "Jambi",
     kota: "Jambi",
     alamat: "Jl. H. Agus Salim, Paal Lima, Kec. Kota Baru, Kota Jambi, Jambi 36129",
-    telepon: "(0741) 668-000",
+    telepon: "-------",
     website: "https://bpsdm.jambiprov.go.id/",
     lat: -1.6325329066632042,
     lng: 103.61102988203443,
-    zone: "Sumsel",
-  },
-  {
-    provinsi: "Sumatera Selatan",
-    kota: "Palembang",
-    alamat: "Jl. Kapten A. Rivai No. 7, Palembang 30129",
-    telepon: "(0711) 350-000",
-    website: "https://diskominfo.sumselprov.go.id",
-    lat: -2.9761,
-    lng: 104.7754,
-    zone: "Sumsel",
-  },
-  {
-    provinsi: "Bengkulu",
-    kota: "Bengkulu",
-    alamat: "Jl. Pembangunan No. 16, Bengkulu 38225",
-    telepon: "(0736) 346-000",
-    website: "https://diskominfo.bengkuluprov.go.id",
-    lat: -3.8004,
-    lng: 102.2655,
-    zone: "Sumsel",
-  },
-  {
-    provinsi: "Lampung",
-    kota: "Bandar Lampung",
-    alamat: "Jl. Wolter Monginsidi No. 69, Bandar Lampung 35215",
-    telepon: "(0721) 481-000",
-    website: "https://diskominfo.lampungprov.go.id",
-    lat: -5.3971,
-    lng: 105.2668,
-    zone: "Sumsel",
   },
   {
     provinsi: "Bangka Belitung",
@@ -117,7 +69,6 @@ const wilayahList: WilayahDataWithZone[] = [
     website: "https://bkpsdmd.babelprov.go.id/",
     lat: -2.1615079465906897,
     lng: 106.16814326298616,
-    zone: "Kepulauan",
   },
   {
     provinsi: "Kalimantan Barat",
@@ -127,74 +78,65 @@ const wilayahList: WilayahDataWithZone[] = [
     website: "https://bpsdm.kalbarprov.go.id/",
     lat: -0.042695250302419545,
     lng: 109.33099193970436,
-    zone: "Kepulauan",
   },
 ];
 
-const zoneFilters = [
-  { id: "all", label: "Semua Wilayah" },
-  { id: "Sumut", label: "Sumatera Bagian Utara" },
-  { id: "Sumsel", label: "Sumatera Bagian Selatan" },
-  { id: "Kepulauan", label: "Kepulauan" },
-];
+/* ─── Icons ─── */
+function IconMapPin() {
+  return (
+    <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+    </svg>
+  );
+}
+function IconPhone() {
+  return (
+    <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+    </svg>
+  );
+}
+function IconGlobe() {
+  return (
+    <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+    </svg>
+  );
+}
+function IconChevronRight() {
+  return (
+    <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  );
+}
 
 export default function WilayahKerjaPage() {
-  const [selected, setSelected] = useState<WilayahDataWithZone>(wilayahList[0]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [activeZone, setActiveZone] = useState("all");
-  const [viewMode, setViewMode] = useState<"3d" | "2d">("3d");
+  const [selected, setSelected] = useState<WilayahData>(wilayahList[0]);
 
-  /* Dynamic import for 3D Globe */
-  const Globe3DComponent = useMemo(
-    () =>
-      dynamic(() => import("@/app/components/Globe3D"), {
-        ssr: false,
-        loading: () => (
-          <div className="w-full h-full min-h-[580px] lg:min-h-[720px] bg-[#070e20] flex items-center justify-center rounded-3xl border border-[#38bdf8]/30">
-            <div className="flex flex-col items-center gap-3 text-white">
-              <div className="w-8 h-8 border-2 border-[#38bdf8] border-t-transparent rounded-full animate-spin" />
-              <p className="text-xs text-slate-300 font-medium">Memuat WebGL 3D Globe Interaktif…</p>
-            </div>
-          </div>
-        ),
-      }),
-    []
-  );
-
-  /* Dynamic import for 2D Leaflet Map */
-  const Map2DComponent = useMemo(
+  /* Dynamic import — disable SSR for Leaflet */
+  const Map = useMemo(
     () =>
       dynamic(() => import("@/app/components/WilayahMap"), {
         ssr: false,
         loading: () => (
-          <div className="w-full h-full min-h-[580px] lg:min-h-[720px] bg-slate-100 flex items-center justify-center rounded-3xl border border-slate-200">
+          <div className="w-full h-full min-h-[420px] bg-slate-100 flex items-center justify-center">
             <div className="flex flex-col items-center gap-3">
               <div className="w-8 h-8 border-2 border-[#0284c7] border-t-transparent rounded-full animate-spin" />
-              <p className="text-xs text-slate-500 font-medium">Memuat Peta 2D…</p>
+              <p className="text-sm text-slate-500">Memuat peta…</p>
             </div>
           </div>
         ),
       }),
     []
   );
-
-  /* Filtered list based on search and zone */
-  const filteredWilayah = useMemo(() => {
-    return wilayahList.filter((w) => {
-      const matchesSearch =
-        w.provinsi.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        w.kota.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        w.alamat.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesZone = activeZone === "all" || w.zone === activeZone;
-      return matchesSearch && matchesZone;
-    });
-  }, [searchQuery, activeZone]);
 
   return (
     <>
       <PageHeader
         title="Wilayah Kerja"
-        subtitle="Direktori kantor BBLSDM Komdigi di setiap provinsi wilayah kerja beserta informasi kontak pada Web3 3D Globe interaktif"
+        subtitle="Direktori kantor BBLSDM Komdigi di setiap provinsi wilayah kerja beserta informasi kontak dan tautan website resmi"
         breadcrumbs={[
           { label: "Beranda", href: "/" },
           { label: "Profil", href: "#" },
@@ -203,121 +145,117 @@ export default function WilayahKerjaPage() {
         className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
       />
 
-      <section className="bg-slate-950 py-10 text-white min-h-screen">
+      <section className="bg-white py-8">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          
-          {/* Header Controls: Search, View Switcher & Region Filter Chips */}
-          <div className="bg-[#0b1b3d]/90 backdrop-blur-md rounded-2xl p-4 sm:p-5 mb-6 border border-[#38bdf8]/20 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-            
-            {/* View Mode Switcher */}
-            <div className="flex items-center gap-1 bg-black/40 p-1 rounded-xl border border-white/10 shrink-0">
-              <button
-                onClick={() => setViewMode("3d")}
-                className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition-all duration-200 ${
-                  viewMode === "3d"
-                    ? "bg-[#0284c7] text-white shadow-lg shadow-[#0284c7]/30"
-                    : "text-slate-400 hover:text-white"
-                }`}
-              >
-                <Globe2 className="w-3.5 h-3.5" />
-                <span>🌐 Web3 3D Globe</span>
-              </button>
-              <button
-                onClick={() => setViewMode("2d")}
-                className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition-all duration-200 ${
-                  viewMode === "2d"
-                    ? "bg-[#0284c7] text-white shadow-lg shadow-[#0284c7]/30"
-                    : "text-slate-400 hover:text-white"
-                }`}
-              >
-                <MapIcon className="w-3.5 h-3.5" />
-                <span>🗺️ Peta 2D</span>
-              </button>
-            </div>
+          <div className="flex flex-col lg:flex-row gap-0 rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
 
-            {/* Live Search Input */}
-            <div className="relative flex-1 max-w-md">
-              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-              <input
-                type="text"
-                placeholder="Cari provinsi, kota, atau alamat..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-9 py-2 bg-white/5 hover:bg-white/10 focus:bg-black/60 text-xs text-white rounded-xl border border-white/10 focus:border-[#38bdf8] focus:ring-2 focus:ring-[#38bdf8]/20 outline-none transition-all duration-200 placeholder:text-slate-500 font-medium"
+            {/* Left: Map (60%) */}
+            <div className="relative lg:w-[60%] h-[380px] lg:h-[580px]">
+              <Map
+                wilayahList={wilayahList}
+                selected={selected}
+                onSelect={setSelected}
               />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery("")}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-0.5 rounded-full"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
+              {/* Map overlay badge */}
+              <div className="absolute top-3 left-3 z-[1000] bg-white/90 backdrop-blur-sm border border-slate-200 rounded-lg px-3 py-2 shadow-sm">
+                <p className="text-[10px] font-bold text-[#0284c7] uppercase tracking-widest">Peta Interaktif</p>
+                <p className="text-xs text-slate-500">Klik markeeer untuk detail</p>
+              </div>
+            </div>
+
+            {/* Right: Sidebar (40%) */}
+            <div className="lg:w-[40%] flex flex-col border-t lg:border-t-0 lg:border-l border-slate-200">
+
+              {/* Selected detail panel */}
+              {selected && (
+                <div className="p-6 bg-[#0b1b3d] text-white flex-shrink-0">
+                  {/* Header */}
+                  <div className="flex items-start justify-between gap-3 mb-5">
+                    <div>
+                      <p className="text-[10px] font-bold tracking-[0.2em] text-[#38bdf8] uppercase mb-1">
+                        Provinsi Terpilih
+                      </p>
+                      <h2 className="text-xl font-extrabold text-white leading-snug">{selected.provinsi}</h2>
+                      <p className="text-sm text-slate-300 mt-0.5">{selected.kota}</p>
+                    </div>
+                    <div className="w-10 h-10 rounded-full bg-[#0284c7] flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Info rows */}
+                  <div className="space-y-3 mb-5">
+                    <div className="flex items-start gap-3">
+                      <span className="text-[#38bdf8] mt-0.5"><IconMapPin /></span>
+                      <p className="text-xs text-slate-300 leading-relaxed">{selected.alamat}</p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-[#38bdf8]"><IconPhone /></span>
+                      <p className="text-xs text-slate-300">{selected.telepon}</p>
+                    </div>
+                  </div>
+
+                  {/* CTA button */}
+                  <a
+                    href={selected.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-bold rounded-lg transition-colors duration-200"
+                  >
+                    <IconGlobe />
+                    Kunjungi Website Resmi
+                  </a>
+                </div>
               )}
-            </div>
 
-            {/* Quick Filter Zone Chips */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
-              <Filter className="w-3.5 h-3.5 text-slate-400 mr-1 shrink-0" />
-              {zoneFilters.map((chip) => {
-                const isActive = activeZone === chip.id;
-                return (
-                  <button
-                    key={chip.id}
-                    onClick={() => setActiveZone(chip.id)}
-                    className={`px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200 shrink-0 ${
-                      isActive
-                        ? "bg-[#38bdf8] text-slate-950 font-bold shadow-md"
-                        : "bg-white/5 text-slate-300 hover:bg-white/10"
-                    }`}
-                  >
-                    {chip.label}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Large Hero 3D WebGL Globe Container */}
-       
-
-          {/* Horizontal Quick Province Selector Bar */}
-          <div className="mt-6 bg-[#0b1b3d]/90 backdrop-blur-md rounded-2xl p-4 border border-[#38bdf8]/20 shadow-xl">
-            <div className="flex items-center justify-between mb-3">
-              <p className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                <Sparkles className="w-3.5 h-3.5 text-[#38bdf8]" />
-                <span>PILIH PROVINSI LOKASI KANTOR ({filteredWilayah.length})</span>
-              </p>
-            </div>
-            <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-              {filteredWilayah.map((w) => {
-                const isActive = selected?.provinsi === w.provinsi;
-                return (
-                  <button
-                    key={w.provinsi}
-                    onClick={() => setSelected(w)}
-                    className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all duration-200 shrink-0 border ${
-                      isActive
-                        ? "bg-[#0284c7] text-white border-[#38bdf8] shadow-lg shadow-[#0284c7]/40"
-                        : "bg-white/5 text-slate-300 border-white/10 hover:bg-white/10 hover:text-white"
-                    }`}
-                  >
-                    <span
-                      className={`w-2 h-2 rounded-full ${
-                        isActive ? "bg-[#38bdf8] shadow-[0_0_8px_#38bdf8]" : "bg-slate-500"
+              {/* Province list */}
+              <div className="flex-1 overflow-y-auto divide-y divide-slate-100 max-h-[350px]">
+                <div className="px-4 py-3 bg-slate-50 border-b border-slate-100">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                    Semua Wilayah Kerja — {wilayahList.length} Provinsi
+                  </p>
+                </div>
+                {wilayahList.map((w) => {
+                  const isActive = selected?.provinsi === w.provinsi;
+                  return (
+                    <button
+                      key={w.provinsi}
+                      onClick={() => setSelected(w)}
+                      className={`w-full flex items-center gap-3 px-4 py-3.5 text-left transition-colors duration-150 ${
+                        isActive
+                          ? "bg-[#0284c7]/8 border-l-2 border-[#0284c7]"
+                          : "hover:bg-slate-50 border-l-2 border-transparent"
                       }`}
-                    />
-                    <span>{w.provinsi}</span>
-                  </button>
-                );
-              })}
+                    >
+                      {/* Dot */}
+                      <span
+                        className={`w-2 h-2 rounded-full flex-shrink-0 transition-colors duration-150 ${isActive ? "bg-[#0284c7]" : "bg-slate-200"
+                          }`}
+                      />
+                      <div className="flex-1 min-w-0">
+                        <p className={`text-sm font-bold leading-tight truncate ${isActive ? "text-[#0284c7]" : "text-[#0b1b3d]"}`}>
+                          {w.provinsi}
+                        </p>
+                        <p className="text-[11px] text-slate-400 mt-0.5">{w.kota}</p>
+                      </div>
+                      <span className={`transition-colors duration-150 ${isActive ? "text-[#0284c7]" : "text-slate-300"}`}>
+                        <IconChevronRight />
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
-          {/* Bottom Note */}
-          <div className="flex items-center gap-2.5 mt-6 px-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] shrink-0 animate-ping" />
-            <p className="text-xs text-slate-400 font-mono">
-              Data wilayah kerja BBLSDM Komdigi • Powered by WebGL 3D Globe (cobe) & OpenStreetMap.
+          {/* Bottom note */}
+          <div className="flex items-center gap-3 mt-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0284c7] flex-shrink-0" />
+            <p className="text-xs text-slate-400">
+              Data wilayah kerja berdasarkan Keputusan Menteri Komunikasi dan Digital tentang Penetapan Wilayah Kerja BBLSDM. Peta menggunakan OpenStreetMap.
             </p>
           </div>
         </div>
