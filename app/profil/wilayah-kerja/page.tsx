@@ -278,21 +278,7 @@ export default function WilayahKerjaPage() {
           </div>
 
           {/* Large Hero 3D WebGL Globe Container */}
-          <div className="relative w-full h-[580px] lg:h-[720px] rounded-3xl overflow-hidden shadow-2xl">
-            {viewMode === "3d" ? (
-              <Globe3DComponent
-                wilayahList={filteredWilayah}
-                selected={selected}
-                onSelect={(w) => setSelected(w as WilayahDataWithZone)}
-              />
-            ) : (
-              <Map2DComponent
-                wilayahList={filteredWilayah}
-                selected={selected}
-                onSelect={(w) => setSelected(w as WilayahDataWithZone)}
-              />
-            )}
-          </div>
+       
 
           {/* Horizontal Quick Province Selector Bar */}
           <div className="mt-6 bg-[#0b1b3d]/90 backdrop-blur-md rounded-2xl p-4 border border-[#38bdf8]/20 shadow-xl">
