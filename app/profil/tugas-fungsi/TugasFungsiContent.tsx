@@ -137,7 +137,7 @@ export default function TugasFungsiContent() {
               Tentang Organisasi dan Tata Kerja Unit Pelaksana Teknis Bidang Pengembangan Sumber Daya Manusia Komunikasi dan Digital.
             </p>
           </div>
-          <div className="shrink-0 bg-slate-50 border border-slate-200/60 rounded-xl p-4 text-center min-w-[200px]">
+          <div className="shrink-0 bg-slate-50 border border-slate-200/60 rounded-xl p-4 text-center min-w-50">
             <span className="block text-xs font-semibold text-slate-400 uppercase tracking-wider">Status Regulasi</span>
             <span className="text-sm font-bold text-[#0284c7]">Berlaku Aktif & Resmi</span>
           </div>
@@ -206,7 +206,7 @@ export default function TugasFungsiContent() {
         </div>
 
         {/* Right Column: Detailed Function Display Panel */}
-        <div className="col-span-7 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm flex flex-col justify-between min-h-[440px]">
+        <div className="col-span-7 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm flex flex-col justify-between min-h-110">
           <div>
             <div className="flex items-center justify-between gap-4 pb-6 border-b border-slate-100">
               <div className="flex items-center gap-3">

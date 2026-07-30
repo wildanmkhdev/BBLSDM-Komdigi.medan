@@ -142,7 +142,7 @@ export default function FeedbackPage() {
           { label: "Layanan", href: "#" },
           { label: "Feedback" },
         ]}
-        className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
+        className="pt-28 pb-19 sm:pt-32 sm:pb-23"
       />
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
@@ -150,7 +150,7 @@ export default function FeedbackPage() {
           {/* Form — 3 cols */}
           <div className="lg:col-span-3">
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="h-1 bg-gradient-to-r from-sky-accent to-sky-primary" />
+              <div className="h-1 bg-linear-to-r from-sky-accent to-sky-primary" />
 
               <div className="p-6 sm:p-8">
                 <h2 className="text-xl font-bold text-navy mb-1">
@@ -284,7 +284,7 @@ export default function FeedbackPage() {
           {/* Sidebar — 2 cols */}
           <div className="lg:col-span-2 space-y-6">
             {/* Stats card */}
-            <div className="bg-gradient-to-br from-navy to-navy-light rounded-2xl p-6 text-white">
+            <div className="bg-linear-to-br from-navy to-navy-light rounded-2xl p-6 text-white">
               <h3 className="font-semibold text-lg mb-4">Ringkasan Feedback</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center">

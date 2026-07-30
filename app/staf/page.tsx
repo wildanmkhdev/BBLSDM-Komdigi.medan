@@ -141,7 +141,7 @@ export default function DaftarStafPage() {
 
   return (
     <div className="flex flex-col min-h-screen font-sans">
-      <main className="flex-grow bg-white">
+      <main className="grow bg-white">
         {/* Banner Header */}
         <PageHeader
           title="Daftar Staf & Hierarki Jabatan"
@@ -206,7 +206,7 @@ export default function DaftarStafPage() {
                       <div className="space-y-3">
                         <div className="flex items-center gap-3">
                           <div
-                            className={`w-10 h-10 rounded-full bg-gradient-to-br ${staff.avatarColor} text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-sm`}
+                            className={`w-10 h-10 rounded-full bg-linear-to-br ${staff.avatarColor} text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-sm`}
                           >
                             {staff.name
                               .split(" ")
