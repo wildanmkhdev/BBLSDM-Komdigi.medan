@@ -5,10 +5,11 @@ import FeaturedEventHero from "@/components/FeaturedEventHero";
 import KomdigiStorySection from "@/components/KomdigiStorySection";
 import Link from "next/link";
 import Image from "next/image";
+import PageHeader from "@/app/components/PageHeader";
 
 export default function Home() {
   // Service list for the card section
-  // Hoax Clarification list (taken from UPT Medan and official Komdigi style)
+  // Hoax Clarification list
   const hoaxList = [
     {
       title: "Surat Undangan Pelatihan Mengatasnamakan UPT BBLSDM Komdigi Medan Meminta Biaya Akomodasi Agen Perjalanan",
@@ -196,6 +197,38 @@ export default function Home() {
 
         {/* Story / Image Of The Day Section (NASA Style Image Feature) */}
         <KomdigiStorySection />
+
+        {/* Contact Section */}
+        <section id="kontak" className="py-20 bg-slate-50 border-t border-slate-200/60">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-extrabold text-[#0b1b3d] text-center mb-8">Hubungi Kami</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Contact Info */}
+              <div className="space-y-4">
+                <p className="text-base text-slate-700"><strong>Alamat:</strong> Jl. Tombak No. 24, Sidorejo Hilir, Kec. Medan Tembung, Kota Medan, Sumatera Utara 20222</p>
+                <p className="text-base text-slate-700"><strong>Telepon:</strong> (061) 7367375</p>
+                <p className="text-base text-slate-700"><strong>Email:</strong> bblsdm.medan@komdigi.go.id</p>
+              </div>
+              {/* Contact Form */}
+              <form className="space-y-4" onSubmit={(e)=>{e.preventDefault(); alert('Pesan terkirim!');}}>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1" htmlFor="name">Nama</label>
+                  <input type="text" id="name" name="name" required className="w-full rounded-md border border-slate-300 p-2 focus:outline-none focus:ring-2 focus:ring-[#0284c7]" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1" htmlFor="email">Email</label>
+                  <input type="email" id="email" name="email" required className="w-full rounded-md border border-slate-300 p-2 focus:outline-none focus:ring-2 focus:ring-[#0284c7]" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1" htmlFor="message">Pesan / Pertanyaan</label>
+                  <textarea id="message" name="message" rows={4} required className="w-full rounded-md border border-slate-300 p-2 focus:outline-none focus:ring-2 focus:ring-[#0284c7]"></textarea>
+                </div>
+                <button type="submit" className="px-6 py-2 bg-[#0284c7] text-white rounded-md hover:bg-[#0b1b3d] transition-colors">Kirim</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
       </main>
     </>
   );

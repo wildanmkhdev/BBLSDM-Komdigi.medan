@@ -22,7 +22,7 @@ export default function Navbar() {
       name: "Profil",
       submenu: [
         { name: "Sejarah", href: "/profil/sejarah" },
-        { name: "Visi & Misi", href: "/profil/visi-misi" },
+
         { name: "Struktur Organisasi", href: "/profil/struktur-organisasi" },
         { name: "Tugas & Fungsi", href: "/profil/tugas-fungsi" },
         { name: "Wilayah Kerja", href: "/profil/wilayah-kerja" },
@@ -45,24 +45,7 @@ export default function Navbar() {
         { name: "Feedback Comment", href: "/layanan/feedback" },
       ],
     },
-    {
-      name: "Publikasi",
-      submenu: [
-        { name: "LAKIP", href: "/publikasi/lakip" },
-        { name: "LAPTAH", href: "/publikasi/laptah" },
-        { name: "ICT Indikator", href: "/publikasi/ict-indikator" },
-        { name: "Penelitian", href: "/publikasi/penelitian" },
-        { name: "Buku Putih", href: "/publikasi/buku-putih" },
-      ],
-    },
-    {
-      name: "Statistik",
-      submenu: [
-        { name: "Kinerja", href: "/statistik/kinerja" },
-        { name: "Peserta Pelatihan", href: "/statistik/peserta" },
-      ],
-    },
-    { name: "Kontak", href: "/kontak" },
+
   ];
 
   const [scrolled, setScrolled] = useState(false);
@@ -72,9 +55,7 @@ export default function Navbar() {
     pathname.startsWith("/profil") || 
     pathname.startsWith("/informasi") || 
     pathname.startsWith("/layanan") || 
-    pathname.startsWith("/publikasi") || 
-    pathname.startsWith("/statistik") || 
-    pathname.startsWith("/kontak") || 
+ 
     pathname.startsWith("/staf") || 
     pathname.startsWith("/fitur");
 
