@@ -106,6 +106,27 @@ const faqList = [
     answer:
       "Ya, BBLSDM Komdigi Medan menyediakan layanan konsultasi teknis di bidang komunikasi dan informatika untuk instansi pemerintah daerah. Untuk konsultasi, silakan hubungi kami melalui email atau telepon untuk menjadwalkan sesi.",
   },
+  {
+    id: 14,
+    category: "umum",
+    question: "Apa saja fasilitas yang tersedia di BBLSDM Komdigi Medan?",
+    answer:
+      "BBLSDM Komdigi Medan dilengkapi dengan berbagai fasilitas pendukung yang modern, seperti Laboratorium Komputer berstandar industri, Laboratorium Jaringan, ruang kelas yang nyaman, asrama penginapan untuk peserta dari luar kota, perpustakaan digital, serta sarana olahraga.",
+  },
+  {
+    id: 15,
+    category: "layanan",
+    question: "Apakah BBLSDM Komdigi Medan menerima kerja sama dengan instansi atau kampus lain?",
+    answer:
+      "Tentu. Kami senantiasa terbuka terhadap kolaborasi untuk penyelenggaraan pelatihan, pertukaran tenaga ahli, maupun program magang dengan institusi pendidikan, pemerintahan, dan sektor swasta demi memajukan SDM digital di Indonesia.",
+  },
+  {
+    id: 16,
+    category: "sertifikasi",
+    question: "Skema sertifikasi apa saja yang saat ini tersedia?",
+    answer:
+      "Skema sertifikasi yang kami selenggarakan terintegrasi dengan pelatihan yang berjalan dan standar SKKNI, di antaranya: Junior Graphic Designer, Junior Web Developer, Junior Network Administrator, Data Scientist, Video Editor, serta Digital Marketing Specialist.",
+  },
 ];
 
 export default function FAQPage() {
@@ -238,7 +259,7 @@ export default function FAQPage() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <a
-              href="/kontak"
+              href="/#kontak"
               className="px-6 py-2.5 bg-white text-navy font-medium text-sm rounded-lg hover:bg-white/90 transition-colors"
             >
               Hubungi Kami

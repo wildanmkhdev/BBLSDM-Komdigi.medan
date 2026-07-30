@@ -23,7 +23,7 @@ export interface WilayahData {
 function FlyTo({ lat, lng }: { lat: number; lng: number }) {
   const map = useMap();
   useEffect(() => {
-    map.flyTo([lat, lng], 8, { duration: 1.2 });
+    map.flyTo([lat, lng], 13, { duration: 1.2 });
   }, [lat, lng, map]);
   return null;
 }

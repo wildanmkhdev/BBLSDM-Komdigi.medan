@@ -71,7 +71,9 @@ export default function Home() {
     <>
       <main className="flex-grow">
         {/* Hero Sections */}
-        <HeroBanner />
+        <div>
+          <HeroBanner />
+        </div>
 
         {/* Hoax Clarification / Isu Hangat Section (Clean Official Komdigi Style) */}
        
@@ -193,38 +195,118 @@ export default function Home() {
         </section>
 
         {/* Featured Event / Activity Hero Section (NASA Style Banner) */}
-        <FeaturedEventHero />
+        <div>
+          <FeaturedEventHero />
+        </div>
 
         {/* Story / Image Of The Day Section (NASA Style Image Feature) */}
-        <KomdigiStorySection />
+        <div>
+          <KomdigiStorySection />
+        </div>
 
         {/* Contact Section */}
-        <section id="kontak" className="py-20 bg-slate-50 border-t border-slate-200/60">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-extrabold text-[#0b1b3d] text-center mb-8">Hubungi Kami</h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Contact Info */}
-              <div className="space-y-4">
-                <p className="text-base text-slate-700"><strong>Alamat:</strong> Jl. Tombak No. 24, Sidorejo Hilir, Kec. Medan Tembung, Kota Medan, Sumatera Utara 20222</p>
-                <p className="text-base text-slate-700"><strong>Telepon:</strong> (061) 7367375</p>
-                <p className="text-base text-slate-700"><strong>Email:</strong> bblsdm.medan@komdigi.go.id</p>
+        <section id="kontak" className="py-24 bg-white relative overflow-hidden border-t border-slate-200/60">
+          {/* Decorative background elements */}
+          <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-sky-50/50 via-white to-white -z-10 pointer-events-none"></div>
+          
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="text-center mb-16">
+              <h2 className="text-sm font-bold tracking-widest text-[#0284c7] uppercase mb-2">Layanan Bantuan</h2>
+              <h3 className="text-3xl font-extrabold text-[#0b1b3d] sm:text-4xl tracking-tight">Hubungi Kami</h3>
+              <p className="mt-4 text-slate-600 max-w-2xl mx-auto text-sm sm:text-base">
+                Punya pertanyaan seputar program pelatihan, magang, atau kerja sama? Tim BBLSDM Komdigi Medan siap membantu Anda dengan layanan yang cepat dan responsif.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+              
+              {/* Contact Info (Left Column) */}
+              <div className="lg:col-span-5 space-y-8 h-full">
+                <div className="bg-slate-50 p-8 sm:p-10 rounded-3xl border border-slate-100 shadow-sm h-full">
+                   <h4 className="text-xl font-bold text-[#0b1b3d] mb-8 border-b border-slate-200/80 pb-4">Informasi Kontak</h4>
+                   
+                   <div className="space-y-8">
+                     <div className="flex items-start gap-4">
+                       <div className="shrink-0 p-3.5 bg-sky-100 rounded-2xl text-[#0284c7] shadow-sm">
+                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                           <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                           <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                         </svg>
+                       </div>
+                       <div>
+                         <p className="text-sm font-bold text-slate-900 mb-1.5">Alamat Kantor</p>
+                         <p className="text-sm text-slate-600 leading-relaxed">
+                           Jl. Tombak No. 24, Sidorejo Hilir, Kec. Medan Tembung, Kota Medan, Sumatera Utara 20222
+                         </p>
+                       </div>
+                     </div>
+
+                     <div className="flex items-start gap-4">
+                       <div className="shrink-0 p-3.5 bg-emerald-100 rounded-2xl text-emerald-600 shadow-sm">
+                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                           <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                         </svg>
+                       </div>
+                       <div>
+                         <p className="text-sm font-bold text-slate-900 mb-1.5">Telepon</p>
+                         <p className="text-sm text-slate-600">(061) 7367375</p>
+                       </div>
+                     </div>
+
+                     <div className="flex items-start gap-4">
+                       <div className="shrink-0 p-3.5 bg-indigo-100 rounded-2xl text-indigo-600 shadow-sm">
+                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                           <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                         </svg>
+                       </div>
+                       <div>
+                         <p className="text-sm font-bold text-slate-900 mb-1.5">Email Resmi</p>
+                         <p className="text-sm text-slate-600">bblsdm.medan@komdigi.go.id</p>
+                       </div>
+                     </div>
+                   </div>
+                </div>
               </div>
-              {/* Contact Form */}
-              <form className="space-y-4" onSubmit={(e)=>{e.preventDefault(); alert('Pesan terkirim!');}}>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1" htmlFor="name">Nama</label>
-                  <input type="text" id="name" name="name" required className="w-full rounded-md border border-slate-300 p-2 focus:outline-none focus:ring-2 focus:ring-[#0284c7]" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1" htmlFor="email">Email</label>
-                  <input type="email" id="email" name="email" required className="w-full rounded-md border border-slate-300 p-2 focus:outline-none focus:ring-2 focus:ring-[#0284c7]" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1" htmlFor="message">Pesan / Pertanyaan</label>
-                  <textarea id="message" name="message" rows={4} required className="w-full rounded-md border border-slate-300 p-2 focus:outline-none focus:ring-2 focus:ring-[#0284c7]"></textarea>
-                </div>
-                <button type="submit" className="px-6 py-2 bg-[#0284c7] text-white rounded-md hover:bg-[#0b1b3d] transition-colors">Kirim</button>
-              </form>
+
+              {/* Contact Form (Right Column) */}
+              <div className="lg:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/40 relative">
+                <form className="space-y-6" onSubmit={(e)=>{e.preventDefault(); alert('Pesan berhasil terkirim! Tim kami akan segera merespons melalui email Anda.');}}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-2" htmlFor="name">Nama Lengkap <span className="text-red-500">*</span></label>
+                      <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required className="w-full rounded-xl border border-slate-300 px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all bg-slate-50 focus:bg-white placeholder-slate-400" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-2" htmlFor="phone">Nomor Telepon / WA <span className="text-red-500">*</span></label>
+                      <input type="tel" id="phone" name="phone" placeholder="08xx-xxxx-xxxx" required className="w-full rounded-xl border border-slate-300 px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all bg-slate-50 focus:bg-white placeholder-slate-400" />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-2" htmlFor="email">Alamat Email <span className="text-red-500">*</span></label>
+                      <input type="email" id="email" name="email" placeholder="contoh@email.com" required className="w-full rounded-xl border border-slate-300 px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all bg-slate-50 focus:bg-white placeholder-slate-400" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-2" htmlFor="subject">Subjek / Topik</label>
+                      <input type="text" id="subject" name="subject" placeholder="Apa yang ingin Anda tanyakan?" className="w-full rounded-xl border border-slate-300 px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all bg-slate-50 focus:bg-white placeholder-slate-400" />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-2" htmlFor="message">Pesan Anda <span className="text-red-500">*</span></label>
+                    <textarea id="message" name="message" rows={5} placeholder="Tuliskan pesan atau pertanyaan Anda di sini secara detail..." required className="w-full rounded-xl border border-slate-300 px-4 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all bg-slate-50 focus:bg-white resize-y placeholder-slate-400"></textarea>
+                  </div>
+                  
+                  <div className="pt-2">
+                    <button type="submit" className="w-full sm:w-auto px-8 py-3.5 bg-[#0284c7] text-white font-bold rounded-xl hover:bg-[#0b1b3d] focus:ring-4 focus:ring-sky-200 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 group">
+                      <span>Kirim Pesan Sekarang</span>
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </button>
+                  </div>
+                </form>
+              </div>
+              
             </div>
           </div>
         </section>

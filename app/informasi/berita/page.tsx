@@ -160,7 +160,7 @@ export default function BeritaPage() {
                 <div
                   key={item.id}
                   onClick={() => setActiveModalItem(item)}
-                  className="group relative cursor-pointer bg-white rounded-xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 flex flex-col justify-between"
+                  className="group relative cursor-pointer bg-white rounded-xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
                 >
                   <div className="relative h-48 bg-slate-100 overflow-hidden">
                     <Image

@@ -44,16 +44,6 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/profil/visi-misi" className="hover:text-white hover:underline transition-all">
-                    Visi &amp; Misi
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/profil/struktur-organisasi" className="hover:text-white hover:underline transition-all">
-                    Struktur Organisasi
-                  </Link>
-                </li>
-                <li>
                   <Link href="/profil/tugas-fungsi" className="hover:text-white hover:underline transition-all">
                     Tugas &amp; Fungsi
                   </Link>
@@ -68,13 +58,18 @@ export default function Footer() {
                     Berita &amp; Artikel
                   </Link>
                 </li>
+                <li>
+                  <Link href="/informasi/media-sosial" className="hover:text-white hover:underline transition-all">
+                    Media Sosial
+                  </Link>
+                </li>
               </ul>
             </div>
 
-            {/* Column 2: Layanan & Publikasi */}
+            {/* Column 2: Layanan */}
             <div className="space-y-4">
               <h4 className="text-sm font-bold uppercase tracking-wider text-white border-b border-white/10 pb-2">
-                Layanan &amp; Publikasi
+                Layanan
               </h4>
               <ul className="space-y-2.5 text-xs text-sky-100/90">
                 <li>
