@@ -170,7 +170,7 @@ export default function BeritaPage() {
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0b1b3d]/40 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-linear-to-t from-[#0b1b3d]/40 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div className="absolute top-3 right-3 z-10">
                       <span className="inline-flex items-center px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-white/90 text-[#0284c7] backdrop-blur-sm shadow-sm border border-slate-100">
                         {item.category}
@@ -178,11 +178,11 @@ export default function BeritaPage() {
                     </div>
                   </div>
 
-                  <div className="p-5 space-y-2.5 flex-grow flex flex-col justify-between">
+                  <div className="p-5 space-y-2.5 grow flex flex-col justify-between">
                     <div className="space-y-2">
                       <div className="flex items-center justify-between text-[11px] font-medium text-slate-400">
                         <span>{item.date}</span>
-                        <span className="text-slate-500 font-semibold truncate max-w-[120px]">{item.author}</span>
+                        <span className="text-slate-500 font-semibold truncate max-w-30">{item.author}</span>
                       </div>
 
                       <h3 className="text-[15px] font-bold text-[#0b1b3d] line-clamp-2 leading-snug group-hover:text-[#0284c7] transition-colors duration-200">

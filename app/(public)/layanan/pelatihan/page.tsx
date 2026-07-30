@@ -297,13 +297,13 @@ export default function PelatihanPage() {
           { label: "Layanan", href: "#" },
           { label: "Pelatihan" },
         ]}
-        className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
+        className="pt-28 pb-19 sm:pt-32 sm:pb-23"
       />
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         
         {/* Banner Pengantar & Highlight Stats */}
-        <div className="bg-gradient-to-r from-navy via-navy-light to-navy rounded-2xl p-6 sm:p-8 text-white shadow-xl mb-10 relative overflow-hidden">
+        <div className="bg-linear-to-r from-navy via-navy-light to-navy rounded-2xl p-6 sm:p-8 text-white shadow-xl mb-10 relative overflow-hidden">
           {/* Decorative shapes */}
           <div className="absolute top-0 right-0 w-80 h-80 bg-sky-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
           
@@ -513,7 +513,7 @@ export default function PelatihanPage() {
                             className={`h-full rounded-full transition-all duration-500 ${
                               p.terisi >= p.kuota
                                 ? "bg-marun"
-                                : "bg-gradient-to-r from-sky-primary to-sky-accent"
+                                : "bg-linear-to-r from-sky-primary to-sky-accent"
                             }`}
                             style={{ width: `${pct}%` }}
                           />
@@ -556,7 +556,7 @@ export default function PelatihanPage() {
         )}
 
         {/* Informasi Tambahan */}
-        <div className="mt-14 bg-gradient-to-br from-slate-50 via-white to-slate-50/80 rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
+        <div className="mt-14 bg-linear-to-br from-slate-50 via-white to-slate-50/80 rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-9 h-9 rounded-xl bg-sky-accent/15 flex items-center justify-center text-sky-primary">
               <IconBookOpen />
@@ -592,7 +592,7 @@ export default function PelatihanPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy/60 backdrop-blur-xs transition-all duration-300 animate-fadeIn">
           <div className="bg-white rounded-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-100 relative overflow-hidden">
             {/* Header Modal */}
-            <div className="bg-gradient-to-r from-navy to-navy-light p-6 text-white relative">
+            <div className="bg-linear-to-r from-navy to-navy-light p-6 text-white relative">
               <button
                 onClick={() => setSelectedPelatihan(null)}
                 className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"

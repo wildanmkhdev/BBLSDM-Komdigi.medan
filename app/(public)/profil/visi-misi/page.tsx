@@ -51,7 +51,7 @@ export default function VisiMisi() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <main className="flex-grow">
+      <main className="grow">
 
         {/* Page Header Banner */}
         <PageHeader
@@ -62,16 +62,16 @@ export default function VisiMisi() {
             { label: "Profil", href: "#" },
             { label: "Visi dan Misi" },
           ]}
-          className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
+          className="pt-28 pb-19 sm:pt-32 sm:pb-23"
         />
 
         {/* Vision Statement (Highlight container — UNSTOUCHED) */}
         <section className="py-20">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="relative overflow-hidden bg-gradient-to-r from-[#0b1b3d] to-[#122e66] text-white rounded-2xl shadow-xl p-8 sm:p-12 md:p-16 border-l-8 border-[#38bdf8]">
+            <div className="relative overflow-hidden bg-linear-to-r from-[#0b1b3d] to-[#122e66] text-white rounded-2xl shadow-xl p-8 sm:p-12 md:p-16 border-l-8 border-[#38bdf8]">
               
               {/* Abs grid pattern */}
-              <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:16px_16px]" />
+              <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-size-[16px_16px]" />
               
               <div className="relative z-10 max-w-3xl space-y-6">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 uppercase">
@@ -179,7 +179,7 @@ export default function VisiMisi() {
             </div>
 
             <div className="mt-14 pt-8 border-t border-slate-100 flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-[#0284c7] flex-shrink-0" />
+              <span className="w-2 h-2 rounded-full bg-[#0284c7] shrink-0" />
               <p className="text-xs text-slate-400 leading-relaxed">
                 Seluruh misi ini dijabarkan dalam Rencana Strategis (Renstra) BBLSDM Komdigi Medan dan dilaksanakan secara terukur sesuai Indikator Kinerja Utama (IKU) instansi.
               </p>

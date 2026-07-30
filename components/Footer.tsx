@@ -88,24 +88,10 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/publikasi/lakip" className="hover:text-white hover:underline transition-all">
-                    Laporan Kinerja (LAKIP)
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/publikasi/laptah" className="hover:text-white hover:underline transition-all">
-                    Laporan Tahunan (LAPTAH)
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/publikasi/ict-indikator" className="hover:text-white hover:underline transition-all">
-                    ICT Indikator
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/publikasi/buku-putih" className="hover:text-white hover:underline transition-all">
-                    Buku Putih Penelitian
-                  </Link>
+
+
+
+
                 </li>
               </ul>
             </div>
@@ -127,7 +113,7 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/kontak" className="hover:text-white hover:underline transition-all">
+                  <Link href="#kontak" className="hover:text-white hover:underline transition-all">
                     Hubungi Kami
                   </Link>
                 </li>

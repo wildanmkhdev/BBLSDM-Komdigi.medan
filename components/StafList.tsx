@@ -38,7 +38,7 @@ export default function StafList({ stafData }: StafListProps) {
           className="group relative overflow-hidden rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:shadow-md"
         >
           {/* Accent Line Left */}
-          <div className="absolute top-0 left-0 h-full w-[4px] bg-[#0284c7] transition-all duration-300 group-hover:w-[6px]" />
+          <div className="absolute top-0 left-0 h-full w-1 bg-[#0284c7] transition-all duration-300 group-hover:w-1.5" />
 
           <div className="flex flex-col sm:flex-row items-start gap-4">
             {/* Avatar / Photo */}

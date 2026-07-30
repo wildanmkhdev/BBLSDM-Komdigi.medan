@@ -16,12 +16,11 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: "Beranda", href: "/" },
   {
     label: "Profil",
     children: [
       { label: "Sejarah", href: "/profil/sejarah" },
-      { label: "Visi & Misi", href: "/profil/visi-misi" },
+
       { label: "Struktur Organisasi", href: "/profil/struktur-organisasi" },
       { label: "Tugas dan Fungsi", href: "/profil/tugas-fungsi" },
       { label: "Wilayah Kerja", href: "/profil/wilayah-kerja" },
@@ -54,15 +53,6 @@ const navItems: NavItem[] = [
       { label: "Buku Putih", href: "/publikasi/buku-putih" },
     ],
   },
-  {
-    label: "Statistik",
-    children: [
-      { label: "Kinerja", href: "/statistik/kinerja" },
-      { label: "Peserta Pelatihan", href: "/statistik/peserta" },
-      { label: "Infografis", href: "/statistik/infografis" },
-    ],
-  },
-  { label: "Kontak", href: "/kontak" },
 ];
 
 export default function Navbar() {

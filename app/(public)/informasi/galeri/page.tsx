@@ -315,7 +315,7 @@ export default function GaleriPage() {
                     </div>
                   </div>
 
-                  <div className="p-4 space-y-1.5 flex-grow">
+                  <div className="p-4 space-y-1.5 grow">
                     <div className="flex items-center justify-between text-[10px] text-slate-400">
                       <span className="font-bold text-[#0284c7]">{item.category}</span>
                       <span>{item.date}</span>
@@ -384,7 +384,7 @@ export default function GaleriPage() {
               </div>
 
               {/* Main Photo Display */}
-              <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full rounded-xl overflow-hidden bg-slate-900 shadow-md group">
+              <div className="relative aspect-16/10 sm:aspect-video w-full rounded-xl overflow-hidden bg-slate-900 shadow-md group">
                 <Image
                   src={activeModalItem.images[selectedImgIndex] || activeModalItem.image}
                   alt={`${activeModalItem.title} - Foto ${selectedImgIndex + 1}`}
@@ -438,7 +438,7 @@ export default function GaleriPage() {
                     <button
                       key={idx}
                       onClick={() => setSelectedImgIndex(idx)}
-                      className={`relative aspect-[16/10] rounded-lg overflow-hidden bg-slate-100 transition-all ${
+                      className={`relative aspect-16/10 rounded-lg overflow-hidden bg-slate-100 transition-all ${
                         selectedImgIndex === idx
                           ? "ring-2 ring-[#0b1b3d] ring-offset-2 scale-[0.98] opacity-100 shadow-sm"
                           : "opacity-60 hover:opacity-90 border border-slate-200"

@@ -16,10 +16,10 @@ export default function PageHeader({
   title,
   subtitle,
   breadcrumbs,
-  className = "pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]",
+  className = "pt-28 pb-19 sm:pt-32 sm:pb-23",
 }: PageHeaderProps) {
   return (
-    <section className="relative bg-gradient-to-br from-navy via-navy-light to-navy overflow-hidden">
+    <section className="relative bg-navy overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute inset-0">
         <div className="absolute top-0 right-0 w-96 h-96 bg-sky-accent/5 rounded-full -translate-y-1/2 translate-x-1/3" />
@@ -70,7 +70,7 @@ export default function PageHeader({
       </div>
 
       {/* Bottom accent line */}
-      <div className="h-1 bg-gradient-to-r from-sky-accent via-gold to-sky-accent" />
+      <div className="h-1 bg-linear-to-r from-sky-accent via-gold to-sky-accent" />
     </section>
   );
 }
