@@ -24,7 +24,7 @@ function OrgNode({ member, size = "md" }: { member: Member; size?: NodeSize }) {
   const c = cfg[size];
   return (
     <div className={`flex flex-col items-center text-center ${c.wrap}`}>
-      <div className={`relative ${c.circle} rounded-full overflow-hidden border-[#0284c7]/40 shadow-md bg-slate-100 flex-shrink-0`}>
+      <div className={`relative ${c.circle} rounded-full overflow-hidden border-[#0284c7]/40 shadow-md bg-slate-100 shrink-0`}>
         <Image
           src={member.avatar}
           alt={member.name}
@@ -124,7 +124,7 @@ export default function StrukturOrganisasi() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <main className="flex-grow">
+      <main className="grow">
 
         {/* ─── Page Title Banner ─── */}
         <PageHeader
@@ -135,7 +135,7 @@ export default function StrukturOrganisasi() {
             { label: "Profil", href: "#" },
             { label: "Struktur Organisasi" },
           ]}
-          className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
+          className="pt-28 pb-19 sm:pt-32 sm:pb-23"
         />
 
         {/* ══════════════════════════════════════════════════════
@@ -173,7 +173,7 @@ export default function StrukturOrganisasi() {
             Bagan pohon hierarki penuh dengan garis branch.
             ══════════════════════════════════════════════════════ */}
         <section className="hidden xl:block py-16 bg-white overflow-x-auto">
-          <div className="min-w-[1100px] px-8 flex flex-col items-center">
+          <div className="min-w-275 px-8 flex flex-col items-center">
 
             {/* LEVEL 1: Kepala */}
             <OrgNode member={kepala} size="xl" />

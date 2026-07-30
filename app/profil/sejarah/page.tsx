@@ -56,7 +56,7 @@ export default function Sejarah() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <main className="flex-grow">
+      <main className="grow">
         {/* Banner Header */}
         <PageHeader
           title="Sejarah"
@@ -66,7 +66,7 @@ export default function Sejarah() {
             { label: "Profil", href: "#" },
             { label: "Sejarah" },
           ]}
-          className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
+          className="pt-28 pb-19 sm:pt-32 sm:pb-23"
         />
 
         {/* Narrative & Timeline Section */}
@@ -138,7 +138,7 @@ export default function Sejarah() {
                     </div>
                   </div>
                   
-                  <div className="p-5 flex-grow flex flex-col justify-between space-y-3">
+                  <div className="p-5 grow flex flex-col justify-between space-y-3">
                     <div className="space-y-1">
                       <h3 className="text-xs font-bold text-[#0b1b3d] leading-snug group-hover:text-[#0284c7] transition-colors">
                         {photo.title}
