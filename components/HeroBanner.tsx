@@ -4,10 +4,38 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-export default function HeroBanner() {
+interface BannerWithImage {
+  id: string;
+  accentBadge: string;
+  title: string;
+  subtitle: string;
+  image: {
+    publicUrl: string;
+  };
+  ctaText: string;
+  ctaLink: string;
+}
+
+interface PopularNewsItem {
+  id: string;
+  title: string;
+  slug: string;
+  viewCount: bigint;
+  publishedAt: Date | null;
+  thumbnail?: { publicUrl: string } | null;
+  kategori?: { name: string } | null;
+}
+
+export default function HeroBanner({ 
+  initialSlides = [],
+  popularNewsList = []
+}: { 
+  initialSlides?: BannerWithImage[];
+  popularNewsList?: PopularNewsItem[];
+}) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const slides = [
+  const defaultSlides = [
     {
       accentBadge: "SIARAN PERS",
       title: "Kemkomdigi Hormati Putusan MK, Siap Kaji Aturan Sisa Kuota Internet",
@@ -34,6 +62,17 @@ export default function HeroBanner() {
     }
   ];
 
+  const slides = initialSlides.length > 0 
+    ? initialSlides.map(s => ({
+        accentBadge: s.accentBadge,
+        title: s.title,
+        subtitle: s.subtitle,
+        image: s.image?.publicUrl || "/kunker-nezar/kunker-nezar-1.jpeg",
+        ctaText: s.ctaText,
+        ctaLink: s.ctaLink,
+      }))
+    : defaultSlides;
+
   // Auto play slides
   useEffect(() => {
     const timer = setInterval(() => {
@@ -50,8 +89,7 @@ export default function HeroBanner() {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
-  // 4 popular news items for the transparent overlay
-  const popularNews = [
+  const defaultPopularNews = [
     {
       category: "Siaran Pers",
       categoryColor: "text-orange-400",
@@ -81,10 +119,21 @@ export default function HeroBanner() {
       categoryColor: "text-red-500",
       title: "[HOAKS] Sensus Ekonomi 2026 Melalui Link Terlarang",
       time: "sebulan lalu",
-      image: "/gambar1.jpeg",
-      href: "/informasi/hoaks",
+      image: "/logo komdigi.png",
+      href: "/informasi/berita",
     },
   ];
+
+  const popularNews = popularNewsList.length > 0
+    ? popularNewsList.map(n => ({
+        category: n.kategori?.name || "Berita",
+        categoryColor: "text-[#0284c7]",
+        title: n.title,
+        time: n.publishedAt ? new Date(n.publishedAt).toLocaleDateString("id-ID") : "Baru saja",
+        image: n.thumbnail?.publicUrl || "/logo komdigi.png",
+        href: `/informasi/berita`,
+      }))
+    : defaultPopularNews;
 
   return (
     <section className="relative w-full min-h-screen flex flex-col justify-between bg-slate-950 font-sans overflow-hidden">

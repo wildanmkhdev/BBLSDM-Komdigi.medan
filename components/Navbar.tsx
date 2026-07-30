@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { useSession, signOut } from "next-auth/react";
 
 interface MenuItem {
   name: string;
@@ -12,6 +13,7 @@ interface MenuItem {
 }
 
 export default function Navbar() {
+  const { data: session } = useSession();
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -236,6 +238,30 @@ export default function Navbar() {
               </div>
             );
           })}
+
+          {/* User auth state / login button */}
+          {session ? (
+            <div className="flex items-center gap-3 pl-4 border-l border-slate-200">
+              <span className={`text-xs font-semibold ${isSolidNavbar ? "text-slate-600" : "text-slate-200"}`}>
+                Hai, {session.user?.name || session.user?.email?.split("@")[0]}
+              </span>
+              <button
+                onClick={() => signOut({ callbackUrl: "/" })}
+                className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold uppercase rounded-md tracking-wider shadow-xs transition cursor-pointer"
+              >
+                Keluar
+              </button>
+            </div>
+          ) : (
+            <div className="pl-4 border-l border-slate-200">
+              <Link
+                href="/login"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#0284c7] hover:bg-[#0b1b3d] text-white text-xs font-bold uppercase rounded-md tracking-wider shadow-xs transition"
+              >
+                Masuk
+              </Link>
+            </div>
+          )}
         </nav>
 
         {/* Mobile menu button */}
@@ -348,6 +374,29 @@ export default function Navbar() {
               </div>
             );
           })}
+
+          {session ? (
+            <div className="pt-4 border-t border-slate-200 mt-2 space-y-2">
+              <div className="px-3 text-xs font-semibold text-slate-500 font-sans">
+                Logged in as: {session.user?.name || session.user?.email}
+              </div>
+              <button
+                onClick={() => signOut({ callbackUrl: "/" })}
+                className="w-full text-center px-3 py-2 bg-red-600 text-white text-xs font-bold uppercase rounded-md tracking-wider transition cursor-pointer font-sans"
+              >
+                Keluar
+              </button>
+            </div>
+          ) : (
+            <div className="pt-4 border-t border-slate-200 mt-2">
+              <Link
+                href="/login"
+                className="block text-center px-3 py-2 bg-[#0284c7] text-white text-xs font-bold uppercase rounded-md tracking-wider transition font-sans"
+              >
+                Masuk
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </header>

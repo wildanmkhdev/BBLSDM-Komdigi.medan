@@ -1,0 +1,836 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ==========================================
+// 1. ENUM TYPES
+// ==========================================
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  EDITOR
+  AUTHOR
+  USER
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum ContentStatus {
+  DRAFT
+  REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+enum PelatihanStatus {
+  COMING_SOON
+  OPEN
+  FULL
+  COMPLETED
+  CANCELLED
+}
+
+enum MagangStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  CANCELLED
+}
+
+enum FeedbackStatus {
+  NEW
+  READ
+  PROCESSED
+  ARCHIVED
+}
+
+enum KontakStatus {
+  NEW
+  READ
+  ARCHIVED
+}
+
+enum JenisPublikasi {
+  LAKIP
+  LAPTAH
+  ICT_INDIKATOR
+  PENELITIAN
+  BUKU_PUTIH
+}
+
+enum PeriodeStatistik {
+  TRIWULAN_1
+  TRIWULAN_2
+  TRIWULAN_3
+  TRIWULAN_4
+  TAHUNAN
+  SEMESTERAN
+}
+
+enum MediaType {
+  IMAGE
+  DOCUMENT
+  VIDEO
+  OTHER
+}
+
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  PUBLISH
+  UNPUBLISH
+  ARCHIVE
+  LOGIN
+  LOGOUT
+  UPLOAD
+  DOWNLOAD
+  ROLE_CHANGE
+  PASSWORD_RESET
+}
+
+// ==========================================
+// 2. DOMAIN: SYSTEM
+// ==========================================
+
+model User {
+  id                String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name              String     @db.VarChar(255)
+  email             String     @unique @db.VarChar(255)
+  passwordHash      String     @map("password_hash") @db.Text
+  role              UserRole   @default(EDITOR)
+  status            UserStatus @default(ACTIVE)
+  avatarUrl         String?    @map("avatar_url") @db.Text
+  failedLoginCount  Int        @default(0) @map("failed_login_count") @db.SmallInt
+  lockedUntil       DateTime?  @map("locked_until") @db.Timestamptz
+  lastLoginAt       DateTime?  @map("last_login_at") @db.Timestamptz
+  lastLoginIp       String?    @map("last_login_ip") @db.VarChar(45)
+  createdAt         DateTime   @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt         DateTime   @updatedAt @map("updated_at") @db.Timestamptz
+
+  sessions          Session[]
+  auditLogs         AuditLog[]
+  mediaUploaded     Media[]
+  settingsEdited    Settings[]         @relation("settings_updater")
+  sejarahEdited     Sejarah[]          @relation("sejarah_updater")
+  visiMisiEdited    VisiMisi[]         @relation("visi_misi_updater")
+  beritaWritten     Berita[]           @relation("berita_author")
+  pengumumanCreated Pengumuman[]       @relation("pengumuman_creator")
+  albumsCreated     GaleriAlbum[]      @relation("album_creator")
+  pelatihanCreated  Pelatihan[]        @relation("pelatihan_creator")
+  magangInfoEdited  MagangInfo[]       @relation("magang_info_updater")
+  magangReviewed    PendaftaranMagang[] @relation("magang_reviewer")
+  feedbackProcessed Feedback[]         @relation("feedback_processor")
+  publikasiCreated  Publikasi[]        @relation("publikasi_creator")
+  dataKinerjaCreated DataKinerja[]      @relation("kinerja_creator")
+  statPesertaCreated StatPeserta[]      @relation("stat_peserta_creator")
+  infografisCreated  Infografis[]       @relation("infografis_creator")
+  pesanKontakRead   PesanKontak[]      @relation("kontak_reader")
+
+  @@map("users")
+  @@index([role, status])
+}
+
+model Session {
+  id        String   @id
+  userId    String   @map("user_id") @db.Uuid
+  expires   DateTime @db.Timestamptz
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_sessions")
+  @@index([userId])
+  @@index([expires])
+}
+
+model AuditLog {
+  id          BigInt      @id @default(autoincrement())
+  userId      String?     @map("user_id") @db.Uuid
+  userName    String      @map("user_name") @db.VarChar(255)
+  userEmail   String      @map("user_email") @db.VarChar(255)
+  action      AuditAction
+  module      String      @db.VarChar(100)
+  entityType  String?     @map("entity_type") @db.VarChar(100)
+  entityId    String?     @map("entity_id") @db.Text
+  entityTitle String?     @map("entity_title") @db.Text
+  changes     Json?
+  ipAddress   String?     @map("ip_address") @db.VarChar(45)
+  userAgent   String?     @map("user_agent") @db.Text
+  createdAt   DateTime    @default(now()) @map("created_at") @db.Timestamptz
+
+  user        User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("audit_logs")
+  @@index([userId])
+  @@index([module])
+  @@index([action])
+  @@index([createdAt(sort: Desc)])
+  @@index([entityType, entityId])
+}
+
+model Media {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  originalName String    @map("original_name") @db.VarChar(500)
+  storageKey   String    @unique @map("storage_key") @db.Text
+  publicUrl    String    @map("public_url") @db.Text
+  mimeType     String    @map("mime_type") @db.VarChar(100)
+  fileSize     BigInt    @map("file_size")
+  width        Int?
+  height       Int?
+  altText      String?   @map("alt_text") @db.Text
+  caption      String?   @db.Text
+  type         MediaType
+  uploadedBy   String?   @map("uploaded_by") @db.Uuid
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz
+
+  uploader     User?     @relation(fields: [uploadedBy], references: [id], onDelete: SetNull)
+
+  settingsLogo    Settings[] @relation("site_logo")
+  settingsFavicon Settings[] @relation("site_favicon")
+  settingsOgImage Settings[] @relation("site_og_image")
+  sejarahPhotos   SejarahPhoto[]
+  jabatanPhotos   JabatanNode[]
+  wilayahPhotos   WilayahKerja[]
+  beritaThumbnails Berita[]   @relation("berita_thumbnail")
+  beritaOgImages   Berita[]   @relation("berita_og_image")
+  pengumumanAttachments Pengumuman[]
+  albumCovers     GaleriAlbum[]
+  galeriPhotos    GaleriPhoto[]
+  pelatihanThumbnails Pelatihan[] @relation("pelatihan_thumbnail")
+  pelatihanBrochures Pelatihan[] @relation("pelatihan_brochure")
+  magangCvs       PendaftaranMagang[] @relation("magang_cv")
+  magangProposals PendaftaranMagang[] @relation("magang_proposal")
+  magangSuratBalasan PendaftaranMagang[] @relation("magang_surat_balasan")
+  publikasiThumbnails Publikasi[] @relation("publikasi_thumbnail")
+  publikasiFiles  Publikasi[] @relation("publikasi_file")
+  infografisImages Infografis[]
+  stafPhotos      Staf[]
+  banners         Banner[]
+
+  @@map("media")
+  @@index([type])
+  @@index([uploadedBy])
+  @@index([createdAt(sort: Desc)])
+}
+
+model Settings {
+  id                   Int      @id @default(1) @db.SmallInt // Singleton constraint id = 1
+  siteName             String   @map("site_name") @db.VarChar(255)
+  siteDescription      String?  @map("site_description") @db.Text
+  siteLogoId           String?  @map("site_logo_id") @db.Uuid
+  siteFaviconId        String?  @map("site_favicon_id") @db.Uuid
+  contactAddress       String?  @map("contact_address") @db.Text
+  contactPhone         String?  @map("contact_phone") @db.VarChar(50)
+  contactEmail         String?  @map("contact_email") @db.VarChar(255)
+  contactHours         String?  @map("contact_hours") @db.VarChar(255)
+  contactMapsUrl       String?  @map("contact_maps_url") @db.Text
+  socialInstagram      String?  @map("social_instagram") @db.VarChar(255)
+  socialFacebook       String?  @map("social_facebook") @db.VarChar(255)
+  socialYoutube        String?  @map("social_youtube") @db.VarChar(255)
+  socialTwitter        String?  @map("social_twitter") @db.VarChar(255)
+  seoOgImageId         String?  @map("seo_og_image_id") @db.Uuid
+  seoMetaDescription   String?  @map("seo_meta_description") @db.Text
+  announcementEnabled  Boolean  @default(false) @map("announcement_enabled")
+  announcementText     String?  @map("announcement_text") @db.Text
+  updatedAt            DateTime @updatedAt @map("updated_at") @db.Timestamptz
+  updatedBy            String?  @map("updated_by") @db.Uuid
+
+  siteLogo             Media?   @relation("site_logo", fields: [siteLogoId], references: [id], onDelete: SetNull)
+  siteFavicon          Media?   @relation("site_favicon", fields: [siteFaviconId], references: [id], onDelete: SetNull)
+  seoOgImage           Media?   @relation("site_og_image", fields: [seoOgImageId], references: [id], onDelete: SetNull)
+  updater              User?    @relation("settings_updater", fields: [updatedBy], references: [id], onDelete: SetNull)
+
+  @@map("settings")
+}
+
+// ==========================================
+// 3. DOMAIN: PROFIL
+// ==========================================
+
+model Sejarah {
+  id        Int           @id @default(1) @db.SmallInt // Singleton
+  content   String        @db.Text
+  status    ContentStatus @default(DRAFT)
+  updatedAt DateTime      @updatedAt @map("updated_at") @db.Timestamptz
+  updatedBy String?       @map("updated_by") @db.Uuid
+
+  updater   User?         @relation("sejarah_updater", fields: [updatedBy], references: [id], onDelete: SetNull)
+
+  @@map("sejarah")
+}
+
+model SejarahPhoto {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  mediaId    String   @map("media_id") @db.Uuid
+  caption    String?  @db.Text
+  orderIndex Int      @default(0) @map("order_index") @db.SmallInt
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  media      Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@map("sejarah_photos")
+  @@index([orderIndex])
+}
+
+model VisiMisi {
+  id        Int      @id @default(1) @db.SmallInt // Singleton
+  visi      String   @db.Text
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz
+  updatedBy String?  @map("updated_by") @db.Uuid
+
+  updater   User?    @relation("visi_misi_updater", fields: [updatedBy], references: [id], onDelete: SetNull)
+
+  @@map("visi_misi")
+}
+
+model MisiItem {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  content    String   @db.Text
+  orderIndex Int      @default(0) @map("order_index") @db.SmallInt
+  isActive   Boolean  @default(true) @map("is_active")
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt  DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@map("misi_items")
+  @@index([orderIndex])
+}
+
+model UnitKerja {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String   @unique @db.VarChar(255)
+  code        String?  @unique @db.VarChar(50)
+  description String?  @db.Text
+  orderIndex  Int      @default(0) @map("order_index") @db.SmallInt
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  staf         Staf[]
+  jabatanNodes JabatanNode[]
+
+  @@map("unit_kerja")
+  @@index([isActive, orderIndex])
+}
+
+model JabatanNode {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  parentId    String?  @map("parent_id") @db.Uuid
+  title       String   @db.VarChar(255)
+  holderName  String?  @map("holder_name") @db.VarChar(255)
+  photoId     String?  @map("photo_id") @db.Uuid
+  unitKerjaId String?  @map("unit_kerja_id") @db.Uuid
+  description String?  @db.Text
+  level       Int      @default(0) @db.SmallInt
+  orderIndex  Int      @default(0) @map("order_index") @db.SmallInt
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  parent      JabatanNode?  @relation("OrgHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
+  children    JabatanNode[] @relation("OrgHierarchy")
+  photo       Media?        @relation(fields: [photoId], references: [id], onDelete: SetNull)
+  unitKerja   UnitKerja?    @relation(fields: [unitKerjaId], references: [id], onDelete: SetNull)
+  staf        Staf[]
+
+  @@map("jabatan_nodes")
+  @@index([parentId])
+  @@index([level, orderIndex])
+  @@index([unitKerjaId])
+}
+
+model WilayahKerja {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  provinceName String   @unique @map("province_name") @db.VarChar(255)
+  officeName   String   @map("office_name") @db.VarChar(255)
+  address      String?  @db.Text
+  phone        String?  @db.VarChar(50)
+  email        String?  @db.VarChar(255)
+  websiteUrl   String?  @map("website_url") @db.Text
+  photoId      String?  @map("photo_id") @db.Uuid
+  latitude     Decimal? @db.Decimal(10, 7)
+  longitude    Decimal? @db.Decimal(10, 7)
+  orderIndex   Int      @default(0) @map("order_index") @db.SmallInt
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  photo        Media?   @relation(fields: [photoId], references: [id], onDelete: SetNull)
+
+  @@map("wilayah_kerja")
+  @@index([isActive, orderIndex])
+}
+
+// ==========================================
+// 4. DOMAIN: INFORMASI
+// ==========================================
+
+model KategoriBerita {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String   @unique @db.VarChar(100)
+  slug        String   @unique @db.VarChar(100)
+  description String?  @db.Text
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  berita      Berita[]
+
+  @@map("kategori_berita")
+}
+
+model Tag {
+  id        String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String      @unique @db.VarChar(100)
+  slug      String      @unique @db.VarChar(100)
+  createdAt DateTime    @default(now()) @map("created_at") @db.Timestamptz
+
+  beritaTags BeritaTag[]
+
+  @@map("tags")
+}
+
+model Berita {
+  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title           String        @db.VarChar(500)
+  slug            String        @unique @db.VarChar(500)
+  excerpt         String?       @db.Text
+  content         String        @db.Text
+  thumbnailId     String?       @map("thumbnail_id") @db.Uuid
+  kategoriId      String?       @map("kategori_id") @db.Uuid
+  authorId        String?       @map("author_id") @db.Uuid
+  authorName      String?       @map("author_name") @db.VarChar(255)
+  status          ContentStatus @default(DRAFT)
+  isFeatured      Boolean       @default(false) @map("is_featured")
+  viewCount       BigInt        @default(0) @map("view_count")
+  publishedAt     DateTime?     @map("published_at") @db.Timestamptz
+  scheduledAt     DateTime?     @map("scheduled_at") @db.Timestamptz
+  metaTitle       String?       @map("meta_title") @db.VarChar(255)
+  metaDescription String?       @map("meta_description") @db.Text
+  ogImageId       String?       @map("og_image_id") @db.Uuid
+  createdAt       DateTime      @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt       DateTime      @updatedAt @map("updated_at") @db.Timestamptz
+
+  thumbnail       Media?        @relation("berita_thumbnail", fields: [thumbnailId], references: [id], onDelete: SetNull)
+  kategori        KategoriBerita? @relation(fields: [kategoriId], references: [id], onDelete: SetNull)
+  author          User?         @relation("berita_author", fields: [authorId], references: [id], onDelete: SetNull)
+  ogImage         Media?        @relation("berita_og_image", fields: [ogImageId], references: [id], onDelete: SetNull)
+  beritaTags      BeritaTag[]
+
+  @@map("berita")
+  @@index([status])
+  @@index([publishedAt(sort: Desc)])
+  @@index([isFeatured, publishedAt(sort: Desc)])
+  @@index([kategoriId, status])
+  @@index([authorId])
+}
+
+model BeritaTag {
+  beritaId String @map("berita_id") @db.Uuid
+  tagId    String @map("tag_id") @db.Uuid
+
+  berita   Berita @relation(fields: [beritaId], references: [id], onDelete: Cascade)
+  tag      Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([beritaId, tagId])
+  @@map("berita_tags")
+  @@index([tagId])
+}
+
+model Pengumuman {
+  id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title        String        @db.VarChar(500)
+  content      String        @db.Text
+  attachmentId String?       @map("attachment_id") @db.Uuid
+  startDate    DateTime      @map("start_date") @db.Date
+  endDate      DateTime?     @map("end_date") @db.Date
+  isPinned     Boolean       @default(false) @map("is_pinned")
+  status       ContentStatus @default(DRAFT)
+  createdBy    String?       @map("created_by") @db.Uuid
+  createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamptz
+
+  attachment   Media?        @relation(fields: [attachmentId], references: [id], onDelete: SetNull)
+  creator      User?         @relation("pengumuman_creator", fields: [createdBy], references: [id], onDelete: SetNull)
+
+  @@map("pengumuman")
+  @@index([startDate, endDate])
+  @@index([isPinned, startDate(sort: Desc)])
+}
+
+model GaleriAlbum {
+  id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title        String        @db.VarChar(255)
+  slug         String        @unique @db.VarChar(255)
+  description  String?       @db.Text
+  coverPhotoId String?       @map("cover_photo_id") @db.Uuid
+  eventDate    DateTime?     @map("event_date") @db.Date
+  status       ContentStatus @default(DRAFT)
+  createdBy    String?       @map("created_by") @db.Uuid
+  createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamptz
+
+  coverPhoto   Media?        @relation(fields: [coverPhotoId], references: [id], onDelete: SetNull)
+  creator      User?         @relation("album_creator", fields: [createdBy], references: [id], onDelete: SetNull)
+  photos       GaleriPhoto[]
+
+  @@map("galeri_albums")
+  @@index([status, createdAt(sort: Desc)])
+}
+
+model GaleriPhoto {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  albumId    String   @map("album_id") @db.Uuid
+  mediaId    String   @map("media_id") @db.Uuid
+  caption    String?  @db.Text
+  altText    String?  @map("alt_text") @db.Text
+  orderIndex Int      @default(0) @map("order_index") @db.SmallInt
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  album      GaleriAlbum @relation(fields: [albumId], references: [id], onDelete: Cascade)
+  media      Media       @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@map("galeri_photos")
+  @@index([albumId, orderIndex])
+}
+
+// ==========================================
+// 5. DOMAIN: LAYANAN
+// ==========================================
+
+model KategoriPelatihan {
+  id          String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String      @unique @db.VarChar(100)
+  slug        String      @unique @db.VarChar(100)
+  description String?     @db.Text
+  orderIndex  Int         @default(0) @map("order_index") @db.SmallInt
+  createdAt   DateTime    @default(now()) @map("created_at") @db.Timestamptz
+
+  pelatihan   Pelatihan[]
+
+  @@map("kategori_pelatihan")
+}
+
+model Pelatihan {
+  id                String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title             String          @db.VarChar(500)
+  slug              String          @unique @db.VarChar(500)
+  description       String          @db.Text
+  requirements      String?         @db.Text
+  kategoriId        String?         @map("kategori_id") @db.Uuid
+  thumbnailId       String?         @map("thumbnail_id") @db.Uuid
+  brochureId        String?         @map("brochure_id") @db.Uuid
+  duration          String?         @db.VarChar(100)
+  quota             Int?            @db.SmallInt
+  cost              Decimal         @default(0) @db.Decimal(15, 2)
+  location          String?         @db.VarChar(255)
+  scheduleStart     DateTime?       @map("schedule_start") @db.Date
+  scheduleEnd       DateTime?       @map("schedule_end") @db.Date
+  registrationStart DateTime?       @map("registration_start") @db.Date
+  registrationEnd   DateTime?       @map("registration_end") @db.Date
+  status            PelatihanStatus @default(COMING_SOON)
+  createdBy         String?         @map("created_by") @db.Uuid
+  createdAt         DateTime        @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt         DateTime        @updatedAt @map("updated_at") @db.Timestamptz
+
+  kategori          KategoriPelatihan? @relation(fields: [kategoriId], references: [id], onDelete: SetNull)
+  thumbnail         Media?             @relation("pelatihan_thumbnail", fields: [thumbnailId], references: [id], onDelete: SetNull)
+  brochure          Media?             @relation("pelatihan_brochure", fields: [brochureId], references: [id], onDelete: SetNull)
+  creator           User?              @relation("pelatihan_creator", fields: [createdBy], references: [id], onDelete: SetNull)
+  statistikPeserta  StatPeserta[]
+
+  @@map("pelatihan")
+  @@index([status])
+  @@index([kategoriId, status])
+  @@index([scheduleStart])
+}
+
+model MagangInfo {
+  id          Int      @id @default(1) @db.SmallInt // Singleton
+  description String   @db.Text
+  requirements String?  @db.Text
+  procedure   String?  @db.Text
+  contactInfo String?  @map("contact_info") @db.Text
+  isOpen      Boolean  @default(false) @map("is_open")
+  updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamptz
+  updatedBy   String?  @map("updated_by") @db.Uuid
+
+  updater     User?    @relation("magang_info_updater", fields: [updatedBy], references: [id], onDelete: SetNull)
+
+  @@map("magang_info")
+}
+
+model PendaftaranMagang {
+  id              String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  fullName        String       @map("full_name") @db.VarChar(255)
+  email           String       @db.VarChar(255)
+  phone           String       @db.VarChar(50)
+  institution     String       @db.VarChar(255)
+  faculty         String?      @db.VarChar(255)
+  major           String?      @db.VarChar(255)
+  studentId       String?      @map("student_id") @db.VarChar(100)
+  periodStart     DateTime     @map("period_start") @db.Date
+  periodEnd       DateTime     @map("period_end") @db.Date
+  motivation      String?      @db.Text
+  cvId            String?      @map("cv_id") @db.Uuid
+  proposalId      String?      @map("proposal_id") @db.Uuid
+  status          MagangStatus @default(PENDING)
+  currentStep     Int          @default(1) @map("current_step") @db.SmallInt
+  rejectionReason String?      @map("rejection_reason") @db.Text
+  suratBalasanId  String?      @map("surat_balasan_id") @db.Uuid
+  reviewedBy      String?      @map("reviewed_by") @db.Uuid
+  reviewedAt      DateTime?    @map("reviewed_at") @db.Timestamptz
+  createdAt       DateTime     @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt       DateTime     @updatedAt @map("updated_at") @db.Timestamptz
+
+  cv              Media?       @relation("magang_cv", fields: [cvId], references: [id], onDelete: SetNull)
+  proposal        Media?       @relation("magang_proposal", fields: [proposalId], references: [id], onDelete: SetNull)
+  suratBalasan    Media?       @relation("magang_surat_balasan", fields: [suratBalasanId], references: [id], onDelete: SetNull)
+  reviewer        User?        @relation("magang_reviewer", fields: [reviewedBy], references: [id], onDelete: SetNull)
+
+  @@map("pendaftaran_magang")
+  @@index([status, createdAt(sort: Desc)])
+  @@index([email])
+  @@index([periodStart, periodEnd])
+}
+
+model KategoriFAQ {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name       String   @unique @db.VarChar(100)
+  slug       String   @unique @db.VarChar(100)
+  orderIndex Int      @default(0) @map("order_index") @db.SmallInt
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  faqs       FAQ[]
+
+  @@map("kategori_faq")
+}
+
+model FAQ {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  kategoriId String?  @map("kategori_id") @db.Uuid
+  question   String   @db.Text
+  answer     String   @db.Text
+  orderIndex Int      @default(0) @map("order_index") @db.SmallInt
+  isActive   Boolean  @default(true) @map("is_active")
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt  DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  kategori   KategoriFAQ? @relation(fields: [kategoriId], references: [id], onDelete: SetNull)
+
+  @@map("faq")
+  @@index([kategoriId, orderIndex])
+}
+
+model Feedback {
+  id          String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String         @db.VarChar(255)
+  email       String?        @db.VarChar(255)
+  phone       String?        @db.VarChar(50)
+  subject     String?        @db.VarChar(500)
+  message     String         @db.Text
+  rating      Int?           @db.SmallInt // CHECK rating BETWEEN 1 AND 5
+  status      FeedbackStatus @default(NEW)
+  ipAddress   String?        @map("ip_address") @db.VarChar(45)
+  processedBy String?        @map("processed_by") @db.Uuid
+  processedAt DateTime?      @map("processed_at") @db.Timestamptz
+  createdAt   DateTime       @default(now()) @map("created_at") @db.Timestamptz
+
+  processor   User?          @relation("feedback_processor", fields: [processedBy], references: [id], onDelete: SetNull)
+
+  @@map("feedback")
+  @@index([status, createdAt(sort: Desc)])
+  @@index([rating])
+}
+
+// ==========================================
+// 6. DOMAIN: PUBLIKASI
+// ==========================================
+
+model Publikasi {
+  id            String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title         String         @db.VarChar(500)
+  slug          String         @unique @db.VarChar(500)
+  jenis         JenisPublikasi
+  year          Int            @db.SmallInt // CHECK year BETWEEN 2000 AND 2100
+  description   String?        @db.Text
+  thumbnailId   String?        @map("thumbnail_id") @db.Uuid
+  fileId        String         @map("file_id") @db.Uuid
+  downloadCount BigInt         @default(0) @map("download_count")
+  status        ContentStatus  @default(DRAFT)
+  orderIndex    Int            @default(0) @map("order_index") @db.SmallInt
+  createdBy     String?        @map("created_by") @db.Uuid
+  createdAt     DateTime       @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt     DateTime       @updatedAt @map("updated_at") @db.Timestamptz
+
+  thumbnail     Media?         @relation("publikasi_thumbnail", fields: [thumbnailId], references: [id], onDelete: SetNull)
+  file          Media          @relation("publikasi_file", fields: [fileId], references: [id], onDelete: Restrict)
+  creator       User?          @relation("publikasi_creator", fields: [createdBy], references: [id], onDelete: SetNull)
+
+  @@map("publikasi")
+  @@index([jenis, year(sort: Desc)])
+  @@index([status])
+}
+
+// ==========================================
+// 7. DOMAIN: STATISTIK
+// ==========================================
+
+model IndikatorKinerja {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String   @unique @db.VarChar(255)
+  unit        String   @db.VarChar(50)
+  description String?  @db.Text
+  orderIndex  Int      @default(0) @map("order_index") @db.SmallInt
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  dataPoints  DataKinerja[]
+
+  @@map("indikator_kinerja")
+}
+
+model DataKinerja {
+  id          String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  indikatorId String           @map("indikator_id") @db.Uuid
+  year        Int              @db.SmallInt
+  period      PeriodeStatistik
+  target      Decimal?         @db.Decimal(15, 2)
+  realisasi   Decimal?         @db.Decimal(15, 2)
+  notes       String?          @db.Text
+  createdBy   String?          @map("created_by") @db.Uuid
+  createdAt   DateTime         @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime         @updatedAt @map("updated_at") @db.Timestamptz
+
+  indikator   IndikatorKinerja @relation(fields: [indikatorId], references: [id], onDelete: Cascade)
+  creator     User?            @relation("kinerja_creator", fields: [createdBy], references: [id], onDelete: SetNull)
+
+  @@unique([indikatorId, year, period], map: "uq_data_kinerja")
+  @@map("data_kinerja")
+  @@index([indikatorId, year(sort: Desc)])
+}
+
+model StatPeserta {
+  id           String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  programName  String     @map("program_name") @db.VarChar(255)
+  pelatihanId  String?    @map("pelatihan_id") @db.Uuid
+  year         Int        @db.SmallInt
+  totalPeserta Int        @map("total_peserta")
+  maleCount    Int?       @map("male_count")
+  femaleCount  Int?       @map("female_count")
+  notes        String?    @db.Text
+  createdBy    String?    @map("created_by") @db.Uuid
+  createdAt    DateTime   @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime   @updatedAt @map("updated_at") @db.Timestamptz
+
+  pelatihan    Pelatihan? @relation(fields: [pelatihanId], references: [id], onDelete: SetNull)
+  creator      User?      @relation("stat_peserta_creator", fields: [createdBy], references: [id], onDelete: SetNull)
+
+  @@map("stat_peserta")
+  @@index([year(sort: Desc)])
+}
+
+model Infografis {
+  id          String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title       String        @db.VarChar(255)
+  description String?       @db.Text
+  category    String?       @db.VarChar(100)
+  imageId     String        @map("image_id") @db.Uuid
+  orderIndex  Int           @default(0) @map("order_index") @db.SmallInt
+  status      ContentStatus @default(DRAFT)
+  createdBy   String?       @map("created_by") @db.Uuid
+  createdAt   DateTime      @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime      @updatedAt @map("updated_at") @db.Timestamptz
+
+  image       Media         @relation(fields: [imageId], references: [id], onDelete: Restrict)
+  creator     User?         @relation("infografis_creator", fields: [createdBy], references: [id], onDelete: SetNull)
+
+  @@map("infografis")
+  @@index([status, orderIndex])
+}
+
+// ==========================================
+// 8. DOMAIN: STAF
+// ==========================================
+
+model Staf {
+  id             String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  fullName       String      @map("full_name") @db.VarChar(255)
+  nip            String?     @unique(map: "idx_staf_nip") @db.VarChar(50)
+  position       String      @db.VarChar(255)
+  unitKerjaId    String?     @map("unit_kerja_id") @db.Uuid
+  jabatanNodeId  String?     @map("jabatan_node_id") @db.Uuid
+  photoId        String?     @map("photo_id") @db.Uuid
+  email          String?     @db.VarChar(255)
+  phoneInternal  String?     @map("phone_internal") @db.VarChar(50)
+  phoneMobile    String?     @map("phone_mobile") @db.VarChar(50)
+  orderIndex     Int         @default(0) @map("order_index") @db.SmallInt
+  isActive       Boolean     @default(true) @map("is_active")
+  joinedDate     DateTime?   @map("joined_date") @db.Date
+  createdAt      DateTime    @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt      DateTime    @updatedAt @map("updated_at") @db.Timestamptz
+
+  unitKerja      UnitKerja?   @relation(fields: [unitKerjaId], references: [id], onDelete: SetNull)
+  jabatanNode    JabatanNode? @relation(fields: [jabatanNodeId], references: [id], onDelete: SetNull)
+  photo          Media?       @relation(fields: [photoId], references: [id], onDelete: SetNull)
+
+  @@map("staf")
+  @@index([unitKerjaId, orderIndex])
+  @@index([jabatanNodeId])
+  @@index([isActive])
+}
+
+// ==========================================
+// 9. DOMAIN: KONTAK
+// ==========================================
+
+model PesanKontak {
+  id        String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String       @db.VarChar(255)
+  email     String       @db.VarChar(255)
+  phone     String?      @db.VarChar(50)
+  subject   String       @db.VarChar(500)
+  message   String       @db.Text
+  status    KontakStatus @default(NEW)
+  ipAddress String?      @map("ip_address") @db.VarChar(45)
+  readBy    String?      @map("read_by") @db.Uuid
+  readAt    DateTime?    @map("read_at") @db.Timestamptz
+  createdAt DateTime     @default(now()) @map("created_at") @db.Timestamptz
+
+  reader    User?        @relation("kontak_reader", fields: [readBy], references: [id], onDelete: SetNull)
+
+  @@map("pesan_kontak")
+  @@index([status, createdAt(sort: Desc)])
+}
+
+model Banner {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  accentBadge String   @map("accent_badge") @db.VarChar(100)
+  title       String   @db.VarChar(255)
+  subtitle    String   @db.Text
+  imageId     String   @map("image_id") @db.Uuid
+  ctaText     String   @default("Baca Selengkapnya") @map("cta_text") @db.VarChar(100)
+  ctaLink     String   @default("/informasi/berita") @map("cta_link") @db.Text
+  orderIndex  Int      @default(0) @map("order_index") @db.SmallInt
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  image       Media    @relation(fields: [imageId], references: [id], onDelete: Restrict)
+
+  @@map("banners")
+  @@index([isActive, orderIndex])
+}
+

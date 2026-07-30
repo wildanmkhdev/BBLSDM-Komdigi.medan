@@ -1,37 +1,157 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏛️ Website BBLSDM Komdigi Medan
 
-## Getting Started
+Portal Resmi **Balai Besar Pengembangan Sumber Daya Manusia dan Penelitian Komunikasi dan Informatika (BBLSDM) Medan** — Kementerian Komunikasi dan Digital Republik Indonesia.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📌 Tentang Proyek
+
+Website ini dikembangkan untuk menyediakan akses informasi yang cepat, mudah, dan terpercaya bagi masyarakat umum mengenai profil, tugas dan fungsi, kegiatan, layanan publik, serta publikasi instansi BBLSDM Komdigi Medan secara terpusat dan intuitif.
+
+### 🌟 Fitur Utama
+- **Profil Instansi**: Sejarah visual, Visi & Misi, Struktur Organisasi, Tugas & Fungsi, serta Direktori Wilayah Kerja interaktif per provinsi.
+- **Pusat Informasi**: Berita terkini, Pengumuman resmi, dan Galeri dokumentasi kegiatan.
+- **Layanan Publik**: Layanan Pelatihan, Portal Pengajuan Magang, Pusat Bantuan (FAQ), dan Kanal Feedback/Komentar.
+- **Publikasi Resmi**: Akses laporan LAKIP, LAPTAH, ICT Indikator, Hasil Penelitian, dan Buku Putih.
+- **Statistik & Infografis**: Visualisasi data kinerja instansi dan statistik peserta pelatihan.
+- **Staf & Kontak**: Informasi hierarki pegawai serta formulir kontak instansi.
+
+---
+
+## 🛠️ Teknologi & Stack
+
+Proyek ini dibangun menggunakan teknologi modern web development:
+
+| Kategori | Teknologi | Deskripsi |
+| :--- | :--- | :--- |
+| **Framework** | [Next.js 16 (App Router)](https://nextjs.org/) | React Framework untuk Server-Side Rendering & App Routing |
+| **Library Utama** | [React 19](https://react.dev/) | Library UI Deklaratif |
+| **Styling & UI** | [Tailwind CSS v4](https://tailwindcss.com/) & PostCSS | Utility-first CSS Framework dengan Design Tokens terpusat |
+| **Animasi & Visual** | [Framer Motion](https://www.framer.com/motion/), [Cobe](https://github.com/shading-art/cobe) | Micro-animation & Visualisasi Globe 3D |
+| **Geospatial / Peta** | [Leaflet](https://leafletjs.com/) & [React-Leaflet](https://react-leaflet.js.org/) | Peta Interaktif Direktori Wilayah Kerja |
+| **Iconography** | [Lucide React](https://lucide.dev/) | Icon Set Modern |
+| **Database & ORM** | [Prisma v6](https://www.prisma.io/) & PostgreSQL | ORM untuk pengelolaan basis data PostgreSQL |
+| **Bahasa & Tooling** | [TypeScript](https://www.typescriptlang.org/), [pnpm](https://pnpm.io/) | Type safety & Package Manager cepat |
+
+---
+
+## 🗺️ Struktur Navigasi & Sitemap
+
+| Menu Utama | Halaman / Route | Deskripsi |
+| :--- | :--- | :--- |
+| **Beranda** | `/` | Banner utama, highlight berita, dan visualisasi kinerja |
+| **Profil** | `/profil/sejarah` | Timeline & Dokumentasi visual sejarah instansi |
+| | `/profil/visi-misi` | Statement Visi dan Misi instansi |
+| | `/profil/struktur-organisasi` | Bagan struktur organisasi instansi |
+| | `/profil/tugas-fungsi` | Rincian tugas dan fungsi jabatan |
+| | `/profil/wilayah-kerja` | Direktori kantor & wilayah kerja provinsi |
+| **Informasi** | `/informasi/berita` | Berita & artikel publikasi |
+| | `/informasi/pengumuman` | Informasi pengumuman penting |
+| | `/informasi/galeri` | Dokumentasi galeri foto & kegiatan |
+| **Layanan** | `/layanan/pelatihan` | Informasi jadwal & program pelatihan |
+| | `/layanan/magang` | Informasi & alur pendaftaran magang |
+| | `/layanan/faq` | Pertanyaan umum yang sering diajukan |
+| | `/layanan/feedback` | Form kritik, saran & masukan publik |
+| **Publikasi** | `/publikasi/lakip` | Laporan Akuntabilitas Kinerja Instansi Pemerintah |
+| | `/publikasi/laptah` | Laporan Tahunan |
+| | `/publikasi/ict-indikator` | Indikator perkembangan ICT |
+| | `/publikasi/penelitian` | Publikasi hasil riset & penelitian |
+| | `/publikasi/buku-putih` | Dokumen Buku Putih |
+| **Statistik** | `/statistik/kinerja` | Dashboard statistik capaian kinerja |
+| | `/statistik/peserta` | Statistik data peserta pelatihan |
+| | `/statistik/infografis` | Infografis data publik |
+| **Lainnya** | `/staf` | Direktori staf & hierarki |
+| | `/kontak` | Alamat, lokasi peta, dan kanal kontak |
+
+---
+
+## 📂 Struktur Direktori Proyek
+
+```
+project-magang/
+├── app/                      # Next.js App Router Pages & Layouts
+│   ├── components/           # Shared UI components (Navbar, Footer, Hero, dll)
+│   ├── fitur/                # Fitur spesifik aplikasi
+│   ├── informasi/            # Route grup Informasi (Berita, Pengumuman, Galeri)
+│   ├── kontak/               # Route Kontak
+│   ├── layanan/              # Route grup Layanan (Pelatihan, Magang, FAQ, Feedback)
+│   ├── profil/               # Route grup Profil (Sejarah, Visi-Misi, Struktur, dll)
+│   ├── publikasi/            # Route grup Publikasi (LAKIP, LAPTAH, dll)
+│   ├── staf/                 # Route Direktori Staf
+│   ├── statistik/            # Route grup Statistik (Kinerja, Peserta, Infografis)
+│   ├── globals.css           # Global Styles & Design Tokens (Variabel Warna & Tipografi)
+│   ├── layout.tsx            # Root Layout (Top Navbar & Footer Wrapper)
+│   └── page.tsx              # Landing Page (Beranda)
+├── components/               # Komponen UI Reusable tambahan
+├── prisma/                   # Schema database Prisma & Migrasi
+│   └── schema.prisma         # Schema Prisma (PostgreSQL datasource)
+├── public/                   # Asset Statis (Gambar, Icon, Logo)
+├── PRD.md                    # Product Requirement Document
+├── Plan.md                   # Sitemap & Mapping Pengembangan Tim
+├── STYLES.md                 # Panduan Design System & Styling
+├── package.json              # Manifes Dependensi Proyek
+└── tsconfig.json             # Konfigurasi TypeScript
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Panduan Memulai (Getting Started)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Prasyarat
+Pastikan sistem Anda telah terpasang:
+- **Node.js**: versi 20.x atau lebih baru
+- **pnpm**: `npm install -g pnpm`
+- **PostgreSQL Database**
 
-## Learn More
+### 2. Instalasi Dependensi
+Clone repository dan jalankan pnpm install:
+```bash
+git clone <repository-url>
+cd project-magang
+pnpm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Konfigurasi Environment Variable
+Buat file `.env` di direktori utama dan sesuaikan variabel koneksi database:
+```env
+DATABASE_URL="postgresql://USERNAME:PASSWORD@HOST:PORT/DATABASE_NAME?schema=public"
+DIRECT_URL="postgresql://USERNAME:PASSWORD@HOST:PORT/DATABASE_NAME?schema=public"
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4. Setup Prisma Database
+Generate Prisma Client dan sync skema database:
+```bash
+pnpm prisma generate
+# pnpm prisma db push (jika ingin sync skema ke database)
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 5. Jalankan Server Pengembang
+```bash
+pnpm dev
+```
+Buka browser dan akses [http://localhost:3000](http://localhost:3000).
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📜 Skrip yang Tersedia
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# BBLSDM-Komdigi.medan
+- `pnpm dev`: Menjalankan server pengembang Next.js di local.
+- `pnpm build`: Membangun (build) aplikasi untuk produksi.
+- `pnpm start`: Menjalankan server aplikasi versi produksi hasil build.
+- `pnpm lint`: Menjalankan verifikasi linting kode dengan ESLint.
+
+---
+
+## 👥 Tim & Pembagian Tugas
+
+Proyek ini dikembangkan secara kolaboratif dengan pembagian area sebagai berikut (referensi: `Plan.md`):
+
+- **Wildan**: Global Design Tokens, Navbar & Footer Shared Components, Hero Banner, Beranda (`/`), Profil (`/profil/sejarah`, `/profil/visi-misi`, `/profil/struktur-organisasi`).
+- **Ridho**: Profil (`/profil/tugas-fungsi`, `/profil/wilayah-kerja`), Informasi (`/informasi/*`), Layanan (`/layanan/*`).
+- **Ferdi**: Publikasi (`/publikasi/*`), Statistik (`/statistik/*`), Direktori Staf (`/staf`), Kontak (`/kontak`).
+
+---
+
+## 📄 Lisensi & Hak Cipta
+
+© 2026 Balai Besar Pengembangan Sumber Daya Manusia dan Penelitian Komunikasi dan Informatika (BBLSDM) Medan - Kementerian Komunikasi dan Digital RI. All rights reserved.
