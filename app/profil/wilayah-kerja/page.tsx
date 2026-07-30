@@ -121,7 +121,7 @@ export default function WilayahKerjaPage() {
       dynamic(() => import("@/app/components/WilayahMap"), {
         ssr: false,
         loading: () => (
-          <div className="w-full h-full min-h-[420px] bg-slate-100 flex items-center justify-center">
+          <div className="w-full h-full min-h-105 bg-slate-100 flex items-center justify-center">
             <div className="flex flex-col items-center gap-3">
               <div className="w-8 h-8 border-2 border-[#0284c7] border-t-transparent rounded-full animate-spin" />
               <p className="text-sm text-slate-500">Memuat peta…</p>
@@ -142,7 +142,7 @@ export default function WilayahKerjaPage() {
           { label: "Profil", href: "#" },
           { label: "Wilayah Kerja" },
         ]}
-        className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
+        className="pt-28 pb-19 sm:pt-32 sm:pb-23"
       />
 
       <section className="bg-white py-8">
@@ -150,14 +150,14 @@ export default function WilayahKerjaPage() {
           <div className="flex flex-col lg:flex-row gap-0 rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
 
             {/* Left: Map (60%) */}
-            <div className="relative lg:w-[60%] h-[380px] lg:h-[580px]">
+            <div className="relative lg:w-[60%] h-95 lg:h-145">
               <Map
                 wilayahList={wilayahList}
                 selected={selected}
                 onSelect={setSelected}
               />
               {/* Map overlay badge */}
-              <div className="absolute top-3 left-3 z-[1000] bg-white/90 backdrop-blur-sm border border-slate-200 rounded-lg px-3 py-2 shadow-sm">
+              <div className="absolute top-3 left-3 z-1000 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-lg px-3 py-2 shadow-sm">
                 <p className="text-[10px] font-bold text-[#0284c7] uppercase tracking-widest">Peta Interaktif</p>
                 <p className="text-xs text-slate-500">Klik markeeer untuk detail</p>
               </div>
@@ -168,7 +168,7 @@ export default function WilayahKerjaPage() {
 
               {/* Selected detail panel */}
               {selected && (
-                <div className="p-6 bg-[#0b1b3d] text-white flex-shrink-0">
+                <div className="p-6 bg-[#0b1b3d] text-white shrink-0">
                   {/* Header */}
                   <div className="flex items-start justify-between gap-3 mb-5">
                     <div>
@@ -178,7 +178,7 @@ export default function WilayahKerjaPage() {
                       <h2 className="text-xl font-extrabold text-white leading-snug">{selected.provinsi}</h2>
                       <p className="text-sm text-slate-300 mt-0.5">{selected.kota}</p>
                     </div>
-                    <div className="w-10 h-10 rounded-full bg-[#0284c7] flex items-center justify-center flex-shrink-0 mt-1">
+                    <div className="w-10 h-10 rounded-full bg-[#0284c7] flex items-center justify-center shrink-0 mt-1">
                       <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
@@ -212,7 +212,7 @@ export default function WilayahKerjaPage() {
               )}
 
               {/* Province list */}
-              <div className="flex-1 overflow-y-auto divide-y divide-slate-100 max-h-[350px]">
+              <div className="flex-1 overflow-y-auto divide-y divide-slate-100 max-h-87.5">
                 <div className="px-4 py-3 bg-slate-50 border-b border-slate-100">
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                     Semua Wilayah Kerja — {wilayahList.length} Provinsi
@@ -232,7 +232,7 @@ export default function WilayahKerjaPage() {
                     >
                       {/* Dot */}
                       <span
-                        className={`w-2 h-2 rounded-full flex-shrink-0 transition-colors duration-150 ${isActive ? "bg-[#0284c7]" : "bg-slate-200"
+                        className={`w-2 h-2 rounded-full shrink-0 transition-colors duration-150 ${isActive ? "bg-[#0284c7]" : "bg-slate-200"
                           }`}
                       />
                       <div className="flex-1 min-w-0">
@@ -253,7 +253,7 @@ export default function WilayahKerjaPage() {
 
           {/* Bottom note */}
           <div className="flex items-center gap-3 mt-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#0284c7] flex-shrink-0" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0284c7] shrink-0" />
             <p className="text-xs text-slate-400">
               Data wilayah kerja berdasarkan Keputusan Menteri Komunikasi dan Digital tentang Penetapan Wilayah Kerja BBLSDM. Peta menggunakan OpenStreetMap.
             </p>

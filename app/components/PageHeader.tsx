@@ -16,7 +16,7 @@ export default function PageHeader({
   title,
   subtitle,
   breadcrumbs,
-  className = "pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]",
+  className = "pt-28 pb-19 sm:pt-32 sm:pb-23",
 }: PageHeaderProps) {
   return (
     <section className="relative bg-navy overflow-hidden">
@@ -70,7 +70,7 @@ export default function PageHeader({
       </div>
 
       {/* Bottom accent line */}
-      <div className="h-1 bg-gradient-to-r from-sky-accent via-gold to-sky-accent" />
+      <div className="h-1 bg-linear-to-r from-sky-accent via-gold to-sky-accent" />
     </section>
   );
 }

@@ -68,7 +68,7 @@ export default function MagangPage() {
           { label: "Layanan", href: "#" },
           { label: "Pengajuan Magang" },
         ]}
-        className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
+        className="pt-28 pb-19 sm:pt-32 sm:pb-23"
       />
 
       {/* Alur Pendaftaran */}
@@ -86,7 +86,7 @@ export default function MagangPage() {
               {steps.map((s) => (
                 <div key={s.step} className="relative flex flex-col items-center text-center">
                   {/* Step circle */}
-                  <div className="relative z-10 w-16 h-16 rounded-full bg-gradient-to-br from-navy to-sky-primary flex items-center justify-center text-white font-bold text-lg shadow-md mb-4">
+                  <div className="relative z-10 w-16 h-16 rounded-full bg-linear-to-br from-navy to-sky-primary flex items-center justify-center text-white font-bold text-lg shadow-md mb-4">
                     {s.step}
                   </div>
                   <h3 className="font-semibold text-navy text-sm mb-1">
@@ -107,7 +107,7 @@ export default function MagangPage() {
         <div className="max-w-2xl mx-auto">
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             {/* Card accent line */}
-            <div className="h-1 bg-gradient-to-r from-sky-accent to-sky-primary" />
+            <div className="h-1 bg-linear-to-r from-sky-accent to-sky-primary" />
 
             <div className="p-6 sm:p-8">
               <h2 className="text-xl font-bold text-navy mb-1">

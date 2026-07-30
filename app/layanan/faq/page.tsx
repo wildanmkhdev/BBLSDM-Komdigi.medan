@@ -132,7 +132,7 @@ export default function FAQPage() {
           { label: "Layanan", href: "#" },
           { label: "FAQ" },
         ]}
-        className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
+        className="pt-28 pb-19 sm:pt-32 sm:pb-23"
       />
 
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
@@ -231,7 +231,7 @@ export default function FAQPage() {
         )}
 
         {/* Contact CTA */}
-        <div className="mt-12 bg-gradient-to-br from-navy to-navy-light rounded-2xl p-8 text-center text-white">
+        <div className="mt-12 bg-linear-to-br from-navy to-navy-light rounded-2xl p-8 text-center text-white">
           <h3 className="text-xl font-bold mb-2">Masih ada pertanyaan?</h3>
           <p className="text-white/70 mb-6 text-sm">
             Hubungi kami langsung atau kirimkan masukan melalui halaman Feedback.

@@ -19,7 +19,7 @@ export default function TugasFungsiPage() {
           { label: "Profil", href: "#" },
           { label: "Tugas dan Fungsi" },
         ]}
-        className="pt-28 pb-[76px] sm:pt-32 sm:pb-[92px]"
+        className="pt-28 pb-19 sm:pt-32 sm:pb-23"
       />
       <TugasFungsiContent />
     </div>
