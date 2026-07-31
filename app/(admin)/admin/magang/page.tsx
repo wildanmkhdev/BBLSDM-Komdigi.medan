@@ -2,6 +2,8 @@ import React from "react";
 import prisma from "@/lib/prisma";
 import { getMagangApplications, getMagangInfo } from "@/features/magang/actions";
 import { redirect } from "next/navigation";
+import fs from "fs";
+import path from "path";
 
 export const dynamic = "force-dynamic";
 
@@ -283,8 +285,6 @@ export default async function AdminMagangPage() {
                             "use server";
                             const file = formData.get("file") as File;
                             if (file && file.size > 0) {
-                              const fs = require("fs");
-                              const path = require("path");
                               const buffer = Buffer.from(await file.arrayBuffer());
                               const filename = `${Date.now()}-${file.name.replace(/\s+/g, "_")}`;
                               const uploadDir = path.join(process.cwd(), "public/uploads");

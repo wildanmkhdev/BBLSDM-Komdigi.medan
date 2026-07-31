@@ -40,7 +40,7 @@ function RegisterForm() {
       } else {
         setError(res.error || "Gagal melakukan pendaftaran.");
       }
-    } catch (err) {
+    } catch {
       setError("Terjadi kesalahan sistem saat mencoba mendaftar.");
     } finally {
       setLoading(false);

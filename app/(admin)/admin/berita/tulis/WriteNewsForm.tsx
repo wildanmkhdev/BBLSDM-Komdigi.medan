@@ -140,7 +140,7 @@ export default function WriteNewsForm({
           <label className="block text-sm font-semibold text-slate-700 mb-2">Status Publikasi</label>
           <select
             value={status}
-            onChange={(e) => setStatus(e.target.value as any)}
+            onChange={(e) => setStatus(e.target.value as "DRAFT" | "REVIEW" | "PUBLISHED")}
             className="w-full px-3 py-2 border border-slate-200 rounded-md text-sm bg-white text-slate-900"
           >
             <option value="DRAFT">Draft (Arsip Internal)</option>
@@ -184,6 +184,7 @@ export default function WriteNewsForm({
 
         {selectedMediaId && (
           <div className="mt-2 relative w-36 h-20 bg-slate-50 rounded border border-slate-200 overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={mediaList.find(img => img.id === selectedMediaId)?.publicUrl || ""}
               alt="Preview"

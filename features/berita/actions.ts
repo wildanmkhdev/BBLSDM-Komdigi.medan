@@ -104,6 +104,7 @@ export async function deleteNewsArticle(id: string) {
     revalidatePath("/admin/berita");
     return { success: true };
   } catch (error) {
+    console.error("Error deleting news article:", error);
     return { success: false, error: "Gagal menghapus berita" };
   }
 }

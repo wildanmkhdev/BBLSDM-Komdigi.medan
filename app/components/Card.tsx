@@ -58,6 +58,7 @@ export default function Card({
       {/* Image */}
       {image && (
         <div className={`${aspectRatios[imageAspect]} overflow-hidden bg-offwhite`}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={image}
             alt={title}

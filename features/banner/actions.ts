@@ -66,6 +66,7 @@ export async function toggleBannerStatus(id: string, isActive: boolean) {
     revalidatePath("/admin/banner");
     return { success: true };
   } catch (error) {
+    console.error("Error updating banner status:", error);
     return { success: false, error: "Gagal memperbarui status banner" };
   }
 }
@@ -79,6 +80,7 @@ export async function deleteBanner(id: string) {
     revalidatePath("/admin/banner");
     return { success: true };
   } catch (error) {
+    console.error("Error deleting banner:", error);
     return { success: false, error: "Gagal menghapus banner" };
   }
 }

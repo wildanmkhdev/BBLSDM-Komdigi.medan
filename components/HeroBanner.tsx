@@ -11,7 +11,7 @@ interface BannerWithImage {
   subtitle: string;
   image: {
     publicUrl: string;
-  };
+  } | null;
   ctaText: string;
   ctaLink: string;
 }

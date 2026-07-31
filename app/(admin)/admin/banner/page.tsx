@@ -47,6 +47,7 @@ export default async function AdminBannerPage() {
                 <tr key={banner.id} className="hover:bg-slate-50/50 transition">
                   <td className="px-6 py-4">
                     <div className="relative w-24 h-14 bg-slate-100 rounded overflow-hidden border border-slate-200">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={banner.image.publicUrl} alt={banner.title} className="w-full h-full object-cover" />
                     </div>
                   </td>

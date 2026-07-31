@@ -67,7 +67,7 @@ export default function AdminDashboardPage() {
               <div className="w-2 h-2 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
               <div>
                 <p className="font-medium">Wildan mempublikasikan berita baru</p>
-                <p className="text-slate-500">"Penerimaan Magang Gelombang 3"</p>
+                <p className="text-slate-500">&quot;Penerimaan Magang Gelombang 3&quot;</p>
                 <p className="text-[10px] text-slate-400 mt-0.5">5 menit yang lalu</p>
               </div>
             </div>

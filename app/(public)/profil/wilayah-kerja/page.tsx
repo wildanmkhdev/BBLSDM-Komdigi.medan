@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import PageHeader from "@/app/components/PageHeader";
 import type { WilayahData } from "@/app/components/WilayahMap";
 
@@ -112,25 +112,20 @@ function IconChevronRight() {
   );
 }
 
+const Map = dynamic(() => import("@/app/components/WilayahMap"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full min-h-105 bg-slate-100 flex items-center justify-center">
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-8 h-8 border-2 border-[#0284c7] border-t-transparent rounded-full animate-spin" />
+        <p className="text-sm text-slate-500">Memuat peta…</p>
+      </div>
+    </div>
+  ),
+});
+
 export default function WilayahKerjaPage() {
   const [selected, setSelected] = useState<WilayahData>(wilayahList[0]);
-
-  /* Dynamic import — disable SSR for Leaflet */
-  const Map = useMemo(
-    () =>
-      dynamic(() => import("@/app/components/WilayahMap"), {
-        ssr: false,
-        loading: () => (
-          <div className="w-full h-full min-h-105 bg-slate-100 flex items-center justify-center">
-            <div className="flex flex-col items-center gap-3">
-              <div className="w-8 h-8 border-2 border-[#0284c7] border-t-transparent rounded-full animate-spin" />
-              <p className="text-sm text-slate-500">Memuat peta…</p>
-            </div>
-          </div>
-        ),
-      }),
-    []
-  );
 
   return (
     <>

@@ -74,6 +74,7 @@ export async function updateMagangInfo(formData: {
     revalidatePath("/layanan/magang");
     return { success: true };
   } catch (error) {
+    console.error("Error updating magang info:", error);
     return { success: false, error: "Gagal memperbarui info magang" };
   }
 }
@@ -134,6 +135,7 @@ export async function getMagangApplications(): Promise<Prisma.PendaftaranMagangG
       }
     });
   } catch (error) {
+    console.error("Error getting magang applications:", error);
     return [];
   }
 }
@@ -151,6 +153,7 @@ export async function updateApplicationStatus(id: string, status: "ACCEPTED" | "
     revalidatePath("/admin/magang");
     return { success: true };
   } catch (error) {
+    console.error("Error updating application status:", error);
     return { success: false, error: "Gagal merubah status pendaftaran" };
   }
 }

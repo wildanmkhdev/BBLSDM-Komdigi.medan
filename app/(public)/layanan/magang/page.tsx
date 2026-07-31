@@ -70,7 +70,7 @@ export default async function MagangPage() {
 
       {application ? (
         /* If already applied, render the Tracker (always show progress even if closed) */
-        <MagangStatusTracker steps={steps} application={application as any} />
+        <MagangStatusTracker steps={steps} application={application} />
       ) : !isOpen ? (
         /* If closed and has no active application */
         <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">

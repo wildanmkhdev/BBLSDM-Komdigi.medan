@@ -76,6 +76,7 @@ export async function getMediaList(): Promise<SafeMedia[]> {
       fileSize: Number(item.fileSize)
     }));
   } catch (error) {
+    console.error("Error getting media list:", error);
     return [];
   }
 }
@@ -86,6 +87,7 @@ export async function deleteMedia(id: string) {
     revalidatePath("/admin/media");
     return { success: true };
   } catch (error) {
+    console.error("Error deleting media:", error);
     return { success: false, error: "Gagal menghapus media" };
   }
 }

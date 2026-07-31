@@ -4,12 +4,13 @@ import KomdigiStorySection from "@/components/KomdigiStorySection";
 import Link from "next/link";
 import Image from "next/image";
 import prisma from "@/lib/prisma";
+import { Banner, Media, Berita, KategoriBerita } from "@prisma/client";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
   // 1. Fetch active banners from DB
-  let dbBanners: any[] = [];
+  let dbBanners: (Banner & { image: Media | null })[] = [];
   try {
     dbBanners = await prisma.banner.findMany({
       where: { isActive: true },
@@ -21,7 +22,7 @@ export default async function Home() {
   }
 
   // 2. Fetch popular news for Hero overlay
-  let dbPopularNews: any[] = [];
+  let dbPopularNews: (Berita & { thumbnail: Media | null; kategori: KategoriBerita | null })[] = [];
   try {
     dbPopularNews = await prisma.berita.findMany({
       where: { status: "PUBLISHED" },
@@ -34,7 +35,7 @@ export default async function Home() {
   }
 
   // 3. Fetch latest news list for news section
-  let dbNewsList: any[] = [];
+  let dbNewsList: (Berita & { thumbnail: Media | null; kategori: KategoriBerita | null })[] = [];
   try {
     dbNewsList = await prisma.berita.findMany({
       where: { status: "PUBLISHED" },
@@ -87,7 +88,7 @@ export default async function Home() {
         title: n.title,
         date: n.publishedAt ? new Date(n.publishedAt).toLocaleDateString("id-ID") : "Baru saja",
         category: n.kategori?.name || "Berita",
-        desc: n.summary || "",
+        desc: n.excerpt || "",
         image: n.thumbnail?.publicUrl || "/logo komdigi.png",
         href: `/informasi/berita`,
       }))
