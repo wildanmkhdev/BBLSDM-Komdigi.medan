@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { createNewsArticle } from "@/features/berita/actions";
-import { uploadFile, getMediaList } from "@/features/media/actions";
+import { uploadFile, getMediaList, SafeMedia } from "@/features/media/actions";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -11,22 +11,18 @@ interface Category {
   name: string;
 }
 
-interface MediaItem {
-  id: string;
-  originalName: string;
-  publicUrl: string;
-}
+
 
 export default function WriteNewsForm({
   categories,
   initialImages,
 }: {
   categories: Category[];
-  initialImages: MediaItem[];
+  initialImages: SafeMedia[];
 }) {
   const router = useRouter();
   
-  const [mediaList, setMediaList] = useState<MediaItem[]>(initialImages);
+  const [mediaList, setMediaList] = useState<SafeMedia[]>(initialImages);
   const [selectedMediaId, setSelectedMediaId] = useState(initialImages[0]?.id || "");
 
   const [title, setTitle] = useState("");
