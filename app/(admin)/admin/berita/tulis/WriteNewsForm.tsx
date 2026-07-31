@@ -55,7 +55,7 @@ export default function WriteNewsForm({
     if (res.success && res.media) {
       const list = await getMediaList();
       const images = list.filter(item => item.mimeType.startsWith("image/"));
-      setMediaList(images as any);
+      setMediaList(images);
       setSelectedMediaId(res.media.id);
     } else {
       setError(res.error || "Gagal mengunggah file");

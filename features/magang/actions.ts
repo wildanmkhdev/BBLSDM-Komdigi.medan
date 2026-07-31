@@ -122,7 +122,9 @@ export async function submitPendaftaranMagang(data: z.infer<typeof magangSubmitS
   }
 }
 
-export async function getMagangApplications() {
+import { Prisma } from "@prisma/client";
+
+export async function getMagangApplications(): Promise<Prisma.PendaftaranMagangGetPayload<{ include: { proposal: true; suratBalasan: true } }>[]> {
   try {
     return await prisma.pendaftaranMagang.findMany({
       orderBy: { createdAt: "desc" },

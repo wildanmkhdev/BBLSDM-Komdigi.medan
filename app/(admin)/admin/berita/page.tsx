@@ -1,8 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { getNewsArticles } from "@/features/berita/actions";
-import { redirect } from "next/navigation";
-import prisma from "@/lib/prisma";
+import { getNewsArticles, deleteNewsArticle } from "@/features/berita/actions";
 
 export const dynamic = "force-dynamic";
 
@@ -96,8 +94,7 @@ export default async function AdminBeritaPage() {
                   <td className="px-4 py-3 text-right space-x-1.5">
                     <form action={async () => {
                       "use server";
-                      await prisma.berita.delete({ where: { id: item.id } });
-                      redirect("/admin/berita");
+                      await deleteNewsArticle(item.id);
                     }} className="inline">
                       <button type="submit" className="text-[10px] font-bold text-red-600 hover:underline cursor-pointer">
                         Hapus

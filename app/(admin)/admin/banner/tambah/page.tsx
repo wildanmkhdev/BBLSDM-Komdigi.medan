@@ -32,7 +32,7 @@ export default function AddBannerPage() {
   const fetchImages = async () => {
     const list = await getMediaList();
     const images = list.filter(item => item.mimeType.startsWith("image/"));
-    setMediaList(images as any);
+    setMediaList(images);
     if (images.length > 0) {
       setSelectedMediaId(images[0].id);
     }
@@ -57,7 +57,7 @@ export default function AddBannerPage() {
     if (res.success && res.media) {
       const list = await getMediaList();
       const images = list.filter(item => item.mimeType.startsWith("image/"));
-      setMediaList(images as any);
+      setMediaList(images);
       setSelectedMediaId(res.media.id);
     } else {
       setError(res.error || "Gagal mengunggah file");

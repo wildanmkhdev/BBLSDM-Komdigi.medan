@@ -61,7 +61,11 @@ export async function uploadFile(formData: FormData) {
   }
 }
 
-export async function getMediaList() {
+import { Media } from "@prisma/client";
+
+export type SafeMedia = Omit<Media, "fileSize"> & { fileSize: number };
+
+export async function getMediaList(): Promise<SafeMedia[]> {
   try {
     const items = await prisma.media.findMany({
       orderBy: { createdAt: "desc" },
