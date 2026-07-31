@@ -1,6 +1,7 @@
 import HeroBanner from "@/components/HeroBanner";
 import FeaturedEventHero from "@/components/FeaturedEventHero";
 import KomdigiStorySection from "@/components/KomdigiStorySection";
+import ContactForm from "./ContactForm";
 import Link from "next/link";
 import Image from "next/image";
 import prisma from "@/lib/prisma";
@@ -98,7 +99,13 @@ export default async function Home() {
     <>
       <main className="flex-grow">
         {/* Hero Sections */}
-        <HeroBanner initialSlides={dbBanners} popularNewsList={dbPopularNews} />
+        <HeroBanner
+          initialSlides={dbBanners}
+          popularNewsList={dbPopularNews.map((n) => ({
+            ...n,
+            viewCount: Number(n.viewCount),
+          }))}
+        />
 
         {/* News & Announcements (Official Komdigi Layout) */}
         <section className="py-20 bg-slate-50 border-b border-slate-200/60">
@@ -234,21 +241,7 @@ export default async function Home() {
                 <p className="text-base text-slate-700"><strong>Email:</strong> bblsdm.medan@komdigi.go.id</p>
               </div>
               {/* Contact Form */}
-              <form className="space-y-4" onSubmit={(e)=>{e.preventDefault(); alert('Pesan terkirim!');}}>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1" htmlFor="name">Nama</label>
-                  <input type="text" id="name" name="name" required className="w-full rounded-md border border-slate-300 p-2 focus:outline-none focus:ring-2 focus:ring-[#0284c7]" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1" htmlFor="email">Email</label>
-                  <input type="email" id="email" name="email" required className="w-full rounded-md border border-slate-300 p-2 focus:outline-none focus:ring-2 focus:ring-[#0284c7]" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1" htmlFor="message">Pesan / Pertanyaan</label>
-                  <textarea id="message" name="message" rows={4} required className="w-full rounded-md border border-slate-300 p-2 focus:outline-none focus:ring-2 focus:ring-[#0284c7]"></textarea>
-                </div>
-                <button type="submit" className="px-6 py-2 bg-[#0284c7] text-white rounded-md hover:bg-[#0b1b3d] transition-colors">Kirim</button>
-              </form>
+              <ContactForm />
             </div>
           </div>
         </section>

@@ -20,7 +20,7 @@ interface PopularNewsItem {
   id: string;
   title: string;
   slug: string;
-  viewCount: bigint;
+  viewCount: number;
   publishedAt: Date | null;
   thumbnail?: { publicUrl: string } | null;
   kategori?: { name: string } | null;
