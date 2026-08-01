@@ -9,6 +9,13 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        // Supabase Storage CDN untuk gambar yang diupload ke bucket "images" dan "documents"
+        protocol: "https",
+        hostname: "nnmsmlyjsdjbfwskimsa.supabase.co",
+        port: "",
+        pathname: "/storage/v1/object/public/**",
+      },
     ],
   },
 };
