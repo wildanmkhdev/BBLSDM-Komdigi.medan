@@ -75,9 +75,6 @@ export default async function AdminRootLayout({
                 <a href="/admin/role" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
                   Manajemen Role
                 </a>
-                <a href="/admin/anak-magang" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
-                  Data Anak Magang
-                </a>
               </>
             )}
           </nav>
