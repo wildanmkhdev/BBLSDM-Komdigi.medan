@@ -93,10 +93,16 @@ export default async function AdminBeritaPage() {
                     {new Date(item.createdAt).toLocaleDateString("id-ID")}
                   </td>
                   <td className="px-4 py-3 text-right space-x-1.5">
+                    <Link
+                      href={`/admin/berita/edit/${item.id}`}
+                      className="text-[10px] font-bold text-slate-600 hover:underline inline-block align-middle"
+                    >
+                      Edit
+                    </Link>
                     <form action={async () => {
                       "use server";
                       await deleteNewsArticle(item.id);
-                    }} className="inline">
+                    }} className="inline-block align-middle">
                       <button type="submit" className="text-[10px] font-bold text-red-600 hover:underline cursor-pointer">
                         Hapus
                       </button>

@@ -36,12 +36,24 @@ enum ContentStatus {
   ARCHIVED
 }
 
+/// Status pelatihan sesuai tampilan UI: Segera Dibuka / Dibuka / Penuh
 enum PelatihanStatus {
-  COMING_SOON
+  SEGERA_DIBUKA
   OPEN
   FULL
-  COMPLETED
-  CANCELLED
+}
+
+/// Level kesulitan pelatihan sesuai tampilan UI
+enum LevelPelatihan {
+  DASAR
+  MENENGAH
+  LANJUTAN
+}
+
+/// Prioritas pengumuman sesuai tampilan UI
+enum PriorityLevel {
+  HIGH
+  NORMAL
 }
 
 enum MagangStatus {
@@ -206,12 +218,9 @@ model Media {
   jabatanPhotos         JabatanNode[]
   wilayahPhotos         WilayahKerja[]
   beritaThumbnails      Berita[]            @relation("berita_thumbnail")
-  beritaOgImages        Berita[]            @relation("berita_og_image")
   pengumumanAttachments Pengumuman[]
   albumCovers           GaleriAlbum[]
   galeriPhotos          GaleriPhoto[]
-  pelatihanThumbnails   Pelatihan[]         @relation("pelatihan_thumbnail")
-  pelatihanBrochures    Pelatihan[]         @relation("pelatihan_brochure")
   magangCvs             PendaftaranMagang[] @relation("magang_cv")
   magangProposals       PendaftaranMagang[] @relation("magang_proposal")
   magangSuratBalasan    PendaftaranMagang[] @relation("magang_surat_balasan")
@@ -390,43 +399,30 @@ model KategoriBerita {
   @@map("kategori_berita")
 }
 
-model Tag {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name      String   @unique @db.VarChar(100)
-  slug      String   @unique @db.VarChar(100)
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
-
-  beritaTags BeritaTag[]
-
-  @@map("tags")
-}
-
+/// Model Berita — field disesuaikan dengan tampilan halaman /informasi/berita
+/// Field yang digunakan UI: id, title, category(via kategori.name), date(publishedAt),
+/// image(thumbnail.publicUrl), snippet(excerpt), content, author(authorName)
 model Berita {
-  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  title           String        @db.VarChar(500)
-  slug            String        @unique @db.VarChar(500)
-  excerpt         String?       @db.Text
-  content         String        @db.Text
-  thumbnailId     String?       @map("thumbnail_id") @db.Uuid
-  kategoriId      String?       @map("kategori_id") @db.Uuid
-  authorId        String?       @map("author_id") @db.Uuid
-  authorName      String?       @map("author_name") @db.VarChar(255)
-  status          ContentStatus @default(DRAFT)
-  isFeatured      Boolean       @default(false) @map("is_featured")
-  viewCount       BigInt        @default(0) @map("view_count")
-  publishedAt     DateTime?     @map("published_at") @db.Timestamptz
-  scheduledAt     DateTime?     @map("scheduled_at") @db.Timestamptz
-  metaTitle       String?       @map("meta_title") @db.VarChar(255)
-  metaDescription String?       @map("meta_description") @db.Text
-  ogImageId       String?       @map("og_image_id") @db.Uuid
-  createdAt       DateTime      @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt       DateTime      @updatedAt @map("updated_at") @db.Timestamptz
+  id          String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title       String        @db.VarChar(500)
+  slug        String        @unique @db.VarChar(500)
+  excerpt     String?       @db.Text
+  content     String        @db.Text
+  thumbnailId String?       @map("thumbnail_id") @db.Uuid
+  kategoriId  String?       @map("kategori_id") @db.Uuid
+  authorId    String?       @map("author_id") @db.Uuid
+  /// Nama penulis yang ditampilkan langsung di card berita (field "Oleh: ...")
+  authorName  String?       @map("author_name") @db.VarChar(255)
+  status      ContentStatus @default(DRAFT)
+  isFeatured  Boolean       @default(false) @map("is_featured")
+  viewCount   BigInt        @default(0) @map("view_count")
+  publishedAt DateTime?     @map("published_at") @db.Timestamptz
+  createdAt   DateTime      @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime      @updatedAt @map("updated_at") @db.Timestamptz
 
-  thumbnail  Media?          @relation("berita_thumbnail", fields: [thumbnailId], references: [id], onDelete: SetNull)
-  kategori   KategoriBerita? @relation(fields: [kategoriId], references: [id], onDelete: SetNull)
-  author     User?           @relation("berita_author", fields: [authorId], references: [id], onDelete: SetNull)
-  ogImage    Media?          @relation("berita_og_image", fields: [ogImageId], references: [id], onDelete: SetNull)
-  beritaTags BeritaTag[]
+  thumbnail Media?          @relation("berita_thumbnail", fields: [thumbnailId], references: [id], onDelete: SetNull)
+  kategori  KategoriBerita? @relation(fields: [kategoriId], references: [id], onDelete: SetNull)
+  author    User?           @relation("berita_author", fields: [authorId], references: [id], onDelete: SetNull)
 
   @@index([status])
   @@index([publishedAt(sort: Desc)])
@@ -436,27 +432,20 @@ model Berita {
   @@map("berita")
 }
 
-model BeritaTag {
-  beritaId String @map("berita_id") @db.Uuid
-  tagId    String @map("tag_id") @db.Uuid
-
-  berita Berita @relation(fields: [beritaId], references: [id], onDelete: Cascade)
-  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
-
-  @@id([beritaId, tagId])
-  @@index([tagId])
-  @@map("berita_tags")
-}
-
+/// Model Pengumuman — field disesuaikan dengan tampilan halaman /informasi/pengumuman
+/// Field yang digunakan UI: id, title, category, date(createdAt), content,
+/// priority(HIGH/NORMAL), downloadUrl(attachment.publicUrl), fileSize(attachment.fileSize)
 model Pengumuman {
   id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title        String        @db.VarChar(500)
+  /// Kategori pengumuman (Sertifikasi, Rekrutmen & Magang, Layanan Publik, Pelatihan, Riset & Kebijakan)
+  category     String        @db.VarChar(100)
   content      String        @db.Text
+  /// Lampiran PDF yang bisa diunduh publik
   attachmentId String?       @map("attachment_id") @db.Uuid
-  startDate    DateTime      @map("start_date") @db.Date
-  endDate      DateTime?     @map("end_date") @db.Date
-  isPinned     Boolean       @default(false) @map("is_pinned")
-  status       ContentStatus @default(DRAFT)
+  /// Prioritas tampilan: HIGH = label merah, NORMAL = label abu-abu
+  priority     PriorityLevel @default(NORMAL)
+  isPublished  Boolean       @default(false) @map("is_published")
   createdBy    String?       @map("created_by") @db.Uuid
   createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz
   updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamptz
@@ -464,28 +453,33 @@ model Pengumuman {
   attachment Media? @relation(fields: [attachmentId], references: [id], onDelete: SetNull)
   creator    User?  @relation("pengumuman_creator", fields: [createdBy], references: [id], onDelete: SetNull)
 
-  @@index([startDate, endDate])
-  @@index([isPinned, startDate(sort: Desc)])
+  @@index([isPublished, createdAt(sort: Desc)])
+  @@index([priority])
   @@map("pengumuman")
 }
 
+/// Model GaleriAlbum — field disesuaikan dengan tampilan halaman /informasi/galeri
+/// Field yang digunakan UI: id, title, category, date(eventDate), image(coverPhoto.publicUrl),
+/// images(via photos[].media.publicUrl), desc(description)
 model GaleriAlbum {
-  id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  title        String        @db.VarChar(255)
-  slug         String        @unique @db.VarChar(255)
-  description  String?       @db.Text
-  coverPhotoId String?       @map("cover_photo_id") @db.Uuid
-  eventDate    DateTime?     @map("event_date") @db.Date
-  status       ContentStatus @default(DRAFT)
-  createdBy    String?       @map("created_by") @db.Uuid
-  createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamptz
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title        String    @db.VarChar(255)
+  /// Kategori album (Kunjungan Kerja, Kegiatan Instansi, Penyambutan & Sinergi, Pelatihan)
+  category     String    @db.VarChar(100)
+  description  String?   @db.Text
+  coverPhotoId String?   @map("cover_photo_id") @db.Uuid
+  /// Tanggal kegiatan, ditampilkan di card dan modal galeri
+  eventDate    DateTime? @map("event_date") @db.Date
+  isPublished  Boolean   @default(false) @map("is_published")
+  createdBy    String?   @map("created_by") @db.Uuid
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime  @updatedAt @map("updated_at") @db.Timestamptz
 
   coverPhoto Media?        @relation(fields: [coverPhotoId], references: [id], onDelete: SetNull)
   creator    User?         @relation("album_creator", fields: [createdBy], references: [id], onDelete: SetNull)
   photos     GaleriPhoto[]
 
-  @@index([status, createdAt(sort: Desc)])
+  @@index([isPublished, createdAt(sort: Desc)])
   @@map("galeri_albums")
 }
 
@@ -509,50 +503,44 @@ model GaleriPhoto {
 // 5. DOMAIN: LAYANAN
 // ==========================================
 
-model KategoriPelatihan {
-  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name        String   @unique @db.VarChar(100)
-  slug        String   @unique @db.VarChar(100)
-  description String?  @db.Text
-  orderIndex  Int      @default(0) @map("order_index") @db.SmallInt
-  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
-
-  pelatihan Pelatihan[]
-
-  @@map("kategori_pelatihan")
-}
-
+/// Model Pelatihan — field disesuaikan dengan tampilan halaman /layanan/pelatihan
+/// Field yang digunakan UI: id, title, category(categorySlug/categoryLabel), description,
+/// jadwal, durasi, kuota, terisi, status, level, metode, lokasi, silabus[], persyaratan[]
 model Pelatihan {
-  id                String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  title             String          @db.VarChar(500)
-  slug              String          @unique @db.VarChar(500)
-  description       String          @db.Text
-  requirements      String?         @db.Text
-  kategoriId        String?         @map("kategori_id") @db.Uuid
-  thumbnailId       String?         @map("thumbnail_id") @db.Uuid
-  brochureId        String?         @map("brochure_id") @db.Uuid
-  duration          String?         @db.VarChar(100)
-  quota             Int?            @db.SmallInt
-  cost              Decimal         @default(0) @db.Decimal(15, 2)
-  location          String?         @db.VarChar(255)
-  scheduleStart     DateTime?       @map("schedule_start") @db.Date
-  scheduleEnd       DateTime?       @map("schedule_end") @db.Date
-  registrationStart DateTime?       @map("registration_start") @db.Date
-  registrationEnd   DateTime?       @map("registration_end") @db.Date
-  status            PelatihanStatus @default(COMING_SOON)
-  createdBy         String?         @map("created_by") @db.Uuid
-  createdAt         DateTime        @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt         DateTime        @updatedAt @map("updated_at") @db.Timestamptz
+  id            String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title         String          @db.VarChar(500)
+  /// Slug kategori untuk filter tabs (komunikasi, pemasaran, cyber, data, cloud)
+  categorySlug  String          @map("category_slug") @db.VarChar(50)
+  /// Label kategori untuk ditampilkan di card (Komunikasi Digital, Pemasaran Digital, dll)
+  categoryLabel String          @map("category_label") @db.VarChar(100)
+  description   String          @db.Text
+  /// Jadwal dalam format teks bebas: "28 Jul — 30 Jul 2026"
+  jadwal        String          @db.VarChar(255)
+  /// Durasi dalam format teks: "3 Hari (24 JP)"
+  durasi        String          @db.VarChar(100)
+  /// Kapasitas maksimum peserta
+  kuota         Int             @db.SmallInt
+  /// Jumlah peserta yang sudah terdaftar (untuk progress bar)
+  terisi        Int             @default(0) @db.SmallInt
+  status        PelatihanStatus @default(SEGERA_DIBUKA)
+  level         LevelPelatihan  @default(DASAR)
+  /// Metode pelaksanaan: "Tatap Muka" / "Online" / "Hybrid"
+  metode        String          @db.VarChar(100)
+  /// Lokasi pelatihan, ditampilkan di card
+  lokasi        String          @db.VarChar(255)
+  /// Daftar materi silabus dalam format JSON array of strings
+  silabus       Json            @default("[]")
+  /// Daftar persyaratan peserta dalam format JSON array of strings
+  persyaratan   Json            @default("[]")
+  createdBy     String?         @map("created_by") @db.Uuid
+  createdAt     DateTime        @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt     DateTime        @updatedAt @map("updated_at") @db.Timestamptz
 
-  kategori         KategoriPelatihan? @relation(fields: [kategoriId], references: [id], onDelete: SetNull)
-  thumbnail        Media?             @relation("pelatihan_thumbnail", fields: [thumbnailId], references: [id], onDelete: SetNull)
-  brochure         Media?             @relation("pelatihan_brochure", fields: [brochureId], references: [id], onDelete: SetNull)
-  creator          User?              @relation("pelatihan_creator", fields: [createdBy], references: [id], onDelete: SetNull)
+  creator          User?         @relation("pelatihan_creator", fields: [createdBy], references: [id], onDelete: SetNull)
   statistikPeserta StatPeserta[]
 
   @@index([status])
-  @@index([kategoriId, status])
-  @@index([scheduleStart])
+  @@index([categorySlug, status])
   @@map("pelatihan")
 }
 
@@ -815,6 +803,12 @@ model PesanKontak {
   @@map("pesan_kontak")
 }
 
+// ==========================================
+// 10. DOMAIN: BANNER (Homepage Hero)
+// ==========================================
+
+/// Model Banner — field sesuai HeroBanner component di halaman beranda
+/// Field yang digunakan: accentBadge, title, subtitle, imageId, ctaText, ctaLink, orderIndex, isActive
 model Banner {
   id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   accentBadge String   @map("accent_badge") @db.VarChar(100)
