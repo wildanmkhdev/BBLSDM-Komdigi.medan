@@ -45,6 +45,15 @@ export default async function AdminRootLayout({
             <a href="/admin/berita" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
               Berita
             </a>
+            <a href="/admin/pengumuman" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
+              Pengumuman
+            </a>
+            <a href="/admin/galeri" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
+              Galeri Album
+            </a>
+            <a href="/admin/pelatihan" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
+              Pelatihan
+            </a>
             <a href="/admin/staf" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
               Direktori Staf
             </a>
