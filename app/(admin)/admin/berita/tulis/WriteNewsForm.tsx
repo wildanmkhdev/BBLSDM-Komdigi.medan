@@ -1,36 +1,50 @@
 "use client";
 
 import React, { useState } from "react";
-import { createNewsArticle } from "@/features/berita/actions";
+import { createNewsArticle, updateNewsArticle } from "@/features/berita/actions";
 import { uploadFile, getMediaList, SafeMedia } from "@/features/media/actions";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import type { KategoriBerita } from "@prisma/client";
 
-interface Category {
-  id: string;
-  name: string;
+interface WriteNewsFormProps {
+  categories: KategoriBerita[];
+  initialImages: SafeMedia[];
+  /** Jika ada, form berjalan dalam mode edit */
+  editData?: {
+    id: string;
+    title: string;
+    excerpt: string | null;
+    content: string;
+    authorName: string | null;
+    kategoriId: string | null;
+    thumbnailId: string | null;
+    status: "DRAFT" | "REVIEW" | "PUBLISHED";
+    isFeatured: boolean;
+  };
 }
 
-
-
-export default function WriteNewsForm({
-  categories,
-  initialImages,
-}: {
-  categories: Category[];
-  initialImages: SafeMedia[];
-}) {
+export default function WriteNewsForm({ categories, initialImages, editData }: WriteNewsFormProps) {
   const router = useRouter();
-  
-  const [mediaList, setMediaList] = useState<SafeMedia[]>(initialImages);
-  const [selectedMediaId, setSelectedMediaId] = useState(initialImages[0]?.id || "");
+  const isEdit = Boolean(editData);
 
-  const [title, setTitle] = useState("");
-  const [excerpt, setExcerpt] = useState("");
-  const [content, setContent] = useState("");
-  const [kategoriId, setKategoriId] = useState(categories[0]?.id || "");
-  const [status, setStatus] = useState<"DRAFT" | "REVIEW" | "PUBLISHED">("DRAFT");
-  const [isFeatured, setIsFeatured] = useState(false);
+  const [mediaList, setMediaList] = useState<SafeMedia[]>(initialImages);
+  const [selectedMediaId, setSelectedMediaId] = useState(
+    editData?.thumbnailId || initialImages[0]?.id || ""
+  );
+
+  const [title, setTitle] = useState(editData?.title || "");
+  const [excerpt, setExcerpt] = useState(editData?.excerpt || "");
+  const [content, setContent] = useState(editData?.content || "");
+  // Field authorName — ditampilkan langsung di card berita ("Oleh: ...")
+  const [authorName, setAuthorName] = useState(editData?.authorName || "");
+  const [kategoriId, setKategoriId] = useState(
+    editData?.kategoriId || categories[0]?.id || ""
+  );
+  const [status, setStatus] = useState<"DRAFT" | "REVIEW" | "PUBLISHED">(
+    editData?.status || "DRAFT"
+  );
+  const [isFeatured, setIsFeatured] = useState(editData?.isFeatured || false);
 
   const [uploading, setUploading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -39,7 +53,6 @@ export default function WriteNewsForm({
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
     setUploading(true);
     setError(null);
 
@@ -50,7 +63,7 @@ export default function WriteNewsForm({
     const res = await uploadFile(formData);
     if (res.success && res.media) {
       const list = await getMediaList();
-      const images = list.filter(item => item.mimeType.startsWith("image/"));
+      const images = list.filter((item) => item.mimeType.startsWith("image/"));
       setMediaList(images);
       setSelectedMediaId(res.media.id);
     } else {
@@ -64,21 +77,26 @@ export default function WriteNewsForm({
     setSubmitting(true);
     setError(null);
 
-    const res = await createNewsArticle({
+    const payload = {
       title,
-      excerpt,
+      excerpt: excerpt || undefined,
       content,
+      authorName: authorName || undefined,
       kategoriId,
       thumbnailId: selectedMediaId || null,
       status,
       isFeatured,
-    });
+    };
+
+    const res = isEdit && editData
+      ? await updateNewsArticle(editData.id, payload)
+      : await createNewsArticle(payload);
 
     if (res.success) {
       router.push("/admin/berita");
       router.refresh();
     } else {
-      setError("Gagal menyimpan artikel. Periksa kelayakan isian form.");
+      setError("Gagal menyimpan artikel. Periksa kelengkapan isian form.");
     }
     setSubmitting(false);
   };
@@ -93,7 +111,9 @@ export default function WriteNewsForm({
 
       {/* Judul */}
       <div>
-        <label className="block text-sm font-semibold text-slate-700 mb-2">Judul Artikel *</label>
+        <label className="block text-sm font-semibold text-slate-700 mb-2">
+          Judul Artikel <span className="text-red-500">*</span>
+        </label>
         <input
           type="text"
           required
@@ -104,22 +124,43 @@ export default function WriteNewsForm({
         />
       </div>
 
-      {/* Excerpt */}
+      {/* Kutipan Singkat (snippet/excerpt) */}
       <div>
-        <label className="block text-sm font-semibold text-slate-700 mb-2">Kutipan Singkat / Ringkasan</label>
+        <label className="block text-sm font-semibold text-slate-700 mb-1">
+          Kutipan Singkat
+          <span className="text-slate-400 font-normal ml-1">— ditampilkan di card berita</span>
+        </label>
         <input
           type="text"
           value={excerpt}
           onChange={(e) => setExcerpt(e.target.value)}
-          placeholder="Ringkasan satu kalimat untuk card list berita..."
+          placeholder="Ringkasan satu kalimat untuk preview card berita..."
           className="w-full px-4 py-2 border border-slate-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-slate-900 text-slate-900"
         />
       </div>
 
-      {/* Grid: Kategori & Status */}
-      <div className="grid grid-cols-2 gap-4">
+      {/* Grid: Penulis, Kategori, Status */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {/* Nama Penulis — ditampilkan "Oleh: [nama]" di card */}
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-2">Kategori Berita *</label>
+          <label className="block text-sm font-semibold text-slate-700 mb-2">
+            Nama Penulis
+            <span className="text-slate-400 font-normal ml-1">— "Oleh: ..."</span>
+          </label>
+          <input
+            type="text"
+            value={authorName}
+            onChange={(e) => setAuthorName(e.target.value)}
+            placeholder="Mis: Tim Humas BBLSDM"
+            className="w-full px-3 py-2 border border-slate-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-slate-900 text-slate-900"
+          />
+        </div>
+
+        {/* Kategori */}
+        <div>
+          <label className="block text-sm font-semibold text-slate-700 mb-2">
+            Kategori Berita <span className="text-red-500">*</span>
+          </label>
           <select
             value={kategoriId}
             onChange={(e) => setKategoriId(e.target.value)}
@@ -132,8 +173,12 @@ export default function WriteNewsForm({
             ))}
           </select>
         </div>
+
+        {/* Status */}
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-2">Status Publikasi</label>
+          <label className="block text-sm font-semibold text-slate-700 mb-2">
+            Status Publikasi
+          </label>
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value as "DRAFT" | "REVIEW" | "PUBLISHED")}
@@ -146,10 +191,13 @@ export default function WriteNewsForm({
         </div>
       </div>
 
-      {/* Cover Image Upload / Selection */}
+      {/* Cover Image Upload */}
       <div className="space-y-3">
-        <label className="block text-sm font-semibold text-slate-700">Gambar Cover Berita</label>
-        
+        <label className="block text-sm font-semibold text-slate-700">
+          Gambar Cover Berita
+          <span className="text-slate-400 font-normal ml-1">— tampil di card dan modal</span>
+        </label>
+
         <div className="flex items-center space-x-4">
           <input
             type="file"
@@ -162,7 +210,9 @@ export default function WriteNewsForm({
 
         {mediaList.length > 0 && (
           <div>
-            <label className="block text-xs font-semibold text-slate-500 mb-1">Pilih dari Pustaka Media:</label>
+            <label className="block text-xs font-semibold text-slate-500 mb-1">
+              Pilih dari Pustaka Media:
+            </label>
             <select
               value={selectedMediaId}
               onChange={(e) => setSelectedMediaId(e.target.value)}
@@ -182,7 +232,7 @@ export default function WriteNewsForm({
           <div className="mt-2 relative w-36 h-20 bg-slate-50 rounded border border-slate-200 overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={mediaList.find(img => img.id === selectedMediaId)?.publicUrl || ""}
+              src={mediaList.find((img) => img.id === selectedMediaId)?.publicUrl || ""}
               alt="Preview"
               className="w-full h-full object-cover"
             />
@@ -190,12 +240,15 @@ export default function WriteNewsForm({
         )}
       </div>
 
-      {/* Content Textarea */}
+      {/* Konten Artikel */}
       <div>
-        <label className="block text-sm font-semibold text-slate-700 mb-2">Konten / Isi Berita *</label>
+        <label className="block text-sm font-semibold text-slate-700 mb-2">
+          Konten / Isi Berita <span className="text-red-500">*</span>
+          <span className="text-slate-400 font-normal ml-1">— ditampilkan di modal detail</span>
+        </label>
         <textarea
           required
-          rows={12}
+          rows={14}
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Tulis artikel berita secara detail di sini..."
@@ -203,7 +256,7 @@ export default function WriteNewsForm({
         />
       </div>
 
-      {/* Sorotan Checkbox */}
+      {/* Sorotan Berita */}
       <div className="flex items-center space-x-2">
         <input
           type="checkbox"
@@ -213,11 +266,12 @@ export default function WriteNewsForm({
           className="w-4 h-4 rounded text-slate-900 focus:ring-slate-900 cursor-pointer"
         />
         <label htmlFor="isFeatured" className="text-sm font-medium text-slate-700 cursor-pointer">
-          Jadikan Berita Sorotan Utama (Tampil di Banner Tengah Halaman Beranda)
+          Jadikan Berita Sorotan Utama
+          <span className="text-slate-400 font-normal ml-1">(tampil di hero banner beranda)</span>
         </label>
       </div>
 
-      {/* Buttons */}
+      {/* Action Buttons */}
       <div className="flex items-center justify-end space-x-3 pt-4 border-t border-slate-100 font-sans">
         <Link
           href="/admin/berita"
@@ -230,7 +284,7 @@ export default function WriteNewsForm({
           disabled={submitting || uploading}
           className="px-4 py-2 bg-slate-950 hover:bg-slate-800 text-white text-sm font-semibold rounded-md shadow-sm transition disabled:opacity-50 cursor-pointer"
         >
-          {submitting ? "Menyimpan..." : "Rilis Berita"}
+          {submitting ? "Menyimpan..." : isEdit ? "Simpan Perubahan" : "Rilis Berita"}
         </button>
       </div>
     </form>
