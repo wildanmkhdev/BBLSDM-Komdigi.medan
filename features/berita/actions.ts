@@ -25,17 +25,11 @@ function generateSlug(text: string) {
   );
 }
 
-<<<<<<< HEAD
-import { Prisma, KategoriBerita } from "@prisma/client";
+export type SafeNewsArticle = SafeBerita;
 
-export type SafeNewsArticle = Omit<Prisma.BeritaGetPayload<{ include: { kategori: true; thumbnail: true } }>, "viewCount"> & { viewCount: number };
-
-export async function getNewsArticles(): Promise<SafeNewsArticle[]> {
-=======
 // ─── READ ───────────────────────────────────────────────────────────────────────
 
 export async function getNewsArticles(): Promise<SafeBerita[]> {
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
   try {
     const list = await prisma.berita.findMany({
       orderBy: { createdAt: "desc" },

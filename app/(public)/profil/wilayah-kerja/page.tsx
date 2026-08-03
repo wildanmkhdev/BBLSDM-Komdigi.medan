@@ -112,12 +112,8 @@ function IconChevronRight() {
   );
 }
 
-<<<<<<< HEAD
 /* Dynamic import — disable SSR for Leaflet */
 const MapComponent = dynamic(() => import("@/app/components/WilayahMap"), {
-=======
-const Map = dynamic(() => import("@/app/components/WilayahMap"), {
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
   ssr: false,
   loading: () => (
     <div className="w-full h-full min-h-105 bg-slate-100 flex items-center justify-center">
@@ -128,15 +124,9 @@ const Map = dynamic(() => import("@/app/components/WilayahMap"), {
     </div>
   ),
 });
-<<<<<<< HEAD
+
 export default function WilayahKerjaPage() {
   const [selected, setSelected] = useState<WilayahData>(wilayahList[0]);
-=======
-
-export default function WilayahKerjaPage() {
-  const [selected, setSelected] = useState<WilayahData | null>(null);
-
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
   return (
     <>
       <PageHeader

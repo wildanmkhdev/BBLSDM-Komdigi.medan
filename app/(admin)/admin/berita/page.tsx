@@ -102,11 +102,7 @@ export default async function AdminBeritaPage() {
                     <form action={async () => {
                       "use server";
                       await deleteNewsArticle(item.id);
-<<<<<<< HEAD
-                    }} className="inline">
-=======
                     }} className="inline-block align-middle">
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
                       <button type="submit" className="text-[10px] font-bold text-red-600 hover:underline cursor-pointer">
                         Hapus
                       </button>

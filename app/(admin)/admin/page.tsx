@@ -289,24 +289,12 @@ export default async function AdminDashboardPage() {
         </div>
 
         {/* Recent Activity Feed */}
-<<<<<<< HEAD
-        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm h-80 flex flex-col">
-          <h3 className="font-semibold text-base mb-4">Aktivitas Terkini</h3>
-          <div className="flex-1 overflow-y-auto space-y-4 pr-2">
-            <div className="flex space-x-3 text-xs">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
-              <div>
-                <p className="font-medium">Wildan mempublikasikan berita baru</p>
-                <p className="text-slate-500">&quot;Penerimaan Magang Gelombang 3&quot;</p>
-                <p className="text-[10px] text-slate-400 mt-0.5">5 menit yang lalu</p>
-=======
         <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col h-[360px]">
           <h3 className="font-extrabold text-base text-[#0b1b3d] mb-4">Aktivitas Terkini</h3>
           <div className="flex-1 overflow-y-auto space-y-5 pr-2">
             {activities.length === 0 ? (
               <div className="h-full flex items-center justify-center text-xs text-slate-400 italic">
                 Belum ada aktivitas terekam.
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
               </div>
             ) : (
               activities.map((act, index) => (
@@ -317,7 +305,6 @@ export default async function AdminDashboardPage() {
                     <p className="text-slate-500 mt-0.5 leading-relaxed">{act.detail}</p>
                     <p className="text-[9px] text-slate-400 mt-1 font-semibold">{act.timeLabel}</p>
                   </div>
-                </div>
               ))
             )}
           </div>

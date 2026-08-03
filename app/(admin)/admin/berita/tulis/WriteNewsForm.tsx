@@ -1,11 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-<<<<<<< HEAD
-import { createNewsArticle } from "@/features/berita/actions";
-=======
 import { createNewsArticle, updateNewsArticle } from "@/features/berita/actions";
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
 import { uploadFile, getMediaList, SafeMedia } from "@/features/media/actions";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -28,25 +24,9 @@ interface WriteNewsFormProps {
   };
 }
 
-<<<<<<< HEAD
-
-
-export default function WriteNewsForm({
-  categories,
-  initialImages,
-}: {
-  categories: Category[];
-  initialImages: SafeMedia[];
-}) {
-  const router = useRouter();
-  
-  const [mediaList, setMediaList] = useState<SafeMedia[]>(initialImages);
-  const [selectedMediaId, setSelectedMediaId] = useState(initialImages[0]?.id || "");
-=======
 export default function WriteNewsForm({ categories, initialImages, editData }: WriteNewsFormProps) {
   const router = useRouter();
   const isEdit = Boolean(editData);
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
 
   const [mediaList, setMediaList] = useState<SafeMedia[]>(initialImages);
   const [selectedMediaId, setSelectedMediaId] = useState(
@@ -83,11 +63,7 @@ export default function WriteNewsForm({ categories, initialImages, editData }: W
     const res = await uploadFile(formData);
     if (res.success && res.media) {
       const list = await getMediaList();
-<<<<<<< HEAD
-      const images = list.filter(item => item.mimeType.startsWith("image/"));
-=======
       const images = list.filter((item) => item.mimeType.startsWith("image/"));
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
       setMediaList(images);
       setSelectedMediaId(res.media.id);
     } else {
