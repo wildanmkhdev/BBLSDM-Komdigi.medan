@@ -150,8 +150,6 @@ export default function FeedbackPage() {
           {/* Form — 3 cols */}
           <div className="lg:col-span-3">
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="h-1 bg-linear-to-r from-sky-accent to-sky-primary" />
-
               <div className="p-6 sm:p-8">
                 <h2 className="text-xl font-bold text-navy mb-1">
                   Kirim Feedback
@@ -306,16 +304,19 @@ export default function FeedbackPage() {
               </h3>
               <div className="space-y-4">
                 {existingFeedback.slice(0, 4).map((fb) => (
-                  <Card key={fb.id} title={fb.subjek}>
-                    <div className="flex items-center gap-2 mb-2">
+                  <div key={fb.id} className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col gap-2">
+                    <h4 className="font-semibold text-navy text-[15px] leading-snug line-clamp-2">
+                      {fb.subjek}
+                    </h4>
+                    <div className="flex items-center gap-2 mb-1">
                       <StarRating value={fb.rating} readOnly />
-                      <span className="text-xs text-text-light">{fb.tanggal}</span>
+                      <span className="text-xs text-slate-400 font-medium">{fb.tanggal}</span>
                     </div>
-                    <p className="text-sm text-text-muted leading-relaxed line-clamp-3">
+                    <p className="text-sm text-slate-500 leading-relaxed line-clamp-3">
                       {fb.pesan}
                     </p>
-                    <p className="text-xs text-text-light mt-2">— {fb.nama}</p>
-                  </Card>
+                    <p className="text-xs text-slate-400 mt-1 font-medium">— {fb.nama}</p>
+                  </div>
                 ))}
               </div>
             </div>

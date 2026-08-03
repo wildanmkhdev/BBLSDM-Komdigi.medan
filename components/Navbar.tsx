@@ -24,8 +24,6 @@ export default function Navbar() {
       name: "Profil",
       submenu: [
         { name: "Sejarah", href: "/profil/sejarah" },
-
-        { name: "Struktur Organisasi", href: "/profil/struktur-organisasi" },
         { name: "Tugas & Fungsi", href: "/profil/tugas-fungsi" },
         { name: "Wilayah Kerja", href: "/profil/wilayah-kerja" },
       ],
@@ -36,6 +34,7 @@ export default function Navbar() {
         { name: "Berita", href: "/informasi/berita" },
         { name: "Pengumuman", href: "/informasi/pengumuman" },
         { name: "Galeri", href: "/informasi/galeri" },
+        { name: "Media Sosial", href: "/informasi/media-sosial" },
       ],
     },
     {

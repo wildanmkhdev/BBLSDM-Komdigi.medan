@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 /*
  * ⚠️ PLACEHOLDER NAVBAR — milik branch `wildan`
@@ -17,11 +17,13 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   {
+    label: "Beranda",
+    href: "/",
+  },
+  {
     label: "Profil",
     children: [
       { label: "Sejarah", href: "/profil/sejarah" },
-
-      { label: "Struktur Organisasi", href: "/profil/struktur-organisasi" },
       { label: "Tugas dan Fungsi", href: "/profil/tugas-fungsi" },
       { label: "Wilayah Kerja", href: "/profil/wilayah-kerja" },
     ],
@@ -32,6 +34,7 @@ const navItems: NavItem[] = [
       { label: "Berita", href: "/informasi/berita" },
       { label: "Pengumuman", href: "/informasi/pengumuman" },
       { label: "Galeri", href: "/informasi/galeri" },
+      { label: "Media Sosial", href: "/informasi/media-sosial" },
     ],
   },
   {
@@ -43,28 +46,33 @@ const navItems: NavItem[] = [
       { label: "Feedback", href: "/layanan/feedback" },
     ],
   },
-  {
-    label: "Publikasi",
-    children: [
-      { label: "LAKIP", href: "/publikasi/lakip" },
-      { label: "LAPTAH", href: "/publikasi/laptah" },
-      { label: "ICT Indikator", href: "/publikasi/ict-indikator" },
-      { label: "Penelitian", href: "/publikasi/penelitian" },
-      { label: "Buku Putih", href: "/publikasi/buku-putih" },
-    ],
-  },
+
 ];
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleMouseEnter = (label: string) => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+    setOpenDropdown(label);
+  };
+
+  const handleMouseLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setOpenDropdown(null);
+    }, 700); // Jeda yang lebih lama (700ms)
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b-2 border-navy/20 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 shrink-0">
+          <a href="/" className="flex items-center gap-3 shrink-0">
             <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-navy to-sky-accent flex items-center justify-center">
               <span className="text-white font-bold text-sm">BB</span>
             </div>
@@ -76,7 +84,7 @@ export default function Navbar() {
                 Komdigi Medan
               </span>
             </div>
-          </Link>
+          </a>
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-1">
@@ -84,11 +92,11 @@ export default function Navbar() {
               item.children ? (
                 <div
                   key={item.label}
-                  className="relative group"
-                  onMouseEnter={() => setOpenDropdown(item.label)}
-                  onMouseLeave={() => setOpenDropdown(null)}
+                  className="relative group h-full flex items-center"
+                  onMouseEnter={() => handleMouseEnter(item.label)}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  <button className="px-3 py-2 text-[13px] uppercase font-medium text-text-muted hover:text-sky-accent transition-colors duration-200 flex items-center gap-1">
+                  <button className="px-3 py-6 text-[13px] uppercase font-medium text-text-muted hover:text-sky-accent transition-colors duration-200 flex items-center gap-1 h-full">
                     {item.label}
                     <svg
                       className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === item.label ? "rotate-180" : ""}`}
@@ -117,6 +125,7 @@ export default function Navbar() {
                       <Link
                         key={child.href}
                         href={child.href}
+                        onClick={() => setOpenDropdown(null)}
                         className="block px-4 py-2.5 text-sm text-text-muted hover:text-sky-accent hover:bg-sky-accent/5 transition-colors duration-150"
                       >
                         {child.label}
@@ -124,6 +133,14 @@ export default function Navbar() {
                     ))}
                   </div>
                 </div>
+              ) : item.href === "/" ? (
+                <a
+                  key={item.label}
+                  href={item.href!}
+                  className="px-3 py-2 text-[13px] uppercase font-medium text-text-muted hover:text-sky-accent transition-colors duration-200"
+                >
+                  {item.label}
+                </a>
               ) : (
                 <Link
                   key={item.label}
@@ -192,6 +209,15 @@ export default function Navbar() {
                     </div>
                   )}
                 </div>
+              ) : item.href === "/" ? (
+                <a
+                  key={item.label}
+                  href={item.href!}
+                  className="block px-3 py-2.5 text-sm font-medium text-navy hover:text-sky-accent transition-colors"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {item.label}
+                </a>
               ) : (
                 <Link
                   key={item.label}
