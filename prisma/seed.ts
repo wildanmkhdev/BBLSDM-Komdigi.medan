@@ -288,6 +288,39 @@ async function main() {
     });
   }
 
+  // 8. Seed Aplikasi
+  const aplikasiList = [
+    {
+      name: "Sistem Manajemen Gudang",
+      slug: "sistem-manajemen-gudang",
+      description: "Aplikasi internal untuk mengelola persediaan barang masuk, barang keluar, inventarisasi aset IT, dan pelaporan stok gudang BBLSDM Komdigi Medan secara real-time.",
+      url: "https://gudang.bblsdm.go.id",
+      logoId: dbMedia[0].id,
+    },
+    {
+      name: "Sistem Manajemen Kepegawaian",
+      slug: "sistem-manajemen-kepegawaian",
+      description: "Aplikasi portal khusus untuk pencatatan kehadiran pegawai, pengajuan cuti online, manajemen data kinerja, serta rekapitulasi data ASN di lingkungan balai.",
+      url: "https://simpeg.bblsdm.go.id",
+      logoId: dbMedia[1].id,
+    },
+  ];
+
+  for (const app of aplikasiList) {
+    await prisma.aplikasi.upsert({
+      where: { slug: app.slug },
+      update: {},
+      create: {
+        name: app.name,
+        slug: app.slug,
+        description: app.description,
+        url: app.url,
+        logoId: app.logoId,
+        isActive: true,
+      },
+    });
+  }
+
   console.log("-----------------------------------------");
   console.log("Super Admin User Created:");
   console.log(`Email: ${superAdmin.email}`);
@@ -301,7 +334,7 @@ async function main() {
   console.log(`Email: ${editor.email}`);
   console.log("Password: editor123");
   console.log("-----------------------------------------");
-  console.log("Banners, News, Announcements, and Trainings successfully seeded!");
+  console.log("Banners, News, Announcements, Trainings, and Aplikasi successfully seeded!");
   console.log("-----------------------------------------");
 }
 
