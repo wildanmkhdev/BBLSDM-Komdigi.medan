@@ -1,8 +1,177 @@
 import React from "react";
+import prisma from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
-export default function AdminDashboardPage() {
+export default async function AdminDashboardPage() {
+  // ─── 1. QUERY REAL KPI METRICS ─────────────────────────────────────────────
+  let beritaCount = 0;
+  let magangPendingCount = 0;
+  let feedbackCount = 0;
+  let feedbackRatingAvg = 4.8;
+  let pesanKontakNewCount = 0;
+
+  try {
+    const [news, pendingMagang, fbCount, fbRatingAvgAgg, newMessages] = await Promise.all([
+      prisma.berita.count({ where: { status: "PUBLISHED" } }),
+      prisma.pendaftaranMagang.count({ where: { status: "PENDING" } }),
+      prisma.feedback.count(),
+      prisma.feedback.aggregate({ _avg: { rating: true } }),
+      prisma.pesanKontak.count({ where: { status: "NEW" } }),
+    ]);
+
+    beritaCount = news;
+    magangPendingCount = pendingMagang;
+    feedbackCount = fbCount;
+    if (fbRatingAvgAgg._avg.rating) {
+      feedbackRatingAvg = Number(fbRatingAvgAgg._avg.rating.toFixed(1));
+    }
+    pesanKontakNewCount = newMessages;
+  } catch (error) {
+    console.error("Dashboard KPI fetch error:", error);
+  }
+
+  // ─── 2. QUERY REAL TRAINING STATISTICS (CHART DATA) ─────────────────────────
+  let chartData: { label: string; value: number; color: string }[] = [];
+  const defaultCategories = [
+    { label: "Pemasaran Digital", value: 75, color: "bg-[#0b1b3d]" },
+    { label: "Cyber Security", value: 95, color: "bg-blue-600" },
+    { label: "Data Science", value: 45, color: "bg-blue-400" },
+    { label: "Cloud Computing", value: 60, color: "bg-[#0b1b3d]/70" },
+    { label: "Komunikasi Digital", value: 85, color: "bg-blue-500" },
+  ];
+
+  try {
+    const categoryStats = await prisma.pelatihan.groupBy({
+      by: ["categoryLabel"],
+      _sum: {
+        terisi: true,
+      },
+    });
+
+    const colors = [
+      "bg-[#0b1b3d]",
+      "bg-blue-600",
+      "bg-blue-400",
+      "bg-[#0b1b3d]/70",
+      "bg-blue-500",
+    ];
+
+    if (categoryStats.length > 0) {
+      chartData = categoryStats.map((item, idx) => ({
+        label: item.categoryLabel || "Lainnya",
+        value: item._sum.terisi || 0,
+        color: colors[idx % colors.length],
+      }));
+    } else {
+      chartData = defaultCategories;
+    }
+  } catch (error) {
+    console.error("Dashboard chart stats fetch error:", error);
+    chartData = defaultCategories;
+  }
+
+  const maxVal = Math.max(...chartData.map((d) => d.value), 1);
+
+  // ─── 3. QUERY REAL RECENT ACTIVITIES (AUDIT LOGS & DATABASE EVENTS) ────────
+  interface ActivityItem {
+    title: string;
+    detail: string;
+    timeLabel: string;
+    timestamp: Date;
+    color: string;
+  }
+
+  let activities: ActivityItem[] = [];
+
+  try {
+    // Attempt to fetch from AuditLog
+    const auditLogs = await prisma.auditLog.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 5,
+    });
+
+    if (auditLogs.length > 0) {
+      activities = auditLogs.map((log) => {
+        const actionLabels = {
+          CREATE: "membuat",
+          UPDATE: "memperbarui",
+          DELETE: "menghapus",
+          PUBLISH: "mempublikasikan",
+          UNPUBLISH: "menarik publikasi",
+          ARCHIVE: "mengarsipkan",
+          LOGIN: "melakukan login",
+        } as const;
+
+        const actionStr = actionLabels[log.action as keyof typeof actionLabels] || "mengubah";
+        const moduleStr = log.module.toLowerCase();
+
+        return {
+          title: `${log.userName} ${actionStr} ${moduleStr}`,
+          detail: log.entityTitle ? `"${log.entityTitle}"` : `Modul ${log.module}`,
+          timeLabel: new Date(log.createdAt).toLocaleDateString("id-ID", {
+            day: "numeric",
+            month: "short",
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          timestamp: new Date(log.createdAt),
+          color: log.action === "DELETE" ? "bg-red-500 ring-red-50" : "bg-blue-500 ring-blue-50",
+        };
+      });
+    } else {
+      // Fallback: Query direct records for activity indicators
+      const [recentNews, recentMagang] = await Promise.all([
+        prisma.berita.findMany({
+          orderBy: { publishedAt: "desc" },
+          take: 3,
+        }),
+        prisma.pendaftaranMagang.findMany({
+          orderBy: { createdAt: "desc" },
+          take: 3,
+        }),
+      ]);
+
+      const items: ActivityItem[] = [];
+
+      recentNews.forEach((news) => {
+        items.push({
+          title: `${news.authorName || "Humas"} mempublikasikan berita baru`,
+          detail: `"${news.title}"`,
+          timeLabel: new Date(news.publishedAt || news.createdAt).toLocaleDateString("id-ID", {
+            day: "numeric",
+            month: "short",
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          timestamp: new Date(news.publishedAt || news.createdAt),
+          color: "bg-emerald-500 ring-emerald-50",
+        });
+      });
+
+      recentMagang.forEach((m) => {
+        items.push({
+          title: `Pendaftaran Magang masuk (${m.institution})`,
+          detail: `A.n. ${m.fullName} - ${m.major}`,
+          timeLabel: new Date(m.createdAt).toLocaleDateString("id-ID", {
+            day: "numeric",
+            month: "short",
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          timestamp: new Date(m.createdAt),
+          color: "bg-amber-500 ring-amber-50",
+        });
+      });
+
+      // Sort combined array by timestamp desc
+      items.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+      activities = items.slice(0, 5);
+    }
+  } catch (error) {
+    console.error("Dashboard activity logs fetch error:", error);
+  }
+
   return (
     <div className="space-y-8">
       {/* Page Title */}
@@ -26,8 +195,8 @@ export default function AdminDashboardPage() {
             </div>
           </div>
           <div className="flex items-baseline space-x-2 mt-4">
-            <span className="text-3xl font-extrabold text-[#0b1b3d] tracking-tight">24</span>
-            <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-full">+3 bulan ini</span>
+            <span className="text-3xl font-extrabold text-[#0b1b3d] tracking-tight">{beritaCount}</span>
+            <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-full">Publik</span>
           </div>
         </div>
 
@@ -42,8 +211,12 @@ export default function AdminDashboardPage() {
             </div>
           </div>
           <div className="flex items-baseline space-x-2 mt-4">
-            <span className="text-3xl font-extrabold text-[#0b1b3d] tracking-tight">12</span>
-            <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-100 px-2 py-0.5 rounded-full animate-pulse">Butuh Review</span>
+            <span className="text-3xl font-extrabold text-[#0b1b3d] tracking-tight">{magangPendingCount}</span>
+            {magangPendingCount > 0 ? (
+              <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-100 px-2 py-0.5 rounded-full animate-pulse">Butuh Review</span>
+            ) : (
+              <span className="text-[10px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full">Selesai</span>
+            )}
           </div>
         </div>
 
@@ -58,8 +231,8 @@ export default function AdminDashboardPage() {
             </div>
           </div>
           <div className="flex items-baseline space-x-2 mt-4">
-            <span className="text-3xl font-extrabold text-[#0b1b3d] tracking-tight">185</span>
-            <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-full">★ 4.8 / 5</span>
+            <span className="text-3xl font-extrabold text-[#0b1b3d] tracking-tight">{feedbackCount}</span>
+            <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-full">★ {feedbackRatingAvg} / 5</span>
           </div>
         </div>
 
@@ -74,30 +247,28 @@ export default function AdminDashboardPage() {
             </div>
           </div>
           <div className="flex items-baseline space-x-2 mt-4">
-            <span className="text-3xl font-extrabold text-[#0b1b3d] tracking-tight">7</span>
-            <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-full">Belum dibaca</span>
+            <span className="text-3xl font-extrabold text-[#0b1b3d] tracking-tight">{pesanKontakNewCount}</span>
+            {pesanKontakNewCount > 0 ? (
+              <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-full animate-pulse">Baru</span>
+            ) : (
+              <span className="text-[10px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full">Dibaca</span>
+            )}
           </div>
         </div>
       </div>
 
       {/* Main Sections Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Charts Container - Premium Custom SVG/CSS Bar Chart */}
+        {/* Charts Container - Dynamic Data Custom Bar Chart */}
         <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between h-[360px]">
           <div>
             <h3 className="font-extrabold text-base text-[#0b1b3d]">Statistik Peserta Pelatihan</h3>
-            <p className="text-xs text-slate-400 mt-0.5">Grafik data jumlah partisipan per bidang pelatihan tahun 2026.</p>
+            <p className="text-xs text-slate-400 mt-0.5">Grafik data jumlah partisipan terdaftar per bidang pelatihan.</p>
           </div>
           
           {/* Custom HTML Bar Chart */}
           <div className="flex-1 flex items-end justify-between gap-6 px-4 py-8 h-full">
-            {[
-              { label: "Pemasaran", value: 75, color: "bg-[#0b1b3d]" },
-              { label: "Keamanan Siber", value: 95, color: "bg-blue-600" },
-              { label: "Data Science", value: 45, color: "bg-blue-400" },
-              { label: "Cloud Computing", value: 60, color: "bg-[#0b1b3d]/70" },
-              { label: "Komunikasi", value: 85, color: "bg-blue-500" },
-            ].map((bar, idx) => (
+            {chartData.map((bar, idx) => (
               <div key={idx} className="flex-1 flex flex-col items-center gap-2 group h-full justify-end">
                 {/* Bar Value Tooltip */}
                 <span className="text-[10px] font-extrabold text-[#0b1b3d] opacity-0 group-hover:opacity-100 transition-opacity duration-200">
@@ -105,11 +276,11 @@ export default function AdminDashboardPage() {
                 </span>
                 {/* Visual Bar */}
                 <div
-                  style={{ height: `${bar.value}%` }}
+                  style={{ height: `${(bar.value / maxVal) * 100}%` }}
                   className={`w-full rounded-t-lg transition-all duration-500 group-hover:brightness-95 ${bar.color}`}
                 />
                 {/* Label */}
-                <span className="text-[10px] font-semibold text-slate-500 truncate w-full text-center">
+                <span className="text-[10px] font-semibold text-slate-500 truncate w-full text-center" title={bar.label}>
                   {bar.label}
                 </span>
               </div>
@@ -121,30 +292,22 @@ export default function AdminDashboardPage() {
         <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col h-[360px]">
           <h3 className="font-extrabold text-base text-[#0b1b3d] mb-4">Aktivitas Terkini</h3>
           <div className="flex-1 overflow-y-auto space-y-5 pr-2">
-            <div className="flex space-x-3 text-xs">
-              <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 mt-1 shrink-0 ring-4 ring-emerald-50" />
-              <div>
-                <p className="font-bold text-slate-800">Wildan mempublikasikan berita baru</p>
-                <p className="text-slate-500 mt-0.5">&quot;Penerimaan Magang Gelombang 3&quot;</p>
-                <p className="text-[9px] text-slate-400 mt-1 font-semibold">5 menit yang lalu</p>
+            {activities.length === 0 ? (
+              <div className="h-full flex items-center justify-center text-xs text-slate-400 italic">
+                Belum ada aktivitas terekam.
               </div>
-            </div>
-            <div className="flex space-x-3 text-xs">
-              <div className="w-2.5 h-2.5 rounded-full bg-amber-500 mt-1 shrink-0 ring-4 ring-amber-50" />
-              <div>
-                <p className="font-bold text-slate-800">Pendaftaran Magang masuk (USU)</p>
-                <p className="text-slate-500 mt-0.5">A.n. Budi Santoso - Teknik Informatika</p>
-                <p className="text-[9px] text-slate-400 mt-1 font-semibold">20 menit yang lalu</p>
-              </div>
-            </div>
-            <div className="flex space-x-3 text-xs">
-              <div className="w-2.5 h-2.5 rounded-full bg-blue-500 mt-1 shrink-0 ring-4 ring-blue-50" />
-              <div>
-                <p className="font-bold text-slate-800">Settings diperbarui oleh Super Admin</p>
-                <p className="text-slate-500 mt-0.5">Mengubah nomor telepon kontak instansi</p>
-                <p className="text-[9px] text-slate-400 mt-1 font-semibold">1 jam yang lalu</p>
-              </div>
-            </div>
+            ) : (
+              activities.map((act, index) => (
+                <div key={index} className="flex space-x-3 text-xs">
+                  <div className={`w-2.5 h-2.5 rounded-full ${act.color} mt-1 shrink-0 ring-4`} />
+                  <div>
+                    <p className="font-bold text-slate-800 leading-snug">{act.title}</p>
+                    <p className="text-slate-500 mt-0.5 leading-relaxed">{act.detail}</p>
+                    <p className="text-[9px] text-slate-400 mt-1 font-semibold">{act.timeLabel}</p>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>
