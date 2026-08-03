@@ -18,11 +18,19 @@ export default function MediaPage() {
 
   const fetchMedia = async () => {
     const list = await getMediaList();
-    setMediaList(list as any);
+    setMediaList(list as MediaItem[]);
   };
 
   useEffect(() => {
-    fetchMedia();
+    let isMounted = true;
+    getMediaList().then((list) => {
+      if (isMounted) {
+        setMediaList(list as MediaItem[]);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const handleUpload = async (e: React.FormEvent<HTMLFormElement>) => {

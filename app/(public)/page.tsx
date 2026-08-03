@@ -1,6 +1,7 @@
 import HeroBanner from "@/components/HeroBanner";
 import FeaturedEventHero from "@/components/FeaturedEventHero";
 import KomdigiStorySection from "@/components/KomdigiStorySection";
+import HomeContactForm from "@/components/HomeContactForm";
 import Link from "next/link";
 import Image from "next/image";
 import prisma from "@/lib/prisma";
@@ -9,7 +10,7 @@ export const dynamic = "force-dynamic";
 
 export default async function Home() {
   // 1. Fetch active banners from DB
-  let dbBanners: any[] = [];
+  let dbBanners: unknown[] = [];
   try {
     dbBanners = await prisma.banner.findMany({
       where: { isActive: true },
@@ -21,7 +22,7 @@ export default async function Home() {
   }
 
   // 2. Fetch popular news for Hero overlay
-  let dbPopularNews: any[] = [];
+  let dbPopularNews: unknown[] = [];
   try {
     dbPopularNews = await prisma.berita.findMany({
       where: { status: "PUBLISHED" },
@@ -34,7 +35,7 @@ export default async function Home() {
   }
 
   // 3. Fetch latest news list for news section
-  let dbNewsList: any[] = [];
+  let dbNewsList: unknown[] = [];
   try {
     dbNewsList = await prisma.berita.findMany({
       where: { status: "PUBLISHED" },
@@ -83,7 +84,7 @@ export default async function Home() {
   ];
 
   const newsList = dbNewsList.length > 0
-    ? dbNewsList.map((n) => ({
+    ? (dbNewsList as Array<{ title: string; publishedAt?: Date; summary?: string; kategori?: { name?: string }; thumbnail?: { publicUrl?: string } }>).map((n) => ({
         title: n.title,
         date: n.publishedAt ? new Date(n.publishedAt).toLocaleDateString("id-ID") : "Baru saja",
         category: n.kategori?.name || "Berita",
@@ -233,21 +234,7 @@ export default async function Home() {
                 <p className="text-base text-slate-700"><strong>Email:</strong> bblsdm.medan@komdigi.go.id</p>
               </div>
               {/* Contact Form */}
-              <form className="space-y-4" onSubmit={(e)=>{e.preventDefault(); alert('Pesan terkirim!');}}>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1" htmlFor="name">Nama</label>
-                  <input type="text" id="name" name="name" required className="w-full rounded-md border border-slate-300 p-2 focus:outline-none focus:ring-2 focus:ring-[#0284c7]" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1" htmlFor="email">Email</label>
-                  <input type="email" id="email" name="email" required className="w-full rounded-md border border-slate-300 p-2 focus:outline-none focus:ring-2 focus:ring-[#0284c7]" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1" htmlFor="message">Pesan / Pertanyaan</label>
-                  <textarea id="message" name="message" rows={4} required className="w-full rounded-md border border-slate-300 p-2 focus:outline-none focus:ring-2 focus:ring-[#0284c7]"></textarea>
-                </div>
-                <button type="submit" className="px-6 py-2 bg-[#0284c7] text-white rounded-md hover:bg-[#0b1b3d] transition-colors">Kirim</button>
-              </form>
+              <HomeContactForm />
             </div>
           </div>
         </section>
