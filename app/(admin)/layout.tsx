@@ -66,9 +66,23 @@ export default async function AdminRootLayout({
             <a href="/admin/magang" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
               Inbox Magang
             </a>
+            {session?.user?.role === "SUPER_ADMIN" && (
+              <>
+                <div className="pt-4 px-3 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Sistem</div>
+                <a href="/admin/pengguna" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                  Manajemen Pengguna
+                </a>
+                <a href="/admin/role" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                  Manajemen Role
+                </a>
+                <a href="/admin/anak-magang" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
+                  Data Anak Magang
+                </a>
+              </>
+            )}
           </nav>
           <div className="p-4 border-t border-slate-800 text-xs text-slate-400">
-            Logged in as Admin
+            Logged in as {session?.user?.role || "Admin"}
           </div>
         </aside>
 
