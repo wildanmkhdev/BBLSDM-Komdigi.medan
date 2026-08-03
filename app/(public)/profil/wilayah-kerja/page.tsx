@@ -12,7 +12,7 @@ const wilayahList: WilayahData[] = [
     kota: "Medan",
     alamat: "Jl. Ngalengko No.1, Perintis, Kec. Medan Tim., Kota Medan, Sumatera Utara 20236",
     telepon: "(6261) 4525438",
-    website: "https://bpsdm.sumutprov.go.id/",
+    website: "https://diskominfo.sumutprov.go.id/",
     lat: 3.6009495823832425,
     lng: 98.68844747553271,
   },
@@ -21,7 +21,7 @@ const wilayahList: WilayahData[] = [
     kota: "Banda Aceh",
     alamat: "Jl.T.Panglima Nyak Makam No 8 Lampineng, Kota Banda Aceh",
     telepon: "(0651) 7552564",
-    website: "https://bpsdm.acehprov.go.id/",
+    website: "https://diskominfo.acehprov.go.id/",
     lat: 5.565880257598649,
     lng: 95.34320790954617,
   },
@@ -30,7 +30,7 @@ const wilayahList: WilayahData[] = [
     kota: "Padang",
     alamat: "Jl. Raya Indarung Km.12, Padang Besi, Kota Padang",
     telepon: "-------",
-    website: "https://bpsdm.sumbarprov.go.id/",
+    website: "https://diskominfo.sumbarprov.go.id/",
     lat: -0.9523763757062634,
     lng: 100.4746055607255,
   },
@@ -39,7 +39,7 @@ const wilayahList: WilayahData[] = [
     kota: "Pekanbaru",
     alamat: "Jl. Ronggowarsito No. 14 Kota Pekanbaru Provinsi Riau",
     telepon: "(0761) 28997",
-    website: "https://bpsdm.riau.go.id/bpsdm/",
+    website: "https://diskominfotik.riau.go.id/",
     lat: 0.5132641380276376,
     lng: 101.4548773206545,
   },
@@ -48,7 +48,7 @@ const wilayahList: WilayahData[] = [
     kota: "Tanjung Pinang",
     alamat: "Pusat Pemerintahan Provinsi Kepulauan Riau, Gedung Sultan Mahmud Riayat Syah (Gedung D Lantai 1) Dompak, Bukit Bestari, Kota Tanjung Pinang, Provinsi Kepulauan Riau",
     telepon: "-------",
-    website: "https://bpsdm.kepriprov.go.id/",
+    website: "https://diskominfo.kepriprov.go.id/",
     lat: 0.8779441030781603,
     lng: 104.445111,
   },
@@ -57,7 +57,7 @@ const wilayahList: WilayahData[] = [
     kota: "Jambi",
     alamat: "Jl. H. Agus Salim, Paal Lima, Kec. Kota Baru, Kota Jambi, Jambi 36129",
     telepon: "-------",
-    website: "https://bpsdm.jambiprov.go.id/",
+    website: "https://diskominfo.jambiprov.go.id/",
     lat: -1.6325329066632042,
     lng: 103.61102988203443,
   },
@@ -66,7 +66,7 @@ const wilayahList: WilayahData[] = [
     kota: "Pangkal Pinang",
     alamat: "Jl. Pulau Bangka, Air Itam - Pangkalpinang 33148",
     telepon: "(0717) 439-426",
-    website: "https://bkpsdmd.babelprov.go.id/",
+    website: "https://diskominfo.babelprov.go.id/",
     lat: -2.1615079465906897,
     lng: 106.16814326298616,
   },
@@ -75,7 +75,7 @@ const wilayahList: WilayahData[] = [
     kota: "Pontianak",
     alamat: "Jl. Moh. Sohor, Akcaya, Kec. Pontianak Sel., Kota Pontianak, Kalimantan Barat 78121",
     telepon: "(0561) 732-078",
-    website: "https://bpsdm.kalbarprov.go.id/",
+    website: "https://diskominfo.kalbarprov.go.id/",
     lat: -0.042695250302419545,
     lng: 109.33099193970436,
   },
@@ -125,7 +125,7 @@ const Map = dynamic(() => import("@/app/components/WilayahMap"), {
 });
 
 export default function WilayahKerjaPage() {
-  const [selected, setSelected] = useState<WilayahData>(wilayahList[0]);
+  const [selected, setSelected] = useState<WilayahData | null>(null);
 
   return (
     <>
@@ -162,7 +162,7 @@ export default function WilayahKerjaPage() {
             <div className="lg:w-[40%] flex flex-col border-t lg:border-t-0 lg:border-l border-slate-200">
 
               {/* Selected detail panel */}
-              {selected && (
+              {selected ? (
                 <div className="p-6 bg-[#0b1b3d] text-white shrink-0">
                   {/* Header */}
                   <div className="flex items-start justify-between gap-3 mb-5">
@@ -193,16 +193,39 @@ export default function WilayahKerjaPage() {
                     </div>
                   </div>
 
-                  {/* CTA button */}
-                  <a
-                    href={selected.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-bold rounded-lg transition-colors duration-200"
-                  >
-                    <IconGlobe />
-                    Kunjungi Website Resmi
-                  </a>
+                  {/* CTA buttons */}
+                  <div className="flex flex-col gap-2">
+                    <a
+                      href={selected.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-bold rounded-lg transition-colors duration-200"
+                    >
+                      <IconGlobe />
+                      Kunjungi Website Resmi
+                    </a>
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${selected.lat},${selected.lng}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 w-full py-2.5 bg-white text-[#0b1b3d] hover:bg-slate-100 text-xs font-bold rounded-lg transition-colors duration-200"
+                    >
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                      </svg>
+                      Buka di Google Maps
+                    </a>
+                  </div>
+                </div>
+              ) : (
+                <div className="p-8 bg-[#0b1b3d] text-center text-white shrink-0 flex flex-col items-center justify-center min-h-[220px]">
+                  <div className="w-12 h-12 rounded-full bg-[#0284c7]/20 flex items-center justify-center mb-4">
+                    <IconMapPin />
+                  </div>
+                  <p className="text-sm font-bold text-white mb-2">Pilih Wilayah Kerja</p>
+                  <p className="text-xs text-slate-300 max-w-[200px] leading-relaxed">
+                    Pilih provinsi pada peta atau daftar di bawah untuk melihat detail informasi.
+                  </p>
                 </div>
               )}
 

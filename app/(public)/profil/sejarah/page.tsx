@@ -6,51 +6,24 @@ import PageHeader from "@/app/components/PageHeader";
 export default function Sejarah() {
   const timelineMilestones = [
     {
-      year: "1945 - 1999",
-      title: "Departemen Penerangan RI",
-      desc: "Awal mula institusi komunikasi negara berakar dari Departemen Penerangan yang didirikan pada 19 Agustus 1945 sebagai wadah penyebaran informasi nasional dan penyiaran publik.",
+      year: "1950-an",
+      title: "Balai Penelitian Pers dan Pendapat Umum (BP3U)",
+      desc: "Awal mula institusi berakar dari BP3U yang bertugas mengkaji dinamika komunikasi massa dan pers di Indonesia.",
     },
     {
-      year: "2001 - 2009",
-      title: "Kementerian Komunikasi dan Informasi (Depkominfo)",
-      desc: "Pembentukan Kementerian Negara Komunikasi dan Informasi yang menggabungkan Lembaga Informasi Nasional (LIN) dan Dirjen Pos dan Telekomunikasi menjadi Departemen Komunikasi dan Informatika (Depkominfo).",
+      year: "2000-an",
+      title: "Balai Besar Pengkajian dan Pengembangan Komunikasi dan Informatika (BBPPKI) Medan",
+      desc: "Lembaga bertransformasi menjadi BBPPKI dengan fokus pada kegiatan pengkajian dan pengembangan sektor komunikasi regional.",
     },
     {
       year: "2017",
-      title: "Transformasi BBPSDMP Kominfo Medan",
-      desc: "Berdasarkan Permenkominfo No. 19/2017, balai regional bertransformasi menjadi Balai Besar Pengembangan Sumber Daya Manusia dan Penelitian (BBPSDMP) Kominfo Medan yang menaungi 8 provinsi wilayah kerja di Sumatera.",
+      title: "Balai Besar Pengembangan Sumber Daya Manusia dan Penelitian (BBPSDMP) Kominfo Medan",
+      desc: "Berdasarkan Permenkominfo No. 19/2017, fungsi lembaga diperluas untuk mencakup pengembangan SDM bidang teknologi informasi dan komunikasi.",
     },
     {
-      year: "2024 - 2026",
-      title: "Era Kementerian Komunikasi dan Digital (Komdigi)",
-      desc: "Nomenklatur kementerian resmi berubah menjadi Kementerian Komunikasi dan Digital RI (Komdigi) untuk mempercepat transformasi digital, AI, siber, dan literasi digital, serta perubahan unit menjadi BBLSDM Komdigi Medan.",
-    },
-  ];
-
-  const historicalPhotos = [
-    {
-      title: "Kunjungan Kerja Wamenkomdigi Nezar Patria",
-      year: "2026",
-      image: "/kunker-nezar/kunker-nezar-5.jpeg",
-      description: "Tinjauan kerja dan pengarahan pimpinan kementerian di Balai Besar Pelatihan Sumber Daya Manusia Komunikasi dan Digital (BBLSDM Komdigi) Medan.",
-    },
-    {
-      title: "Paparan Program Vokasi Digital Talent 2026",
-      year: "2026",
-      image: "/kunker-nezar/kunker-nezar-6.jpeg",
-      description: "Evaluasi capaian program Digital Talent Scholarship (DTS) dan penyusunan modul pelatihan kecerdasan buatan bagi talenta muda Sumatera.",
-    },
-    {
-      title: "Penguatan Sertifikasi Profesi Digital",
-      year: "2026",
-      image: "/kunker-nezar/kunker-nezar-7.jpeg",
-      description: "Kordinasi pembinaan karir dan kesiapan asesor lisensi BNSP dalam mendukung pengujian sertifikasi bidang IT & komunikasi.",
-    },
-    {
-      title: "Diskusi Pengembangan Kurikulum TIK",
-      year: "2026",
-      image: "/kunker-nezar/kunker-nezar-8.jpeg",
-      description: "Sesi dialog mengenai integrasi materi AI, Cloud Computing, dan Cyber Security untuk aparatur daerah dan masyarakat umum.",
+      year: "2024 - Sekarang",
+      title: "Balai Besar Pelatihan Sumber Daya Manusia Komunikasi dan Digital (BBLSDM Komdigi) Medan",
+      desc: "Berubah sejalan dengan nomenklatur Kementerian Komunikasi dan Digital (Komdigi), lembaga ini kini berfokus secara penuh pada mencetak talenta digital kompeten melalui pelatihan dan sertifikasi.",
     },
   ];
 
@@ -74,13 +47,13 @@ export default function Sejarah() {
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <article className="prose prose-slate max-w-none text-slate-700 leading-relaxed font-sans text-sm sm:text-base space-y-6">
               <p className="font-medium text-lg text-[#0b1b3d] leading-relaxed">
-                Berdiri di jantung kota Medan, Balai Besar Pengembangan Sumber Daya Manusia dan Penelitian Komunikasi dan Informatika (BBLSDM Komdigi) Medan telah melewati berbagai fase transformasi struktural penting untuk merespons laju teknologi informasi globaal.
+                Balai Besar Pelatihan Sumber Daya Manusia Komunikasi dan Digital (BBLSDM Komdigi) Medan memiliki sejarah panjang yang berakar dari dinamika kelembagaan di bidang komunikasi dan informatika di Indonesia.
               </p>
               <p>
-                Sebagai Unit Pelaksana Teknis (UPT) di bawah Badan Pengembangan Sumber Daya Manusia Kementerian Komunikasi dan Digital Republik Indonesia, BBLSDM Komdigi Medan memiliki peranan strategis dalam memandu ekosistem digital nasional khususnya di wilayah Sumatera Utara, Aceh, Sumatera Barat, Riau, dan Kepulauan Riau.
+                Lembaga ini awalnya dikenal sebagai Balai Penelitian Pers dan Pendapat Umum (BP3U), yang eksistensinya telah tercatat sejak tahun 1950-an. Seiring dengan perubahan struktur pemerintahan dan departemen terkait, instansi ini terus bertransformasi mengadaptasi tuntutan zaman.
               </p>
               <p>
-                Melalui penggabungan fungsi pelatihan keahlian (diklat) serta penelitian (riset) komunikasi informatika, instansi secara berkelanjutan menyalurkan kontribusi nyata baik berupa penyiapan talenta digital kompeten (melalui sertifikasi nasional) maupun penyusunan rekomendasi kebijakan publik berbasis data riset ilmiah.
+                Berbasis di jantung kota Medan, BBLSDM Komdigi Medan kini melayani wilayah kerja yang luas di pulau Sumatera, dan berperan strategis sebagai wadah utama dalam menyelenggarakan pelatihan, vokasi, dan pengujian sertifikasi untuk menghasilkan talenta digital yang berdaya saing global.
               </p>
             </article>
 
@@ -110,52 +83,6 @@ export default function Sejarah() {
           </div>
         </section>
 
-        {/* Historical Photo Gallery Grid */}
-        <section className="py-20 bg-slate-50 border-t border-slate-100">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-16 space-y-2">
-              <h2 className="text-xs font-bold tracking-widest text-[#0284c7] uppercase">Dokumentasi Visual</h2>
-              <p className="text-2xl font-extrabold text-[#0b1b3d] sm:text-3xl">Galeri Sejarah Instansi</p>
-              <div className="w-12 h-0.5 bg-[#0284c7] mx-auto rounded-full mt-3"></div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {historicalPhotos.map((photo, i) => (
-                <div
-                  key={i}
-                  className="group bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow"
-                >
-                  <div className="h-44 relative bg-slate-900 overflow-hidden">
-                    <Image
-                      src={photo.image}
-                      alt={photo.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 25vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute top-3 right-3 text-[10px] font-bold bg-black/60 text-white px-2 py-0.5 rounded backdrop-blur-sm border border-white/10 uppercase tracking-wider z-10">
-                      {photo.year}
-                    </div>
-                  </div>
-                  
-                  <div className="p-5 grow flex flex-col justify-between space-y-3">
-                    <div className="space-y-1">
-                      <h3 className="text-xs font-bold text-[#0b1b3d] leading-snug group-hover:text-[#0284c7] transition-colors">
-                        {photo.title}
-                      </h3>
-                      <p className="text-xs text-slate-500 leading-relaxed">
-                        {photo.description}
-                      </p>
-                    </div>
-                    <div className="border-t border-slate-100 pt-3 text-[10px] font-bold text-[#0284c7] uppercase tracking-wide">
-                      Dokumentasi Komdigi Medan
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
       </main>
     </div>
   );

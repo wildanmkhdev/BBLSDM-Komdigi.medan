@@ -11,8 +11,6 @@ const footerLinks = [
     title: "Profil",
     links: [
       { label: "Sejarah", href: "/profil/sejarah" },
-      { label: "Visi & Misi", href: "/profil/visi-misi" },
-      { label: "Struktur Organisasi", href: "/profil/struktur-organisasi" },
       { label: "Tugas dan Fungsi", href: "/profil/tugas-fungsi" },
       { label: "Wilayah Kerja", href: "/profil/wilayah-kerja" },
     ],
@@ -23,6 +21,7 @@ const footerLinks = [
       { label: "Berita", href: "/informasi/berita" },
       { label: "Pengumuman", href: "/informasi/pengumuman" },
       { label: "Galeri", href: "/informasi/galeri" },
+      { label: "Media Sosial", href: "/informasi/media-sosial" },
     ],
   },
   {
