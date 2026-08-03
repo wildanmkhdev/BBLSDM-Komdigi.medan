@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import PageHeader from "@/app/components/PageHeader";
 import type { WilayahData } from "@/app/components/WilayahMap";
 

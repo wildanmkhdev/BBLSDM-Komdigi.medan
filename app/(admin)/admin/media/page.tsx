@@ -1,35 +1,27 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { uploadFile, getMediaList, deleteMedia } from "@/features/media/actions";
-
-interface MediaItem {
-  id: string;
-  originalName: string;
-  publicUrl: string;
-  mimeType: string;
-  createdAt: Date;
-}
+import { uploadFile, getMediaList, deleteMedia, SafeMedia } from "@/features/media/actions";
 
 export default function MediaPage() {
-  const [mediaList, setMediaList] = useState<MediaItem[]>([]);
+  const [mediaList, setMediaList] = useState<SafeMedia[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const fetchMedia = async () => {
     const list = await getMediaList();
-    setMediaList(list as MediaItem[]);
+    setMediaList(list);
   };
 
   useEffect(() => {
-    let isMounted = true;
+    let active = true;
     getMediaList().then((list) => {
-      if (isMounted) {
-        setMediaList(list as MediaItem[]);
+      if (active) {
+        setMediaList(list);
       }
     });
     return () => {
-      isMounted = false;
+      active = false;
     };
   }, []);
 
@@ -135,6 +127,7 @@ export default function MediaPage() {
                   {/* Thumbnail */}
                   <div className="relative aspect-[4/3] bg-slate-50 border-b border-slate-100 flex items-center justify-center overflow-hidden">
                     {isImage ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
                       <img src={item.publicUrl} alt={item.originalName} className="w-full h-full object-cover" />
                     ) : (
                       <div className="flex flex-col items-center space-y-1 text-slate-400">

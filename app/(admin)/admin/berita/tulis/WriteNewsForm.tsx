@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { createNewsArticle } from "@/features/berita/actions";
-import { uploadFile, getMediaList } from "@/features/media/actions";
+import { uploadFile, getMediaList, SafeMedia } from "@/features/media/actions";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -11,22 +11,18 @@ interface Category {
   name: string;
 }
 
-interface MediaItem {
-  id: string;
-  originalName: string;
-  publicUrl: string;
-}
+
 
 export default function WriteNewsForm({
   categories,
   initialImages,
 }: {
   categories: Category[];
-  initialImages: MediaItem[];
+  initialImages: SafeMedia[];
 }) {
   const router = useRouter();
   
-  const [mediaList, setMediaList] = useState<MediaItem[]>(initialImages);
+  const [mediaList, setMediaList] = useState<SafeMedia[]>(initialImages);
   const [selectedMediaId, setSelectedMediaId] = useState(initialImages[0]?.id || "");
 
   const [title, setTitle] = useState("");
@@ -55,7 +51,7 @@ export default function WriteNewsForm({
     if (res.success && res.media) {
       const list = await getMediaList();
       const images = list.filter(item => item.mimeType.startsWith("image/"));
-      setMediaList(images as any);
+      setMediaList(images);
       setSelectedMediaId(res.media.id);
     } else {
       setError(res.error || "Gagal mengunggah file");
@@ -140,7 +136,7 @@ export default function WriteNewsForm({
           <label className="block text-sm font-semibold text-slate-700 mb-2">Status Publikasi</label>
           <select
             value={status}
-            onChange={(e) => setStatus(e.target.value as any)}
+            onChange={(e) => setStatus(e.target.value as "DRAFT" | "REVIEW" | "PUBLISHED")}
             className="w-full px-3 py-2 border border-slate-200 rounded-md text-sm bg-white text-slate-900"
           >
             <option value="DRAFT">Draft (Arsip Internal)</option>
@@ -184,6 +180,7 @@ export default function WriteNewsForm({
 
         {selectedMediaId && (
           <div className="mt-2 relative w-36 h-20 bg-slate-50 rounded border border-slate-200 overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={mediaList.find(img => img.id === selectedMediaId)?.publicUrl || ""}
               alt="Preview"

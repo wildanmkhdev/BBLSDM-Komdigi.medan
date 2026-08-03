@@ -1,4 +1,5 @@
 import React from "react";
+import { PendaftaranMagang, Media } from "@prisma/client";
 
 interface Step {
   step: number;
@@ -6,27 +7,14 @@ interface Step {
   description: string;
 }
 
-interface Application {
-  id: string;
-  fullName: string;
-  email: string;
-  status: "PENDING" | "ACCEPTED" | "REJECTED" | "CANCELLED";
-  currentStep: number;
-  rejectionReason: string | null;
-  createdAt: Date;
-  suratBalasan?: {
-    id: string;
-    publicUrl: string;
-    originalName: string;
-  } | null;
-}
-
 export default function MagangStatusTracker({
   steps,
   application,
 }: {
   steps: Step[];
-  application: Application;
+  application: PendaftaranMagang & {
+    suratBalasan?: Media | null;
+  };
 }) {
   const status = application.status;
 

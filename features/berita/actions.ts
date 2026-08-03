@@ -22,7 +22,11 @@ function generateSlug(text: string) {
     .replace(/^-+|-+$/g, "") + "-" + Date.now();
 }
 
-export async function getNewsArticles() {
+import { Prisma, KategoriBerita } from "@prisma/client";
+
+export type SafeNewsArticle = Omit<Prisma.BeritaGetPayload<{ include: { kategori: true; thumbnail: true } }>, "viewCount"> & { viewCount: number };
+
+export async function getNewsArticles(): Promise<SafeNewsArticle[]> {
   try {
     const list = await prisma.berita.findMany({
       orderBy: { createdAt: "desc" },
@@ -39,7 +43,7 @@ export async function getNewsArticles() {
   }
 }
 
-export async function getNewsCategories() {
+export async function getNewsCategories(): Promise<KategoriBerita[]> {
   try {
     let list = await prisma.kategoriBerita.findMany();
     
@@ -100,6 +104,7 @@ export async function deleteNewsArticle(id: string) {
     revalidatePath("/admin/berita");
     return { success: true };
   } catch (error) {
+    console.error("Error deleting news article:", error);
     return { success: false, error: "Gagal menghapus berita" };
   }
 }

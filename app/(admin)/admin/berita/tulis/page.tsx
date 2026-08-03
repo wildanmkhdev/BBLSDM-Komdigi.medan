@@ -18,7 +18,7 @@ export default async function AdminTulisBeritaPage() {
         <p className="text-sm text-slate-500">Publikasikan konten berita, artikel, siaran pers, atau pengumuman ke website utama BBLSDM.</p>
       </div>
 
-      <WriteNewsForm categories={categories} initialImages={images as any} />
+      <WriteNewsForm categories={categories} initialImages={images} />
     </div>
   );
 }

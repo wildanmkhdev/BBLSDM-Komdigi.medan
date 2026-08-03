@@ -108,41 +108,41 @@ enum AuditAction {
 // ==========================================
 
 model User {
-  id                String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name              String     @db.VarChar(255)
-  email             String     @unique @db.VarChar(255)
-  passwordHash      String     @map("password_hash") @db.Text
-  role              UserRole   @default(EDITOR)
-  status            UserStatus @default(ACTIVE)
-  avatarUrl         String?    @map("avatar_url") @db.Text
-  failedLoginCount  Int        @default(0) @map("failed_login_count") @db.SmallInt
-  lockedUntil       DateTime?  @map("locked_until") @db.Timestamptz
-  lastLoginAt       DateTime?  @map("last_login_at") @db.Timestamptz
-  lastLoginIp       String?    @map("last_login_ip") @db.VarChar(45)
-  createdAt         DateTime   @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt         DateTime   @updatedAt @map("updated_at") @db.Timestamptz
+  id               String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name             String     @db.VarChar(255)
+  email            String     @unique @db.VarChar(255)
+  passwordHash     String     @map("password_hash") @db.Text
+  role             UserRole   @default(EDITOR)
+  status           UserStatus @default(ACTIVE)
+  avatarUrl        String?    @map("avatar_url") @db.Text
+  failedLoginCount Int        @default(0) @map("failed_login_count") @db.SmallInt
+  lockedUntil      DateTime?  @map("locked_until") @db.Timestamptz
+  lastLoginAt      DateTime?  @map("last_login_at") @db.Timestamptz
+  lastLoginIp      String?    @map("last_login_ip") @db.VarChar(45)
+  createdAt        DateTime   @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt        DateTime   @updatedAt @map("updated_at") @db.Timestamptz
 
-  sessions          Session[]
-  auditLogs         AuditLog[]
-  mediaUploaded     Media[]
-  settingsEdited    Settings[]         @relation("settings_updater")
-  sejarahEdited     Sejarah[]          @relation("sejarah_updater")
-  visiMisiEdited    VisiMisi[]         @relation("visi_misi_updater")
-  beritaWritten     Berita[]           @relation("berita_author")
-  pengumumanCreated Pengumuman[]       @relation("pengumuman_creator")
-  albumsCreated     GaleriAlbum[]      @relation("album_creator")
-  pelatihanCreated  Pelatihan[]        @relation("pelatihan_creator")
-  magangInfoEdited  MagangInfo[]       @relation("magang_info_updater")
-  magangReviewed    PendaftaranMagang[] @relation("magang_reviewer")
-  feedbackProcessed Feedback[]         @relation("feedback_processor")
-  publikasiCreated  Publikasi[]        @relation("publikasi_creator")
-  dataKinerjaCreated DataKinerja[]      @relation("kinerja_creator")
-  statPesertaCreated StatPeserta[]      @relation("stat_peserta_creator")
-  infografisCreated  Infografis[]       @relation("infografis_creator")
-  pesanKontakRead   PesanKontak[]      @relation("kontak_reader")
+  sessions           Session[]
+  auditLogs          AuditLog[]
+  mediaUploaded      Media[]
+  settingsEdited     Settings[]          @relation("settings_updater")
+  sejarahEdited      Sejarah[]           @relation("sejarah_updater")
+  visiMisiEdited     VisiMisi[]          @relation("visi_misi_updater")
+  beritaWritten      Berita[]            @relation("berita_author")
+  pengumumanCreated  Pengumuman[]        @relation("pengumuman_creator")
+  albumsCreated      GaleriAlbum[]       @relation("album_creator")
+  pelatihanCreated   Pelatihan[]         @relation("pelatihan_creator")
+  magangInfoEdited   MagangInfo[]        @relation("magang_info_updater")
+  magangReviewed     PendaftaranMagang[] @relation("magang_reviewer")
+  feedbackProcessed  Feedback[]          @relation("feedback_processor")
+  publikasiCreated   Publikasi[]         @relation("publikasi_creator")
+  dataKinerjaCreated DataKinerja[]       @relation("kinerja_creator")
+  statPesertaCreated StatPeserta[]       @relation("stat_peserta_creator")
+  infografisCreated  Infografis[]        @relation("infografis_creator")
+  pesanKontakRead    PesanKontak[]       @relation("kontak_reader")
 
-  @@map("users")
   @@index([role, status])
+  @@map("users")
 }
 
 model Session {
@@ -152,9 +152,9 @@ model Session {
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("user_sessions")
   @@index([userId])
   @@index([expires])
+  @@map("user_sessions")
 }
 
 model AuditLog {
@@ -172,14 +172,14 @@ model AuditLog {
   userAgent   String?     @map("user_agent") @db.Text
   createdAt   DateTime    @default(now()) @map("created_at") @db.Timestamptz
 
-  user        User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
 
-  @@map("audit_logs")
   @@index([userId])
   @@index([module])
   @@index([action])
   @@index([createdAt(sort: Desc)])
   @@index([entityType, entityId])
+  @@map("audit_logs")
 }
 
 model Media {
@@ -197,62 +197,62 @@ model Media {
   uploadedBy   String?   @map("uploaded_by") @db.Uuid
   createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz
 
-  uploader     User?     @relation(fields: [uploadedBy], references: [id], onDelete: SetNull)
+  uploader User? @relation(fields: [uploadedBy], references: [id], onDelete: SetNull)
 
-  settingsLogo    Settings[] @relation("site_logo")
-  settingsFavicon Settings[] @relation("site_favicon")
-  settingsOgImage Settings[] @relation("site_og_image")
-  sejarahPhotos   SejarahPhoto[]
-  jabatanPhotos   JabatanNode[]
-  wilayahPhotos   WilayahKerja[]
-  beritaThumbnails Berita[]   @relation("berita_thumbnail")
-  beritaOgImages   Berita[]   @relation("berita_og_image")
+  settingsLogo          Settings[]          @relation("site_logo")
+  settingsFavicon       Settings[]          @relation("site_favicon")
+  settingsOgImage       Settings[]          @relation("site_og_image")
+  sejarahPhotos         SejarahPhoto[]
+  jabatanPhotos         JabatanNode[]
+  wilayahPhotos         WilayahKerja[]
+  beritaThumbnails      Berita[]            @relation("berita_thumbnail")
+  beritaOgImages        Berita[]            @relation("berita_og_image")
   pengumumanAttachments Pengumuman[]
-  albumCovers     GaleriAlbum[]
-  galeriPhotos    GaleriPhoto[]
-  pelatihanThumbnails Pelatihan[] @relation("pelatihan_thumbnail")
-  pelatihanBrochures Pelatihan[] @relation("pelatihan_brochure")
-  magangCvs       PendaftaranMagang[] @relation("magang_cv")
-  magangProposals PendaftaranMagang[] @relation("magang_proposal")
-  magangSuratBalasan PendaftaranMagang[] @relation("magang_surat_balasan")
-  publikasiThumbnails Publikasi[] @relation("publikasi_thumbnail")
-  publikasiFiles  Publikasi[] @relation("publikasi_file")
-  infografisImages Infografis[]
-  stafPhotos      Staf[]
-  banners         Banner[]
+  albumCovers           GaleriAlbum[]
+  galeriPhotos          GaleriPhoto[]
+  pelatihanThumbnails   Pelatihan[]         @relation("pelatihan_thumbnail")
+  pelatihanBrochures    Pelatihan[]         @relation("pelatihan_brochure")
+  magangCvs             PendaftaranMagang[] @relation("magang_cv")
+  magangProposals       PendaftaranMagang[] @relation("magang_proposal")
+  magangSuratBalasan    PendaftaranMagang[] @relation("magang_surat_balasan")
+  publikasiThumbnails   Publikasi[]         @relation("publikasi_thumbnail")
+  publikasiFiles        Publikasi[]         @relation("publikasi_file")
+  infografisImages      Infografis[]
+  stafPhotos            Staf[]
+  banners               Banner[]
 
-  @@map("media")
   @@index([type])
   @@index([uploadedBy])
   @@index([createdAt(sort: Desc)])
+  @@map("media")
 }
 
 model Settings {
-  id                   Int      @id @default(1) @db.SmallInt // Singleton constraint id = 1
-  siteName             String   @map("site_name") @db.VarChar(255)
-  siteDescription      String?  @map("site_description") @db.Text
-  siteLogoId           String?  @map("site_logo_id") @db.Uuid
-  siteFaviconId        String?  @map("site_favicon_id") @db.Uuid
-  contactAddress       String?  @map("contact_address") @db.Text
-  contactPhone         String?  @map("contact_phone") @db.VarChar(50)
-  contactEmail         String?  @map("contact_email") @db.VarChar(255)
-  contactHours         String?  @map("contact_hours") @db.VarChar(255)
-  contactMapsUrl       String?  @map("contact_maps_url") @db.Text
-  socialInstagram      String?  @map("social_instagram") @db.VarChar(255)
-  socialFacebook       String?  @map("social_facebook") @db.VarChar(255)
-  socialYoutube        String?  @map("social_youtube") @db.VarChar(255)
-  socialTwitter        String?  @map("social_twitter") @db.VarChar(255)
-  seoOgImageId         String?  @map("seo_og_image_id") @db.Uuid
-  seoMetaDescription   String?  @map("seo_meta_description") @db.Text
-  announcementEnabled  Boolean  @default(false) @map("announcement_enabled")
-  announcementText     String?  @map("announcement_text") @db.Text
-  updatedAt            DateTime @updatedAt @map("updated_at") @db.Timestamptz
-  updatedBy            String?  @map("updated_by") @db.Uuid
+  id                  Int      @id @default(1) @db.SmallInt // Singleton constraint id = 1
+  siteName            String   @map("site_name") @db.VarChar(255)
+  siteDescription     String?  @map("site_description") @db.Text
+  siteLogoId          String?  @map("site_logo_id") @db.Uuid
+  siteFaviconId       String?  @map("site_favicon_id") @db.Uuid
+  contactAddress      String?  @map("contact_address") @db.Text
+  contactPhone        String?  @map("contact_phone") @db.VarChar(50)
+  contactEmail        String?  @map("contact_email") @db.VarChar(255)
+  contactHours        String?  @map("contact_hours") @db.VarChar(255)
+  contactMapsUrl      String?  @map("contact_maps_url") @db.Text
+  socialInstagram     String?  @map("social_instagram") @db.VarChar(255)
+  socialFacebook      String?  @map("social_facebook") @db.VarChar(255)
+  socialYoutube       String?  @map("social_youtube") @db.VarChar(255)
+  socialTwitter       String?  @map("social_twitter") @db.VarChar(255)
+  seoOgImageId        String?  @map("seo_og_image_id") @db.Uuid
+  seoMetaDescription  String?  @map("seo_meta_description") @db.Text
+  announcementEnabled Boolean  @default(false) @map("announcement_enabled")
+  announcementText    String?  @map("announcement_text") @db.Text
+  updatedAt           DateTime @updatedAt @map("updated_at") @db.Timestamptz
+  updatedBy           String?  @map("updated_by") @db.Uuid
 
-  siteLogo             Media?   @relation("site_logo", fields: [siteLogoId], references: [id], onDelete: SetNull)
-  siteFavicon          Media?   @relation("site_favicon", fields: [siteFaviconId], references: [id], onDelete: SetNull)
-  seoOgImage           Media?   @relation("site_og_image", fields: [seoOgImageId], references: [id], onDelete: SetNull)
-  updater              User?    @relation("settings_updater", fields: [updatedBy], references: [id], onDelete: SetNull)
+  siteLogo    Media? @relation("site_logo", fields: [siteLogoId], references: [id], onDelete: SetNull)
+  siteFavicon Media? @relation("site_favicon", fields: [siteFaviconId], references: [id], onDelete: SetNull)
+  seoOgImage  Media? @relation("site_og_image", fields: [seoOgImageId], references: [id], onDelete: SetNull)
+  updater     User?  @relation("settings_updater", fields: [updatedBy], references: [id], onDelete: SetNull)
 
   @@map("settings")
 }
@@ -268,7 +268,7 @@ model Sejarah {
   updatedAt DateTime      @updatedAt @map("updated_at") @db.Timestamptz
   updatedBy String?       @map("updated_by") @db.Uuid
 
-  updater   User?         @relation("sejarah_updater", fields: [updatedBy], references: [id], onDelete: SetNull)
+  updater User? @relation("sejarah_updater", fields: [updatedBy], references: [id], onDelete: SetNull)
 
   @@map("sejarah")
 }
@@ -280,10 +280,10 @@ model SejarahPhoto {
   orderIndex Int      @default(0) @map("order_index") @db.SmallInt
   createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
 
-  media      Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  media Media @relation(fields: [mediaId], references: [id], onDelete: Cascade)
 
-  @@map("sejarah_photos")
   @@index([orderIndex])
+  @@map("sejarah_photos")
 }
 
 model VisiMisi {
@@ -292,7 +292,7 @@ model VisiMisi {
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz
   updatedBy String?  @map("updated_by") @db.Uuid
 
-  updater   User?    @relation("visi_misi_updater", fields: [updatedBy], references: [id], onDelete: SetNull)
+  updater User? @relation("visi_misi_updater", fields: [updatedBy], references: [id], onDelete: SetNull)
 
   @@map("visi_misi")
 }
@@ -305,8 +305,8 @@ model MisiItem {
   createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
   updatedAt  DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
-  @@map("misi_items")
   @@index([orderIndex])
+  @@map("misi_items")
 }
 
 model UnitKerja {
@@ -322,8 +322,8 @@ model UnitKerja {
   staf         Staf[]
   jabatanNodes JabatanNode[]
 
-  @@map("unit_kerja")
   @@index([isActive, orderIndex])
+  @@map("unit_kerja")
 }
 
 model JabatanNode {
@@ -340,16 +340,16 @@ model JabatanNode {
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
   updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
-  parent      JabatanNode?  @relation("OrgHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
-  children    JabatanNode[] @relation("OrgHierarchy")
-  photo       Media?        @relation(fields: [photoId], references: [id], onDelete: SetNull)
-  unitKerja   UnitKerja?    @relation(fields: [unitKerjaId], references: [id], onDelete: SetNull)
-  staf        Staf[]
+  parent    JabatanNode?  @relation("OrgHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
+  children  JabatanNode[] @relation("OrgHierarchy")
+  photo     Media?        @relation(fields: [photoId], references: [id], onDelete: SetNull)
+  unitKerja UnitKerja?    @relation(fields: [unitKerjaId], references: [id], onDelete: SetNull)
+  staf      Staf[]
 
-  @@map("jabatan_nodes")
   @@index([parentId])
   @@index([level, orderIndex])
   @@index([unitKerjaId])
+  @@map("jabatan_nodes")
 }
 
 model WilayahKerja {
@@ -368,10 +368,10 @@ model WilayahKerja {
   createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz
   updatedAt    DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
-  photo        Media?   @relation(fields: [photoId], references: [id], onDelete: SetNull)
+  photo Media? @relation(fields: [photoId], references: [id], onDelete: SetNull)
 
-  @@map("wilayah_kerja")
   @@index([isActive, orderIndex])
+  @@map("wilayah_kerja")
 }
 
 // ==========================================
@@ -385,16 +385,16 @@ model KategoriBerita {
   description String?  @db.Text
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
 
-  berita      Berita[]
+  berita Berita[]
 
   @@map("kategori_berita")
 }
 
 model Tag {
-  id        String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name      String      @unique @db.VarChar(100)
-  slug      String      @unique @db.VarChar(100)
-  createdAt DateTime    @default(now()) @map("created_at") @db.Timestamptz
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String   @unique @db.VarChar(100)
+  slug      String   @unique @db.VarChar(100)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
 
   beritaTags BeritaTag[]
 
@@ -422,30 +422,30 @@ model Berita {
   createdAt       DateTime      @default(now()) @map("created_at") @db.Timestamptz
   updatedAt       DateTime      @updatedAt @map("updated_at") @db.Timestamptz
 
-  thumbnail       Media?        @relation("berita_thumbnail", fields: [thumbnailId], references: [id], onDelete: SetNull)
-  kategori        KategoriBerita? @relation(fields: [kategoriId], references: [id], onDelete: SetNull)
-  author          User?         @relation("berita_author", fields: [authorId], references: [id], onDelete: SetNull)
-  ogImage         Media?        @relation("berita_og_image", fields: [ogImageId], references: [id], onDelete: SetNull)
-  beritaTags      BeritaTag[]
+  thumbnail  Media?          @relation("berita_thumbnail", fields: [thumbnailId], references: [id], onDelete: SetNull)
+  kategori   KategoriBerita? @relation(fields: [kategoriId], references: [id], onDelete: SetNull)
+  author     User?           @relation("berita_author", fields: [authorId], references: [id], onDelete: SetNull)
+  ogImage    Media?          @relation("berita_og_image", fields: [ogImageId], references: [id], onDelete: SetNull)
+  beritaTags BeritaTag[]
 
-  @@map("berita")
   @@index([status])
   @@index([publishedAt(sort: Desc)])
   @@index([isFeatured, publishedAt(sort: Desc)])
   @@index([kategoriId, status])
   @@index([authorId])
+  @@map("berita")
 }
 
 model BeritaTag {
   beritaId String @map("berita_id") @db.Uuid
   tagId    String @map("tag_id") @db.Uuid
 
-  berita   Berita @relation(fields: [beritaId], references: [id], onDelete: Cascade)
-  tag      Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  berita Berita @relation(fields: [beritaId], references: [id], onDelete: Cascade)
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
 
   @@id([beritaId, tagId])
-  @@map("berita_tags")
   @@index([tagId])
+  @@map("berita_tags")
 }
 
 model Pengumuman {
@@ -461,12 +461,12 @@ model Pengumuman {
   createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz
   updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamptz
 
-  attachment   Media?        @relation(fields: [attachmentId], references: [id], onDelete: SetNull)
-  creator      User?         @relation("pengumuman_creator", fields: [createdBy], references: [id], onDelete: SetNull)
+  attachment Media? @relation(fields: [attachmentId], references: [id], onDelete: SetNull)
+  creator    User?  @relation("pengumuman_creator", fields: [createdBy], references: [id], onDelete: SetNull)
 
-  @@map("pengumuman")
   @@index([startDate, endDate])
   @@index([isPinned, startDate(sort: Desc)])
+  @@map("pengumuman")
 }
 
 model GaleriAlbum {
@@ -481,12 +481,12 @@ model GaleriAlbum {
   createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz
   updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamptz
 
-  coverPhoto   Media?        @relation(fields: [coverPhotoId], references: [id], onDelete: SetNull)
-  creator      User?         @relation("album_creator", fields: [createdBy], references: [id], onDelete: SetNull)
-  photos       GaleriPhoto[]
+  coverPhoto Media?        @relation(fields: [coverPhotoId], references: [id], onDelete: SetNull)
+  creator    User?         @relation("album_creator", fields: [createdBy], references: [id], onDelete: SetNull)
+  photos     GaleriPhoto[]
 
-  @@map("galeri_albums")
   @@index([status, createdAt(sort: Desc)])
+  @@map("galeri_albums")
 }
 
 model GaleriPhoto {
@@ -498,11 +498,11 @@ model GaleriPhoto {
   orderIndex Int      @default(0) @map("order_index") @db.SmallInt
   createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
 
-  album      GaleriAlbum @relation(fields: [albumId], references: [id], onDelete: Cascade)
-  media      Media       @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  album GaleriAlbum @relation(fields: [albumId], references: [id], onDelete: Cascade)
+  media Media       @relation(fields: [mediaId], references: [id], onDelete: Cascade)
 
-  @@map("galeri_photos")
   @@index([albumId, orderIndex])
+  @@map("galeri_photos")
 }
 
 // ==========================================
@@ -510,14 +510,14 @@ model GaleriPhoto {
 // ==========================================
 
 model KategoriPelatihan {
-  id          String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name        String      @unique @db.VarChar(100)
-  slug        String      @unique @db.VarChar(100)
-  description String?     @db.Text
-  orderIndex  Int         @default(0) @map("order_index") @db.SmallInt
-  createdAt   DateTime    @default(now()) @map("created_at") @db.Timestamptz
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String   @unique @db.VarChar(100)
+  slug        String   @unique @db.VarChar(100)
+  description String?  @db.Text
+  orderIndex  Int      @default(0) @map("order_index") @db.SmallInt
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
 
-  pelatihan   Pelatihan[]
+  pelatihan Pelatihan[]
 
   @@map("kategori_pelatihan")
 }
@@ -544,29 +544,29 @@ model Pelatihan {
   createdAt         DateTime        @default(now()) @map("created_at") @db.Timestamptz
   updatedAt         DateTime        @updatedAt @map("updated_at") @db.Timestamptz
 
-  kategori          KategoriPelatihan? @relation(fields: [kategoriId], references: [id], onDelete: SetNull)
-  thumbnail         Media?             @relation("pelatihan_thumbnail", fields: [thumbnailId], references: [id], onDelete: SetNull)
-  brochure          Media?             @relation("pelatihan_brochure", fields: [brochureId], references: [id], onDelete: SetNull)
-  creator           User?              @relation("pelatihan_creator", fields: [createdBy], references: [id], onDelete: SetNull)
-  statistikPeserta  StatPeserta[]
+  kategori         KategoriPelatihan? @relation(fields: [kategoriId], references: [id], onDelete: SetNull)
+  thumbnail        Media?             @relation("pelatihan_thumbnail", fields: [thumbnailId], references: [id], onDelete: SetNull)
+  brochure         Media?             @relation("pelatihan_brochure", fields: [brochureId], references: [id], onDelete: SetNull)
+  creator          User?              @relation("pelatihan_creator", fields: [createdBy], references: [id], onDelete: SetNull)
+  statistikPeserta StatPeserta[]
 
-  @@map("pelatihan")
   @@index([status])
   @@index([kategoriId, status])
   @@index([scheduleStart])
+  @@map("pelatihan")
 }
 
 model MagangInfo {
-  id          Int      @id @default(1) @db.SmallInt // Singleton
-  description String   @db.Text
+  id           Int      @id @default(1) @db.SmallInt // Singleton
+  description  String   @db.Text
   requirements String?  @db.Text
-  procedure   String?  @db.Text
-  contactInfo String?  @map("contact_info") @db.Text
-  isOpen      Boolean  @default(false) @map("is_open")
-  updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamptz
-  updatedBy   String?  @map("updated_by") @db.Uuid
+  procedure    String?  @db.Text
+  contactInfo  String?  @map("contact_info") @db.Text
+  isOpen       Boolean  @default(false) @map("is_open")
+  updatedAt    DateTime @updatedAt @map("updated_at") @db.Timestamptz
+  updatedBy    String?  @map("updated_by") @db.Uuid
 
-  updater     User?    @relation("magang_info_updater", fields: [updatedBy], references: [id], onDelete: SetNull)
+  updater User? @relation("magang_info_updater", fields: [updatedBy], references: [id], onDelete: SetNull)
 
   @@map("magang_info")
 }
@@ -594,15 +594,15 @@ model PendaftaranMagang {
   createdAt       DateTime     @default(now()) @map("created_at") @db.Timestamptz
   updatedAt       DateTime     @updatedAt @map("updated_at") @db.Timestamptz
 
-  cv              Media?       @relation("magang_cv", fields: [cvId], references: [id], onDelete: SetNull)
-  proposal        Media?       @relation("magang_proposal", fields: [proposalId], references: [id], onDelete: SetNull)
-  suratBalasan    Media?       @relation("magang_surat_balasan", fields: [suratBalasanId], references: [id], onDelete: SetNull)
-  reviewer        User?        @relation("magang_reviewer", fields: [reviewedBy], references: [id], onDelete: SetNull)
+  cv           Media? @relation("magang_cv", fields: [cvId], references: [id], onDelete: SetNull)
+  proposal     Media? @relation("magang_proposal", fields: [proposalId], references: [id], onDelete: SetNull)
+  suratBalasan Media? @relation("magang_surat_balasan", fields: [suratBalasanId], references: [id], onDelete: SetNull)
+  reviewer     User?  @relation("magang_reviewer", fields: [reviewedBy], references: [id], onDelete: SetNull)
 
-  @@map("pendaftaran_magang")
   @@index([status, createdAt(sort: Desc)])
   @@index([email])
   @@index([periodStart, periodEnd])
+  @@map("pendaftaran_magang")
 }
 
 model KategoriFAQ {
@@ -612,7 +612,7 @@ model KategoriFAQ {
   orderIndex Int      @default(0) @map("order_index") @db.SmallInt
   createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
 
-  faqs       FAQ[]
+  faqs FAQ[]
 
   @@map("kategori_faq")
 }
@@ -627,10 +627,10 @@ model FAQ {
   createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
   updatedAt  DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
-  kategori   KategoriFAQ? @relation(fields: [kategoriId], references: [id], onDelete: SetNull)
+  kategori KategoriFAQ? @relation(fields: [kategoriId], references: [id], onDelete: SetNull)
 
-  @@map("faq")
   @@index([kategoriId, orderIndex])
+  @@map("faq")
 }
 
 model Feedback {
@@ -647,11 +647,11 @@ model Feedback {
   processedAt DateTime?      @map("processed_at") @db.Timestamptz
   createdAt   DateTime       @default(now()) @map("created_at") @db.Timestamptz
 
-  processor   User?          @relation("feedback_processor", fields: [processedBy], references: [id], onDelete: SetNull)
+  processor User? @relation("feedback_processor", fields: [processedBy], references: [id], onDelete: SetNull)
 
-  @@map("feedback")
   @@index([status, createdAt(sort: Desc)])
   @@index([rating])
+  @@map("feedback")
 }
 
 // ==========================================
@@ -674,13 +674,13 @@ model Publikasi {
   createdAt     DateTime       @default(now()) @map("created_at") @db.Timestamptz
   updatedAt     DateTime       @updatedAt @map("updated_at") @db.Timestamptz
 
-  thumbnail     Media?         @relation("publikasi_thumbnail", fields: [thumbnailId], references: [id], onDelete: SetNull)
-  file          Media          @relation("publikasi_file", fields: [fileId], references: [id], onDelete: Restrict)
-  creator       User?          @relation("publikasi_creator", fields: [createdBy], references: [id], onDelete: SetNull)
+  thumbnail Media? @relation("publikasi_thumbnail", fields: [thumbnailId], references: [id], onDelete: SetNull)
+  file      Media  @relation("publikasi_file", fields: [fileId], references: [id], onDelete: Restrict)
+  creator   User?  @relation("publikasi_creator", fields: [createdBy], references: [id], onDelete: SetNull)
 
-  @@map("publikasi")
   @@index([jenis, year(sort: Desc)])
   @@index([status])
+  @@map("publikasi")
 }
 
 // ==========================================
@@ -697,7 +697,7 @@ model IndikatorKinerja {
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
   updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
-  dataPoints  DataKinerja[]
+  dataPoints DataKinerja[]
 
   @@map("indikator_kinerja")
 }
@@ -714,32 +714,32 @@ model DataKinerja {
   createdAt   DateTime         @default(now()) @map("created_at") @db.Timestamptz
   updatedAt   DateTime         @updatedAt @map("updated_at") @db.Timestamptz
 
-  indikator   IndikatorKinerja @relation(fields: [indikatorId], references: [id], onDelete: Cascade)
-  creator     User?            @relation("kinerja_creator", fields: [createdBy], references: [id], onDelete: SetNull)
+  indikator IndikatorKinerja @relation(fields: [indikatorId], references: [id], onDelete: Cascade)
+  creator   User?            @relation("kinerja_creator", fields: [createdBy], references: [id], onDelete: SetNull)
 
   @@unique([indikatorId, year, period], map: "uq_data_kinerja")
-  @@map("data_kinerja")
   @@index([indikatorId, year(sort: Desc)])
+  @@map("data_kinerja")
 }
 
 model StatPeserta {
-  id           String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  programName  String     @map("program_name") @db.VarChar(255)
-  pelatihanId  String?    @map("pelatihan_id") @db.Uuid
-  year         Int        @db.SmallInt
-  totalPeserta Int        @map("total_peserta")
-  maleCount    Int?       @map("male_count")
-  femaleCount  Int?       @map("female_count")
-  notes        String?    @db.Text
-  createdBy    String?    @map("created_by") @db.Uuid
-  createdAt    DateTime   @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt    DateTime   @updatedAt @map("updated_at") @db.Timestamptz
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  programName  String   @map("program_name") @db.VarChar(255)
+  pelatihanId  String?  @map("pelatihan_id") @db.Uuid
+  year         Int      @db.SmallInt
+  totalPeserta Int      @map("total_peserta")
+  maleCount    Int?     @map("male_count")
+  femaleCount  Int?     @map("female_count")
+  notes        String?  @db.Text
+  createdBy    String?  @map("created_by") @db.Uuid
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
-  pelatihan    Pelatihan? @relation(fields: [pelatihanId], references: [id], onDelete: SetNull)
-  creator      User?      @relation("stat_peserta_creator", fields: [createdBy], references: [id], onDelete: SetNull)
+  pelatihan Pelatihan? @relation(fields: [pelatihanId], references: [id], onDelete: SetNull)
+  creator   User?      @relation("stat_peserta_creator", fields: [createdBy], references: [id], onDelete: SetNull)
 
-  @@map("stat_peserta")
   @@index([year(sort: Desc)])
+  @@map("stat_peserta")
 }
 
 model Infografis {
@@ -754,11 +754,11 @@ model Infografis {
   createdAt   DateTime      @default(now()) @map("created_at") @db.Timestamptz
   updatedAt   DateTime      @updatedAt @map("updated_at") @db.Timestamptz
 
-  image       Media         @relation(fields: [imageId], references: [id], onDelete: Restrict)
-  creator     User?         @relation("infografis_creator", fields: [createdBy], references: [id], onDelete: SetNull)
+  image   Media @relation(fields: [imageId], references: [id], onDelete: Restrict)
+  creator User? @relation("infografis_creator", fields: [createdBy], references: [id], onDelete: SetNull)
 
-  @@map("infografis")
   @@index([status, orderIndex])
+  @@map("infografis")
 }
 
 // ==========================================
@@ -766,30 +766,30 @@ model Infografis {
 // ==========================================
 
 model Staf {
-  id             String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  fullName       String      @map("full_name") @db.VarChar(255)
-  nip            String?     @unique(map: "idx_staf_nip") @db.VarChar(50)
-  position       String      @db.VarChar(255)
-  unitKerjaId    String?     @map("unit_kerja_id") @db.Uuid
-  jabatanNodeId  String?     @map("jabatan_node_id") @db.Uuid
-  photoId        String?     @map("photo_id") @db.Uuid
-  email          String?     @db.VarChar(255)
-  phoneInternal  String?     @map("phone_internal") @db.VarChar(50)
-  phoneMobile    String?     @map("phone_mobile") @db.VarChar(50)
-  orderIndex     Int         @default(0) @map("order_index") @db.SmallInt
-  isActive       Boolean     @default(true) @map("is_active")
-  joinedDate     DateTime?   @map("joined_date") @db.Date
-  createdAt      DateTime    @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt      DateTime    @updatedAt @map("updated_at") @db.Timestamptz
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  fullName      String    @map("full_name") @db.VarChar(255)
+  nip           String?   @unique(map: "idx_staf_nip") @db.VarChar(50)
+  position      String    @db.VarChar(255)
+  unitKerjaId   String?   @map("unit_kerja_id") @db.Uuid
+  jabatanNodeId String?   @map("jabatan_node_id") @db.Uuid
+  photoId       String?   @map("photo_id") @db.Uuid
+  email         String?   @db.VarChar(255)
+  phoneInternal String?   @map("phone_internal") @db.VarChar(50)
+  phoneMobile   String?   @map("phone_mobile") @db.VarChar(50)
+  orderIndex    Int       @default(0) @map("order_index") @db.SmallInt
+  isActive      Boolean   @default(true) @map("is_active")
+  joinedDate    DateTime? @map("joined_date") @db.Date
+  createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt     DateTime  @updatedAt @map("updated_at") @db.Timestamptz
 
-  unitKerja      UnitKerja?   @relation(fields: [unitKerjaId], references: [id], onDelete: SetNull)
-  jabatanNode    JabatanNode? @relation(fields: [jabatanNodeId], references: [id], onDelete: SetNull)
-  photo          Media?       @relation(fields: [photoId], references: [id], onDelete: SetNull)
+  unitKerja   UnitKerja?   @relation(fields: [unitKerjaId], references: [id], onDelete: SetNull)
+  jabatanNode JabatanNode? @relation(fields: [jabatanNodeId], references: [id], onDelete: SetNull)
+  photo       Media?       @relation(fields: [photoId], references: [id], onDelete: SetNull)
 
-  @@map("staf")
   @@index([unitKerjaId, orderIndex])
   @@index([jabatanNodeId])
   @@index([isActive])
+  @@map("staf")
 }
 
 // ==========================================
@@ -809,10 +809,10 @@ model PesanKontak {
   readAt    DateTime?    @map("read_at") @db.Timestamptz
   createdAt DateTime     @default(now()) @map("created_at") @db.Timestamptz
 
-  reader    User?        @relation("kontak_reader", fields: [readBy], references: [id], onDelete: SetNull)
+  reader User? @relation("kontak_reader", fields: [readBy], references: [id], onDelete: SetNull)
 
-  @@map("pesan_kontak")
   @@index([status, createdAt(sort: Desc)])
+  @@map("pesan_kontak")
 }
 
 model Banner {
@@ -828,9 +828,8 @@ model Banner {
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
   updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
-  image       Media    @relation(fields: [imageId], references: [id], onDelete: Restrict)
+  image Media @relation(fields: [imageId], references: [id], onDelete: Restrict)
 
-  @@map("banners")
   @@index([isActive, orderIndex])
+  @@map("banners")
 }
-

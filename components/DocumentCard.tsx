@@ -38,6 +38,7 @@ export default function DocumentCard({
         <div className="relative w-44 aspect-[3/4] rounded-md overflow-hidden bg-white shadow-[0_8px_20px_-6px_rgba(11,27,61,0.25)] border-l-[3px] border-l-slate-400/80 border border-slate-200/90 transition-transform duration-500 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_14px_28px_-6px_rgba(2,132,199,0.3)]">
           
           {coverUrl ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
             <img
               src={coverUrl}
               alt={`Cover ${title}`}

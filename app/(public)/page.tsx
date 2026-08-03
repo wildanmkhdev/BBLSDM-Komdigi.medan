@@ -5,12 +5,13 @@ import HomeContactForm from "@/components/HomeContactForm";
 import Link from "next/link";
 import Image from "next/image";
 import prisma from "@/lib/prisma";
+import { Banner, Media, Berita, KategoriBerita } from "@prisma/client";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
   // 1. Fetch active banners from DB
-  let dbBanners: unknown[] = [];
+  let dbBanners: (Banner & { image: Media | null })[] = [];
   try {
     dbBanners = await prisma.banner.findMany({
       where: { isActive: true },
@@ -22,7 +23,7 @@ export default async function Home() {
   }
 
   // 2. Fetch popular news for Hero overlay
-  let dbPopularNews: unknown[] = [];
+  let dbPopularNews: (Berita & { thumbnail: Media | null; kategori: KategoriBerita | null })[] = [];
   try {
     dbPopularNews = await prisma.berita.findMany({
       where: { status: "PUBLISHED" },
@@ -35,7 +36,7 @@ export default async function Home() {
   }
 
   // 3. Fetch latest news list for news section
-  let dbNewsList: unknown[] = [];
+  let dbNewsList: (Berita & { thumbnail: Media | null; kategori: KategoriBerita | null })[] = [];
   try {
     dbNewsList = await prisma.berita.findMany({
       where: { status: "PUBLISHED" },
@@ -84,11 +85,11 @@ export default async function Home() {
   ];
 
   const newsList = dbNewsList.length > 0
-    ? (dbNewsList as Array<{ title: string; publishedAt?: Date; summary?: string; kategori?: { name?: string }; thumbnail?: { publicUrl?: string } }>).map((n) => ({
+    ? (dbNewsList as Array<{ title: string; publishedAt?: Date; excerpt?: string; summary?: string; kategori?: { name?: string }; thumbnail?: { publicUrl?: string } }>).map((n) => ({
         title: n.title,
         date: n.publishedAt ? new Date(n.publishedAt).toLocaleDateString("id-ID") : "Baru saja",
         category: n.kategori?.name || "Berita",
-        desc: n.summary || "",
+        desc: n.excerpt || "",
         image: n.thumbnail?.publicUrl || "/logo komdigi.png",
         href: `/informasi/berita`,
       }))
@@ -98,7 +99,13 @@ export default async function Home() {
     <>
       <main className="flex-grow">
         {/* Hero Sections */}
-        <HeroBanner initialSlides={dbBanners} popularNewsList={dbPopularNews} />
+        <HeroBanner
+          initialSlides={dbBanners}
+          popularNewsList={dbPopularNews.map((n) => ({
+            ...n,
+            viewCount: Number(n.viewCount),
+          }))}
+        />
 
         {/* News & Announcements (Official Komdigi Layout) */}
         <section className="py-20 bg-slate-50 border-b border-slate-200/60">

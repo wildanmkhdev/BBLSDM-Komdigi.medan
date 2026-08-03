@@ -2,21 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import { createBanner } from "@/features/banner/actions";
-import { getMediaList, uploadFile } from "@/features/media/actions";
+import { getMediaList, uploadFile, SafeMedia } from "@/features/media/actions";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
-interface MediaItem {
-  id: string;
-  originalName: string;
-  publicUrl: string;
-  mimeType: string;
-}
 
 export default function AddBannerPage() {
   const router = useRouter();
   
-  const [mediaList, setMediaList] = useState<MediaItem[]>([]);
+  const [mediaList, setMediaList] = useState<SafeMedia[]>([]);
   const [selectedMediaId, setSelectedMediaId] = useState("");
   
   const [accentBadge, setAccentBadge] = useState("PROGRAM UTAMA");
@@ -29,17 +22,19 @@ export default function AddBannerPage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchImages = async () => {
-    const list = await getMediaList();
-    const images = list.filter(item => item.mimeType.startsWith("image/"));
-    setMediaList(images as any);
-    if (images.length > 0) {
-      setSelectedMediaId(images[0].id);
-    }
-  };
-
   useEffect(() => {
-    fetchImages();
+    let active = true;
+    getMediaList().then((list) => {
+      if (!active) return;
+      const images = list.filter(item => item.mimeType.startsWith("image/"));
+      setMediaList(images);
+      if (images.length > 0) {
+        setSelectedMediaId(images[0].id);
+      }
+    });
+    return () => {
+      active = false;
+    };
   }, []);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +52,7 @@ export default function AddBannerPage() {
     if (res.success && res.media) {
       const list = await getMediaList();
       const images = list.filter(item => item.mimeType.startsWith("image/"));
-      setMediaList(images as any);
+      setMediaList(images);
       setSelectedMediaId(res.media.id);
     } else {
       setError(res.error || "Gagal mengunggah file");
@@ -147,6 +142,7 @@ export default function AddBannerPage() {
           {/* Selected preview */}
           {selectedMediaId && (
             <div className="mt-2 relative w-48 h-28 bg-slate-50 rounded border border-slate-200 overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={mediaList.find(img => img.id === selectedMediaId)?.publicUrl || ""}
                 alt="Preview"

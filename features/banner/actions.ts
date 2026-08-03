@@ -3,6 +3,7 @@
 import prisma from "@/lib/prisma";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
+import { Prisma } from "@prisma/client";
 
 const bannerSchema = z.object({
   accentBadge: z.string().min(2, "Lencana wajib diisi (min 2 karakter)").max(100),
@@ -13,7 +14,7 @@ const bannerSchema = z.object({
   ctaLink: z.string().default("/informasi/berita"),
 });
 
-export async function getBanners() {
+export async function getBanners(): Promise<Prisma.BannerGetPayload<{ include: { image: true } }>[]> {
   try {
     return await prisma.banner.findMany({
       orderBy: { orderIndex: "asc" },
@@ -65,6 +66,7 @@ export async function toggleBannerStatus(id: string, isActive: boolean) {
     revalidatePath("/admin/banner");
     return { success: true };
   } catch (error) {
+    console.error("Error updating banner status:", error);
     return { success: false, error: "Gagal memperbarui status banner" };
   }
 }
@@ -78,6 +80,7 @@ export async function deleteBanner(id: string) {
     revalidatePath("/admin/banner");
     return { success: true };
   } catch (error) {
+    console.error("Error deleting banner:", error);
     return { success: false, error: "Gagal menghapus banner" };
   }
 }
