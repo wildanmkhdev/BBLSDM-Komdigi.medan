@@ -170,22 +170,27 @@ export default function KontakPage() {
             <div className="lg:col-span-5 space-y-6">
 
               {/* Office Address Card */}
-              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
+              <a 
+                href="https://maps.google.com/?q=BBLSDM+Komdigi+Medan+Jl.+Tombak+No.+31+Medan"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl group"
+              >
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-sky-100 text-[#0284c7] flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-sky-100 text-[#0284c7] flex items-center justify-center shrink-0 group-hover:bg-[#0284c7] group-hover:text-white transition-colors">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-sm font-extrabold text-[#0b1b3d]">Alamat Kantor Utama</h3>
-                    <p className="text-xs text-slate-600 leading-relaxed mt-1">
+                    <h3 className="text-sm font-extrabold text-[#0b1b3d] group-hover:text-[#0284c7] transition-colors">Alamat Kantor Utama</h3>
+                    <p className="text-xs text-slate-600 leading-relaxed mt-1 group-hover:underline">
                       Jl. Tombak No. 31, Kel. Nangka, Kec. Medan Barat, Kota Medan, Sumatera Utara 20115
                     </p>
                   </div>
                 </div>
-              </div>
+              </a>
 
               {/* Telephone Card */}
               <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
