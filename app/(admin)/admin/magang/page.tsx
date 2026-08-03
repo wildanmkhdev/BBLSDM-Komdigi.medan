@@ -2,8 +2,13 @@ import React from "react";
 import prisma from "@/lib/prisma";
 import { getMagangApplications, getMagangInfo } from "@/features/magang/actions";
 import { redirect } from "next/navigation";
+<<<<<<< HEAD
 import fs from "fs";
 import path from "path";
+=======
+import ProcedureEditor from "./ProcedureEditor";
+import ApplicationsManager from "./ApplicationsManager";
+>>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
 
 export const dynamic = "force-dynamic";
 
@@ -80,16 +85,8 @@ export default async function AdminMagangPage() {
               />
             </div>
 
-            {/* Prosedur JSON */}
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 mb-1">Alur Pendaftaran (JSON Array)</label>
-              <textarea
-                name="procedure"
-                rows={6}
-                defaultValue={info?.procedure || "[]"}
-                className="w-full px-3 py-1.5 border border-slate-200 rounded-md text-[10px] font-mono focus:outline-none focus:ring-1 focus:ring-slate-900"
-              />
-            </div>
+            {/* Prosedur Editor */}
+            <ProcedureEditor initialProcedure={info?.procedure || "[]"} />
 
             <button
               type="submit"
@@ -102,6 +99,7 @@ export default async function AdminMagangPage() {
 
         {/* Right Column (2/3): Applications List */}
         <div className="lg:col-span-2 space-y-4">
+<<<<<<< HEAD
           <h3 className="font-bold text-sm text-slate-900">Pengajuan Masuk ({applications.length})</h3>
 
           {applications.length === 0 ? (
@@ -337,6 +335,12 @@ export default async function AdminMagangPage() {
               </table>
             </div>
           )}
+=======
+          <div className="flex items-center justify-between">
+            <h3 className="font-bold text-sm text-slate-900">Pengajuan Masuk ({applications.length})</h3>
+          </div>
+          <ApplicationsManager initialApplications={applications} />
+>>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
         </div>
 
       </div>

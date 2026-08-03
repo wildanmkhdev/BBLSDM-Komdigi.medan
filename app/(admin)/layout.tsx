@@ -4,6 +4,8 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "../globals.css";
 import { auth, signOut } from "@/auth";
 
+import SidebarNav from "./admin/SidebarNav";
+
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
@@ -24,36 +26,18 @@ export default async function AdminRootLayout({
 
   return (
     <html lang="id" className={`${plusJakartaSans.variable} h-full antialiased`}>
-      <body className="min-h-full flex bg-slate-50 text-slate-900 font-sans w-full">
-        {/* Sidebar Stub */}
-        <aside className="w-64 bg-slate-900 text-slate-100 flex flex-col shrink-0">
-          <div className="h-16 flex items-center px-6 border-b border-slate-800 font-bold text-lg tracking-wider text-cyan-400">
-            CMS BBLSDM
+      <body className="min-h-full flex bg-[#f8fafc] text-slate-900 font-sans w-full">
+        {/* Sidebar */}
+        <aside className="w-64 bg-[#0b1b3d] text-white flex flex-col shrink-0 shadow-xl border-r border-[#0b1b3d]/10">
+          <div className="h-16 flex items-center justify-between px-6 border-b border-white/10">
+            <span className="font-extrabold text-sm tracking-wider uppercase text-white flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-blue-400 animate-pulse inline-block" />
+              CMS BBLSDM
+            </span>
           </div>
-          <nav className="flex-1 px-4 py-6 space-y-1">
-            <div className="px-3 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Core</div>
-            <a href="/admin" className="flex items-center px-3 py-2 text-sm font-medium rounded-md bg-slate-800 text-white">
-              Dashboard
-            </a>
-            <a href="/admin/media" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
-              Media Library
-            </a>
-            <a href="/admin/banner" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
-              Banner Slider
-            </a>
-            <div className="pt-4 px-3 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Editorial</div>
-            <a href="/admin/berita" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
-              Berita
-            </a>
-            <a href="/admin/staf" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
-              Direktori Staf
-            </a>
-            <a href="/admin/magang" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
-              Inbox Magang
-            </a>
-          </nav>
-          <div className="p-4 border-t border-slate-800 text-xs text-slate-400">
-            Logged in as Admin
+          <SidebarNav userRole={session?.user?.role} />
+          <div className="p-4 border-t border-white/10 text-[10px] text-slate-400 font-medium tracking-wide">
+            Logged in as: <span className="text-white block mt-0.5">{session?.user?.name || session?.user?.email}</span>
           </div>
         </aside>
 

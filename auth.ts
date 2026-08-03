@@ -21,7 +21,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         const { email, password } = parsedCredentials.data;
         
-        // Query database via Prisma Singleton
+        // Query database via Prisma Singletonss
         const user = await prisma.user.findUnique({ 
           where: { email } 
         });

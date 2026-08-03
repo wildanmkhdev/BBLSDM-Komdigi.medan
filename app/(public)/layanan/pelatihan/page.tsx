@@ -1,288 +1,56 @@
-"use client";
+import React from "react";
+import prisma from "@/lib/prisma";
+import PelatihanList, { type PelatihanItem } from "./PelatihanList";
 
-import { useState } from "react";
-import PageHeader from "@/app/components/PageHeader";
+import { Pelatihan } from "@prisma/client";
 
-/* ──────────────────────────────────────────
-   Icon Helpers
-   ────────────────────────────────────────── */
-function IconSearch() {
-  return (
-    <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-    </svg>
-  );
-}
+export const dynamic = "force-dynamic";
 
-function IconCalendar() {
-  return (
-    <svg className="w-4 h-4 shrink-0 text-sky-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-    </svg>
-  );
-}
+export default async function PelatihanPage() {
+  let dbPelatihan: Pelatihan[] = [];
+  try {
+    dbPelatihan = await prisma.pelatihan.findMany({
+      orderBy: [{ status: "asc" }, { createdAt: "desc" }],
+    });
+  } catch (error) {
+    console.error("Error fetching pelatihan:", error);
+  }
 
-function IconClock() {
-  return (
-    <svg className="w-4 h-4 shrink-0 text-sky-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  );
-}
+  const list: PelatihanItem[] = dbPelatihan.map((p) => {
+    // Map status enum DB ke label UI
+    const statusMap = {
+      OPEN: "Dibuka",
+      FULL: "Penuh",
+      SEGERA_DIBUKA: "Segera Dibuka",
+    } as const;
 
-function IconUsers() {
-  return (
-    <svg className="w-4 h-4 shrink-0 text-sky-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-    </svg>
-  );
-}
+    // Map level enum DB ke label UI
+    const levelMap = {
+      DASAR: "Dasar",
+      MENENGAH: "Menengah",
+      LANJUTAN: "Lanjutan",
+    } as const;
 
-function IconMapPin() {
-  return (
-    <svg className="w-4 h-4 shrink-0 text-sky-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-    </svg>
-  );
-}
-
-function IconCheckCircle() {
-  return (
-    <svg className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  );
-}
-
-function IconX() {
-  return (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-    </svg>
-  );
-}
-
-function IconBookOpen() {
-  return (
-    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" />
-    </svg>
-  );
-}
-
-/* ──────────────────────────────────────────
-   Types & Data
-   ────────────────────────────────────────── */
-interface PelatihanItem {
-  id: number;
-  title: string;
-  category: "komunikasi" | "pemasaran" | "cyber" | "data" | "cloud";
-  categoryLabel: string;
-  description: string;
-  jadwal: string;
-  durasi: string;
-  kuota: number;
-  terisi: number;
-  status: "Dibuka" | "Penuh" | "Segera Dibuka";
-  level: "Dasar" | "Menengah" | "Lanjutan";
-  metode: string;
-  lokasi: string;
-  silabus: string[];
-  persyaratan: string[];
-}
-
-const pelatihanList: PelatihanItem[] = [
-  {
-    id: 1,
-    title: "Literasi Digital & Etika Komunikasi Publik",
-    category: "komunikasi",
-    categoryLabel: "Komunikasi Digital",
-    description:
-      "Pelatihan komprehensif bagi ASN dan pelayan publik dalam mengelola komunikasi publik resmi, keamanan akun instansi, hingga etika bermedia sosial.",
-    jadwal: "28 Jul — 30 Jul 2026",
-    durasi: "3 Hari (24 JP)",
-    kuota: 60,
-    terisi: 47,
-    status: "Dibuka",
-    level: "Dasar",
-    metode: "Tatap Muka",
-    lokasi: "Lab Komputer A, BBLSDM Komdigi Medan",
-    silabus: [
-      "Prinsip dasar keamanan akun & perlindungan data publik",
-      "Etika komunikasi publik dan manajemen krisis di media sosial",
-      "Pemanfaatan tools produktivitas cloud terenkripsi",
-      "Praktik penyusunan konten informasi publik yang efektif",
-    ],
-    persyaratan: [
-      "ASN / Perangkat Desa / Pegawai Layanan Publik",
-      "Membawa laptop pribadi dengan browser versi terbaru",
-      "Membawa surat tugas dari instansi pengutus",
-    ],
-  },
-  {
-    id: 2,
-    title: "Digital Marketing & Social Media Strategy",
-    category: "pemasaran",
-    categoryLabel: "Pemasaran Digital",
-    description:
-      "Formulasi strategi pemasaran digital terintegrasi — mencakup riset audiens target, copywriting persuasif, iklan berbayar (Meta & Google Ads), serta analisis analitik.",
-    jadwal: "4 Ags — 8 Ags 2026",
-    durasi: "5 Hari (40 JP)",
-    kuota: 50,
-    terisi: 50,
-    status: "Penuh",
-    level: "Menengah",
-    metode: "Tatap Muka",
-    lokasi: "Lab Komputer B, BBLSDM Komdigi Medan",
-    silabus: [
-      "Digital Marketing Funnel & Audience Targeting Strategy",
-      "Copywriting & Content Production untuk Media Sosial",
-      "Pengenalan Google Ads & Meta Business Suite",
-      "Analisis Performa Kampanye & ROI Marketing",
-    ],
-    persyaratan: [
-      "Pelaku UMKM / Profesional Komunikasi / Umum",
-      "Memiliki akun media sosial bisnis / aktif",
-      "Membawa laptop dan perangkat smartphone",
-    ],
-  },
-  {
-    id: 3,
-    title: "Keamanan Siber & Respons Insiden Siber",
-    category: "cyber",
-    categoryLabel: "Cyber Security",
-    description:
-      "Workshop teknis mengidentifikasi celah keamanan, mitigasi serangan malware/phishing, manajemen kredensial, serta prosedur incident response standar pemerintah.",
-    jadwal: "11 Ags — 13 Ags 2026",
-    durasi: "3 Hari (24 JP)",
-    kuota: 45,
-    terisi: 19,
-    status: "Dibuka",
-    level: "Dasar",
-    metode: "Tatap Muka",
-    lokasi: "Cyber Security Lab, BBLSDM Medan",
-    silabus: [
-      "Anatomi serangan siber modern (Phishing, Ransomware, Social Engineering)",
-      "Penerapan audit keamanan password & Multi-Factor Authentication",
-      "Pengenalan tools analisis trafik & deteksi anomali jaringan",
-      "Prosedur standar penanganan dan pelaporan insiden keamanan siber",
-    ],
-    persyaratan: [
-      "Pengelola IT / Pengelola Sistem Informasi Instansi",
-      "Memahami dasar-dasar jaringan komputer",
-      "Membawa laptop (RAM min. 8GB disarankan)",
-    ],
-  },
-  {
-    id: 4,
-    title: "Analisis Data & Visualisasi dengan Python",
-    category: "data",
-    categoryLabel: "Data & AI",
-    description:
-      "Teknik pengolahan data mentah menggunakan Python (Pandas, Matplotlib, Seaborn) untuk menghasilkan dashboard interaktif pendukung keputusan strategis.",
-    jadwal: "25 Ags — 29 Ags 2026",
-    durasi: "5 Hari (40 JP)",
-    kuota: 35,
-    terisi: 8,
-    status: "Dibuka",
-    level: "Menengah",
-    metode: "Tatap Muka",
-    lokasi: "Lab Data Science BBLSDM Komdigi Medan",
-    silabus: [
-      "Pemrograman Dasar Python untuk Analisis Data",
-      "Data Cleaning, Wrangling & Transformation dengan Pandas",
-      "Exploratory Data Analysis (EDA) & Statistik Deskriptif",
-      "Visualisasi Data Interaktif & Penyusunan Executive Dashboard",
-    ],
-    persyaratan: [
-      "Staf Analis Data / Peneliti / Umum",
-      "Memahami konsep dasar logika pemrograman atau spreadsheet",
-      "Membawa laptop dengan Python/Jupyter Notebook terinstall",
-    ],
-  },
-  {
-    id: 5,
-    title: "UI/UX Design & Prototyping Layanan Publik",
-    category: "cloud",
-    categoryLabel: "Desain Digital",
-    description:
-      "Metodologi User-Centered Design untuk merancang antarmuka aplikasi publik yang intuitif, inklusif, dan sesuai standar aksesibilitas digital.",
-    jadwal: "8 Sep — 10 Sep 2026",
-    durasi: "3 Hari (24 JP)",
-    kuota: 40,
-    terisi: 3,
-    status: "Dibuka",
-    level: "Dasar",
-    metode: "Tatap Muka",
-    lokasi: "Lab Multimedia BBLSDM Komdigi Medan",
-    silabus: [
-      "Prinsip dasar UI/UX Design & User Research Methodology",
-      "Information Architecture & Wireframing",
-      "High-Fidelity Prototyping menggunakan Figma",
-      "Usability Testing & Evaluasi Aksesibilitas Antarmuka",
-    ],
-    persyaratan: [
-      "Desainer Antarmuka / Pengembang Web / UMKM / Umum",
-      "Memiliki akun Figma (Gratis)",
-      "Membawa laptop dengan koneksi internet stabil",
-    ],
-  },
-  {
-    id: 6,
-    title: "Cloud Architecture & DevOps Deployment",
-    category: "cloud",
-    categoryLabel: "Cloud & DevOps",
-    description:
-      "Arsitektur cloud e-government, kontainerisasi aplikasi dengan Docker, orkestrasi Kubernetes, serta implementasi CI/CD pipeline otomatis.",
-    jadwal: "22 Sep — 26 Sep 2026",
-    durasi: "5 Hari (40 JP)",
-    kuota: 30,
-    terisi: 0,
-    status: "Segera Dibuka",
-    level: "Lanjutan",
-    metode: "Tatap Muka",
-    lokasi: "Lab Infrastruktur BBLSDM Komdigi Medan",
-    silabus: [
-      "Dasar Cloud Infrastructure (AWS / GCP / Cloud Lokal)",
-      "Containerization Aplikasi berbasis Docker & Docker Compose",
-      "Konfigurasi CI/CD Pipeline untuk Otomasi Deployment",
-      "Monitoring, Logging & Scaling Infrastruktur Cloud",
-    ],
-    persyaratan: [
-      "DevOps Engineer / System Administrator / Developer",
-      "Memahami perintah dasar Linux terminal & Command Line",
-      "Membawa laptop dengan spesifikasi tinggi (RAM 16GB disarankan)",
-    ],
-  },
-];
-
-const categoryTabs = [
-  { id: "semua", label: "Semua Kategori" },
-  { id: "komunikasi", label: "Komunikasi Digital" },
-  { id: "pemasaran", label: "Pemasaran Digital" },
-  { id: "cyber", label: "Cyber Security" },
-  { id: "data", label: "Data & AI" },
-  { id: "cloud", label: "Cloud & DevOps" },
-];
-
-export default function PelatihanPage() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState("semua");
-  const [activeStatus, setActiveStatus] = useState("semua");
-  const [selectedPelatihan, setSelectedPelatihan] = useState<PelatihanItem | null>(null);
-
-  // Filtering logic
-  const filteredList = pelatihanList.filter((p) => {
-    const matchCategory = activeCategory === "semua" || p.category === activeCategory;
-    const matchStatus = activeStatus === "semua" || p.status === activeStatus;
-    const matchSearch =
-      searchQuery === "" ||
-      p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchCategory && matchStatus && matchSearch;
+    return {
+      id: p.id,
+      title: p.title,
+      category: p.categorySlug as "komunikasi" | "pemasaran" | "cyber" | "data" | "cloud",
+      categoryLabel: p.categoryLabel,
+      description: p.description,
+      jadwal: p.jadwal,
+      durasi: p.durasi,
+      kuota: p.kuota,
+      terisi: p.terisi,
+      status: statusMap[p.status as keyof typeof statusMap] || "Segera Dibuka",
+      level: levelMap[p.level as keyof typeof levelMap] || "Dasar",
+      metode: p.metode,
+      lokasi: p.lokasi,
+      silabus: Array.isArray(p.silabus) ? (p.silabus as string[]) : [],
+      persyaratan: Array.isArray(p.persyaratan) ? (p.persyaratan as string[]) : [],
+    };
   });
 
+<<<<<<< HEAD
   const totalKuota = pelatihanList.reduce((s, p) => s + p.kuota, 0);
   const totalTerdaftar = pelatihanList.reduce((s, p) => s + p.terisi, 0);
   const totalDibuka = pelatihanList.filter((p) => p.status === "Dibuka").length;
@@ -669,4 +437,7 @@ export default function PelatihanPage() {
       )}
     </>
   );
+=======
+  return <PelatihanList initialPelatihan={list} />;
+>>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
 }

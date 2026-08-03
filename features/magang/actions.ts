@@ -157,3 +157,115 @@ export async function updateApplicationStatus(id: string, status: "ACCEPTED" | "
     return { success: false, error: "Gagal merubah status pendaftaran" };
   }
 }
+
+export async function updateApplicationStep(id: string, nextStep: number) {
+  try {
+    const application = await prisma.pendaftaranMagang.findUnique({
+      where: { id },
+    });
+
+    if (!application) {
+      return { success: false, error: "Pendaftaran tidak ditemukan" };
+    }
+
+    let statusUpdate = application.status;
+
+    if (nextStep === 5) {
+      statusUpdate = "ACCEPTED";
+    } else if (nextStep < 5 && application.status === "ACCEPTED") {
+      statusUpdate = "PENDING";
+    }
+
+    await prisma.pendaftaranMagang.update({
+      where: { id },
+      data: { 
+        currentStep: nextStep,
+        status: statusUpdate
+      }
+    });
+
+    revalidatePath("/admin/magang");
+    revalidatePath("/layanan/magang");
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating step:", error);
+    return { success: false, error: "Gagal memperbarui progres step" };
+  }
+}
+
+export async function updateApplicationStatusDetailed(
+  id: string,
+  status: "ACCEPTED" | "REJECTED" | "PENDING",
+  rejectionReason?: string
+) {
+  try {
+    const dataUpdate: any = {
+      status,
+    };
+
+    if (status === "ACCEPTED") {
+      dataUpdate.currentStep = 5;
+      dataUpdate.reviewedAt = new Date();
+      dataUpdate.rejectionReason = null;
+    } else if (status === "REJECTED") {
+      dataUpdate.currentStep = 4;
+      dataUpdate.rejectionReason = rejectionReason || "Berkas tidak sesuai kriteria";
+      dataUpdate.reviewedAt = new Date();
+    } else { // PENDING
+      dataUpdate.currentStep = 1;
+      dataUpdate.rejectionReason = null;
+      dataUpdate.reviewedAt = null;
+    }
+
+    await prisma.pendaftaranMagang.update({
+      where: { id },
+      data: dataUpdate,
+    });
+
+    revalidatePath("/admin/magang");
+    revalidatePath("/layanan/magang");
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating status detailed:", error);
+    return { success: false, error: "Gagal memperbarui status pendaftaran" };
+  }
+}
+
+export async function linkSuratBalasan(id: string, mediaId: string) {
+  try {
+    await prisma.pendaftaranMagang.update({
+      where: { id },
+      data: { 
+        suratBalasanId: mediaId,
+        currentStep: 4,
+        status: "ACCEPTED",
+      }
+    });
+
+    revalidatePath("/admin/magang");
+    revalidatePath("/layanan/magang");
+    return { success: true };
+  } catch (error) {
+    console.error("Error linking surat balasan:", error);
+    return { success: false, error: "Gagal menghubungkan surat balasan" };
+  }
+}
+
+export async function unlinkSuratBalasan(id: string) {
+  try {
+    await prisma.pendaftaranMagang.update({
+      where: { id },
+      data: { 
+        suratBalasanId: null,
+      }
+    });
+
+    revalidatePath("/admin/magang");
+    revalidatePath("/layanan/magang");
+    return { success: true };
+  } catch (error) {
+    console.error("Error unlinking surat balasan:", error);
+    return { success: false, error: "Gagal menghapus surat balasan" };
+  }
+}
+
