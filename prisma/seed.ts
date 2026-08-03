@@ -321,6 +321,43 @@ async function main() {
     });
   }
 
+  // 9. Seed SocialMediaPost
+  const socialPosts = [
+    {
+      platform: "INSTAGRAM" as const,
+      url: "https://www.instagram.com/reel/DbX5xkJIA3V/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+      caption: "Temukan informasi menarik dan bermanfaat yang tersimpan di balik foto ini. Simak selengkapnya hingga akhir.",
+    },
+    {
+      platform: "INSTAGRAM" as const,
+      url: "https://www.instagram.com/reel/DbR60-TImnU/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+      caption: "BBLSDM Komdigi Medan berkomitmen menghadirkan pelayanan yang bersih, transparan, dan akuntabel.",
+    },
+    {
+      platform: "TIKTOK" as const,
+      url: "https://www.tiktok.com/@balaibesarmedan/video/7659724322054901013?is_from_webapp=1&sender_device=pc&web_id=7666823655733593620",
+      caption: "BBLSDM Komdigi Medan menerima kunjungan kerja Wakil Menteri KOMDIGI RI, Bapak Nezar Patria. Diikuti dengan prosesi adat penyambutan kain Ulos, agenda dilanjutkan dengan paparan profil balai oleh Kepala BBLSDM Komdigi Medan ibu Dr. Christiany Juditha.",
+    },
+    {
+      platform: "YOUTUBE" as const,
+      url: "https://youtu.be/XHXhPBs5spo?si=1Z9vRYb1Lx7UF4Xz",
+      title: "Seminar Hasil Digital Government Communication Talent Lab",
+      caption: "DGC-TLab 2026 resmi menutup rangkaian kegiatannya! Mulai dari presentasi hasil assessment, penyerahan rekomendasi strategis kepada 4 OPD, apresiasi peserta dan kelompok terbaik, hingga Graduation Ceremony yang penuh haru untuk 19 peserta magang. Terima kasih atas semangat, kolaborasi, dan dedikasi seluruh peserta dalam mewujudkan komunikasi pemerintahan yang lebih adaptif, responsif, dan berdampak bagi masyarakat!",
+    },
+  ];
+
+  for (const post of socialPosts) {
+    await prisma.socialMediaPost.create({
+      data: {
+        platform: post.platform,
+        url: post.url,
+        title: post.title || null,
+        caption: post.caption || null,
+        isActive: true,
+      },
+    });
+  }
+
   console.log("-----------------------------------------");
   console.log("Super Admin User Created:");
   console.log(`Email: ${superAdmin.email}`);
@@ -334,7 +371,7 @@ async function main() {
   console.log(`Email: ${editor.email}`);
   console.log("Password: editor123");
   console.log("-----------------------------------------");
-  console.log("Banners, News, Announcements, Trainings, and Aplikasi successfully seeded!");
+  console.log("Banners, News, Announcements, Trainings, Aplikasi, and Social Media Posts successfully seeded!");
   console.log("-----------------------------------------");
 }
 

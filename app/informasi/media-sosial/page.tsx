@@ -1,51 +1,20 @@
-"use client";
-
 import React from "react";
+import prisma from "@/lib/prisma";
 import PageHeader from "@/app/components/PageHeader";
 
-// ---------------------------------------------------------
-// TEMPAT MEMASUKKAN LINK POSTINGAN (SANGAT MUDAH DIUBAH)
-// ---------------------------------------------------------
+import { SocialMediaPost } from "@prisma/client";
 
-// Cukup paste link (URL) dari Instagram langsung di sini beserta captionnya
-const instagramPosts = [
-  {
-    url: "https://www.instagram.com/reel/DbX5xkJIA3V/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
-    caption: "Temukan informasi menarik dan bermanfaat yang tersimpan di balik foto ini. Simak selengkapnya hingga akhir."
-  },
-  {
-    url: "https://www.instagram.com/reel/DbR60-TImnU/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
-    caption: "BBLSDM Komdigi Medan berkomitmen menghadirkan pelayanan yang bersih, transparan, dan akuntabel."
-  }
-];
+export const dynamic = "force-dynamic";
 
-// Cukup paste link video TikTok di sini beserta captionnya
-const tiktokPosts = [
-  {
-    url: "https://www.tiktok.com/@balaibesarmedan/video/7659724322054901013?is_from_webapp=1&sender_device=pc&web_id=7666823655733593620",
-    caption: "BBLSDM Komdigi Medan menerima kunjungan kerja Wakil Menteri KOMDIGI RI, Bapak Nezar Patria. Diikuti dengan prosesi adat penyambutan kain Ulos, agenda dilanjutkan dengan paparan profil balai oleh Kepala BBLSDM Komdigi Medan ibu Dr. Christiany Juditha."
-  },
-];
-
-// Cukup paste link YouTube di sini
-const youtubeVideo = {
-  url: "https://youtu.be/XHXhPBs5spo?si=1Z9vRYb1Lx7UF4Xz",
-  title: "Seminar Hasil Digital Government Communication Talent Lab",
-  desc: "DGC-TLab 2026 resmi menutup rangkaian kegiatannya! Mulai dari presentasi hasil assessment, penyerahan rekomendasi strategis kepada 4 OPD, apresiasi peserta dan kelompok terbaik, hingga Graduation Ceremony yang penuh haru untuk 19 peserta magang. Terima kasih atas semangat, kolaborasi, dan dedikasi seluruh peserta dalam mewujudkan komunikasi pemerintahan yang lebih adaptif, responsif, dan berdampak bagi masyarakat! "
-};
-
-// ---------------------------------------------------------
-// HELPER FUNCTIONS (Mengubah Link Biasa Menjadi Link Embed)
-// ---------------------------------------------------------
+// ─── HELPER FUNCTIONS ────────────────────────────────────────────────────────
 const getInstagramEmbedUrl = (url: string) => {
   try {
     const urlObj = new URL(url);
-    // Hapus query params (seperti ?igsh=...) dan pastikan diakhiri slash, lalu tambah embed
     let pathname = urlObj.pathname;
-    if (!pathname.endsWith('/')) pathname += '/';
+    if (!pathname.endsWith("/")) pathname += "/";
     return `https://www.instagram.com${pathname}embed/`;
   } catch (e) {
-    return url; // Fallback jika format salah
+    return url;
   }
 };
 
@@ -68,7 +37,60 @@ const getYoutubeEmbedUrl = (url: string) => {
   }
 };
 
-export default function MediaSosialPage() {
+export default async function MediaSosialPage() {
+  // 1. Fetch active social media posts from DB
+  let dbPosts: SocialMediaPost[] = [];
+  try {
+    dbPosts = await prisma.socialMediaPost.findMany({
+      where: { isActive: true },
+      orderBy: { createdAt: "desc" },
+    });
+  } catch (error) {
+    console.error("Error fetching social media posts:", error);
+  }
+
+  // 2. Filter by platform
+  const instagramDb = dbPosts.filter((p) => p.platform === "INSTAGRAM");
+  const tiktokDb = dbPosts.filter((p) => p.platform === "TIKTOK");
+  const youtubeDb = dbPosts.filter((p) => p.platform === "YOUTUBE");
+
+  // 3. Fallbacks if DB is empty
+  const defaultInstagramPosts = [
+    {
+      url: "https://www.instagram.com/reel/DbX5xkJIA3V/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+      caption: "Temukan informasi menarik dan bermanfaat yang tersimpan di balik foto ini. Simak selengkapnya hingga akhir.",
+    },
+    {
+      url: "https://www.instagram.com/reel/DbR60-TImnU/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+      caption: "BBLSDM Komdigi Medan berkomitmen menghadirkan pelayanan yang bersih, transparan, dan akuntabel.",
+    },
+  ];
+
+  const defaultTiktokPosts = [
+    {
+      url: "https://www.tiktok.com/@balaibesarmedan/video/7659724322054901013?is_from_webapp=1&sender_device=pc&web_id=7666823655733593620",
+      caption: "BBLSDM Komdigi Medan menerima kunjungan kerja Wakil Menteri KOMDIGI RI, Bapak Nezar Patria. Diikuti dengan prosesi adat penyambutan kain Ulos, agenda dilanjutkan dengan paparan profil balai oleh Kepala BBLSDM Komdigi Medan ibu Dr. Christiany Juditha.",
+    },
+  ];
+
+  const defaultYoutubeVideo = {
+    url: "https://youtu.be/XHXhPBs5spo?si=1Z9vRYb1Lx7UF4Xz",
+    title: "Seminar Hasil Digital Government Communication Talent Lab",
+    desc: "DGC-TLab 2026 resmi menutup rangkaian kegiatannya! Mulai dari presentasi hasil assessment, penyerahan rekomendasi strategis kepada 4 OPD, apresiasi peserta dan kelompok terbaik, hingga Graduation Ceremony yang penuh haru untuk 19 peserta magang. Terima kasih atas semangat, kolaborasi, dan dedikasi seluruh peserta dalam mewujudkan komunikasi pemerintahan yang lebih adaptif, responsif, dan berdampak bagi masyarakat! ",
+  };
+
+  const instagramPosts = instagramDb.length > 0 ? instagramDb : defaultInstagramPosts;
+  const tiktokPosts = tiktokDb.length > 0 ? tiktokDb : defaultTiktokPosts;
+
+  const youtubeVideo =
+    youtubeDb.length > 0
+      ? {
+          url: youtubeDb[0].url,
+          title: youtubeDb[0].title || "Video Terbaru",
+          desc: youtubeDb[0].caption || "",
+        }
+      : defaultYoutubeVideo;
+
   return (
     <div className="bg-white">
       <PageHeader

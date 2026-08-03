@@ -850,3 +850,28 @@ model Aplikasi {
   @@index([isActive])
   @@map("aplikasi")
 }
+
+// ==========================================
+// 12. DOMAIN: MEDIA SOSIAL
+// ==========================================
+
+enum SocialPlatform {
+  INSTAGRAM
+  TIKTOK
+  YOUTUBE
+}
+
+/// Model SocialMediaPost — untuk mengelola postingan media sosial resmi
+model SocialMediaPost {
+  id        String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  platform  SocialPlatform
+  url       String         @db.Text
+  title     String?        @db.VarChar(255)
+  caption   String?        @db.Text
+  isActive  Boolean        @default(true) @map("is_active")
+  createdAt DateTime       @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime       @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@index([platform, isActive])
+  @@map("social_media_posts")
+}

@@ -57,6 +57,9 @@ export default async function AdminRootLayout({
             <a href="/admin/aplikasi" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
               Katalog Aplikasi
             </a>
+            <a href="/admin/media-sosial" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
+              Media Sosial
+            </a>
             <a href="/admin/staf" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition">
               Direktori Staf
             </a>
