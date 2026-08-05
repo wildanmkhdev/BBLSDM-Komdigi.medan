@@ -37,4 +37,3 @@ export default async function BeritaPage() {
 
   return <BeritaList initialBerita={beritaData} />;
 }
-}

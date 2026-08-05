@@ -1,11 +1,7 @@
 import HeroBanner from "@/components/HeroBanner";
 import FeaturedEventHero from "@/components/FeaturedEventHero";
 import KomdigiStorySection from "@/components/KomdigiStorySection";
-<<<<<<< HEAD
 import HomeContactForm from "@/components/HomeContactForm";
-=======
-import ContactForm from "./ContactForm";
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
 import Link from "next/link";
 import Image from "next/image";
 import prisma from "@/lib/prisma";
@@ -244,10 +240,7 @@ export default async function Home() {
           
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-16">
-<<<<<<< HEAD
-=======
               <h2 className="text-sm font-bold tracking-widest text-[#0284c7] uppercase mb-2">Layanan Bantuan</h2>
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
               <h3 className="text-3xl font-extrabold text-[#0b1b3d] sm:text-4xl tracking-tight">Hubungi Kami</h3>
               <p className="mt-4 text-slate-600 max-w-2xl mx-auto text-sm sm:text-base">
                 Punya pertanyaan seputar program pelatihan, magang, atau kerja sama? Tim BBLSDM Komdigi Medan siap membantu Anda dengan layanan yang cepat dan responsif.
@@ -262,45 +255,31 @@ export default async function Home() {
                    <h4 className="text-xl font-bold text-[#0b1b3d] mb-8 border-b border-slate-200/80 pb-4">Informasi Kontak</h4>
                    
                    <div className="space-y-8">
-<<<<<<< HEAD
-                     <a 
-                       href="https://maps.google.com/?q=BBLSDM+Komdigi+Medan+Jl.+Tombak+No.+24+Medan" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       title="Buka lokasi kantor di Google Maps"
-                       className="flex items-start gap-4 group hover:opacity-95 transition-opacity block"
-                     >
-                       <div className="shrink-0 p-3.5 bg-sky-100 rounded-2xl text-[#0284c7] shadow-sm group-hover:bg-[#0284c7] group-hover:text-white transition-colors">
-=======
-                     <div className="flex items-start gap-4">
-                       <div className="shrink-0 p-3.5 bg-sky-100 rounded-2xl text-[#0284c7] shadow-sm">
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
-                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                           <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                           <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                         </svg>
-                       </div>
-                       <div>
-<<<<<<< HEAD
-                         <p className="text-sm font-bold text-slate-900 mb-1.5 group-hover:text-[#0284c7] transition-colors flex items-center gap-1.5">
-                           Alamat Kantor
-                           <svg className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#0284c7]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                             <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                           </svg>
-                         </p>
-                         <p className="text-sm text-slate-600 leading-relaxed group-hover:underline">
-                           Jl. Tombak No. 24, Sidorejo Hilir, Kec. Medan Tembung, Kota Medan, Sumatera Utara 20222
-                         </p>
-                       </div>
-                     </a>
-=======
-                         <p className="text-sm font-bold text-slate-900 mb-1.5">Alamat Kantor</p>
-                         <p className="text-sm text-slate-600 leading-relaxed">
-                           Jl. Tombak No. 24, Sidorejo Hilir, Kec. Medan Tembung, Kota Medan, Sumatera Utara 20222
-                         </p>
-                       </div>
-                     </div>
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
+                      <a 
+                        href="https://maps.google.com/?q=BBLSDM+Komdigi+Medan+Jl.+Tombak+No.+24+Medan" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        title="Buka lokasi kantor di Google Maps"
+                        className="flex items-start gap-4 group hover:opacity-95 transition-opacity block"
+                      >
+                        <div className="shrink-0 p-3.5 bg-sky-100 rounded-2xl text-[#0284c7] shadow-sm group-hover:bg-[#0284c7] group-hover:text-white transition-colors">
+                          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-sm font-bold text-slate-900 mb-1.5 group-hover:text-[#0284c7] transition-colors flex items-center gap-1.5">
+                            Alamat Kantor
+                            <svg className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#0284c7]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                          </p>
+                          <p className="text-sm text-slate-600 leading-relaxed group-hover:underline">
+                            Jl. Tombak No. 24, Sidorejo Hilir, Kec. Medan Tembung, Kota Medan, Sumatera Utara 20222
+                          </p>
+                        </div>
+                      </a>
 
                      <div className="flex items-start gap-4">
                        <div className="shrink-0 p-3.5 bg-emerald-100 rounded-2xl text-emerald-600 shadow-sm">
@@ -329,13 +308,9 @@ export default async function Home() {
                 </div>
               </div>
               {/* Contact Form */}
-<<<<<<< HEAD
               <div className="lg:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-slate-100 shadow-sm">
                 <HomeContactForm />
               </div>
-=======
-              <ContactForm />
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
             </div>
           </div>
         </section>

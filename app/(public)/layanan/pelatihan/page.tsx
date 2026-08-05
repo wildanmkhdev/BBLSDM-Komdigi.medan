@@ -52,4 +52,3 @@ export default async function PelatihanPage() {
 
   return <PelatihanList initialPelatihan={list} />;
 }
-}
