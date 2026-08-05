@@ -305,6 +305,7 @@ export default async function AdminDashboardPage() {
                     <p className="text-slate-500 mt-0.5 leading-relaxed">{act.detail}</p>
                     <p className="text-[9px] text-slate-400 mt-1 font-semibold">{act.timeLabel}</p>
                   </div>
+                </div>
               ))
             )}
           </div>

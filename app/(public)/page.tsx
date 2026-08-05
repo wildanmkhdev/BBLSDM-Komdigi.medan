@@ -240,7 +240,7 @@ export default async function Home() {
           
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-16">
-
+              <h2 className="text-sm font-bold tracking-widest text-[#0284c7] uppercase mb-2">Layanan Bantuan</h2>
               <h3 className="text-3xl font-extrabold text-[#0b1b3d] sm:text-4xl tracking-tight">Hubungi Kami</h3>
               <p className="mt-4 text-slate-600 max-w-2xl mx-auto text-sm sm:text-base">
                 Punya pertanyaan seputar program pelatihan, magang, atau kerja sama? Tim BBLSDM Komdigi Medan siap membantu Anda dengan layanan yang cepat dan responsif.
