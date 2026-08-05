@@ -218,18 +218,12 @@ model Media {
   jabatanPhotos         JabatanNode[]
   wilayahPhotos         WilayahKerja[]
   beritaThumbnails      Berita[]            @relation("berita_thumbnail")
-<<<<<<< HEAD
   beritaOgImages        Berita[]            @relation("berita_og_image")
   pengumumanAttachments Pengumuman[]
   albumCovers           GaleriAlbum[]
   galeriPhotos          GaleriPhoto[]
   pelatihanThumbnails   Pelatihan[]         @relation("pelatihan_thumbnail")
   pelatihanBrochures    Pelatihan[]         @relation("pelatihan_brochure")
-=======
-  pengumumanAttachments Pengumuman[]
-  albumCovers           GaleriAlbum[]
-  galeriPhotos          GaleriPhoto[]
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
   magangCvs             PendaftaranMagang[] @relation("magang_cv")
   magangProposals       PendaftaranMagang[] @relation("magang_proposal")
   magangSuratBalasan    PendaftaranMagang[] @relation("magang_surat_balasan")
@@ -238,10 +232,7 @@ model Media {
   infografisImages      Infografis[]
   stafPhotos            Staf[]
   banners               Banner[]
-<<<<<<< HEAD
-=======
   aplikasiLogos         Aplikasi[]          @relation("aplikasi_logo")
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
 
   @@index([type])
   @@index([uploadedBy])
@@ -412,7 +403,6 @@ model KategoriBerita {
   @@map("kategori_berita")
 }
 
-<<<<<<< HEAD
 model Tag {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name      String   @unique @db.VarChar(100)
@@ -424,11 +414,6 @@ model Tag {
   @@map("tags")
 }
 
-=======
-/// Model Berita — field disesuaikan dengan tampilan halaman /informasi/berita
-/// Field yang digunakan UI: id, title, category(via kategori.name), date(publishedAt),
-/// image(thumbnail.publicUrl), snippet(excerpt), content, author(authorName)
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
 model Berita {
   id          String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title       String        @db.VarChar(500)
@@ -436,6 +421,7 @@ model Berita {
   excerpt     String?       @db.Text
   content     String        @db.Text
   thumbnailId String?       @map("thumbnail_id") @db.Uuid
+  ogImageId   String?       @map("og_image_id") @db.Uuid
   kategoriId  String?       @map("kategori_id") @db.Uuid
   authorId    String?       @map("author_id") @db.Uuid
   /// Nama penulis yang ditampilkan langsung di card berita (field "Oleh: ...")
@@ -447,17 +433,11 @@ model Berita {
   createdAt   DateTime      @default(now()) @map("created_at") @db.Timestamptz
   updatedAt   DateTime      @updatedAt @map("updated_at") @db.Timestamptz
 
-<<<<<<< HEAD
   thumbnail  Media?          @relation("berita_thumbnail", fields: [thumbnailId], references: [id], onDelete: SetNull)
   kategori   KategoriBerita? @relation(fields: [kategoriId], references: [id], onDelete: SetNull)
   author     User?           @relation("berita_author", fields: [authorId], references: [id], onDelete: SetNull)
   ogImage    Media?          @relation("berita_og_image", fields: [ogImageId], references: [id], onDelete: SetNull)
   beritaTags BeritaTag[]
-=======
-  thumbnail Media?          @relation("berita_thumbnail", fields: [thumbnailId], references: [id], onDelete: SetNull)
-  kategori  KategoriBerita? @relation(fields: [kategoriId], references: [id], onDelete: SetNull)
-  author    User?           @relation("berita_author", fields: [authorId], references: [id], onDelete: SetNull)
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
 
   @@index([status])
   @@index([publishedAt(sort: Desc)])
@@ -467,7 +447,6 @@ model Berita {
   @@map("berita")
 }
 
-<<<<<<< HEAD
 model BeritaTag {
   beritaId String @map("berita_id") @db.Uuid
   tagId    String @map("tag_id") @db.Uuid
@@ -480,11 +459,6 @@ model BeritaTag {
   @@map("berita_tags")
 }
 
-=======
-/// Model Pengumuman — field disesuaikan dengan tampilan halaman /informasi/pengumuman
-/// Field yang digunakan UI: id, title, category, date(createdAt), content,
-/// priority(HIGH/NORMAL), downloadUrl(attachment.publicUrl), fileSize(attachment.fileSize)
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
 model Pengumuman {
   id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title        String        @db.VarChar(500)
@@ -503,19 +477,11 @@ model Pengumuman {
   attachment Media? @relation(fields: [attachmentId], references: [id], onDelete: SetNull)
   creator    User?  @relation("pengumuman_creator", fields: [createdBy], references: [id], onDelete: SetNull)
 
-<<<<<<< HEAD
-  @@index([startDate, endDate])
-  @@index([isPinned, startDate(sort: Desc)])
-=======
   @@index([isPublished, createdAt(sort: Desc)])
   @@index([priority])
->>>>>>> 3353f44519777e53525d7009f50cd6d71b15aef3
   @@map("pengumuman")
 }
 
-/// Model GaleriAlbum — field disesuaikan dengan tampilan halaman /informasi/galeri
-/// Field yang digunakan UI: id, title, category, date(eventDate), image(coverPhoto.publicUrl),
-/// images(via photos[].media.publicUrl), desc(description)
 model GaleriAlbum {
   id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title        String    @db.VarChar(255)
