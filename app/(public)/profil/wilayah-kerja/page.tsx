@@ -3,9 +3,9 @@
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import PageHeader from "@/app/components/PageHeader";
-import type { WilayahData } from "@/app/components/WilayahMap";
+import type { WilayahData, WilayahViewMode } from "@/app/components/WilayahMap";
 
-/* ─── Data provinsi lengkap + koordinat ─── */
+/* ─── Data 8 provinsi wilayah kerja BBLSDM Komdigi Medan ─── */
 const wilayahList: WilayahData[] = [
   {
     provinsi: "Sumatera Utara",
@@ -46,7 +46,7 @@ const wilayahList: WilayahData[] = [
   {
     provinsi: "Kepulauan Riau",
     kota: "Tanjung Pinang",
-    alamat: "Pusat Pemerintahan Provinsi Kepulauan Riau, Gedung Sultan Mahmud Riayat Syah (Gedung D Lantai 1) Dompak, Bukit Bestari, Kota Tanjung Pinang, Provinsi Kepulauan Riau",
+    alamat: "Pusat Pemerintahan Provinsi Kepulauan Riau, Gedung Sultan Mahmud Riayat Syah (Gedung D Lantai 1) Dompak, Bukit Bestari, Kota Tanjung Pinang",
     telepon: "-------",
     website: "https://diskominfo.kepriprov.go.id/",
     lat: 0.8779441030781603,
@@ -62,6 +62,15 @@ const wilayahList: WilayahData[] = [
     lng: 103.61102988203443,
   },
   {
+    provinsi: "Sumatera Selatan",
+    kota: "Palembang",
+    alamat: "Jl. Kapten A. Rivai No.23, 19 Ilir, Kec. Bukit Kecil, Kota Palembang, Sumatera Selatan",
+    telepon: "-------",
+    website: "https://diskominfo.sumselprov.go.id/",
+    lat: -2.9909,
+    lng: 104.7564,
+  },
+  {
     provinsi: "Bangka Belitung",
     kota: "Pangkal Pinang",
     alamat: "Jl. Pulau Bangka, Air Itam - Pangkalpinang 33148",
@@ -70,21 +79,12 @@ const wilayahList: WilayahData[] = [
     lat: -2.1615079465906897,
     lng: 106.16814326298616,
   },
-  {
-    provinsi: "Kalimantan Barat",
-    kota: "Pontianak",
-    alamat: "Jl. Moh. Sohor, Akcaya, Kec. Pontianak Sel., Kota Pontianak, Kalimantan Barat 78121",
-    telepon: "(0561) 732-078",
-    website: "https://diskominfo.kalbarprov.go.id/",
-    lat: -0.042695250302419545,
-    lng: 109.33099193970436,
-  },
 ];
 
 /* ─── Icons ─── */
-function IconMapPin() {
+function IconMapPin({ className = "w-4 h-4" }: { className?: string }) {
   return (
-    <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+    <svg className={`shrink-0 ${className}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
     </svg>
@@ -92,7 +92,7 @@ function IconMapPin() {
 }
 function IconPhone() {
   return (
-    <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+    <svg className="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
     </svg>
   );
@@ -111,12 +111,19 @@ function IconChevronRight() {
     </svg>
   );
 }
+function IconLayer() {
+  return (
+    <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
+    </svg>
+  );
+}
 
-/* Dynamic import — disable SSR for Leaflet */
+/* ─── Dynamic import — SSR off (Leaflet) ─── */
 const MapComponent = dynamic(() => import("@/app/components/WilayahMap"), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full min-h-105 bg-slate-100 flex items-center justify-center">
+    <div className="w-full h-full min-h-[420px] bg-slate-100 flex items-center justify-center">
       <div className="flex flex-col items-center gap-3">
         <div className="w-8 h-8 border-2 border-[#0284c7] border-t-transparent rounded-full animate-spin" />
         <p className="text-sm text-slate-500">Memuat peta…</p>
@@ -126,7 +133,42 @@ const MapComponent = dynamic(() => import("@/app/components/WilayahMap"), {
 });
 
 export default function WilayahKerjaPage() {
-  const [selected, setSelected] = useState<WilayahData>(wilayahList[0]);
+  const [viewMode, setViewMode] = useState<WilayahViewMode>("default");
+  const [selected, setSelected] = useState<WilayahData | null>(null);
+
+  /* When user clicks a province marker/button */
+  function handleSelectProvince(w: WilayahData) {
+    setSelected(w);
+    setViewMode("province");
+  }
+
+  /* Switch to regional view */
+  function handleRegionalView() {
+    setSelected(null);
+    setViewMode("regional");
+  }
+
+  /* Reset everything */
+  function handleReset() {
+    setSelected(null);
+    setViewMode("default");
+  }
+
+  /* Badge text based on mode */
+  const badgeLabel =
+    viewMode === "regional"
+      ? "Regional Sumatera"
+      : viewMode === "province" && selected
+      ? selected.provinsi
+      : "Peta Interaktif";
+
+  const badgeSub =
+    viewMode === "regional"
+      ? "Wilayah Kerja BBLSDM"
+      : viewMode === "province" && selected
+      ? `${selected.kota} — Klik untuk detail`
+      : "Lihat detail per wilayah kerja BBLSDM";
+
   return (
     <>
       <PageHeader
@@ -141,65 +183,145 @@ export default function WilayahKerjaPage() {
       />
 
       <section className="bg-white py-8">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-0 rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row gap-0 rounded-2xl overflow-hidden border border-slate-200 shadow-lg">
 
-            {/* Left: Map (60%) */}
-            <div className="relative lg:w-[60%] h-95 lg:h-145">
+            {/* ─── Left: Map (65%) ─── */}
+            <div className="relative lg:w-[65%] h-[420px] lg:h-[600px]">
               <MapComponent
                 wilayahList={wilayahList}
                 selected={selected}
-                onSelect={setSelected}
+                viewMode={viewMode}
+                onSelect={handleSelectProvince}
               />
-              {/* Map overlay badge */}
-              <div className="absolute top-3 left-3 z-1000 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-lg px-3 py-2 shadow-sm">
-                <p className="text-[10px] font-bold text-[#0284c7] uppercase tracking-widest">Peta Interaktif</p>
-                <p className="text-xs text-slate-500">Klik markeeer untuk detail</p>
+
+              {/* Dynamic info badge — top left */}
+              <div className="absolute top-3 left-3 z-10 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-lg px-3 py-2 shadow-md max-w-[250px]">
+                {viewMode === "regional" && (
+                  <span className="inline-block w-2 h-2 rounded-full bg-[#0284c7] mr-1.5 mb-0.5 animate-pulse" />
+                )}
+                <p className="text-[9px] font-bold text-[#0284c7] uppercase tracking-[0.18em] mb-0.5 inline">
+                  {badgeLabel}
+                </p>
+                <p className="text-[11px] text-slate-600 font-medium leading-snug mt-0.5">
+                  {badgeSub}
+                </p>
               </div>
+
+              {/* Reset button — shown when not in default mode */}
+              {viewMode !== "default" && (
+                <button
+                  onClick={handleReset}
+                  className="absolute top-3 right-3 z-10 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-lg px-3 py-2 shadow-md text-[11px] font-semibold text-slate-500 hover:text-[#0284c7] transition-colors flex items-center gap-1.5"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                  Reset Peta
+                </button>
+              )}
+
+              {/* Regional mode overlay label — center-bottom of map */}
+              {viewMode === "regional" && (
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 bg-[#0b1b3d]/90 backdrop-blur-sm text-white rounded-full px-4 py-1.5 text-[10px] font-bold tracking-widest uppercase shadow-lg border border-[#0284c7]/30 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse shrink-0" />
+                  Wilayah Kerja — Regional Sumatera
+                </div>
+              )}
             </div>
 
-            {/* Right: Sidebar (40%) */}
-            <div className="lg:w-[40%] flex flex-col border-t lg:border-t-0 lg:border-l border-slate-200">
+            {/* ─── Right: Sidebar (35%) — dark navy ─── */}
+            <div className="lg:w-[35%] flex flex-col bg-[#0b1b3d] border-t lg:border-t-0 lg:border-l border-[#1e3a6e]">
 
-              {/* Selected detail panel */}
-              {selected ? (
-                <div className="p-6 bg-[#0b1b3d] text-white shrink-0">
-                  {/* Header */}
-                  <div className="flex items-start justify-between gap-3 mb-5">
-                    <div>
-                      <p className="text-[10px] font-bold tracking-[0.2em] text-[#38bdf8] uppercase mb-1">
-                        Provinsi Terpilih
-                      </p>
-                      <h2 className="text-xl font-extrabold text-white leading-snug">{selected.provinsi}</h2>
-                      <p className="text-sm text-slate-300 mt-0.5">{selected.kota}</p>
+              {/* ── SIDEBAR HEADER — changes per mode ── */}
+              <div className="px-5 pt-4 pb-3 border-b border-[#1e3a6e] shrink-0">
+                {viewMode === "regional" ? (
+                  <>
+                    <p className="text-[9px] font-bold tracking-[0.22em] text-[#38bdf8] uppercase mb-1">
+                      Wilayah Kerja
+                    </p>
+                    <p className="text-sm font-extrabold text-white leading-tight">
+                      Regional Sumatera Bagian Utara &amp; Tengah
+                    </p>
+                  </>
+                ) : viewMode === "province" && selected ? (
+                  <>
+                    <p className="text-[9px] font-bold tracking-[0.22em] text-[#38bdf8] uppercase mb-1">
+                      Provinsi Terpilih
+                    </p>
+                    <p className="text-sm font-extrabold text-white leading-tight">{selected.provinsi}</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-[9px] font-bold tracking-[0.22em] text-[#38bdf8] uppercase mb-1">
+                      Pilih Wilayah Kerja
+                    </p>
+                    <p className="text-[10px] text-slate-400 font-medium">
+                      Klik provinsi atau marker peta untuk detail
+                    </p>
+                  </>
+                )}
+              </div>
+
+              {/* ── DETAIL PANEL ── */}
+
+              {/* Regional summary panel */}
+              {viewMode === "regional" && (
+                <div className="px-5 py-4 border-b border-[#1e3a6e] shrink-0 bg-[#0f2147]">
+                  {/* Summary stats */}
+                  <div className="grid grid-cols-3 gap-2 mb-4">
+                    {[
+                      { label: "Provinsi", value: "8" },
+                      { label: "Pulau Utama", value: "3" },
+                      { label: "Wilayah", value: "1" },
+                    ].map((stat) => (
+                      <div key={stat.label} className="bg-[#0284c7]/10 border border-[#0284c7]/20 rounded-lg px-2 py-2 text-center">
+                        <p className="text-lg font-extrabold text-white leading-none">{stat.value}</p>
+                        <p className="text-[9px] text-slate-400 mt-0.5 font-medium">{stat.label}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-[10px] text-slate-400 leading-relaxed mb-3">
+                    BBLSDM Komdigi Medan mengelola pengembangan SDM digital di{" "}
+                    <span className="text-white font-semibold">8 provinsi</span> wilayah Sumatera, meliputi seluruh pulau Sumatera, Kepulauan Riau, dan Bangka Belitung.
+                  </p>
+                  {/* "Lihat per Provinsi" hint */}
+                  <p className="text-[10px] text-[#38bdf8] font-semibold flex items-center gap-1.5">
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Klik provinsi di daftar bawah untuk detail
+                  </p>
+                </div>
+              )}
+
+              {/* Province detail panel */}
+              {viewMode === "province" && selected && (
+                <div className="px-5 py-4 border-b border-[#1e3a6e] shrink-0 bg-[#0f2147]">
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs text-slate-400 mt-0.5">{selected.kota}</p>
                     </div>
-                    <div className="w-10 h-10 rounded-full bg-[#0284c7] flex items-center justify-center shrink-0 mt-1">
-                      <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                      </svg>
+                    <div className="w-8 h-8 rounded-full bg-[#0284c7] flex items-center justify-center shrink-0">
+                      <IconMapPin className="w-3.5 h-3.5 text-white" />
                     </div>
                   </div>
-
-                  {/* Info rows */}
-                  <div className="space-y-3 mb-5">
-                    <div className="flex items-start gap-3">
-                      <span className="text-[#38bdf8] mt-0.5"><IconMapPin /></span>
-                      <p className="text-xs text-slate-300 leading-relaxed">{selected.alamat}</p>
+                  <div className="space-y-2.5 mb-4">
+                    <div className="flex items-start gap-2.5">
+                      <span className="text-[#38bdf8] mt-0.5"><IconMapPin className="w-3.5 h-3.5" /></span>
+                      <p className="text-[11px] text-slate-300 leading-relaxed">{selected.alamat}</p>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2.5">
                       <span className="text-[#38bdf8]"><IconPhone /></span>
-                      <p className="text-xs text-slate-300">{selected.telepon}</p>
+                      <p className="text-[11px] text-slate-300">{selected.telepon}</p>
                     </div>
                   </div>
-
-                  {/* CTA buttons */}
                   <div className="flex flex-col gap-2">
                     <a
                       href={selected.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-bold rounded-lg transition-colors duration-200"
+                      className="flex items-center justify-center gap-2 w-full py-2 bg-[#0284c7] hover:bg-[#0369a1] text-white text-[11px] font-bold rounded-lg transition-colors duration-200"
                     >
                       <IconGlobe />
                       Kunjungi Website Resmi
@@ -208,58 +330,95 @@ export default function WilayahKerjaPage() {
                       href={`https://www.google.com/maps/search/?api=1&query=${selected.lat},${selected.lng}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full py-2.5 bg-white text-[#0b1b3d] hover:bg-slate-100 text-xs font-bold rounded-lg transition-colors duration-200"
+                      className="flex items-center justify-center gap-2 w-full py-2 bg-white/10 hover:bg-white/20 text-white text-[11px] font-bold rounded-lg transition-colors duration-200 border border-white/10"
                     >
-                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                       </svg>
                       Buka di Google Maps
                     </a>
                   </div>
                 </div>
-              ) : (
-                <div className="p-8 bg-[#0b1b3d] text-center text-white shrink-0 flex flex-col items-center justify-center min-h-[220px]">
-                  <div className="w-12 h-12 rounded-full bg-[#0284c7]/20 flex items-center justify-center mb-4">
-                    <IconMapPin />
-                  </div>
-                  <p className="text-sm font-bold text-white mb-2">Pilih Wilayah Kerja</p>
-                  <p className="text-xs text-slate-300 max-w-[200px] leading-relaxed">
-                    Pilih provinsi pada peta atau daftar di bawah untuk melihat detail informasi.
+              )}
+
+              {/* Default empty state — with "Lihat Regional" CTA */}
+              {viewMode === "default" && (
+                <div className="px-5 py-5 border-b border-[#1e3a6e] shrink-0 bg-[#0f2147]/40">
+                  {/* Regional CTA card — the primary trigger */}
+                  <button
+                    onClick={handleRegionalView}
+                    className="w-full flex items-center gap-3 bg-gradient-to-r from-[#0284c7]/20 to-[#0ea5e9]/10 hover:from-[#0284c7]/30 hover:to-[#0ea5e9]/20 border border-[#0284c7]/30 hover:border-[#0284c7]/60 rounded-xl px-4 py-3.5 text-left transition-all duration-200 group mb-3"
+                  >
+                    <div className="w-9 h-9 rounded-lg bg-[#0284c7]/20 group-hover:bg-[#0284c7]/30 flex items-center justify-center shrink-0 transition-colors">
+                      <IconLayer />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-bold text-white group-hover:text-[#38bdf8] transition-colors leading-tight">
+                        Tampilkan Regional Sumatera
+                      </p>
+                      <p className="text-[10px] text-slate-500 mt-0.5">
+                        8 provinsi wilayah kerja sekaligus
+                      </p>
+                    </div>
+                    <svg className="w-4 h-4 text-slate-600 group-hover:text-[#38bdf8] transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                  <p className="text-[10px] text-slate-500 text-center">
+                    — atau pilih provinsi dari daftar di bawah —
                   </p>
                 </div>
               )}
 
-              {/* Province list */}
-              <div className="flex-1 overflow-y-auto divide-y divide-slate-100 max-h-87.5">
-                <div className="px-4 py-3 bg-slate-50 border-b border-slate-100">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+              {/* ── PROVINCE LIST ── */}
+              <div
+                className="flex-1 overflow-y-auto divide-y divide-[#1e3a6e]"
+                style={{ maxHeight: viewMode === "default" ? "320px" : "260px" }}
+              >
+                {/* List header */}
+                <div className="px-5 py-2.5 sticky top-0 bg-[#0b1b3d] border-b border-[#1e3a6e] z-10">
+                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em]">
                     Semua Wilayah Kerja — {wilayahList.length} Provinsi
                   </p>
                 </div>
+
                 {wilayahList.map((w) => {
-                  const isActive = selected?.provinsi === w.provinsi;
+                  // All are "active" in regional mode; only selected is active in province mode
+                  const isActive =
+                    viewMode === "regional" ||
+                    (viewMode === "province" && selected?.provinsi === w.provinsi);
+
                   return (
                     <button
                       key={w.provinsi}
-                      onClick={() => setSelected(w)}
-                      className={`w-full flex items-center gap-3 px-4 py-3.5 text-left transition-colors duration-150 ${
+                      onClick={() => handleSelectProvince(w)}
+                      className={`w-full flex items-center gap-3 px-5 py-3 text-left transition-all duration-150 ${
                         isActive
-                          ? "bg-[#0284c7]/8 border-l-2 border-[#0284c7]"
-                          : "hover:bg-slate-50 border-l-2 border-transparent"
+                          ? "bg-[#0284c7]/15 border-l-2 border-[#0284c7]"
+                          : "hover:bg-white/5 border-l-2 border-transparent"
                       }`}
                     >
                       {/* Dot */}
                       <span
-                        className={`w-2 h-2 rounded-full shrink-0 transition-colors duration-150 ${isActive ? "bg-[#0284c7]" : "bg-slate-200"
-                          }`}
+                        className={`w-2 h-2 rounded-full shrink-0 transition-colors duration-150 ${
+                          isActive ? "bg-[#38bdf8]" : "bg-slate-600"
+                        }`}
                       />
                       <div className="flex-1 min-w-0">
-                        <p className={`text-sm font-bold leading-tight truncate ${isActive ? "text-[#0284c7]" : "text-[#0b1b3d]"}`}>
+                        <p className={`text-sm font-semibold leading-tight truncate transition-colors ${
+                          isActive ? "text-white" : "text-slate-300"
+                        }`}>
                           {w.provinsi}
                         </p>
-                        <p className="text-[11px] text-slate-400 mt-0.5">{w.kota}</p>
+                        <p className={`text-[10px] mt-0.5 transition-colors ${
+                          isActive ? "text-slate-400" : "text-slate-600"
+                        }`}>
+                          {w.kota}
+                        </p>
                       </div>
-                      <span className={`transition-colors duration-150 ${isActive ? "text-[#0284c7]" : "text-slate-300"}`}>
+                      <span className={`transition-colors duration-150 ${
+                        isActive ? "text-[#38bdf8]" : "text-slate-600"
+                      }`}>
                         <IconChevronRight />
                       </span>
                     </button>
@@ -270,7 +429,7 @@ export default function WilayahKerjaPage() {
           </div>
 
           {/* Bottom note */}
-          <div className="flex items-center gap-3 mt-6">
+          <div className="flex items-center gap-3 mt-5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#0284c7] shrink-0" />
             <p className="text-xs text-slate-400">
               Data wilayah kerja berdasarkan Keputusan Menteri Komunikasi dan Digital tentang Penetapan Wilayah Kerja BBLSDM. Peta menggunakan OpenStreetMap.

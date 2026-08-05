@@ -218,9 +218,18 @@ model Media {
   jabatanPhotos         JabatanNode[]
   wilayahPhotos         WilayahKerja[]
   beritaThumbnails      Berita[]            @relation("berita_thumbnail")
+<<<<<<< HEAD
   pengumumanAttachments Pengumuman[]
   albumCovers           GaleriAlbum[]
   galeriPhotos          GaleriPhoto[]
+=======
+  beritaOgImages        Berita[]            @relation("berita_og_image")
+  pengumumanAttachments Pengumuman[]
+  albumCovers           GaleriAlbum[]
+  galeriPhotos          GaleriPhoto[]
+  pelatihanThumbnails   Pelatihan[]         @relation("pelatihan_thumbnail")
+  pelatihanBrochures    Pelatihan[]         @relation("pelatihan_brochure")
+>>>>>>> ferdy
   magangCvs             PendaftaranMagang[] @relation("magang_cv")
   magangProposals       PendaftaranMagang[] @relation("magang_proposal")
   magangSuratBalasan    PendaftaranMagang[] @relation("magang_surat_balasan")
@@ -421,6 +430,7 @@ model Berita {
   excerpt     String?       @db.Text
   content     String        @db.Text
   thumbnailId String?       @map("thumbnail_id") @db.Uuid
+  ogImageId   String?       @map("og_image_id") @db.Uuid
   kategoriId  String?       @map("kategori_id") @db.Uuid
   authorId    String?       @map("author_id") @db.Uuid
   /// Nama penulis yang ditampilkan langsung di card berita (field "Oleh: ...")
@@ -483,9 +493,6 @@ model Pengumuman {
   @@map("pengumuman")
 }
 
-/// Model GaleriAlbum — field disesuaikan dengan tampilan halaman /informasi/galeri
-/// Field yang digunakan UI: id, title, category, date(eventDate), image(coverPhoto.publicUrl),
-/// images(via photos[].media.publicUrl), desc(description)
 model GaleriAlbum {
   id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title        String    @db.VarChar(255)
