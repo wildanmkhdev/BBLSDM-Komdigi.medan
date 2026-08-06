@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { uploadFile, getMediaList, deleteMedia, SafeMedia } from "@/features/media/actions";
+import Image from "next/image";
 
 export default function MediaPage() {
   const [mediaList, setMediaList] = useState<SafeMedia[]>([]);
@@ -127,8 +128,7 @@ export default function MediaPage() {
                   {/* Thumbnail */}
                   <div className="relative aspect-[4/3] bg-slate-50 border-b border-slate-100 flex items-center justify-center overflow-hidden">
                     {isImage ? (
-                      /* eslint-disable-next-line @next/next/no-img-element */
-                      <img src={item.publicUrl} alt={item.originalName} className="w-full h-full object-cover" />
+                      <Image src={item.publicUrl} alt={item.originalName} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw" className="object-cover" />
                     ) : (
                       <div className="flex flex-col items-center space-y-1 text-slate-400">
                         <svg className="w-8 h-8 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>

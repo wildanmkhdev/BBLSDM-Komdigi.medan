@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { createBanner } from "@/features/banner/actions";
+import Image from "next/image";
 import { getMediaList, uploadFile, SafeMedia } from "@/features/media/actions";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -142,11 +143,12 @@ export default function AddBannerPage() {
           {/* Selected preview */}
           {selectedMediaId && (
             <div className="mt-2 relative w-48 h-28 bg-slate-50 rounded border border-slate-200 overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={mediaList.find(img => img.id === selectedMediaId)?.publicUrl || ""}
                 alt="Preview"
-                className="w-full h-full object-cover"
+                fill
+                sizes="192px"
+                className="object-cover"
               />
             </div>
           )}

@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 interface StafItem {
   id: string;
@@ -13,10 +14,11 @@ interface StafItem {
 }
 
 interface StafListProps {
-  stafData: StafItem[];
+  stafData?: StafItem[];
+  skeleton?: boolean;
 }
 
-export default function StafList({ stafData }: StafListProps) {
+export default function StafList({ stafData = [], skeleton = false }: StafListProps) {
   const getCategoryBadgeColor = (category: string) => {
     switch (category) {
       case "Struktural":
@@ -29,6 +31,35 @@ export default function StafList({ stafData }: StafListProps) {
         return "bg-gray-100 text-gray-900 border-gray-200";
     }
   };
+
+  if (skeleton) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {[1, 2, 3, 4].map((idx) => (
+          <div
+            key={idx}
+            className="group relative overflow-hidden rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
+          >
+            {/* Accent Line Left */}
+            <div className="absolute top-0 left-0 h-full w-1 bg-slate-200" />
+
+            <div className="flex flex-col sm:flex-row items-start gap-4">
+              {/* Avatar / Photo Placeholder */}
+              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full bg-slate-200 animate-pulse border border-slate-200" />
+
+              {/* Info Placeholder */}
+              <div className="flex-1 space-y-3">
+                <div className="h-4.5 w-16 bg-slate-200 rounded-full animate-pulse" />
+                <div className="h-4 bg-slate-200 rounded-md animate-pulse w-3/4" />
+                <div className="h-3.5 bg-slate-100 rounded-md animate-pulse w-1/2" />
+                <div className="h-3 bg-slate-100 rounded-md animate-pulse w-1/3" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -44,12 +75,15 @@ export default function StafList({ stafData }: StafListProps) {
             {/* Avatar / Photo */}
             <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full bg-slate-100 border border-slate-200">
               {staf.photoUrl ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={staf.photoUrl}
-                  alt={staf.name}
-                  className="h-full w-full object-cover"
-                />
+                <div className="relative w-full h-full bg-slate-200 animate-pulse">
+                  <Image
+                    src={staf.photoUrl}
+                    alt={staf.name}
+                    fill
+                    sizes="80px"
+                    className="object-cover animate-none"
+                  />
+                </div>
               ) : (
                 <div className="flex h-full w-full items-center justify-center bg-[#0b1b3d] text-white font-bold text-xl">
                   {staf.name.charAt(0)}

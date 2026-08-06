@@ -5,6 +5,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { SessionProvider } from "next-auth/react";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -38,6 +40,7 @@ export default function PublicRootLayout({
           <Footer />
         </SessionProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

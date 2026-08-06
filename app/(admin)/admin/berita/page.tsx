@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { getNewsArticles, deleteNewsArticle } from "@/features/berita/actions";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -49,8 +50,7 @@ export default async function AdminBeritaPage() {
                   <td className="px-4 py-3">
                     <div className="relative w-16 h-10 bg-slate-100 rounded overflow-hidden border border-slate-200">
                       {item.thumbnail ? (
-                        /* eslint-disable-next-line @next/next/no-img-element */
-                        <img src={item.thumbnail.publicUrl} alt={item.title} className="w-full h-full object-cover" />
+                        <Image src={item.thumbnail.publicUrl} alt={item.title} fill sizes="64px" className="object-cover" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-[8px] text-slate-400 bg-slate-50">NO COVER</div>
                       )}

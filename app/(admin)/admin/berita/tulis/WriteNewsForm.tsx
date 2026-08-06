@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { createNewsArticle, updateNewsArticle } from "@/features/berita/actions";
+import Image from "next/image";
 import { uploadFile, getMediaList, SafeMedia } from "@/features/media/actions";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -230,11 +231,12 @@ export default function WriteNewsForm({ categories, initialImages, editData }: W
 
         {selectedMediaId && (
           <div className="mt-2 relative w-36 h-20 bg-slate-50 rounded border border-slate-200 overflow-hidden">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={mediaList.find((img) => img.id === selectedMediaId)?.publicUrl || ""}
               alt="Preview"
-              className="w-full h-full object-cover"
+              fill
+              sizes="144px"
+              className="object-cover"
             />
           </div>
         )}

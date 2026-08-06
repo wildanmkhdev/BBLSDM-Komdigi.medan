@@ -1,29 +1,66 @@
 import React from "react";
+import Image from "next/image";
 
 interface DocumentCardProps {
-  title: string;
-  category: string;
-  publishDate: string;
-  fileSize: string;
-  fileFormat: string;
-  downloadUrl: string;
+  title?: string;
+  category?: string;
+  publishDate?: string;
+  fileSize?: string;
+  fileFormat?: string;
+  downloadUrl?: string;
   description?: string;
   coverUrl?: string;
+  skeleton?: boolean;
 }
 
 export default function DocumentCard({
-  title,
-  category,
-  publishDate,
-  fileSize,
-  fileFormat,
-  downloadUrl,
+  title = "",
+  category = "",
+  publishDate = "",
+  fileSize = "",
+  fileFormat = "",
+  downloadUrl = "",
   description,
   coverUrl,
+  skeleton = false,
 }: DocumentCardProps) {
   // Ekstrak tahun dari judul atau tanggal rilis jika tersedia
   const yearMatch = title.match(/\b(202\d)\b/) || publishDate.match(/\b(202\d)\b/);
   const documentYear = yearMatch ? yearMatch[1] : "2025";
+
+  if (skeleton) {
+    return (
+      <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+        {/* 1. BAGIAN ATAS: Thumbnail Cover Skeleton */}
+        <div className="relative mb-5 overflow-hidden rounded-xl bg-slate-100 p-4 pt-5 pb-5 border border-slate-200/60 flex items-center justify-center min-h-[260px] shadow-inner">
+          <div className="relative w-44 aspect-[3/4] rounded-md overflow-hidden bg-slate-200 animate-pulse border border-slate-200/90 shadow-md" />
+        </div>
+
+        {/* 2. BAGIAN TENGAH: Details Skeleton */}
+        <div className="flex flex-col flex-grow space-y-3">
+          <div className="flex items-center justify-between gap-2">
+            <div className="h-4.5 w-16 bg-slate-200 rounded-md animate-pulse" />
+            <div className="h-3 w-20 bg-slate-100 rounded animate-pulse" />
+          </div>
+          <div className="h-4 bg-slate-200 rounded-md animate-pulse w-5/6" />
+          <div className="h-4 bg-slate-200 rounded-md animate-pulse w-3/4" />
+          <div className="space-y-1.5 pt-2">
+            <div className="h-3 bg-slate-100 rounded animate-pulse w-full" />
+            <div className="h-3 bg-slate-100 rounded animate-pulse w-5/6" />
+          </div>
+        </div>
+
+        {/* 3. BAGIAN BAWAH: Action Skeleton */}
+        <div className="mt-6 border-t border-slate-100 pt-3.5 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="h-4 w-10 bg-slate-200 rounded animate-pulse" />
+            <div className="h-3.5 w-12 bg-slate-100 rounded animate-pulse" />
+          </div>
+          <div className="h-8 w-20 bg-slate-200 rounded-lg animate-pulse" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1.5 hover:border-slate-300 hover:shadow-xl">
@@ -38,12 +75,15 @@ export default function DocumentCard({
         <div className="relative w-44 aspect-[3/4] rounded-md overflow-hidden bg-white shadow-[0_8px_20px_-6px_rgba(11,27,61,0.25)] border-l-[3px] border-l-slate-400/80 border border-slate-200/90 transition-transform duration-500 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_14px_28px_-6px_rgba(2,132,199,0.3)]">
           
           {coverUrl ? (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              src={coverUrl}
-              alt={`Cover ${title}`}
-              className="h-full w-full object-cover"
-            />
+            <div className="relative w-full h-full bg-slate-200 animate-pulse">
+              <Image
+                src={coverUrl}
+                alt={`Cover ${title}`}
+                fill
+                sizes="(max-width: 768px) 150px, 200px"
+                className="object-cover"
+              />
+            </div>
           ) : (
             /* Mock Cover Halaman Depan Laporan A4 */
             <div className="h-full w-full flex flex-col justify-between p-3.5 bg-gradient-to-br from-[#0b1b3d] via-[#102a5c] to-[#0284c7] text-white relative overflow-hidden select-none">
@@ -148,4 +188,3 @@ export default function DocumentCard({
     </div>
   );
 }
-
