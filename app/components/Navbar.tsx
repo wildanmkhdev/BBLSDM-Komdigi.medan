@@ -53,23 +53,25 @@ const navItems: NavItem[] = [
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const navbarRef = useRef<HTMLElement | null>(null);
 
-  const handleMouseEnter = (label: string) => {
-    if (dropdownTimeoutRef.current) {
-      clearTimeout(dropdownTimeoutRef.current);
-    }
-    setOpenDropdown(label);
-  };
+  useEffect(() => {
+    if (!openDropdown) return;
 
-  const handleMouseLeave = () => {
-    dropdownTimeoutRef.current = setTimeout(() => {
-      setOpenDropdown(null);
-    }, 700); // Jeda yang lebih lama (700ms)
-  };
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (navbarRef.current && !navbarRef.current.contains(event.target as Node)) {
+        setOpenDropdown(null);
+      }
+    };
+
+    document.addEventListener("click", handleOutsideClick);
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [openDropdown]);
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b-2 border-navy/20 shadow-sm">
+    <header ref={navbarRef} className="sticky top-0 z-50 bg-white border-b-2 border-navy/20 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -93,11 +95,14 @@ export default function Navbar() {
               item.children ? (
                 <div
                   key={item.label}
-                  className="relative group h-full flex items-center"
-                  onMouseEnter={() => handleMouseEnter(item.label)}
-                  onMouseLeave={handleMouseLeave}
+                  className="relative h-full flex items-center"
                 >
-                  <button className="px-3 py-6 text-[13px] uppercase font-medium text-text-muted hover:text-sky-accent transition-colors duration-200 flex items-center gap-1 h-full">
+                  <button
+                    onClick={() =>
+                      setOpenDropdown(openDropdown === item.label ? null : item.label)
+                    }
+                    className="px-3 py-6 text-[13px] uppercase font-medium text-text-muted hover:text-sky-accent transition-colors duration-200 flex items-center gap-1 h-full"
+                  >
                     {item.label}
                     <svg
                       className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === item.label ? "rotate-180" : ""}`}

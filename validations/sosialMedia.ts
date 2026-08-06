@@ -21,3 +21,6 @@ export const socialMediaPostSchema = z.object({
 });
 
 export type SocialMediaPostFormData = z.infer<typeof socialMediaPostSchema>;
+
+
+

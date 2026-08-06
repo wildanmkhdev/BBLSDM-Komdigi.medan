@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSession, signOut } from "next-auth/react";
 
 interface MenuItem {
@@ -17,6 +17,22 @@ export default function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const navbarRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!activeDropdown) return;
+
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (navbarRef.current && !navbarRef.current.contains(event.target as Node)) {
+        setActiveDropdown(null);
+      }
+    };
+
+    document.addEventListener("click", handleOutsideClick);
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [activeDropdown]);
 
   const menuItems: MenuItem[] = [
     { name: "Beranda", href: "/" },
@@ -119,7 +135,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className={`w-full transition-all duration-300 ${headerClass}`}>
+    <header ref={navbarRef} className={`w-full transition-all duration-300 ${headerClass}`}>
       {/* Main Navbar */}
       <div className="flex items-center justify-between px-4 py-3.5 mx-auto max-w-7xl sm:px-6 lg:px-8">
         {/* Logo and Brand Title */}
@@ -165,11 +181,10 @@ export default function Navbar() {
             return (
               <div
                 key={item.name}
-                className="relative group/dropdown"
-                onMouseEnter={() => setActiveDropdown(item.name)}
-                onMouseLeave={() => setActiveDropdown(null)}
+                className="relative"
               >
                 <button
+                  onClick={() => handleDropdownToggle(item.name)}
                   className={`relative flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold tracking-wider uppercase transition-colors duration-200 ${navLinkClass(active)}`}
                 >
                   <span>{item.name}</span>
