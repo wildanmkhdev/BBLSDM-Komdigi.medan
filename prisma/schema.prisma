@@ -218,18 +218,12 @@ model Media {
   jabatanPhotos         JabatanNode[]
   wilayahPhotos         WilayahKerja[]
   beritaThumbnails      Berita[]            @relation("berita_thumbnail")
-<<<<<<< HEAD
-  pengumumanAttachments Pengumuman[]
-  albumCovers           GaleriAlbum[]
-  galeriPhotos          GaleriPhoto[]
-=======
   beritaOgImages        Berita[]            @relation("berita_og_image")
   pengumumanAttachments Pengumuman[]
   albumCovers           GaleriAlbum[]
   galeriPhotos          GaleriPhoto[]
   pelatihanThumbnails   Pelatihan[]         @relation("pelatihan_thumbnail")
   pelatihanBrochures    Pelatihan[]         @relation("pelatihan_brochure")
->>>>>>> ferdy
   magangCvs             PendaftaranMagang[] @relation("magang_cv")
   magangProposals       PendaftaranMagang[] @relation("magang_proposal")
   magangSuratBalasan    PendaftaranMagang[] @relation("magang_surat_balasan")
@@ -443,6 +437,7 @@ model Berita {
   updatedAt   DateTime      @updatedAt @map("updated_at") @db.Timestamptz
 
   thumbnail  Media?          @relation("berita_thumbnail", fields: [thumbnailId], references: [id], onDelete: SetNull)
+  ogImage    Media?          @relation("berita_og_image", fields: [ogImageId], references: [id], onDelete: SetNull)
   kategori   KategoriBerita? @relation(fields: [kategoriId], references: [id], onDelete: SetNull)
   author     User?           @relation("berita_author", fields: [authorId], references: [id], onDelete: SetNull)
   beritaTags BeritaTag[]
@@ -565,9 +560,13 @@ model Pelatihan {
   /// Daftar persyaratan peserta dalam format JSON array of strings
   persyaratan   Json            @default("[]")
   createdBy     String?         @map("created_by") @db.Uuid
+  thumbnailId   String?         @map("thumbnail_id") @db.Uuid
+  brochureId    String?         @map("brochure_id") @db.Uuid
   createdAt     DateTime        @default(now()) @map("created_at") @db.Timestamptz
   updatedAt     DateTime        @updatedAt @map("updated_at") @db.Timestamptz
 
+  thumbnail        Media?        @relation("pelatihan_thumbnail", fields: [thumbnailId], references: [id], onDelete: SetNull)
+  brochure         Media?        @relation("pelatihan_brochure", fields: [brochureId], references: [id], onDelete: SetNull)
   creator          User?         @relation("pelatihan_creator", fields: [createdBy], references: [id], onDelete: SetNull)
   statistikPeserta StatPeserta[]
 
@@ -859,6 +858,7 @@ model Banner {
   @@index([isActive, orderIndex])
   @@map("banners")
 }
+
 // ==========================================
 // 11. DOMAIN: APLIKASI
 // ==========================================
