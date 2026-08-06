@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "../globals.css";
 import { auth, signOut } from "@/auth";
+import { Analytics } from "@vercel/analytics/next";
 
 import SidebarNav from "./admin/SidebarNav";
 
@@ -106,6 +107,7 @@ export default async function AdminRootLayout({
             {children}
           </main>
         </div>
+        <Analytics />
       </body>
     </html>
   );

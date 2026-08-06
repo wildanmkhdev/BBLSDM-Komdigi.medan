@@ -84,14 +84,11 @@ export default async function MagangPage() {
         </section>
       ) : !session ? (
         /* If open but not logged in (guests) */
-        <div className="space-y-12 py-8 sm:py-12">
+        <div className="space-y-12 pt-0 pb-8 sm:pb-12">
           {/* Stepper Information Section */}
-          <section className="bg-slate-50 border-y border-slate-100 py-12 sm:py-16">
+          <section className="bg-slate-50 border-y border-slate-100 pt-6 pb-12 sm:pt-8 sm:pb-16">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
               <div className="text-center space-y-2">
-                <span className="inline-flex px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-sky-50 text-[#0284c7] border border-sky-100 font-sans">
-                  Informasi Prosedur
-                </span>
                 <h2 className="text-2xl font-extrabold text-[#0b1b3d]">
                   Alur Pendaftaran &amp; Seleksi Magang
                 </h2>
