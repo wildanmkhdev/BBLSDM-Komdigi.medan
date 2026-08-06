@@ -234,11 +234,8 @@ export default async function Home() {
         </div>
 
         {/* Contact Section */}
-        <section id="kontak" className="py-24 bg-white relative overflow-hidden border-t border-slate-200/60">
-          {/* Decorative background elements */}
-          <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-sky-50/50 via-white to-white -z-10 pointer-events-none"></div>
-          
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+        <section id="kontak" className="py-24 bg-white border-t border-slate-200/60">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-sm font-bold tracking-widest text-[#0284c7] uppercase mb-2">Layanan Bantuan</h2>
               <h3 className="text-3xl font-extrabold text-[#0b1b3d] sm:text-4xl tracking-tight">Hubungi Kami</h3>
@@ -260,48 +257,48 @@ export default async function Home() {
                         target="_blank" 
                         rel="noopener noreferrer"
                         title="Buka lokasi kantor di Google Maps"
-                        className="flex items-start gap-4 group hover:opacity-95 transition-opacity block"
+                        className="flex items-start gap-4 group"
                       >
-                        <div className="shrink-0 p-3.5 bg-sky-100 rounded-2xl text-[#0284c7] shadow-sm group-hover:bg-[#0284c7] group-hover:text-white transition-colors">
-                          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <div className="shrink-0 p-3 bg-white rounded-xl text-slate-500 border border-slate-200">
+                          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                           </svg>
                         </div>
                         <div>
-                          <p className="text-sm font-bold text-slate-900 mb-1.5 group-hover:text-[#0284c7] transition-colors flex items-center gap-1.5">
+                          <p className="text-sm font-semibold text-slate-800 mb-1 flex items-center gap-1.5">
                             Alamat Kantor
-                            <svg className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#0284c7]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                            <svg className="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                             </svg>
                           </p>
-                          <p className="text-sm text-slate-600 leading-relaxed group-hover:underline">
+                          <p className="text-sm text-slate-500 leading-relaxed">
                             Jl. Tombak No. 24, Sidorejo Hilir, Kec. Medan Tembung, Kota Medan, Sumatera Utara 20222
                           </p>
                         </div>
                       </a>
 
                      <div className="flex items-start gap-4">
-                       <div className="shrink-0 p-3.5 bg-emerald-100 rounded-2xl text-emerald-600 shadow-sm">
-                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                       <div className="shrink-0 p-3 bg-white rounded-xl text-slate-500 border border-slate-200">
+                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                            <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                          </svg>
                        </div>
                        <div>
-                         <p className="text-sm font-bold text-slate-900 mb-1.5">Telepon</p>
-                         <p className="text-sm text-slate-600">(061) 7367375</p>
+                         <p className="text-sm font-semibold text-slate-800 mb-1">Telepon</p>
+                         <p className="text-sm text-slate-500">(061) 7367375</p>
                        </div>
                      </div>
 
                      <div className="flex items-start gap-4">
-                       <div className="shrink-0 p-3.5 bg-indigo-100 rounded-2xl text-indigo-600 shadow-sm">
-                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                       <div className="shrink-0 p-3 bg-white rounded-xl text-slate-500 border border-slate-200">
+                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                            <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                          </svg>
                        </div>
                        <div>
-                         <p className="text-sm font-bold text-slate-900 mb-1.5">Email Resmi</p>
-                         <p className="text-sm text-slate-600">bblsdm.medan@komdigi.go.id</p>
+                         <p className="text-sm font-semibold text-slate-800 mb-1">Email Resmi</p>
+                         <p className="text-sm text-slate-500">bblsdm.medan@komdigi.go.id</p>
                        </div>
                      </div>
                    </div>

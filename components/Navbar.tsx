@@ -57,7 +57,6 @@ export default function Navbar() {
       name: "Layanan",
       submenu: [
         { name: "Pelatihan", href: "/layanan/pelatihan" },
-        { name: "Katalog Aplikasi", href: "/fitur" },
         { name: "Pengajuan Magang", href: "/layanan/magang" },
         { name: "FAQ", href: "/layanan/faq" },
         { name: "Feedback Comment", href: "/layanan/feedback" },

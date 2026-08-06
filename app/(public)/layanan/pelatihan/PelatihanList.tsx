@@ -270,9 +270,6 @@ export default function PelatihanList({ initialPelatihan }: PelatihanListProps) 
                   key={pelatihan.id}
                   className="flex flex-col bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-lg transition-all duration-300 overflow-hidden group"
                 >
-                  {/* Card Header Color Line */}
-                  <div className="h-2 w-full bg-linear-to-r from-sky-primary to-sky-accent" />
-
                   {/* Body Content */}
                   <div className="p-6 flex-1 flex flex-col justify-between">
                     <div className="space-y-4">
@@ -301,7 +298,7 @@ export default function PelatihanList({ initialPelatihan }: PelatihanListProps) 
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-base sm:text-lg font-bold text-navy group-hover:text-sky-primary transition-colors duration-200 line-clamp-2 leading-snug">
+                      <h3 className="text-base sm:text-lg font-bold text-navy group-hover:text-slate-700 transition-colors duration-200 line-clamp-2 leading-snug">
                         {pelatihan.title}
                       </h3>
 
