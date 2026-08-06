@@ -97,7 +97,26 @@ export default function WriteNewsForm({ categories, initialImages, editData }: W
       router.push("/admin/berita");
       router.refresh();
     } else {
-      setError("Gagal menyimpan artikel. Periksa kelengkapan isian form.");
+      if (typeof res.error === "string") {
+        setError(res.error);
+      } else if (res.error && typeof res.error === "object") {
+        // Handle validation errors from Zod (flatten().fieldErrors structure)
+        const validationMsgs = Object.entries(res.error)
+          .map(([field, msgs]) => {
+            const fieldName = field === "title" ? "Judul" 
+                            : field === "excerpt" ? "Kutipan" 
+                            : field === "content" ? "Isi Berita" 
+                            : field === "authorName" ? "Penulis" 
+                            : field === "kategoriId" ? "Kategori" 
+                            : field === "thumbnailId" ? "Cover Gambar" 
+                            : field;
+            return `${fieldName}: ${(msgs as string[]).join(", ")}`;
+          })
+          .join(" | ");
+        setError(`Gagal menyimpan artikel. Validasi gagal: ${validationMsgs}`);
+      } else {
+        setError("Gagal menyimpan artikel. Periksa kelengkapan isian form.");
+      }
     }
     setSubmitting(false);
   };
