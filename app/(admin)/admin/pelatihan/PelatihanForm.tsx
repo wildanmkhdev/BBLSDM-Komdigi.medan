@@ -99,7 +99,31 @@ export default function PelatihanForm({ editData }: PelatihanFormProps) {
       router.push("/admin/pelatihan");
       router.refresh();
     } else {
-      setError("Gagal menyimpan pelatihan. Periksa kelengkapan isian.");
+      if (typeof res.error === "string") {
+        setError(res.error);
+      } else if (res.error && typeof res.error === "object") {
+        // Handle validation errors from Zod
+        const validationMsgs = Object.entries(res.error)
+          .map(([field, msgs]) => {
+            const fieldName = field === "title" ? "Nama Pelatihan" 
+                            : field === "categorySlug" ? "Kategori" 
+                            : field === "description" ? "Deskripsi Program" 
+                            : field === "jadwal" ? "Jadwal" 
+                            : field === "durasi" ? "Durasi" 
+                            : field === "kuota" ? "Kuota" 
+                            : field === "terisi" ? "Terisi" 
+                            : field === "metode" ? "Metode" 
+                            : field === "lokasi" ? "Lokasi" 
+                            : field === "silabus" ? "Silabus" 
+                            : field === "persyaratan" ? "Persyaratan" 
+                            : field;
+            return `${fieldName}: ${(msgs as string[]).join(", ")}`;
+          })
+          .join(" | ");
+        setError(`Gagal menyimpan pelatihan. Validasi gagal: ${validationMsgs}`);
+      } else {
+        setError("Gagal menyimpan pelatihan. Periksa kelengkapan isian.");
+      }
     }
     setSubmitting(false);
   };
