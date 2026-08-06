@@ -121,7 +121,8 @@ export async function createPelatihan(data: PelatihanFormData) {
       return { success: false, error: error.flatten().fieldErrors };
     }
     console.error("Create pelatihan error:", error);
-    return { success: false, error: "Gagal menyimpan data pelatihan" };
+    const msg = error instanceof Error ? error.message : String(error);
+    return { success: false, error: `Gagal menyimpan data pelatihan: ${msg}` };
   }
 }
 
@@ -164,7 +165,8 @@ export async function updatePelatihan(id: string, data: PelatihanFormData) {
       return { success: false, error: error.flatten().fieldErrors };
     }
     console.error("Update pelatihan error:", error);
-    return { success: false, error: "Gagal memperbarui data pelatihan" };
+    const msg = error instanceof Error ? error.message : String(error);
+    return { success: false, error: `Gagal memperbarui data pelatihan: ${msg}` };
   }
 }
 
