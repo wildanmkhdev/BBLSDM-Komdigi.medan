@@ -139,8 +139,6 @@ export default function MagangForm({
             </div>
           ) : (
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="h-1 bg-gradient-to-r from-sky-accent to-sky-primary" />
-
               <div className="p-6 sm:p-8">
                 <h2 className="text-xl font-bold text-navy mb-1">
                   Formulir Pendaftaran Magang

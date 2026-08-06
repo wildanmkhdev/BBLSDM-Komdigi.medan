@@ -41,7 +41,6 @@ const navItems: NavItem[] = [
     label: "Layanan",
     children: [
       { label: "Pelatihan", href: "/layanan/pelatihan" },
-      { label: "Katalog Aplikasi", href: "/fitur" },
       { label: "Pengajuan Magang", href: "/layanan/magang" },
       { label: "FAQ", href: "/layanan/faq" },
       { label: "Feedback", href: "/layanan/feedback" },
