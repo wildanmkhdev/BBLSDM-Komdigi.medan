@@ -122,18 +122,17 @@ export default function AplikasiForm({ initialImages, editData }: AplikasiFormPr
         />
       </div>
 
-      {/* Deskripsi */}
+      {/* Deskripsi Singkat */}
       <div>
         <label className="block text-sm font-semibold text-slate-700 mb-2">
-          Deskripsi Aplikasi <span className="text-red-500">*</span>
-          <span className="text-slate-400 font-normal ml-1">— isi detail fitur dan info aplikasi</span>
+          Deskripsi Singkat Aplikasi <span className="text-red-500">*</span>
         </label>
         <textarea
           required
-          rows={6}
+          rows={3}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="Tulis deskripsi detail, fungsi, dan fitur utama dari aplikasi ini..."
+          placeholder="Tulis deskripsi singkat aplikasi..."
           className="w-full px-4 py-2 border border-slate-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-slate-900 resize-none font-sans text-slate-900"
         />
       </div>
@@ -178,20 +177,6 @@ export default function AplikasiForm({ initialImages, editData }: AplikasiFormPr
             <Image src={logoPreview.publicUrl} alt="Preview logo" fill className="object-cover" />
           </div>
         )}
-      </div>
-
-      {/* Status Aktif */}
-      <div className="flex items-center space-x-2">
-        <input
-          type="checkbox"
-          id="isActive"
-          checked={isActive}
-          onChange={(e) => setIsActive(e.target.checked)}
-          className="w-4 h-4 rounded text-slate-900 focus:ring-slate-900 cursor-pointer"
-        />
-        <label htmlFor="isActive" className="text-sm font-medium text-slate-700 cursor-pointer">
-          Tampilkan di katalog aplikasi publik
-        </label>
       </div>
 
       {/* Action Buttons */}

@@ -33,115 +33,79 @@ export default async function AdminAplikasiPage() {
 
       {apps.length === 0 ? (
         <div className="bg-white rounded-xl border border-slate-200 p-12 text-center text-slate-400 text-sm">
-          Belum ada aplikasi yang didaftarkan. Klik <strong>Tambah Aplikasi</strong> untuk mulai.
+          Belum ada aplikasi yang didaftarkan.
         </div>
       ) : (
-        /* Card Grid Layout */
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        /* Card Grid Layout (4-5 columns) */
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           {apps.map((app) => (
             <div
               key={app.id}
-              className="bg-white rounded-xl border border-slate-200 shadow-xs p-5 flex flex-col justify-between hover:shadow-md transition duration-200"
+              className={`relative group ${!app.isActive ? "opacity-60" : ""}`}
             >
-              <div className="space-y-4">
-                {/* Top: Logo & Status Badge */}
-                <div className="flex items-start justify-between">
-                  <div className="relative w-12 h-12 bg-slate-50 rounded-lg overflow-hidden border border-slate-200 flex items-center justify-center shrink-0">
-                    {app.logo ? (
-                      <Image
-                        src={app.logo.publicUrl}
-                        alt={app.name}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : (
-                      <span className="text-[10px] font-bold text-slate-400">LOGO</span>
-                    )}
-                  </div>
-
-                  {app.isActive ? (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                      Aktif
-                    </span>
+              {/* Main Card (Clickable Link) */}
+              <a
+                href={app.url || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center justify-center p-6 bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-md hover:border-slate-300 hover:bg-slate-50/50 transition-all duration-200 w-full h-full min-h-[150px] relative cursor-pointer"
+              >
+                {/* Logo Container */}
+                <div className="relative w-16 h-16 bg-slate-50 rounded-2xl overflow-hidden border border-slate-100 flex items-center justify-center shadow-2xs transition-transform duration-200 group-hover:scale-105">
+                  {app.logo ? (
+                    <Image
+                      src={app.logo.publicUrl}
+                      alt={app.name}
+                      fill
+                      className="object-cover"
+                    />
                   ) : (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
-                      Nonaktif
-                    </span>
+                    <span className="text-[10px] font-bold text-slate-400">LOGO</span>
                   )}
                 </div>
 
-                {/* Middle: Name & Description */}
-                <div className="space-y-1.5">
-                  <h3 className="font-bold text-sm text-slate-900 leading-snug line-clamp-1">
-                    {app.name}
-                  </h3>
-                  <p className="text-[11px] text-slate-400 font-medium">slug: {app.slug}</p>
-                  <p className="text-xs text-slate-500 leading-relaxed line-clamp-3">
-                    {app.description}
-                  </p>
-                </div>
+                {/* Name */}
+                <h3 className="mt-3.5 font-bold text-xs text-slate-800 text-center line-clamp-2 px-1 leading-snug">
+                  {app.name}
+                </h3>
+              </a>
 
-                {/* URL Info */}
-                {app.url ? (
-                  <div className="pt-2 border-t border-slate-100 flex items-center gap-1.5 text-xs text-slate-500">
-                    <svg className="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                    </svg>
-                    <a
-                      href={app.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline truncate"
-                    >
-                      {app.url}
-                    </a>
-                  </div>
-                ) : (
-                  <div className="pt-2 border-t border-slate-100 text-xs text-slate-300 italic">
-                    Belum ada link/URL
-                  </div>
-                )}
+              {/* Custom CSS Hover Tooltip */}
+              <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-3.5 w-52 p-3 bg-slate-900/95 backdrop-blur-xs text-white text-[10px] leading-relaxed rounded-xl shadow-lg opacity-0 translate-y-1.5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-20 text-center font-medium">
+                {app.description}
+                <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-slate-900/95"></div>
               </div>
 
-              {/* Bottom: Action Buttons */}
+              {/* Admin Actions (Overlaid on Hover, top-right) */}
               {!isReadOnly && (
-                <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between">
+                <div className="absolute top-2.5 right-2.5 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
+                  <Link
+                    href={`/admin/aplikasi/edit/${app.id}`}
+                    className="p-1.5 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg text-slate-500 hover:text-slate-800 shadow-2xs transition duration-150"
+                    title="Edit"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                  </Link>
+
                   <form
                     action={async () => {
                       "use server";
-                      await toggleAplikasiStatus(app.id, !app.isActive);
+                      await deleteAplikasi(app.id);
                     }}
+                    className="inline"
                   >
                     <button
                       type="submit"
-                      className="text-[10px] font-bold text-blue-600 hover:text-blue-800 transition cursor-pointer"
+                      className="p-1.5 bg-white hover:bg-red-50 border border-slate-200 hover:border-red-200 rounded-lg text-slate-500 hover:text-red-600 shadow-2xs transition duration-150 cursor-pointer"
+                      title="Hapus"
                     >
-                      {app.isActive ? "Nonaktifkan" : "Aktifkan"}
+                      <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
                     </button>
                   </form>
-
-                  <div className="flex items-center gap-3">
-                    <Link
-                      href={`/admin/aplikasi/edit/${app.id}`}
-                      className="text-[10px] font-bold text-slate-600 hover:text-slate-900 transition"
-                    >
-                      Edit
-                    </Link>
-
-                    <form
-                      action={async () => {
-                        "use server";
-                        await deleteAplikasi(app.id);
-                      }}
-                    >
-                      <button
-                        type="submit"
-                        className="text-[10px] font-bold text-red-600 hover:text-red-800 transition cursor-pointer"
-                      >
-                        Hapus
-                      </button>
-                    </form>
-                  </div>
                 </div>
               )}
             </div>
