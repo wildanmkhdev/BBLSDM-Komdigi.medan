@@ -32,6 +32,16 @@ export const authConfig = {
           if (auth.user.status !== "ACTIVE" || auth.user.role === "USER") {
             return false;
           }
+          
+          // Protect system management pages (pengguna & role) - only SUPER_ADMIN can access
+          const isOnSystemManagement = 
+            nextUrl.pathname.startsWith("/admin/pengguna") || 
+            nextUrl.pathname.startsWith("/admin/role");
+            
+          if (isOnSystemManagement && auth.user.role !== "SUPER_ADMIN") {
+            return Response.redirect(new URL("/admin", nextUrl));
+          }
+          
           return true;
         }
         return false; // Redirect to login
