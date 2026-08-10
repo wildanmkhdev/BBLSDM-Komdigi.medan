@@ -37,7 +37,7 @@ export default async function AdminAplikasiPage() {
         </div>
       ) : (
         /* Card Grid Layout (4-5 columns) */
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-5">
           {apps.map((app) => (
             <div
               key={app.id}
@@ -48,10 +48,10 @@ export default async function AdminAplikasiPage() {
                 href={app.url || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center justify-center p-6 bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-md hover:border-slate-300 hover:bg-slate-50/50 transition-all duration-200 w-full h-full min-h-[150px] relative cursor-pointer"
+                className="flex flex-col items-center justify-center p-3 bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-md hover:border-slate-300 hover:bg-slate-50/50 transition-all duration-200 w-full aspect-square relative cursor-pointer"
               >
-                {/* Logo Container */}
-                <div className="relative w-16 h-16 bg-slate-50 rounded-2xl overflow-hidden border border-slate-100 flex items-center justify-center shadow-2xs transition-transform duration-200 group-hover:scale-105">
+                {/* Logo Container (occupies 70% of the square card size) */}
+                <div className="relative w-[70%] aspect-square bg-slate-50 rounded-xl overflow-hidden border border-slate-100 flex items-center justify-center shadow-2xs transition-transform duration-200 group-hover:scale-105">
                   {app.logo ? (
                     <Image
                       src={app.logo.publicUrl}
@@ -65,7 +65,7 @@ export default async function AdminAplikasiPage() {
                 </div>
 
                 {/* Name */}
-                <h3 className="mt-3.5 font-bold text-xs text-slate-800 text-center line-clamp-2 px-1 leading-snug">
+                <h3 className="mt-2 font-bold text-[10px] sm:text-xs text-slate-800 text-center line-clamp-1 w-full px-1 leading-tight">
                   {app.name}
                 </h3>
               </a>
