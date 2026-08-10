@@ -9,6 +9,7 @@ import Image from "next/image";
 
 
 import SidebarNav from "./admin/SidebarNav";
+import NextTopLoader from "nextjs-toploader";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -33,6 +34,17 @@ export default async function AdminRootLayout({
   return (
     <html lang="id" className={`${plusJakartaSans.variable} h-full antialiased`}>
       <body className="min-h-full flex bg-[#f8fafc] text-slate-900 font-sans w-full">
+        <NextTopLoader
+          color="#0284c7"
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={3}
+          crawl={true}
+          showSpinner={false}
+          easing="ease"
+          speed={200}
+          shadow="0 0 10px #0284c7,0 0 5px #0284c7"
+        />
         {/* Sidebar */}
         <aside className="w-64 bg-[#0b1b3d] text-white flex flex-col shrink-0 shadow-xl border-r border-[#0b1b3d]/10">
           <div className="h-16 flex items-center justify-center border-b border-white/10 bg-[#0b1b3d] px-6">
