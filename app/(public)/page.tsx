@@ -23,26 +23,58 @@ export default async function Home() {
   }
 
   // 2. Fetch popular news for Hero overlay
-  let dbPopularNews: (Berita & { thumbnail: Media | null; kategori: KategoriBerita | null })[] = [];
+  let dbPopularNews: any[] = [];
   try {
     dbPopularNews = await prisma.berita.findMany({
       where: { status: "PUBLISHED" },
       orderBy: { viewCount: "desc" },
       take: 4,
-      include: { thumbnail: true, kategori: true },
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        viewCount: true,
+        publishedAt: true,
+        thumbnail: {
+          select: {
+            publicUrl: true,
+          },
+        },
+        kategori: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
   } catch (e) {
     console.error("Error fetching popular news:", e);
   }
 
   // 3. Fetch latest news list for news section
-  let dbNewsList: (Berita & { thumbnail: Media | null; kategori: KategoriBerita | null })[] = [];
+  let dbNewsList: any[] = [];
   try {
     dbNewsList = await prisma.berita.findMany({
       where: { status: "PUBLISHED" },
       orderBy: { publishedAt: "desc" },
       take: 4,
-      include: { thumbnail: true, kategori: true },
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        excerpt: true,
+        publishedAt: true,
+        thumbnail: {
+          select: {
+            publicUrl: true,
+          },
+        },
+        kategori: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
   } catch (e) {
     console.error("Error fetching latest news:", e);

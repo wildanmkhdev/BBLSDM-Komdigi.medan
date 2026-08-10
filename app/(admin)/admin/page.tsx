@@ -125,10 +125,22 @@ export default async function AdminDashboardPage() {
         prisma.berita.findMany({
           orderBy: { publishedAt: "desc" },
           take: 3,
+          select: {
+            title: true,
+            authorName: true,
+            publishedAt: true,
+            createdAt: true,
+          },
         }),
         prisma.pendaftaranMagang.findMany({
           orderBy: { createdAt: "desc" },
           take: 3,
+          select: {
+            fullName: true,
+            institution: true,
+            major: true,
+            createdAt: true,
+          },
         }),
       ]);
 
