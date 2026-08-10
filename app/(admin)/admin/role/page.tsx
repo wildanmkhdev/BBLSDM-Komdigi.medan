@@ -46,6 +46,12 @@ export default async function AdminRolePage() {
       color: "border-amber-200 bg-amber-50/50 text-amber-700",
     },
     {
+      key: "PEGAWAI",
+      name: "Pegawai",
+      description: "Hanya berwenang melihat data Katalog Aplikasi di CMS (Read-Only).",
+      color: "border-teal-200 bg-teal-50/50 text-teal-700",
+    },
+    {
       key: "USER",
       name: "User (Magang)",
       description: "Hak akses dasar untuk mendaftar magang dan melacak status progres pendaftaran magang mereka.",
@@ -113,7 +119,7 @@ export default async function AdminRolePage() {
                       <form
                         action={async (formData: FormData) => {
                           "use server";
-                          const targetRole = formData.get("newRole") as "SUPER_ADMIN" | "ADMIN" | "EDITOR" | "AUTHOR" | "USER";
+                           const targetRole = formData.get("newRole") as "SUPER_ADMIN" | "ADMIN" | "EDITOR" | "AUTHOR" | "USER" | "PEGAWAI";
                           await switchUserRole(member.id, targetRole);
                         }}
                         className="flex items-center gap-2"
@@ -128,6 +134,7 @@ export default async function AdminRolePage() {
                           <option value="ADMIN">Admin Balai</option>
                           <option value="EDITOR">Editor</option>
                           <option value="AUTHOR">Author</option>
+                          <option value="PEGAWAI">Pegawai (Read-Only Apk)</option>
                           <option value="USER">User (Magang)</option>
                         </select>
                         {member.id !== currentUserId && (

@@ -5,6 +5,14 @@ import { revalidatePath } from "next/cache";
 import { aplikasiSchema, type AplikasiFormData } from "@/validations/aplikasi";
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
+import { auth } from "@/auth";
+
+async function requireWriteAccess() {
+  const session = await auth();
+  if (!session || session.user?.status !== "ACTIVE" || session.user?.role === "PEGAWAI") {
+    throw new Error("Unauthorized: Anda tidak memiliki hak akses untuk mengubah data.");
+  }
+}
 
 export type SafeAplikasi = Prisma.AplikasiGetPayload<{
   include: { logo: true };
@@ -76,6 +84,7 @@ export async function getAplikasiBySlug(slug: string): Promise<SafeAplikasi | nu
 // ─── CREATE ─────────────────────────────────────────────────────────────────────
 
 export async function createAplikasi(data: AplikasiFormData) {
+  await requireWriteAccess();
   try {
     const validated = aplikasiSchema.parse(data);
     const slug = generateSlug(validated.name);
@@ -106,6 +115,7 @@ export async function createAplikasi(data: AplikasiFormData) {
 // ─── UPDATE ─────────────────────────────────────────────────────────────────────
 
 export async function updateAplikasi(id: string, data: AplikasiFormData) {
+  await requireWriteAccess();
   try {
     const validated = aplikasiSchema.parse(data);
 
@@ -136,6 +146,7 @@ export async function updateAplikasi(id: string, data: AplikasiFormData) {
 // ─── TOGGLE STATUS ──────────────────────────────────────────────────────────────
 
 export async function toggleAplikasiStatus(id: string, isActive: boolean) {
+  await requireWriteAccess();
   try {
     const updated = await prisma.aplikasi.update({
       where: { id },
@@ -154,6 +165,7 @@ export async function toggleAplikasiStatus(id: string, isActive: boolean) {
 // ─── DELETE ─────────────────────────────────────────────────────────────────────
 
 export async function deleteAplikasi(id: string) {
+  await requireWriteAccess();
   try {
     await prisma.aplikasi.delete({ where: { id } });
     revalidatePath("/fitur");

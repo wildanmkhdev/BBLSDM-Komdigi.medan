@@ -35,6 +35,18 @@ export default function SidebarNav({ userRole }: SidebarNavProps) {
     },
   ];
 
+  const filteredMenuItems = menuItems.map((cat) => {
+    if (userRole === "PEGAWAI") {
+      return {
+        ...cat,
+        items: cat.items.filter(
+          (item) => item.name === "Dashboard" || item.name === "Katalog Aplikasi"
+        ),
+      };
+    }
+    return cat;
+  }).filter((cat) => cat.items.length > 0);
+
   const systemItems = [
     { name: "Manajemen Pengguna", href: "/admin/pengguna" },
     { name: "Manajemen Role", href: "/admin/role" },
@@ -47,7 +59,7 @@ export default function SidebarNav({ userRole }: SidebarNavProps) {
 
   return (
     <nav className="flex-1 px-4 py-6 space-y-6">
-      {menuItems.map((cat, idx) => (
+      {filteredMenuItems.map((cat, idx) => (
         <div key={idx} className="space-y-1.5">
           <div className="px-3 text-[10px] font-bold text-slate-400/80 uppercase tracking-widest">
             {cat.category}

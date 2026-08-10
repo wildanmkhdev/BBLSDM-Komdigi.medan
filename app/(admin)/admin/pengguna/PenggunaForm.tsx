@@ -10,7 +10,7 @@ interface PenggunaFormProps {
     id: string;
     name: string;
     email: string;
-    role: "SUPER_ADMIN" | "ADMIN" | "EDITOR" | "AUTHOR" | "USER";
+    role: "SUPER_ADMIN" | "ADMIN" | "EDITOR" | "AUTHOR" | "USER" | "PEGAWAI";
     status: "ACTIVE" | "INACTIVE";
   };
 }
@@ -22,7 +22,7 @@ export default function PenggunaForm({ editData }: PenggunaFormProps) {
   const [name, setName] = useState(editData?.name || "");
   const [email, setEmail] = useState(editData?.email || "");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<"SUPER_ADMIN" | "ADMIN" | "EDITOR" | "AUTHOR" | "USER">(
+  const [role, setRole] = useState<"SUPER_ADMIN" | "ADMIN" | "EDITOR" | "AUTHOR" | "USER" | "PEGAWAI">(
     editData?.role || "EDITOR"
   );
   const [status, setStatus] = useState<"ACTIVE" | "INACTIVE">(editData?.status || "ACTIVE");
@@ -130,6 +130,7 @@ export default function PenggunaForm({ editData }: PenggunaFormProps) {
             <option value="ADMIN">Admin (Kelola Editorial & Layanan)</option>
             <option value="EDITOR">Editor (Kelola Konten & Media)</option>
             <option value="AUTHOR">Author (Tulis Berita)</option>
+            <option value="PEGAWAI">Pegawai (Lihat Katalog Aplikasi)</option>
             <option value="USER">User (Anak Magang)</option>
           </select>
         </div>

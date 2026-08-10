@@ -2,10 +2,13 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { getAplikasiList, deleteAplikasi, toggleAplikasiStatus } from "@/features/aplikasi/actions";
+import { auth } from "@/auth";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminAplikasiPage() {
+  const session = await auth();
+  const isReadOnly = session?.user?.role === "PEGAWAI";
   const apps = await getAplikasiList();
 
   return (
@@ -18,12 +21,14 @@ export default async function AdminAplikasiPage() {
             Kelola daftar aplikasi internal/eksternal yang disediakan BBLSDM untuk katalog publik.
           </p>
         </div>
-        <Link
-          href="/admin/aplikasi/tambah"
-          className="inline-flex items-center px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold rounded-lg shadow-sm transition cursor-pointer"
-        >
-          + Tambah Aplikasi
-        </Link>
+        {!isReadOnly && (
+          <Link
+            href="/admin/aplikasi/tambah"
+            className="inline-flex items-center px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold rounded-lg shadow-sm transition cursor-pointer"
+          >
+            + Tambah Aplikasi
+          </Link>
+        )}
       </div>
 
       {apps.length === 0 ? (
@@ -99,44 +104,46 @@ export default async function AdminAplikasiPage() {
               </div>
 
               {/* Bottom: Action Buttons */}
-              <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between">
-                <form
-                  action={async () => {
-                    "use server";
-                    await toggleAplikasiStatus(app.id, !app.isActive);
-                  }}
-                >
-                  <button
-                    type="submit"
-                    className="text-[10px] font-bold text-blue-600 hover:text-blue-800 transition cursor-pointer"
-                  >
-                    {app.isActive ? "Nonaktifkan" : "Aktifkan"}
-                  </button>
-                </form>
-
-                <div className="flex items-center gap-3">
-                  <Link
-                    href={`/admin/aplikasi/edit/${app.id}`}
-                    className="text-[10px] font-bold text-slate-600 hover:text-slate-900 transition"
-                  >
-                    Edit
-                  </Link>
-
+              {!isReadOnly && (
+                <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between">
                   <form
                     action={async () => {
                       "use server";
-                      await deleteAplikasi(app.id);
+                      await toggleAplikasiStatus(app.id, !app.isActive);
                     }}
                   >
                     <button
                       type="submit"
-                      className="text-[10px] font-bold text-red-600 hover:text-red-800 transition cursor-pointer"
+                      className="text-[10px] font-bold text-blue-600 hover:text-blue-800 transition cursor-pointer"
                     >
-                      Hapus
+                      {app.isActive ? "Nonaktifkan" : "Aktifkan"}
                     </button>
                   </form>
+
+                  <div className="flex items-center gap-3">
+                    <Link
+                      href={`/admin/aplikasi/edit/${app.id}`}
+                      className="text-[10px] font-bold text-slate-600 hover:text-slate-900 transition"
+                    >
+                      Edit
+                    </Link>
+
+                    <form
+                      action={async () => {
+                        "use server";
+                        await deleteAplikasi(app.id);
+                      }}
+                    >
+                      <button
+                        type="submit"
+                        className="text-[10px] font-bold text-red-600 hover:text-red-800 transition cursor-pointer"
+                      >
+                        Hapus
+                      </button>
+                    </form>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           ))}
         </div>

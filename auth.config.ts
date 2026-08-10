@@ -33,6 +33,14 @@ export const authConfig = {
             return false;
           }
           
+          // Protect pages for PEGAWAI role (can only see dashboard and applications list)
+          if (auth.user.role === "PEGAWAI") {
+            const isAllowed = nextUrl.pathname === "/admin" || nextUrl.pathname === "/admin/aplikasi" || nextUrl.pathname === "/admin/aplikasi/";
+            if (!isAllowed) {
+              return Response.redirect(new URL("/admin", nextUrl));
+            }
+          }
+          
           // Protect system management pages (pengguna & role) - only SUPER_ADMIN can access
           const isOnSystemManagement = 
             nextUrl.pathname.startsWith("/admin/pengguna") || 

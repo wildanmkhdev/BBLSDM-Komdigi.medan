@@ -21,6 +21,7 @@ enum UserRole {
   EDITOR
   AUTHOR
   USER
+  PEGAWAI
 }
 
 enum UserStatus {

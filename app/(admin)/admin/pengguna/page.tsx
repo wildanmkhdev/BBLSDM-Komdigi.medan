@@ -15,6 +15,7 @@ export default async function AdminPenggunaPage() {
     ADMIN: "Admin",
     EDITOR: "Editor",
     AUTHOR: "Author",
+    PEGAWAI: "Pegawai",
     USER: "User (Magang)",
   } as const;
 
@@ -23,6 +24,7 @@ export default async function AdminPenggunaPage() {
     ADMIN: "bg-blue-50 text-blue-700 border-blue-200",
     EDITOR: "bg-emerald-50 text-emerald-700 border-emerald-200",
     AUTHOR: "bg-amber-50 text-amber-700 border-amber-200",
+    PEGAWAI: "bg-teal-50 text-teal-700 border-teal-200",
     USER: "bg-slate-100 text-slate-700 border-slate-300",
   } as const;
 

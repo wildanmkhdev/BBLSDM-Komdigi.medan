@@ -168,7 +168,7 @@ export async function deleteUser(id: string) {
 
 // ─── SWITCH ROLE ────────────────────────────────────────────────────────────────
 
-export async function switchUserRole(id: string, role: "SUPER_ADMIN" | "ADMIN" | "EDITOR" | "AUTHOR" | "USER") {
+export async function switchUserRole(id: string, role: "SUPER_ADMIN" | "ADMIN" | "EDITOR" | "AUTHOR" | "USER" | "PEGAWAI") {
   await requireSuperAdmin();
   try {
     await prisma.user.update({

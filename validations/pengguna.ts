@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const userRoleEnum = z.enum(["SUPER_ADMIN", "ADMIN", "EDITOR", "AUTHOR", "USER"]);
+const userRoleEnum = z.enum(["SUPER_ADMIN", "ADMIN", "EDITOR", "AUTHOR", "USER", "PEGAWAI"]);
 const userStatusEnum = z.enum(["ACTIVE", "INACTIVE"]);
 
 export const userCreateSchema = z.object({
