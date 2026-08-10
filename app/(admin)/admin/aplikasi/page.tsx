@@ -70,12 +70,6 @@ export default async function AdminAplikasiPage() {
                 </h3>
               </a>
 
-              {/* Custom CSS Hover Tooltip */}
-              <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-3.5 w-52 p-3 bg-slate-900/95 backdrop-blur-xs text-white text-[10px] leading-relaxed rounded-xl shadow-lg opacity-0 translate-y-1.5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-20 text-center font-medium">
-                {app.description}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-slate-900/95"></div>
-              </div>
-
               {/* Admin Actions (Overlaid on Hover, top-right) */}
               {!isReadOnly && (
                 <div className="absolute top-2.5 right-2.5 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
