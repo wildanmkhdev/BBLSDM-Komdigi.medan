@@ -10,7 +10,6 @@ export default function FeaturedEventHero() {
           src="/kunker-nezar/kunker-nezar-3.jpeg"
           alt="Rapat Koordinasi Strategis Wamenkomdigi Nezar Patria di BBLSDM Komdigi Medan"
           fill
-          priority
           sizes="100vw"
           className="object-cover object-center"
         />

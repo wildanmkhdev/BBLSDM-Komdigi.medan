@@ -1,10 +1,12 @@
 import HeroBanner from "@/components/HeroBanner";
-import FeaturedEventHero from "@/components/FeaturedEventHero";
 import KomdigiStorySection from "@/components/KomdigiStorySection";
-import HomeContactForm from "@/components/HomeContactForm";
 import Link from "next/link";
 import Image from "next/image";
 import prisma from "@/lib/prisma";
+import nextDynamic from "next/dynamic";
+
+const FeaturedEventHero = nextDynamic(() => import("@/components/FeaturedEventHero"));
+const HomeContactForm = nextDynamic(() => import("@/components/HomeContactForm"));
 import { Banner, Media, Berita, KategoriBerita } from "@prisma/client";
 
 export const dynamic = "force-dynamic";
