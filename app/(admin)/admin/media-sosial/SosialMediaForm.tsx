@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { createSocialMediaPost, updateSocialMediaPost } from "@/features/sosialMedia/actions";
+import { createSocialMediaPost, updateSocialMediaPost } from "@/actions/sosialMedia";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 

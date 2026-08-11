@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { submitPendaftaranMagang } from "@/features/magang/actions";
-import { uploadFile } from "@/features/media/actions";
+import { submitPendaftaranMagang } from "@/actions/magang";
+import { uploadFile } from "@/actions/media";
 
 interface Step {
   step: number;

@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getAplikasiList, deleteAplikasi, toggleAplikasiStatus } from "@/features/aplikasi/actions";
+import { getAplikasiList, deleteAplikasi, toggleAplikasiStatus } from "@/actions/aplikasi";
 import { auth } from "@/auth";
 
 export const dynamic = "force-dynamic";

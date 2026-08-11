@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { createPengumuman, updatePengumuman } from "@/features/pengumuman/actions";
-import { uploadFile, getMediaList, SafeMedia } from "@/features/media/actions";
+import { createPengumuman, updatePengumuman } from "@/actions/pengumuman";
+import { uploadFile, getMediaList, SafeMedia } from "@/actions/media";
 import { KATEGORI_PENGUMUMAN } from "@/validations/pengumuman";
 import { useRouter } from "next/navigation";
 import Link from "next/link";

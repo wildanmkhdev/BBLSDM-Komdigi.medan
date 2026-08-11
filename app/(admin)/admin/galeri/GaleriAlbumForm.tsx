@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { createGaleriAlbum, updateGaleriAlbum } from "@/features/galeri/actions";
-import { uploadFile, getMediaList, SafeMedia } from "@/features/media/actions";
+import { createGaleriAlbum, updateGaleriAlbum } from "@/actions/galeri";
+import { uploadFile, getMediaList, SafeMedia } from "@/actions/media";
 import { KATEGORI_GALERI } from "@/validations/galeri";
 import { useRouter } from "next/navigation";
 import Link from "next/link";

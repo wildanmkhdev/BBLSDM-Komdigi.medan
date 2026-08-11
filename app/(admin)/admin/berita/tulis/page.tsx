@@ -1,7 +1,7 @@
 import React from "react";
 import WriteNewsForm from "./WriteNewsForm";
-import { getNewsCategories } from "@/features/berita/actions";
-import { getMediaList } from "@/features/media/actions";
+import { getNewsCategories } from "@/actions/berita";
+import { getMediaList } from "@/actions/media";
 
 export const dynamic = "force-dynamic";
 

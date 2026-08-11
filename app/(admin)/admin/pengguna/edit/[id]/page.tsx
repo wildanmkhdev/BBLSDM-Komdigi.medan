@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getUserById } from "@/features/pengguna/actions";
+import { getUserById } from "@/actions/pengguna";
 import PenggunaForm from "../../PenggunaForm";
 
 export const dynamic = "force-dynamic";

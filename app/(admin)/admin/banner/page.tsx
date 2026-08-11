@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { getBanners, toggleBannerStatus, deleteBanner } from "@/features/banner/actions";
+import { getBanners, toggleBannerStatus, deleteBanner } from "@/actions/banner";
 import Image from "next/image";
 
 export const dynamic = "force-dynamic";

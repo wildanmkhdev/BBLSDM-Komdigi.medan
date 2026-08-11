@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { uploadFile, getMediaList, deleteMedia, SafeMedia } from "@/features/media/actions";
+import { uploadFile, getMediaList, deleteMedia, SafeMedia } from "@/actions/media";
 import Image from "next/image";
 
 export default function MediaPage() {

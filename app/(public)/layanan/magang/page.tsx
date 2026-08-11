@@ -2,7 +2,7 @@ import React from "react";
 import PageHeader from "@/app/components/PageHeader";
 import MagangForm from "./MagangForm";
 import MagangStatusTracker from "./MagangStatusTracker";
-import { getMagangInfo } from "@/features/magang/actions";
+import { getMagangInfo } from "@/actions/magang";
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 import Link from "next/link";

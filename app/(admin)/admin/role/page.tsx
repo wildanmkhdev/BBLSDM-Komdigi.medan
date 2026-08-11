@@ -1,6 +1,6 @@
 import React from "react";
 import prisma from "@/lib/prisma";
-import { switchUserRole } from "@/features/pengguna/actions";
+import { switchUserRole } from "@/actions/pengguna";
 import { auth } from "@/auth";
 
 export const dynamic = "force-dynamic";

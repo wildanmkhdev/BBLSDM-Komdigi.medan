@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { createUser, updateUser } from "@/features/pengguna/actions";
+import { createUser, updateUser } from "@/actions/pengguna";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 

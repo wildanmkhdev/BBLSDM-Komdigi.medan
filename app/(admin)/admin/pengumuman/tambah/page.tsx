@@ -1,4 +1,4 @@
-import { getMediaList } from "@/features/media/actions";
+import { getMediaList } from "@/actions/media";
 import PengumumanForm from "../PengumumanForm";
 
 export const dynamic = "force-dynamic";

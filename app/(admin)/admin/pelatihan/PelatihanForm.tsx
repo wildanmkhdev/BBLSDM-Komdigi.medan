@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { createPelatihan, updatePelatihan } from "@/features/pelatihan/actions";
+import { createPelatihan, updatePelatihan } from "@/actions/pelatihan";
 import { CATEGORY_SLUGS, CATEGORY_LABELS, STATUS_LABELS, LEVEL_LABELS, type CategorySlug } from "@/validations/pelatihan";
 import { useRouter } from "next/navigation";
 import Link from "next/link";

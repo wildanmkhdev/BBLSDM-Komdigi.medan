@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { getUsersList, deleteUser } from "@/features/pengguna/actions";
+import { getUsersList, deleteUser } from "@/actions/pengguna";
 import { auth } from "@/auth";
 
 export const dynamic = "force-dynamic";

@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { getPelatihanList, deletePelatihan } from "@/features/pelatihan/actions";
+import { getPelatihanList, deletePelatihan } from "@/actions/pelatihan";
 import { STATUS_LABELS, LEVEL_LABELS } from "@/validations/pelatihan";
 
 export const dynamic = "force-dynamic";

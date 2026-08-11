@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { getPengumumanList, deletePengumuman, togglePengumumanPublish } from "@/features/pengumuman/actions";
+import { getPengumumanList, deletePengumuman, togglePengumumanPublish } from "@/actions/pengumuman";
 
 export const dynamic = "force-dynamic";
 

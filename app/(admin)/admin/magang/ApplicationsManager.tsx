@@ -7,8 +7,8 @@ import {
   updateApplicationStatusDetailed,
   linkSuratBalasan,
   unlinkSuratBalasan,
-} from "@/features/magang/actions";
-import { uploadFile } from "@/features/media/actions";
+} from "@/actions/magang";
+import { uploadFile } from "@/actions/media";
 
 interface MediaRecord {
   id: string;

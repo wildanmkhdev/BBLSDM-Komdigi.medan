@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { createNewsArticle, updateNewsArticle } from "@/features/berita/actions";
+import { createNewsArticle, updateNewsArticle } from "@/actions/berita";
 import Image from "next/image";
-import { uploadFile, getMediaList, SafeMedia } from "@/features/media/actions";
+import { uploadFile, getMediaList, SafeMedia } from "@/actions/media";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import type { KategoriBerita } from "@prisma/client";

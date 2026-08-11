@@ -2,8 +2,8 @@ import React from "react";
 import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
 import WriteNewsForm from "../../tulis/WriteNewsForm";
-import { getNewsCategories } from "@/features/berita/actions";
-import { getMediaList } from "@/features/media/actions";
+import { getNewsCategories } from "@/actions/berita";
+import { getMediaList } from "@/actions/media";
 
 export const dynamic = "force-dynamic";
 

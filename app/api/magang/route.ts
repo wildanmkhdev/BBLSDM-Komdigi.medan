@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getMagangInfo, submitPendaftaranMagang } from "@/features/magang/actions";
+import { getMagangInfo, submitPendaftaranMagang } from "@/actions/magang";
 
 /**
  * GET /api/magang

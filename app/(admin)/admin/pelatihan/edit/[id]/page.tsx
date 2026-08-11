@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getPelatihanById } from "@/features/pelatihan/actions";
+import { getPelatihanById } from "@/actions/pelatihan";
 import PelatihanForm from "../../PelatihanForm";
 
 export const dynamic = "force-dynamic";

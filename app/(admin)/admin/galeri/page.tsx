@@ -5,7 +5,7 @@ import {
   getGaleriAlbums,
   deleteGaleriAlbum,
   toggleGaleriPublish,
-} from "@/features/galeri/actions";
+} from "@/actions/galeri";
 
 export const dynamic = "force-dynamic";
 

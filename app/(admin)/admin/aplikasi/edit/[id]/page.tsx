@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import { getAplikasiById } from "@/features/aplikasi/actions";
-import { getMediaList } from "@/features/media/actions";
+import { getAplikasiById } from "@/actions/aplikasi";
+import { getMediaList } from "@/actions/media";
 import AplikasiForm from "../../AplikasiForm";
 
 export const dynamic = "force-dynamic";

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import { getPengumumanById } from "@/features/pengumuman/actions";
-import { getMediaList } from "@/features/media/actions";
+import { getPengumumanById } from "@/actions/pengumuman";
+import { getMediaList } from "@/actions/media";
 import PengumumanForm from "../../PengumumanForm";
 
 export const dynamic = "force-dynamic";

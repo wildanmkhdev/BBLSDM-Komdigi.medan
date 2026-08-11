@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getSocialMediaPostById } from "@/features/sosialMedia/actions";
+import { getSocialMediaPostById } from "@/actions/sosialMedia";
 import SosialMediaForm from "../../SosialMediaForm";
 
 export const dynamic = "force-dynamic";

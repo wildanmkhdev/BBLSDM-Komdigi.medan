@@ -2,7 +2,7 @@
 
 import React, { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { registerApplicant } from "@/features/auth/actions";
+import { registerApplicant } from "@/actions/auth";
 
 function RegisterForm() {
   const router = useRouter();

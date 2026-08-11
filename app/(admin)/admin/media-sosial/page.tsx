@@ -4,7 +4,7 @@ import {
   getSocialMediaPosts,
   deleteSocialMediaPost,
   toggleSocialMediaPostStatus,
-} from "@/features/sosialMedia/actions";
+} from "@/actions/sosialMedia";
 
 export const dynamic = "force-dynamic";
 

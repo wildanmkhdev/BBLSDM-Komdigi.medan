@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { uploadFile, SafeMedia, getMediaList } from "@/features/media/actions";
-import { addPhotoToAlbum, removePhotoFromAlbum, type SafeGaleriAlbum } from "@/features/galeri/actions";
+import { uploadFile, SafeMedia, getMediaList } from "@/actions/media";
+import { addPhotoToAlbum, removePhotoFromAlbum, type SafeGaleriAlbum } from "@/actions/galeri";
 
 interface ManagePhotosFormProps {
   album: SafeGaleriAlbum;

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import { getGaleriAlbumById } from "@/features/galeri/actions";
-import { getMediaList } from "@/features/media/actions";
+import { getGaleriAlbumById } from "@/actions/galeri";
+import { getMediaList } from "@/actions/media";
 import ManagePhotosForm from "./ManagePhotosForm";
 
 export const dynamic = "force-dynamic";

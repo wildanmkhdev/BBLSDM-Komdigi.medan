@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { getNewsArticles, deleteNewsArticle } from "@/features/berita/actions";
+import { getNewsArticles, deleteNewsArticle } from "@/actions/berita";
 import Image from "next/image";
 
 export const dynamic = "force-dynamic";

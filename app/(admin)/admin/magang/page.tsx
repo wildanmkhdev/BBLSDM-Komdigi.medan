@@ -1,6 +1,6 @@
 import React from "react";
 import prisma from "@/lib/prisma";
-import { getMagangApplications, getMagangInfo } from "@/features/magang/actions";
+import { getMagangApplications, getMagangInfo } from "@/actions/magang";
 import { redirect } from "next/navigation";
 import ProcedureEditor from "./ProcedureEditor";
 import ApplicationsManager from "./ApplicationsManager";

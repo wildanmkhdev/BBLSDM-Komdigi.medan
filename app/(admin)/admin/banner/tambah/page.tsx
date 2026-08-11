@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { createBanner } from "@/features/banner/actions";
+import { createBanner } from "@/actions/banner";
 import Image from "next/image";
-import { getMediaList, uploadFile, SafeMedia } from "@/features/media/actions";
+import { getMediaList, uploadFile, SafeMedia } from "@/actions/media";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 

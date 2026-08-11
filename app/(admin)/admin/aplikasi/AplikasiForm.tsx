@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { createAplikasi, updateAplikasi } from "@/features/aplikasi/actions";
-import { uploadFile, getMediaList, SafeMedia } from "@/features/media/actions";
+import { createAplikasi, updateAplikasi } from "@/actions/aplikasi";
+import { uploadFile, getMediaList, SafeMedia } from "@/actions/media";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
