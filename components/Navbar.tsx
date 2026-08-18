@@ -139,13 +139,22 @@ export default function Navbar() {
       <div className="flex items-center justify-between px-4 py-3.5 mx-auto max-w-7xl sm:px-6 lg:px-8">
         {/* Logo and Brand Title */}
         <Link href="/" className="flex items-center gap-3 group">
-          <Image
-            src="/logo%20komdigi.png"
-            alt="Logo Komdigi"
-            width={40}
-            height={40}
-            className="object-contain shrink-0"
-          />
+          <div className="flex items-center gap-2 shrink-0">
+            <Image
+              src="/logo%20komdigi.png"
+              alt="Logo Komdigi"
+              width={40}
+              height={40}
+              className="object-contain transition-transform duration-300 group-hover:scale-105"
+            />
+            <Image
+              src="/logo-bblsdm.png"
+              alt="Logo BBLSDM Komdigi"
+              width={40}
+              height={40}
+              className="object-contain transition-transform duration-300 group-hover:scale-105"
+            />
+          </div>
           <div>
             <div className={`text-xs font-extrabold leading-tight tracking-wider uppercase transition-colors duration-300 ${brandTitleClass}`}>
               BBLSDM Komdigi

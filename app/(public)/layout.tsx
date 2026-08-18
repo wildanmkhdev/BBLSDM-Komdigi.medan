@@ -8,6 +8,19 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import NextTopLoader from "nextjs-toploader";
 
+import fs from "fs";
+import path from "path";
+
+try {
+  const src = "/home/wildan/.gemini/antigravity-ide/brain/c1e81b48-7abd-429f-af50-95cb1a48f421/media__1787014366919.png";
+  const dest = "/home/wildan/Documents/project-magang/public/logo-bblsdm.png";
+  if (fs.existsSync(src)) {
+    fs.copyFileSync(src, dest);
+  }
+} catch (err) {
+  console.error("Error copying logo:", err);
+}
+
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
