@@ -51,12 +51,12 @@ export default async function AdminAplikasiPage() {
                 className="flex flex-col items-center justify-between p-3.5 bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-md hover:border-slate-300 hover:bg-slate-50/50 transition-all duration-200 w-full min-h-[170px] relative cursor-pointer"
               >
                 {/* Logo Container */}
-                <div className="relative w-16 h-16 bg-slate-50 rounded-xl overflow-hidden border border-slate-100 flex items-center justify-center shadow-2xs transition-transform duration-200 group-hover:scale-105">
+                <div className="relative w-20 h-20 bg-slate-50 rounded-xl overflow-hidden border border-slate-100 flex items-center justify-center shadow-2xs transition-transform duration-200 group-hover:scale-105">
                   {app.logo ? (
                     <img
                       src={app.logo.publicUrl}
                       alt={app.name}
-                      className="w-12 h-12 object-contain p-1"
+                      className="w-full h-full object-contain"
                     />
                   ) : (
                     <span className="text-[10px] font-bold text-slate-400">LOGO</span>

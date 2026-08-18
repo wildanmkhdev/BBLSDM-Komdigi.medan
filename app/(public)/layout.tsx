@@ -25,16 +25,16 @@ try {
 async function updateLogos() {
   try {
     const appLogos = [
-      { name: "Sistem Manajemen Gudang", url: "https://api.iconify.design/lucide:boxes.svg?color=%230284c7" },
-      { name: "Sistem Manajemen Kepegawaian", url: "https://api.iconify.design/lucide:users-round.svg?color=%230284c7" },
-      { name: "E-Office & Surat Menyurat", url: "https://api.iconify.design/lucide:mail-open.svg?color=%230284c7" },
-      { name: "Portal Pengajuan Magang", url: "https://api.iconify.design/lucide:graduation-cap.svg?color=%230284c7" },
-      { name: "Katalog Pelatihan TIK", url: "https://api.iconify.design/lucide:monitor-play.svg?color=%230284c7" },
-      { name: "Sistem Monitoring Jaringan", url: "https://api.iconify.design/lucide:network.svg?color=%230284c7" },
-      { name: "Perpustakaan Digital Balai", url: "https://api.iconify.design/lucide:library.svg?color=%230284c7" },
-      { name: "Dashboard Statistik Kinerja", url: "https://api.iconify.design/lucide:bar-chart-3.svg?color=%230284c7" },
-      { name: "Sistem Pengaduan Masyarakat (DUMAS)", url: "https://api.iconify.design/lucide:megaphone.svg?color=%230284c7" },
-      { name: "Layanan Feedback Komentar", url: "https://api.iconify.design/lucide:message-square-text.svg?color=%230284c7" },
+      { name: "Sistem Manajemen Gudang", url: "https://img.icons8.com/color/96/warehouse.png" },
+      { name: "Sistem Manajemen Kepegawaian", url: "https://img.icons8.com/color/96/gender-neutral-user.png" },
+      { name: "E-Office & Surat Menyurat", url: "https://img.icons8.com/color/96/opened-folder-key.png" },
+      { name: "Portal Pengajuan Magang", url: "https://img.icons8.com/color/96/student-male.png" },
+      { name: "Katalog Pelatihan TIK", url: "https://img.icons8.com/color/96/computer.png" },
+      { name: "Sistem Monitoring Jaringan", url: "https://img.icons8.com/color/96/network.png" },
+      { name: "Perpustakaan Digital Balai", url: "https://img.icons8.com/color/96/library.png" },
+      { name: "Dashboard Statistik Kinerja", url: "https://img.icons8.com/color/96/analytics.png" },
+      { name: "Sistem Pengaduan Masyarakat (DUMAS)", url: "https://img.icons8.com/color/96/megaphone.png" },
+      { name: "Layanan Feedback Komentar", url: "https://img.icons8.com/color/96/speech-bubble.png" },
     ];
 
     for (const logo of appLogos) {
@@ -52,10 +52,10 @@ async function updateLogos() {
         } else {
           const newMedia = await prisma.media.create({
             data: {
-              originalName: `${app.name}-logo.svg`,
-              storageKey: `logos/${app.slug}.svg`,
+              originalName: `${app.name}-logo.png`,
+              storageKey: `logos/${app.slug}.png`,
               publicUrl: logo.url,
-              mimeType: "image/svg+xml",
+              mimeType: "image/png",
               fileSize: BigInt(1000),
               type: "IMAGE"
             }
