@@ -24,6 +24,28 @@ try {
 
 async function updateLogos() {
   try {
+    // 1. Perbaikan media banner/berita yang terlanjur ter-overwrite oleh logo icons8
+    const corruptedMedia = [
+      { storageKey: "images/kunker-nezar-1.jpeg", publicUrl: "/kunker-nezar/kunker-nezar-1.jpeg" },
+      { storageKey: "images/kunker-nezar-2.jpeg", publicUrl: "/kunker-nezar/kunker-nezar-2.jpeg" },
+      { storageKey: "images/kunker-nezar-3.jpeg", publicUrl: "/kunker-nezar/kunker-nezar-3.jpeg" }
+    ];
+
+    for (const item of corruptedMedia) {
+      await prisma.media.updateMany({
+        where: {
+          storageKey: item.storageKey,
+          NOT: {
+            publicUrl: item.publicUrl
+          }
+        },
+        data: {
+          publicUrl: item.publicUrl
+        }
+      });
+    }
+
+    // 2. Update logo aplikasi dengan membuat record Media terpisah (tidak berbagi dengan banner/berita)
     const appLogos = [
       { name: "Sistem Manajemen Gudang", url: "https://img.icons8.com/color/96/warehouse.png" },
       { name: "Sistem Manajemen Kepegawaian", url: "https://img.icons8.com/color/96/gender-neutral-user.png" },
@@ -44,12 +66,17 @@ async function updateLogos() {
       });
 
       if (app) {
-        if (app.logo) {
-          await prisma.media.update({
-            where: { id: app.logo.id },
-            data: { publicUrl: logo.url }
-          });
+        // Jika logo sudah ada dan storageKey-nya bertipe logos/ (logo spesifik), aman di-update
+        if (app.logo && app.logo.storageKey.startsWith("logos/")) {
+          if (app.logo.publicUrl !== logo.url) {
+            await prisma.media.update({
+              where: { id: app.logo.id },
+              data: { publicUrl: logo.url }
+            });
+          }
         } else {
+          // Jika belum ada logo, atau logonya menunjuk ke record bersama (misal kunker-nezar)
+          // Buat record Media baru khusus untuk logo aplikasi ini
           const newMedia = await prisma.media.create({
             data: {
               originalName: `${app.name}-logo.png`,
@@ -60,6 +87,7 @@ async function updateLogos() {
               type: "IMAGE"
             }
           });
+          
           await prisma.aplikasi.update({
             where: { id: app.id },
             data: { logoId: newMedia.id }
