@@ -147,13 +147,13 @@ export default function Navbar() {
               height={40}
               className="object-contain transition-transform duration-300 group-hover:scale-105"
             />
-            <Image
+            {/* <Image
               src="/logo-bblsdm.png"
               alt="Logo BBLSDM Komdigi"
               width={40}
               height={40}
               className="object-contain transition-transform duration-300 group-hover:scale-105"
-            />
+            /> */}
           </div>
           <div>
             <div className={`text-xs font-extrabold leading-tight tracking-wider uppercase transition-colors duration-300 ${brandTitleClass}`}>
