@@ -48,16 +48,15 @@ export default async function AdminAplikasiPage() {
                 href={app.url || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center justify-center p-3 bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-md hover:border-slate-300 hover:bg-slate-50/50 transition-all duration-200 w-full aspect-square relative cursor-pointer"
+                className="flex flex-col items-center justify-between p-3.5 bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-md hover:border-slate-300 hover:bg-slate-50/50 transition-all duration-200 w-full min-h-[170px] relative cursor-pointer"
               >
-                {/* Logo Container (occupies 70% of the square card size) */}
-                <div className="relative w-[70%] aspect-square bg-slate-50 rounded-xl overflow-hidden border border-slate-100 flex items-center justify-center shadow-2xs transition-transform duration-200 group-hover:scale-105">
+                {/* Logo Container */}
+                <div className="relative w-16 h-16 bg-slate-50 rounded-xl overflow-hidden border border-slate-100 flex items-center justify-center shadow-2xs transition-transform duration-200 group-hover:scale-105">
                   {app.logo ? (
-                    <Image
+                    <img
                       src={app.logo.publicUrl}
                       alt={app.name}
-                      fill
-                      className="object-cover"
+                      className="w-12 h-12 object-contain p-1"
                     />
                   ) : (
                     <span className="text-[10px] font-bold text-slate-400">LOGO</span>
@@ -65,7 +64,7 @@ export default async function AdminAplikasiPage() {
                 </div>
 
                 {/* Name */}
-                <h3 className="mt-2 font-bold text-[10px] sm:text-xs text-slate-800 text-center line-clamp-1 w-full px-1 leading-tight">
+                <h3 className="mt-2 font-bold text-[10px] sm:text-xs text-slate-800 text-center w-full px-1 leading-snug whitespace-normal break-words">
                   {app.name}
                 </h3>
               </a>
