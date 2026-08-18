@@ -1,105 +1,42 @@
 import React from "react";
-import prisma from "@/lib/prisma";
-import { getMagangApplications, getMagangInfo } from "@/actions/magang";
-import { redirect } from "next/navigation";
-import ProcedureEditor from "./ProcedureEditor";
+import { getMagangApplications } from "@/actions/magang";
 import ApplicationsManager from "./ApplicationsManager";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminMagangPage() {
   const applications = await getMagangApplications();
-  const info = await getMagangInfo();
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-6">
       
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Manajemen Pendaftaran Magang</h1>
-          <p className="text-sm text-slate-500">Kelola berkas pengajuan mahasiswa dan sesuaikan info alur magang publik.</p>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">Manajemen Pendaftaran Magang</h1>
+          <p className="text-sm text-slate-500">Kelola berkas pengajuan mahasiswa dan pantau alur status penyeleksian.</p>
         </div>
+        <Link
+          href="/admin/magang/pengaturan"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-950 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg shadow-sm transition self-start cursor-pointer"
+        >
+          <svg className="w-4 h-4 text-slate-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          Pengaturan Info Magang
+        </Link>
       </div>
 
-      {/* Grid: Settings + Applications */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        {/* Left Column (1/3): Info & Settings */}
-        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-6 self-start">
-          <h3 className="font-bold text-sm text-slate-900 border-b border-slate-100 pb-3">Pengaturan Info Magang</h3>
-          
-          <form action={async (formData: FormData) => {
-            "use server";
-            const isOpen = formData.get("isOpen") === "true";
-            const description = formData.get("description") as string;
-            const requirements = formData.get("requirements") as string;
-            const procedure = formData.get("procedure") as string;
-
-            await prisma.magangInfo.upsert({
-              where: { id: 1 },
-              update: { isOpen, description, requirements, procedure },
-              create: { id: 1, isOpen, description, requirements, procedure }
-            });
-            
-            redirect("/admin/magang");
-          }} className="space-y-4">
-            
-            {/* Status */}
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 mb-1">Status Pendaftaran Publik</label>
-              <select
-                name="isOpen"
-                defaultValue={info?.isOpen ? "true" : "false"}
-                className="w-full px-3 py-1.5 border border-slate-200 rounded-md text-xs bg-white"
-              >
-                <option value="true">Buka (Menerima Pengajuan)</option>
-                <option value="false">Tutup (Penangguhan Sementara)</option>
-              </select>
-            </div>
-
-            {/* Deskripsi */}
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 mb-1">Deskripsi Halaman Publik</label>
-              <textarea
-                name="description"
-                rows={3}
-                defaultValue={info?.description || ""}
-                className="w-full px-3 py-1.5 border border-slate-200 rounded-md text-xs focus:outline-none focus:ring-1 focus:ring-slate-900"
-              />
-            </div>
-
-            {/* Persyaratan */}
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 mb-1">Syarat &amp; Ketentuan</label>
-              <textarea
-                name="requirements"
-                rows={4}
-                defaultValue={info?.requirements || ""}
-                className="w-full px-3 py-1.5 border border-slate-200 rounded-md text-xs focus:outline-none focus:ring-1 focus:ring-slate-900"
-              />
-            </div>
-
-            {/* Prosedur Editor */}
-            <ProcedureEditor initialProcedure={info?.procedure || "[]"} />
-
-            <button
-              type="submit"
-              className="w-full py-2 bg-slate-950 hover:bg-slate-800 text-white text-xs font-semibold rounded-md shadow transition cursor-pointer"
-            >
-              Simpan Pengaturan
-            </button>
-          </form>
+      {/* Main Content Area */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h3 className="font-bold text-sm text-slate-900">
+            Daftar Pengajuan Masuk ({applications.length})
+          </h3>
         </div>
-
-        {/* Right Column (2/3): Applications List */}
-        <div className="lg:col-span-2 space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="font-bold text-sm text-slate-900">Pengajuan Masuk ({applications.length})</h3>
-          </div>
-          <ApplicationsManager initialApplications={applications} />
-        </div>
-
+        <ApplicationsManager initialApplications={applications} />
       </div>
 
     </div>
