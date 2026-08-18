@@ -119,7 +119,7 @@ export default function HeroBanner({
       categoryColor: "text-red-500",
       title: "[HOAKS] Sensus Ekonomi 2026 Melalui Link Terlarang",
       time: "sebulan lalu",
-      image: "/logo komdigi.png",
+      image: "/logo%20komdigi.png",
       href: "/informasi/berita",
     },
   ];
@@ -130,7 +130,7 @@ export default function HeroBanner({
         categoryColor: "text-[#0284c7]",
         title: n.title,
         time: n.publishedAt ? new Date(n.publishedAt).toLocaleDateString("id-ID") : "Baru saja",
-        image: n.thumbnail?.publicUrl || "/logo komdigi.png",
+        image: n.thumbnail?.publicUrl || "/logo%20komdigi.png",
         href: `/informasi/berita`,
       }))
     : defaultPopularNews;

@@ -48,7 +48,7 @@ export default async function AdminRootLayout({
         {/* Sidebar */}
         <aside className="w-64 bg-[#0b1b3d] text-white flex flex-col shrink-0 shadow-xl border-r border-[#0b1b3d]/10">
           <div className="h-16 flex items-center justify-center border-b border-white/10 bg-[#0b1b3d] px-6">
-            <Image src="/logo komdigi.png" alt="Logo Komdigi" width={180} height={44} className="h-11 w-auto object-contain transition-transform duration-200 hover:scale-105" priority />
+            <Image src="/logo%20komdigi.png" alt="Logo Komdigi" width={180} height={44} className="h-11 w-auto object-contain transition-transform duration-200 hover:scale-105" priority />
           </div>
           <SidebarNav userRole={session?.user?.role} />
           <div className="p-4 border-t border-white/10 text-[10px] text-slate-400 font-medium tracking-wide">

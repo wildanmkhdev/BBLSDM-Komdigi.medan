@@ -124,7 +124,7 @@ export default async function Home() {
         date: n.publishedAt ? new Date(n.publishedAt).toLocaleDateString("id-ID") : "Baru saja",
         category: n.kategori?.name || "Berita",
         desc: n.excerpt || "",
-        image: n.thumbnail?.publicUrl || "/logo komdigi.png",
+        image: n.thumbnail?.publicUrl || "/logo%20komdigi.png",
         href: `/informasi/berita`,
       }))
     : defaultNewsList;

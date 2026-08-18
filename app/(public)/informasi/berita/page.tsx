@@ -29,7 +29,7 @@ export default async function BeritaPage() {
           year: "numeric",
         })
       : "Baru saja",
-    image: item.thumbnail?.publicUrl || "/logo komdigi.png",
+    image: item.thumbnail?.publicUrl || "/logo%20komdigi.png",
     snippet: item.excerpt || "",
     content: item.content,
     author: item.authorName || "Humas BBLSDM",

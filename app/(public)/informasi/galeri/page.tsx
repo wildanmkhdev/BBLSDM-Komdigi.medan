@@ -34,7 +34,7 @@ export default async function GaleriPage() {
     // Array of image URLs for slideshow
     const slideImages = item.photos.map((p: { media: { publicUrl: string } }) => p.media.publicUrl);
     // Ensure at least one image exists (cover or the first photo)
-    const mainCover = item.coverPhoto?.publicUrl || slideImages[0] || "/logo komdigi.png";
+    const mainCover = item.coverPhoto?.publicUrl || slideImages[0] || "/logo%20komdigi.png";
 
     return {
       id: item.id,
