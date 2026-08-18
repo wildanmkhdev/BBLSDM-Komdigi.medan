@@ -24,7 +24,28 @@ try {
 
 async function updateLogos() {
   try {
-    // Update logo aplikasi dengan membuat record Media terpisah (tidak berbagi dengan banner/berita)
+    // 1. Perbaikan otomatis media banner/berita yang terlanjur ter-overwrite oleh logo icons8
+    const corruptedMedia = [
+      { storageKey: "images/kunker-nezar-1.jpeg", publicUrl: "/kunker-nezar/kunker-nezar-1.jpeg" },
+      { storageKey: "images/kunker-nezar-2.jpeg", publicUrl: "/kunker-nezar/kunker-nezar-2.jpeg" },
+      { storageKey: "images/kunker-nezar-3.jpeg", publicUrl: "/kunker-nezar/kunker-nezar-3.jpeg" }
+    ];
+
+    for (const item of corruptedMedia) {
+      await prisma.media.updateMany({
+        where: {
+          storageKey: item.storageKey,
+          NOT: {
+            publicUrl: item.publicUrl
+          }
+        },
+        data: {
+          publicUrl: item.publicUrl
+        }
+      });
+    }
+
+    // 2. Update logo aplikasi dengan membuat record Media terpisah (tidak berbagi dengan banner/berita)
     const appLogos = [
       { name: "Sistem Manajemen Gudang", url: "https://img.icons8.com/color/96/warehouse.png" },
       { name: "Sistem Manajemen Kepegawaian", url: "https://img.icons8.com/color/96/gender-neutral-user.png" },
