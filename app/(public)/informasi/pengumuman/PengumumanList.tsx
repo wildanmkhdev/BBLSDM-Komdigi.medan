@@ -97,12 +97,14 @@ export default function PengumumanList({ initialPengumuman }: PengumumanListProp
 
           {/* Document Archive List Layout */}
           {filteredPengumuman.length > 0 ? (
-            <div className="bg-white rounded-xl border border-slate-200 divide-y divide-slate-100 shadow-sm overflow-hidden">
+            <div className="flex flex-col gap-4">
               {filteredPengumuman.map((item) => (
                 <div
                   key={item.id}
-                  className="p-6 sm:p-7 hover:bg-slate-50/70 transition-colors duration-200 flex flex-col md:flex-row md:items-center justify-between gap-6"
+                  className="bg-white rounded-xl border border-slate-200 shadow-sm p-6 sm:p-7 hover:bg-slate-50/70 hover:shadow-md transition-all duration-200 flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden"
                 >
+                  {/* Vertical Accent Bar (Design Rule STYLES.md §3.3) */}
+                  <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#0284c7]"></div>
                   <div className="space-y-2 flex-1 min-w-0 pr-4">
                     <div className="flex items-center gap-3">
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-slate-100 text-slate-700">
