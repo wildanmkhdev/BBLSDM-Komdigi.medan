@@ -43,42 +43,71 @@ export default function Sejarah() {
         />
 
         {/* Narrative & Timeline Section */}
-        <section className="py-20">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <article className="prose prose-slate max-w-none text-slate-700 leading-relaxed font-sans text-sm sm:text-base space-y-6">
-              <p className="font-medium text-lg text-[#0b1b3d] leading-relaxed">
-                Balai Besar Pelatihan Sumber Daya Manusia Komunikasi dan Digital (BBLSDM Komdigi) Medan memiliki sejarah panjang yang berakar dari dinamika kelembagaan di bidang komunikasi dan informatika di Indonesia.
-              </p>
-              <p>
-                Lembaga ini awalnya dikenal sebagai Balai Penelitian Pers dan Pendapat Umum (BP3U), yang eksistensinya telah tercatat sejak tahun 1950-an. Seiring dengan perubahan struktur pemerintahan dan departemen terkait, instansi ini terus bertransformasi mengadaptasi tuntutan zaman.
-              </p>
-              <p>
-                Berbasis di jantung kota Medan, BBLSDM Komdigi Medan kini melayani wilayah kerja yang luas di pulau Sumatera, dan berperan strategis sebagai wadah utama dalam menyelenggarakan pelatihan, vokasi, dan pengujian sertifikasi untuk menghasilkan talenta digital yang berdaya saing global.
-              </p>
-            </article>
+        <section className="py-20 bg-slate-50/50">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              {/* Text Narrative */}
+              <div className="lg:col-span-7 space-y-6">
+                <article className="prose prose-slate max-w-none text-slate-700 leading-relaxed font-sans text-sm sm:text-base space-y-6">
+                  <p className="font-semibold text-lg sm:text-xl text-[#0b1b3d] leading-relaxed">
+                    Balai Besar Pelatihan Sumber Daya Manusia Komunikasi dan Digital (BBLSDM Komdigi) Medan memiliki sejarah panjang yang berakar dari dinamika kelembagaan di bidang komunikasi dan informatika di Indonesia.
+                  </p>
+                  <p className="text-slate-600">
+                    Lembaga ini awalnya dikenal sebagai Balai Penelitian Pers dan Pendapat Umum (BP3U), yang eksistensinya telah tercatat sejak tahun 1950-an. Seiring dengan perubahan struktur pemerintahan dan departemen terkait, instansi ini terus bertransformasi mengadaptasi tuntutan zaman.
+                  </p>
+                  <p className="text-slate-600">
+                    Berbasis di jantung kota Medan, BBLSDM Komdigi Medan kini melayani wilayah kerja yang luas di pulau Sumatera, dan berperan strategis sebagai wadah utama dalam menyelenggarakan pelatihan, vokasi, dan pengujian sertifikasi untuk menghasilkan talenta digital yang berdaya saing global.
+                  </p>
+                </article>
+              </div>
 
-            {/* Chronological Timeline */}
-            <div className="mt-20 space-y-12 relative before:absolute before:inset-0 before:left-4 sm:before:left-1/2 before:w-0.5 before:bg-slate-200">
-              {timelineMilestones.map((milestone, idx) => (
-                <div key={idx} className="relative flex flex-col sm:flex-row items-start sm:justify-between group">
-                  <div className="absolute left-4 sm:left-1/2 w-4 h-4 bg-[#0284c7] rounded-full border-4 border-white shadow -translate-x-1.5 mt-1 z-10 group-hover:scale-125 transition-transform"></div>
-
-                  <div className={`pl-10 sm:pl-0 w-full sm:w-[45%] ${idx % 2 === 0 ? "sm:order-1 sm:text-right" : "sm:order-3 sm:text-left"}`}>
-                    <span className="inline-block px-3 py-1 rounded-md text-xs font-extrabold bg-[#0b1b3d] text-white tracking-wider mb-2">
-                      {milestone.year}
-                    </span>
-                    <h3 className="text-base font-bold text-[#0b1b3d]">{milestone.title}</h3>
+              {/* Featured Image */}
+              <div className="lg:col-span-5">
+                <div className="relative group rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 shadow-md hover:shadow-xl transition-all duration-300">
+                  <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-white">
+                    <Image
+                      src="/sejarah-gedung.png"
+                      alt="Gedung BBLSDM Komdigi Medan 3D Model"
+                      fill
+                      className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
+                      priority
+                    />
                   </div>
-
-                  <div className="hidden sm:block w-[8%] sm:order-2"></div>
-
-                  <div className={`pl-10 sm:pl-0 w-full sm:w-[45%] ${idx % 2 === 0 ? "sm:order-3 sm:text-left" : "sm:order-1 sm:text-right"}`}>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mt-2 sm:mt-0">
-                      {milestone.desc}
-                    </p>
+                  <div className="mt-3 text-center border-t border-slate-100 pt-3">
+                    <p className="text-xs font-bold text-[#0b1b3d]">Gedung BBLSDM Komdigi Medan</p>
+                    <p className="text-[10px] text-slate-400 mt-0.5">Model 3D Representasi Digital Instansi</p>
                   </div>
                 </div>
-              ))}
+              </div>
+            </div>
+
+            {/* Chronological Timeline */}
+            <div className="max-w-4xl mx-auto mt-28">
+              <h2 className="text-xl sm:text-2xl font-extrabold text-[#0b1b3d] text-center mb-16 relative pb-4 after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-1 after:bg-[#0284c7] after:rounded">
+                Garis Waktu Perjalanan Instansi
+              </h2>
+              <div className="space-y-12 relative before:absolute before:inset-0 before:left-4 sm:before:left-1/2 before:w-0.5 before:bg-slate-200">
+                {timelineMilestones.map((milestone, idx) => (
+                  <div key={idx} className="relative flex flex-col sm:flex-row items-start sm:justify-between group">
+                    <div className="absolute left-4 sm:left-1/2 w-4 h-4 bg-[#0284c7] rounded-full border-4 border-white shadow -translate-x-1.5 mt-1 z-10 group-hover:scale-125 transition-transform"></div>
+
+                    <div className={`pl-10 sm:pl-0 w-full sm:w-[45%] ${idx % 2 === 0 ? "sm:order-1 sm:text-right" : "sm:order-3 sm:text-left"}`}>
+                      <span className="inline-block px-3 py-1 rounded-md text-xs font-extrabold bg-[#0b1b3d] text-white tracking-wider mb-2">
+                        {milestone.year}
+                      </span>
+                      <h3 className="text-base font-bold text-[#0b1b3d]">{milestone.title}</h3>
+                    </div>
+
+                    <div className="hidden sm:block w-[8%] sm:order-2"></div>
+
+                    <div className={`pl-10 sm:pl-0 w-full sm:w-[45%] ${idx % 2 === 0 ? "sm:order-3 sm:text-left" : "sm:order-1 sm:text-right"}`}>
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mt-2 sm:mt-0">
+                        {milestone.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
