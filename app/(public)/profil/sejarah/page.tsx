@@ -66,7 +66,7 @@ export default function Sejarah() {
                 <div className="relative group rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 shadow-md hover:shadow-xl transition-all duration-300">
                   <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-white">
                     <Image
-                      src="/sejarah-gedung.png"
+                      src="/sejarah komdigi.png"
                       alt="Gedung BBLSDM Komdigi Medan 3D Model"
                       fill
                       className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
